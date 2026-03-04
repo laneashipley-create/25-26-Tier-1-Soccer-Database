@@ -69,7 +69,8 @@ jobs:
                 {email: "n.masterson@sportradar.com", name: "Nicole Masterson"},
                 {email: "v.gupta@sportradar.com", name: "Vishaal Gupta"},
                 {email: "m.byrnes@sportradar.com", name: "Matt Byrnes"},
-                {email: "j.herbstman@sportradar.com", name: "Jordan Herbstman"}
+                {email: "j.herbstman@sportradar.com", name: "Jordan Herbstman"},
+                {email: "p.cohn@sportradar.com"}
               ],
               subject: "25/26 - EPL Season // Own Goals Report — Weekly Update",
               htmlContent: $html
