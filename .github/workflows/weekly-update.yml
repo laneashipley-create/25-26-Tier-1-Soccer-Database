@@ -1,11 +1,11 @@
 # EPL Own Goals — Weekly auto-update after each match week
-# Runs every Wednesday 6:00 AM UTC (after Mon night EPL matches)
+# Runs every Wednesday 1:00 AM UTC (Tuesday evening in San Francisco)
 name: Weekly EPL Own Goals Update
 
 on:
   schedule:
-    # Wed 6:00 AM UTC — after typical EPL match week (Sat–Mon)
-    - cron: "0 6 * * 3"
+    # Wed 1:00 AM UTC — Tuesday evening in San Francisco
+    - cron: "0 1 * * 3"
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
