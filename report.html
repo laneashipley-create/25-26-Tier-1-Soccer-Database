@@ -141,7 +141,7 @@
     }
     col.c-num        { width: 2%; }
     col.c-match      { width: 13%; }
-    col.c-matchid    { width: 8%; }
+    col.c-matchid    { width: 14%; }
     col.c-scorer     { width: 11%; }
     col.c-playerid   { width: 8%; }
     col.c-min        { width: 4%; }
@@ -149,7 +149,7 @@
     col.c-score      { width: 5%; }
     col.c-final      { width: 5%; }
     col.c-ogmention  { width: 5%; }
-    col.c-commentary { width: 30%; }
+    col.c-commentary { width: 24%; }
 
     thead tr {
       background: #1a0000;
@@ -242,6 +242,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+    .match-id-cell code {
+      font-size: 0.62rem;
+      overflow: visible;
+      text-overflow: clip;
     }
     td.og-yes { text-align: center; color: #1a7a1a; font-weight: 700; font-size: 0.82rem; }
     td.og-no  { text-align: center; color: #cc0000; font-weight: 700; font-size: 0.82rem; }
@@ -369,7 +374,7 @@
     <div class="header-badge">Premier League &middot; 25/26</div>
     <h1>EPL <span>Own Goals</span> Tracker</h1>
     <div class="subtitle">
-      <strong>36</strong> own goals scored in the Premier League 25/26 season
+      <strong>35</strong> own goals scored in the Premier League 25/26 season
     </div>
   </div>
 
@@ -381,15 +386,15 @@
             <div class="stat-label">Matches Reviewed</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">38,760</div>
+            <div class="stat-number">38,759</div>
             <div class="stat-label">Timeline Events Reviewed</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">36</div>
+            <div class="stat-number">35</div>
             <div class="stat-label">Total # of Own Goals</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">33</div>
+            <div class="stat-number">32</div>
             <div class="stat-label"># of Games with an Own Goal</div>
           </div>
           <div class="stat-card">
@@ -405,7 +410,7 @@
             <div class="stat-label">Commentary Correct<br><span class="stat-sub stat-sub--muted">Mentions "own goal"</span></div>
           </div>
           <div class="stat-card stat-card--incorrect">
-            <div class="stat-number stat-number--incorrect">12</div>
+            <div class="stat-number stat-number--incorrect">11</div>
             <div class="stat-label">Commentary Incorrect<br><span class="stat-sub stat-sub--muted">No "own goal" mention</span></div>
           </div>
         </div>
@@ -454,7 +459,7 @@
             <div class="match-name">Fulham FC vs Manchester United</div>
             <div class="meta">2025-08-24 &bull; GW2</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300537" data-label="Match ID"><code title="sr:sport_event:61300537">sr:sport_event:61300537</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300537" data-label="Match ID"><code title="sr:sport_event:61300537">sr:sport_event:61300537</code></td>
           <td data-val="Muniz, Rodrigo" data-label="Scorer">
             <div class="player-name">Rodrigo Muniz</div>
             <div class="meta">Fulham FC</div>
@@ -474,7 +479,7 @@
             <div class="match-name">Manchester United vs Burnley FC</div>
             <div class="meta">2025-08-30 &bull; GW3</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300555" data-label="Match ID"><code title="sr:sport_event:61300555">sr:sport_event:61300555</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300555" data-label="Match ID"><code title="sr:sport_event:61300555">sr:sport_event:61300555</code></td>
           <td data-val="Cullen, Josh" data-label="Scorer">
             <div class="player-name">Josh Cullen</div>
             <div class="meta">Burnley FC</div>
@@ -485,7 +490,7 @@
           <td class="score" data-val="1" data-label="At OG">1–0</td>
           <td class="score final" data-val="3" data-label="Final">3–2</td>
           <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
-          <td class="commentary-cell" data-val="Goal! Manchester United take a 1-0 lead through a well-placed header from Josh Cullen." data-label="Commentary"><span class="commentary">Goal! Manchester United take a 1-0 lead through a well-placed header from Josh Cullen.</span></td>
+          <td class="commentary-cell" data-val="Goal! Man Utd take a 1-0 lead through a well-placed header from Josh Cullen." data-label="Commentary"><span class="commentary">Goal! Man Utd take a 1-0 lead through a well-placed header from Josh Cullen.</span></td>
         </tr>
 
         <tr>
@@ -494,7 +499,7 @@
             <div class="match-name">Fulham FC vs Leeds United</div>
             <div class="meta">2025-09-13 &bull; GW4</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300577" data-label="Match ID"><code title="sr:sport_event:61300577">sr:sport_event:61300577</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300577" data-label="Match ID"><code title="sr:sport_event:61300577">sr:sport_event:61300577</code></td>
           <td data-val="Gudmundsson, Gabriel" data-label="Scorer">
             <div class="player-name">Gabriel Gudmundsson</div>
             <div class="meta">Leeds United</div>
@@ -514,7 +519,7 @@
             <div class="match-name">Fulham FC vs Brentford FC</div>
             <div class="meta">2025-09-20 &bull; GW5</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300593" data-label="Match ID"><code title="sr:sport_event:61300593">sr:sport_event:61300593</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300593" data-label="Match ID"><code title="sr:sport_event:61300593">sr:sport_event:61300593</code></td>
           <td data-val="Pinnock, Ethan" data-label="Scorer">
             <div class="player-name">Ethan Pinnock</div>
             <div class="meta">Brentford FC</div>
@@ -534,7 +539,7 @@
             <div class="match-name">Brighton & Hove Albion vs Tottenham Hotspur</div>
             <div class="meta">2025-09-20 &bull; GW5</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300589" data-label="Match ID"><code title="sr:sport_event:61300589">sr:sport_event:61300589</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300589" data-label="Match ID"><code title="sr:sport_event:61300589">sr:sport_event:61300589</code></td>
           <td data-val="Van Hecke, Jan Paul" data-label="Scorer">
             <div class="player-name">Jan Paul Van Hecke</div>
             <div class="meta">Brighton & Hove Albion</div>
@@ -554,7 +559,7 @@
             <div class="match-name">Manchester City vs Burnley FC</div>
             <div class="meta">2025-09-27 &bull; GW6</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300619" data-label="Match ID"><code title="sr:sport_event:61300619">sr:sport_event:61300619</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300619" data-label="Match ID"><code title="sr:sport_event:61300619">sr:sport_event:61300619</code></td>
           <td data-val="Esteve, Maxime" data-label="Scorer">
             <div class="player-name">Maxime Esteve</div>
             <div class="meta">Burnley FC</div>
@@ -565,7 +570,7 @@
           <td class="score" data-val="1" data-label="At OG">1–0</td>
           <td class="score final" data-val="5" data-label="Final">5–1</td>
           <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
-          <td class="commentary-cell" data-val="Maxime Esteve is on target to give Manchester City a 1-0 advantage." data-label="Commentary"><span class="commentary">Maxime Esteve is on target to give Manchester City a 1-0 advantage.</span></td>
+          <td class="commentary-cell" data-val="Maxime Esteve is on target to give Man City a 1-0 advantage." data-label="Commentary"><span class="commentary">Maxime Esteve is on target to give Man City a 1-0 advantage.</span></td>
         </tr>
 
         <tr>
@@ -574,7 +579,7 @@
             <div class="match-name">Manchester City vs Burnley FC</div>
             <div class="meta">2025-09-27 &bull; GW6</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300619" data-label="Match ID"><code title="sr:sport_event:61300619">sr:sport_event:61300619</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300619" data-label="Match ID"><code title="sr:sport_event:61300619">sr:sport_event:61300619</code></td>
           <td data-val="Esteve, Maxime" data-label="Scorer">
             <div class="player-name">Maxime Esteve</div>
             <div class="meta">Burnley FC</div>
@@ -585,7 +590,7 @@
           <td class="score" data-val="3" data-label="At OG">3–1</td>
           <td class="score final" data-val="5" data-label="Final">5–1</td>
           <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
-          <td class="commentary-cell" data-val="Goal! Maxime Esteve extends Manchester City's lead to 3-1." data-label="Commentary"><span class="commentary">Goal! Maxime Esteve extends Manchester City's lead to 3-1.</span></td>
+          <td class="commentary-cell" data-val="Goal! Maxime Esteve extends Man City's lead to 3-1." data-label="Commentary"><span class="commentary">Goal! Maxime Esteve extends Man City's lead to 3-1.</span></td>
         </tr>
 
         <tr>
@@ -594,7 +599,7 @@
             <div class="match-name">Wolverhampton Wanderers vs Brighton & Hove Albion</div>
             <div class="meta">2025-10-05 &bull; GW7</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300645" data-label="Match ID"><code title="sr:sport_event:61300645">sr:sport_event:61300645</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300645" data-label="Match ID"><code title="sr:sport_event:61300645">sr:sport_event:61300645</code></td>
           <td data-val="Verbruggen, Bart" data-label="Scorer">
             <div class="player-name">Bart Verbruggen</div>
             <div class="meta">Brighton & Hove Albion</div>
@@ -614,7 +619,7 @@
             <div class="match-name">Sunderland AFC vs Wolverhampton Wanderers</div>
             <div class="meta">2025-10-18 &bull; GW8</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300661" data-label="Match ID"><code title="sr:sport_event:61300661">sr:sport_event:61300661</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300661" data-label="Match ID"><code title="sr:sport_event:61300661">sr:sport_event:61300661</code></td>
           <td data-val="Krejci, Ladislav" data-label="Scorer">
             <div class="player-name">Ladislav Krejci</div>
             <div class="meta">Wolverhampton Wanderers</div>
@@ -634,7 +639,7 @@
             <div class="match-name">Manchester United vs Brighton & Hove Albion</div>
             <div class="meta">2025-10-25 &bull; GW9</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300681" data-label="Match ID"><code title="sr:sport_event:61300681">sr:sport_event:61300681</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300681" data-label="Match ID"><code title="sr:sport_event:61300681">sr:sport_event:61300681</code></td>
           <td data-val="Casemiro" data-label="Scorer">
             <div class="player-name">Casemiro</div>
             <div class="meta">Brighton & Hove Albion</div>
@@ -654,7 +659,7 @@
             <div class="match-name">Crystal Palace vs Brentford FC</div>
             <div class="meta">2025-11-01 &bull; GW10</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300691" data-label="Match ID"><code title="sr:sport_event:61300691">sr:sport_event:61300691</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300691" data-label="Match ID"><code title="sr:sport_event:61300691">sr:sport_event:61300691</code></td>
           <td data-val="Collins, Nathan" data-label="Scorer">
             <div class="player-name">Nathan Collins</div>
             <div class="meta">Brentford FC</div>
@@ -674,7 +679,7 @@
             <div class="match-name">Fulham FC vs Wolverhampton Wanderers</div>
             <div class="meta">2025-11-01 &bull; GW10</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300693" data-label="Match ID"><code title="sr:sport_event:61300693">sr:sport_event:61300693</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300693" data-label="Match ID"><code title="sr:sport_event:61300693">sr:sport_event:61300693</code></td>
           <td data-val="Mosquera, Yerson" data-label="Scorer">
             <div class="player-name">Yerson Mosquera</div>
             <div class="meta">Wolverhampton Wanderers</div>
@@ -694,7 +699,7 @@
             <div class="match-name">West Ham United vs Newcastle United</div>
             <div class="meta">2025-11-02 &bull; GW10</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300705" data-label="Match ID"><code title="sr:sport_event:61300705">sr:sport_event:61300705</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300705" data-label="Match ID"><code title="sr:sport_event:61300705">sr:sport_event:61300705</code></td>
           <td data-val="Botman, Sven" data-label="Scorer">
             <div class="player-name">Sven Botman</div>
             <div class="meta">Newcastle United</div>
@@ -714,7 +719,7 @@
             <div class="match-name">Fulham FC vs Manchester City</div>
             <div class="meta">2025-12-02 &bull; GW14</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300783" data-label="Match ID"><code title="sr:sport_event:61300783">sr:sport_event:61300783</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300783" data-label="Match ID"><code title="sr:sport_event:61300783">sr:sport_event:61300783</code></td>
           <td data-val="Berge, Sander" data-label="Scorer">
             <div class="player-name">Sander Berge</div>
             <div class="meta">Fulham FC</div>
@@ -734,7 +739,7 @@
             <div class="match-name">Brighton & Hove Albion vs Aston Villa</div>
             <div class="meta">2025-12-03 &bull; GW14</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300779" data-label="Match ID"><code title="sr:sport_event:61300779">sr:sport_event:61300779</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300779" data-label="Match ID"><code title="sr:sport_event:61300779">sr:sport_event:61300779</code></td>
           <td data-val="Torres, Pau" data-label="Scorer">
             <div class="player-name">Pau Torres</div>
             <div class="meta">Aston Villa</div>
@@ -754,7 +759,7 @@
             <div class="match-name">Liverpool FC vs Sunderland AFC</div>
             <div class="meta">2025-12-03 &bull; GW14</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300791" data-label="Match ID"><code title="sr:sport_event:61300791">sr:sport_event:61300791</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300791" data-label="Match ID"><code title="sr:sport_event:61300791">sr:sport_event:61300791</code></td>
           <td data-val="Mukiele, Nordi" data-label="Scorer">
             <div class="player-name">Nordi Mukiele</div>
             <div class="meta">Sunderland AFC</div>
@@ -774,7 +779,7 @@
             <div class="match-name">Everton FC vs Nottingham Forest</div>
             <div class="meta">2025-12-06 &bull; GW15</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300801" data-label="Match ID"><code title="sr:sport_event:61300801">sr:sport_event:61300801</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300801" data-label="Match ID"><code title="sr:sport_event:61300801">sr:sport_event:61300801</code></td>
           <td data-val="Milenkovic, Nikola" data-label="Scorer">
             <div class="player-name">Nikola Milenkovic</div>
             <div class="meta">Nottingham Forest</div>
@@ -794,7 +799,7 @@
             <div class="match-name">Arsenal FC vs Wolverhampton Wanderers</div>
             <div class="meta">2025-12-13 &bull; GW16</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300815" data-label="Match ID"><code title="sr:sport_event:61300815">sr:sport_event:61300815</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300815" data-label="Match ID"><code title="sr:sport_event:61300815">sr:sport_event:61300815</code></td>
           <td data-val="Johnstone, Sam" data-label="Scorer">
             <div class="player-name">Sam Johnstone</div>
             <div class="meta">Wolverhampton Wanderers</div>
@@ -814,7 +819,7 @@
             <div class="match-name">Arsenal FC vs Wolverhampton Wanderers</div>
             <div class="meta">2025-12-13 &bull; GW16</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300815" data-label="Match ID"><code title="sr:sport_event:61300815">sr:sport_event:61300815</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300815" data-label="Match ID"><code title="sr:sport_event:61300815">sr:sport_event:61300815</code></td>
           <td data-val="Mosquera, Yerson" data-label="Scorer">
             <div class="player-name">Yerson Mosquera</div>
             <div class="meta">Wolverhampton Wanderers</div>
@@ -834,7 +839,7 @@
             <div class="match-name">West Ham United vs Aston Villa</div>
             <div class="meta">2025-12-14 &bull; GW16</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300833" data-label="Match ID"><code title="sr:sport_event:61300833">sr:sport_event:61300833</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300833" data-label="Match ID"><code title="sr:sport_event:61300833">sr:sport_event:61300833</code></td>
           <td data-val="Mavropanos, Konstantinos" data-label="Scorer">
             <div class="player-name">Konstantinos Mavropanos</div>
             <div class="meta">West Ham United</div>
@@ -854,7 +859,7 @@
             <div class="match-name">Sunderland AFC vs Newcastle United</div>
             <div class="meta">2025-12-14 &bull; GW16</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300831" data-label="Match ID"><code title="sr:sport_event:61300831">sr:sport_event:61300831</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300831" data-label="Match ID"><code title="sr:sport_event:61300831">sr:sport_event:61300831</code></td>
           <td data-val="Woltemade, Nick" data-label="Scorer">
             <div class="player-name">Nick Woltemade</div>
             <div class="meta">Newcastle United</div>
@@ -874,7 +879,7 @@
             <div class="match-name">Brentford FC vs AFC Bournemouth</div>
             <div class="meta">2025-12-27 &bull; GW18</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300857" data-label="Match ID"><code title="sr:sport_event:61300857">sr:sport_event:61300857</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300857" data-label="Match ID"><code title="sr:sport_event:61300857">sr:sport_event:61300857</code></td>
           <td data-val="Petrovic, Djordje" data-label="Scorer">
             <div class="player-name">Djordje Petrovic</div>
             <div class="meta">AFC Bournemouth</div>
@@ -894,7 +899,7 @@
             <div class="match-name">Arsenal FC vs Brighton & Hove Albion</div>
             <div class="meta">2025-12-27 &bull; GW18</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300855" data-label="Match ID"><code title="sr:sport_event:61300855">sr:sport_event:61300855</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300855" data-label="Match ID"><code title="sr:sport_event:61300855">sr:sport_event:61300855</code></td>
           <td data-val="Rutter, Georginio" data-label="Scorer">
             <div class="player-name">Georginio Rutter</div>
             <div class="meta">Brighton & Hove Albion</div>
@@ -914,7 +919,7 @@
             <div class="match-name">West Ham United vs Nottingham Forest</div>
             <div class="meta">2026-01-06 &bull; GW21</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300931" data-label="Match ID"><code title="sr:sport_event:61300931">sr:sport_event:61300931</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300931" data-label="Match ID"><code title="sr:sport_event:61300931">sr:sport_event:61300931</code></td>
           <td data-val="Murillo" data-label="Scorer">
             <div class="player-name">Murillo</div>
             <div class="meta">Nottingham Forest</div>
@@ -934,7 +939,7 @@
             <div class="match-name">Burnley FC vs Manchester United</div>
             <div class="meta">2026-01-07 &bull; GW21</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300923" data-label="Match ID"><code title="sr:sport_event:61300923">sr:sport_event:61300923</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300923" data-label="Match ID"><code title="sr:sport_event:61300923">sr:sport_event:61300923</code></td>
           <td data-val="Heaven, Ayden" data-label="Scorer">
             <div class="player-name">Ayden Heaven</div>
             <div class="meta">Manchester United</div>
@@ -954,7 +959,7 @@
             <div class="match-name">Arsenal FC vs Manchester United</div>
             <div class="meta">2026-01-25 &bull; GW23</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300959" data-label="Match ID"><code title="sr:sport_event:61300959">sr:sport_event:61300959</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300959" data-label="Match ID"><code title="sr:sport_event:61300959">sr:sport_event:61300959</code></td>
           <td data-val="Martinez, Lisandro" data-label="Scorer">
             <div class="player-name">Lisandro Martinez</div>
             <div class="meta">Manchester United</div>
@@ -974,7 +979,7 @@
             <div class="match-name">Leeds United vs Arsenal FC</div>
             <div class="meta">2026-01-31 &bull; GW24</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61300983" data-label="Match ID"><code title="sr:sport_event:61300983">sr:sport_event:61300983</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61300983" data-label="Match ID"><code title="sr:sport_event:61300983">sr:sport_event:61300983</code></td>
           <td data-val="Madueke, Noni" data-label="Scorer">
             <div class="player-name">Noni Madueke</div>
             <div class="meta">Leeds United</div>
@@ -994,7 +999,7 @@
             <div class="match-name">Sunderland AFC vs Burnley FC</div>
             <div class="meta">2026-02-02 &bull; GW24</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:65905652" data-label="Match ID"><code title="sr:sport_event:65905652">sr:sport_event:65905652</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:65905652" data-label="Match ID"><code title="sr:sport_event:65905652">sr:sport_event:65905652</code></td>
           <td data-val="Tuanzebe, Axel" data-label="Scorer">
             <div class="player-name">Axel Tuanzebe</div>
             <div class="meta">Burnley FC</div>
@@ -1014,7 +1019,7 @@
             <div class="match-name">Fulham FC vs Everton FC</div>
             <div class="meta">2026-02-07 &bull; GW25</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61301007" data-label="Match ID"><code title="sr:sport_event:61301007">sr:sport_event:61301007</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61301007" data-label="Match ID"><code title="sr:sport_event:61301007">sr:sport_event:61301007</code></td>
           <td data-val="Mykolenko, Vitaliy" data-label="Scorer">
             <div class="player-name">Vitaliy Mykolenko</div>
             <div class="meta">Everton FC</div>
@@ -1034,7 +1039,7 @@
             <div class="match-name">Fulham FC vs Everton FC</div>
             <div class="meta">2026-02-07 &bull; GW25</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61301007" data-label="Match ID"><code title="sr:sport_event:61301007">sr:sport_event:61301007</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61301007" data-label="Match ID"><code title="sr:sport_event:61301007">sr:sport_event:61301007</code></td>
           <td data-val="Leno, Bernd" data-label="Scorer">
             <div class="player-name">Bernd Leno</div>
             <div class="meta">Fulham FC</div>
@@ -1054,7 +1059,7 @@
             <div class="match-name">Crystal Palace vs Burnley FC</div>
             <div class="meta">2026-02-11 &bull; GW26</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61301035" data-label="Match ID"><code title="sr:sport_event:61301035">sr:sport_event:61301035</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61301035" data-label="Match ID"><code title="sr:sport_event:61301035">sr:sport_event:61301035</code></td>
           <td data-val="Lerma, Jefferson" data-label="Scorer">
             <div class="player-name">Jefferson Lerma</div>
             <div class="meta">Crystal Palace</div>
@@ -1074,7 +1079,7 @@
             <div class="match-name">Aston Villa vs Brighton & Hove Albion</div>
             <div class="meta">2026-02-11 &bull; GW26</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61301033" data-label="Match ID"><code title="sr:sport_event:61301033">sr:sport_event:61301033</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61301033" data-label="Match ID"><code title="sr:sport_event:61301033">sr:sport_event:61301033</code></td>
           <td data-val="Hinshelwood, Jack" data-label="Scorer">
             <div class="player-name">Jack Hinshelwood</div>
             <div class="meta">Brighton & Hove Albion</div>
@@ -1090,31 +1095,11 @@
 
         <tr>
           <td class="num" data-val="33" data-label="#">33</td>
-          <td data-val="2026-02-18" data-label="Match">
-            <div class="match-name">Wolverhampton Wanderers vs Arsenal FC</div>
-            <div class="meta">2026-02-18 &bull; GW31</div>
-          </td>
-          <td class="id-cell" data-val="sr:sport_event:61301139" data-label="Match ID"><code title="sr:sport_event:61301139">sr:sport_event:61301139</code></td>
-          <td data-val="Edozie, Tom" data-label="Scorer">
-            <div class="player-name">Tom Edozie</div>
-            <div class="meta">Arsenal FC</div>
-          </td>
-          <td class="id-cell" data-val="sr:player:2901489" data-label="Player ID"><code title="sr:player:2901489">sr:player:2901489</code></td>
-          <td class="minute" data-val="90" data-label="Min">90+4'</td>
-          <td data-val="Wolverhampton Wanderers" data-label="Benefiting"><div class="team-badge">Wolverhampton Wanderers</div></td>
-          <td class="score" data-val="2" data-label="At OG">2–2</td>
-          <td class="score final" data-val="2" data-label="Final">2–2</td>
-          <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
-          <td class="commentary-cell" data-val="Goal! Tom Edozie levels the match at 2-2." data-label="Commentary"><span class="commentary">Goal! Tom Edozie levels the match at 2-2.</span></td>
-        </tr>
-
-        <tr>
-          <td class="num" data-val="34" data-label="#">34</td>
           <td data-val="2026-02-28" data-label="Match">
             <div class="match-name">Burnley FC vs Brentford FC</div>
             <div class="meta">2026-02-28 &bull; GW28</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61301065" data-label="Match ID"><code title="sr:sport_event:61301065">sr:sport_event:61301065</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61301065" data-label="Match ID"><code title="sr:sport_event:61301065">sr:sport_event:61301065</code></td>
           <td data-val="Kayode, Michael" data-label="Scorer">
             <div class="player-name">Michael Kayode</div>
             <div class="meta">Brentford FC</div>
@@ -1129,12 +1114,12 @@
         </tr>
 
         <tr>
-          <td class="num" data-val="35" data-label="#">35</td>
+          <td class="num" data-val="34" data-label="#">34</td>
           <td data-val="2026-02-28" data-label="Match">
             <div class="match-name">Liverpool FC vs West Ham United</div>
             <div class="meta">2026-02-28 &bull; GW28</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61301071" data-label="Match ID"><code title="sr:sport_event:61301071">sr:sport_event:61301071</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61301071" data-label="Match ID"><code title="sr:sport_event:61301071">sr:sport_event:61301071</code></td>
           <td data-val="Disasi, Axel" data-label="Scorer">
             <div class="player-name">Axel Disasi</div>
             <div class="meta">West Ham United</div>
@@ -1149,12 +1134,12 @@
         </tr>
 
         <tr>
-          <td class="num" data-val="36" data-label="#">36</td>
+          <td class="num" data-val="35" data-label="#">35</td>
           <td data-val="2026-03-01" data-label="Match">
             <div class="match-name">Arsenal FC vs Chelsea FC</div>
             <div class="meta">2026-03-01 &bull; GW28</div>
           </td>
-          <td class="id-cell" data-val="sr:sport_event:61301061" data-label="Match ID"><code title="sr:sport_event:61301061">sr:sport_event:61301061</code></td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61301061" data-label="Match ID"><code title="sr:sport_event:61301061">sr:sport_event:61301061</code></td>
           <td data-val="Hincapie, Piero" data-label="Scorer">
             <div class="player-name">Piero Hincapie</div>
             <div class="meta">Arsenal FC</div>
@@ -1486,7 +1471,7 @@
   </div>
 
   <div class="footer">
-    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 11 March 2026, 04:54 UTC</p>
+    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 11 March 2026, 05:13 UTC</p>
   </div>
 
   <script>

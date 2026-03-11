@@ -1,11 +1,11 @@
 sport_event_id,match_date,round,home_team,away_team,og_player,og_player_id,og_player_team,benefiting_team,minute,stoppage_time,home_score_after,away_score_after,final_home_score,final_away_score,commentary
 sr:sport_event:61300537,2025-08-24,2,Fulham FC,Manchester United,"Muniz, Rodrigo",sr:player:1557191,Fulham FC,Manchester United,58,,0,1,1,1,Rodrigo Muniz scores with a header and the away team now lead 0-1.
-sr:sport_event:61300555,2025-08-30,3,Manchester United,Burnley FC,"Cullen, Josh",sr:player:816106,Burnley FC,Manchester United,27,,1,0,3,2,Goal! Manchester United take a 1-0 lead through a well-placed header from Josh Cullen.
+sr:sport_event:61300555,2025-08-30,3,Manchester United,Burnley FC,"Cullen, Josh",sr:player:816106,Burnley FC,Manchester United,27,,1,0,3,2,Goal! Man Utd take a 1-0 lead through a well-placed header from Josh Cullen.
 sr:sport_event:61300577,2025-09-13,4,Fulham FC,Leeds United,"Gudmundsson, Gabriel",sr:player:971145,Leeds United,Fulham FC,90,4,1,0,1,0,Own goal! Gabriel Gudmundsson has scored at the wrong end to make it 1-0.
 sr:sport_event:61300593,2025-09-20,5,Fulham FC,Brentford FC,"Pinnock, Ethan",sr:player:1056935,Brentford FC,Fulham FC,50,,3,1,3,1,It's now 3-1 thanks to an own goal from Ethan Pinnock.
 sr:sport_event:61300589,2025-09-20,5,Brighton & Hove Albion,Tottenham Hotspur,"Van Hecke, Jan Paul",sr:player:1630352,Brighton & Hove Albion,Tottenham Hotspur,82,,2,2,2,2,Jan Paul Van Hecke blunders with an own goal. This makes it 2-2.
-sr:sport_event:61300619,2025-09-27,6,Manchester City,Burnley FC,"Esteve, Maxime",sr:player:1644602,Burnley FC,Manchester City,12,,1,0,5,1,Maxime Esteve is on target to give Manchester City a 1-0 advantage.
-sr:sport_event:61300619,2025-09-27,6,Manchester City,Burnley FC,"Esteve, Maxime",sr:player:1644602,Burnley FC,Manchester City,65,,3,1,5,1,Goal! Maxime Esteve extends Manchester City's lead to 3-1.
+sr:sport_event:61300619,2025-09-27,6,Manchester City,Burnley FC,"Esteve, Maxime",sr:player:1644602,Burnley FC,Manchester City,12,,1,0,5,1,Maxime Esteve is on target to give Man City a 1-0 advantage.
+sr:sport_event:61300619,2025-09-27,6,Manchester City,Burnley FC,"Esteve, Maxime",sr:player:1644602,Burnley FC,Manchester City,65,,3,1,5,1,Goal! Maxime Esteve extends Man City's lead to 3-1.
 sr:sport_event:61300645,2025-10-05,7,Wolverhampton Wanderers,Brighton & Hove Albion,"Verbruggen, Bart",sr:player:1859404,Brighton & Hove Albion,Wolverhampton Wanderers,21,,1,0,1,1,Bart Verbruggen puts the ball in the net and the home team now lead 1-0.
 sr:sport_event:61300661,2025-10-18,8,Sunderland AFC,Wolverhampton Wanderers,"Krejci, Ladislav",sr:player:927018,Wolverhampton Wanderers,Sunderland AFC,90,2,2,0,2,0,Ladislav Krejci has the misfortune to make it 2-0 through an own goal.
 sr:sport_event:61300681,2025-10-25,9,Manchester United,Brighton & Hove Albion,Casemiro,sr:player:122951,Brighton & Hove Albion,Manchester United,34,,2,0,4,2,An unfortunate own goal by Casemiro makes the score 2-0.
@@ -31,7 +31,6 @@ sr:sport_event:61301007,2026-02-07,25,Fulham FC,Everton FC,"Mykolenko, Vitaliy",
 sr:sport_event:61301007,2026-02-07,25,Fulham FC,Everton FC,"Leno, Bernd",sr:player:103335,Fulham FC,Everton FC,83,,1,2,1,2,It's now 1-2 thanks to an own goal from Bernd Leno.
 sr:sport_event:61301035,2026-02-11,26,Crystal Palace,Burnley FC,"Lerma, Jefferson",sr:player:355796,Crystal Palace,Burnley FC,45,3,2,3,2,3,It's now 2-3 thanks to an own goal from Jefferson Lerma.
 sr:sport_event:61301033,2026-02-11,26,Aston Villa,Brighton & Hove Albion,"Hinshelwood, Jack",sr:player:2532547,Brighton & Hove Albion,Aston Villa,86,,1,0,1,0,Jack Hinshelwood scores an unfortunate own goal. This makes it 1-0 at Villa Park.
-sr:sport_event:61301139,2026-02-18,31,Wolverhampton Wanderers,Arsenal FC,"Edozie, Tom",sr:player:2901489,Arsenal FC,Wolverhampton Wanderers,90,4,2,2,2,2,Goal! Tom Edozie levels the match at 2-2.
 sr:sport_event:61301065,2026-02-28,28,Burnley FC,Brentford FC,"Kayode, Michael",sr:player:2164250,Brentford FC,Burnley FC,45,3,1,3,3,4,It's now 1-3 thanks to an own goal from Michael Kayode.
 sr:sport_event:61301071,2026-02-28,28,Liverpool FC,West Ham United,"Disasi, Axel",sr:player:940716,West Ham United,Liverpool FC,82,,5,2,5,2,Axel Disasi scores an unfortunate own goal. This makes it 5-2 at Anfield.
 sr:sport_event:61301061,2026-03-01,28,Arsenal FC,Chelsea FC,"Hincapie, Piero",sr:player:1852832,Arsenal FC,Chelsea FC,45,2,1,1,2,1,It's now 1-1 thanks to an own goal from Piero Hincapie.
