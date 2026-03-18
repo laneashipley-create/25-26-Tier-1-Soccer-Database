@@ -42,7 +42,7 @@ jobs:
         env:
           SPORTRADAR_API_KEY: ${{ secrets.SPORTRADAR_API_KEY }}
           SUPABASE_URL: https://yoesorfzvtbdmvrdtqoo.supabase.co
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           export PYTHONUTF8=1
           python run_all.py
