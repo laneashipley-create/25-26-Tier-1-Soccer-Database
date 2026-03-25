@@ -313,33 +313,33 @@ sr:sport_event:61301111,2026-03-15T14:00:00+00:00,30,Manchester United,sr:compet
 sr:sport_event:61301113,2026-03-15T14:00:00+00:00,30,Nottingham Forest,sr:competitor:14,Fulham FC,sr:competitor:43,closed,ended,0,0
 sr:sport_event:61301109,2026-03-15T16:30:00+00:00,30,Liverpool FC,sr:competitor:44,Tottenham Hotspur,sr:competitor:33,closed,ended,1,1
 sr:sport_event:68096896,2026-03-16T20:00:00+00:00,30,Brentford FC,sr:competitor:50,Wolverhampton Wanderers,sr:competitor:3,closed,ended,2,2
-sr:sport_event:61301119,2026-03-20T20:00:00+00:00,31,AFC Bournemouth,sr:competitor:60,Manchester United,sr:competitor:35,not_started,not_started,,
-sr:sport_event:61301123,2026-03-21T12:30:00+00:00,31,Brighton & Hove Albion,sr:competitor:30,Liverpool FC,sr:competitor:44,not_started,not_started,,
-sr:sport_event:61301127,2026-03-21T15:00:00+00:00,31,Fulham FC,sr:competitor:43,Burnley FC,sr:competitor:6,not_started,not_started,,
+sr:sport_event:61301119,2026-03-20T20:00:00+00:00,31,AFC Bournemouth,sr:competitor:60,Manchester United,sr:competitor:35,closed,ended,2,2
+sr:sport_event:61301123,2026-03-21T12:45:00+00:00,31,Brighton & Hove Albion,sr:competitor:30,Liverpool FC,sr:competitor:44,closed,ended,2,1
+sr:sport_event:61301127,2026-03-21T15:00:00+00:00,31,Fulham FC,sr:competitor:43,Burnley FC,sr:competitor:6,closed,ended,3,1
 sr:sport_event:61301133,2026-03-21T15:00:00+00:00,31,Manchester City,sr:competitor:17,Crystal Palace,sr:competitor:7,postponed,postponed,,
-sr:sport_event:61301125,2026-03-21T17:30:00+00:00,31,Everton FC,sr:competitor:48,Chelsea FC,sr:competitor:38,not_started,not_started,,
-sr:sport_event:61301131,2026-03-21T20:00:00+00:00,31,Leeds United,sr:competitor:34,Brentford FC,sr:competitor:50,not_started,not_started,,
-sr:sport_event:61301135,2026-03-22T12:00:00+00:00,31,Newcastle United,sr:competitor:39,Sunderland AFC,sr:competitor:41,not_started,not_started,,
-sr:sport_event:61301121,2026-03-22T14:15:00+00:00,31,Aston Villa,sr:competitor:40,West Ham United,sr:competitor:37,not_started,not_started,,
-sr:sport_event:61301137,2026-03-22T14:15:00+00:00,31,Tottenham Hotspur,sr:competitor:33,Nottingham Forest,sr:competitor:14,not_started,not_started,,
+sr:sport_event:61301125,2026-03-21T17:30:00+00:00,31,Everton FC,sr:competitor:48,Chelsea FC,sr:competitor:38,closed,ended,3,0
+sr:sport_event:61301131,2026-03-21T20:00:00+00:00,31,Leeds United,sr:competitor:34,Brentford FC,sr:competitor:50,closed,ended,0,0
+sr:sport_event:61301135,2026-03-22T12:00:00+00:00,31,Newcastle United,sr:competitor:39,Sunderland AFC,sr:competitor:41,closed,ended,1,2
+sr:sport_event:61301121,2026-03-22T14:15:00+00:00,31,Aston Villa,sr:competitor:40,West Ham United,sr:competitor:37,closed,ended,2,0
+sr:sport_event:61301137,2026-03-22T14:15:00+00:00,31,Tottenham Hotspur,sr:competitor:33,Nottingham Forest,sr:competitor:14,closed,ended,0,3
 sr:sport_event:61301159,2026-04-10T19:00:00+00:00,32,West Ham United,sr:competitor:37,Wolverhampton Wanderers,sr:competitor:3,not_started,not_started,,
 sr:sport_event:61301141,2026-04-11T11:30:00+00:00,32,Arsenal FC,sr:competitor:42,AFC Bournemouth,sr:competitor:60,not_started,not_started,,
 sr:sport_event:61301143,2026-04-11T14:00:00+00:00,32,Brentford FC,sr:competitor:50,Everton FC,sr:competitor:48,not_started,not_started,,
 sr:sport_event:61301145,2026-04-11T14:00:00+00:00,32,Burnley FC,sr:competitor:6,Brighton & Hove Albion,sr:competitor:30,not_started,not_started,,
-sr:sport_event:61301149,2026-04-11T14:00:00+00:00,32,Crystal Palace,sr:competitor:7,Newcastle United,sr:competitor:39,not_started,not_started,,
-sr:sport_event:61301155,2026-04-11T14:00:00+00:00,32,Nottingham Forest,sr:competitor:14,Aston Villa,sr:competitor:40,not_started,not_started,,
 sr:sport_event:61301151,2026-04-11T16:30:00+00:00,32,Liverpool FC,sr:competitor:44,Fulham FC,sr:competitor:43,not_started,not_started,,
+sr:sport_event:61301149,2026-04-12T13:00:00+00:00,32,Crystal Palace,sr:competitor:7,Newcastle United,sr:competitor:39,not_started,not_started,,
+sr:sport_event:61301155,2026-04-12T13:00:00+00:00,32,Nottingham Forest,sr:competitor:14,Aston Villa,sr:competitor:40,not_started,not_started,,
 sr:sport_event:61301157,2026-04-12T13:00:00+00:00,32,Sunderland AFC,sr:competitor:41,Tottenham Hotspur,sr:competitor:33,not_started,not_started,,
 sr:sport_event:61301147,2026-04-12T15:30:00+00:00,32,Chelsea FC,sr:competitor:38,Manchester City,sr:competitor:17,not_started,not_started,,
 sr:sport_event:61301153,2026-04-13T19:00:00+00:00,32,Manchester United,sr:competitor:35,Leeds United,sr:competitor:34,not_started,not_started,,
 sr:sport_event:61301163,2026-04-18T11:30:00+00:00,33,Brentford FC,sr:competitor:50,Fulham FC,sr:competitor:43,not_started,not_started,,
-sr:sport_event:61301161,2026-04-18T14:00:00+00:00,33,Aston Villa,sr:competitor:40,Sunderland AFC,sr:competitor:41,not_started,not_started,,
 sr:sport_event:61301171,2026-04-18T14:00:00+00:00,33,Leeds United,sr:competitor:34,Wolverhampton Wanderers,sr:competitor:3,not_started,not_started,,
 sr:sport_event:61301175,2026-04-18T14:00:00+00:00,33,Newcastle United,sr:competitor:39,AFC Bournemouth,sr:competitor:60,not_started,not_started,,
-sr:sport_event:61301177,2026-04-18T14:00:00+00:00,33,Nottingham Forest,sr:competitor:14,Burnley FC,sr:competitor:6,not_started,not_started,,
 sr:sport_event:61301179,2026-04-18T16:30:00+00:00,33,Tottenham Hotspur,sr:competitor:33,Brighton & Hove Albion,sr:competitor:30,not_started,not_started,,
 sr:sport_event:61301165,2026-04-18T19:00:00+00:00,33,Chelsea FC,sr:competitor:38,Manchester United,sr:competitor:35,not_started,not_started,,
+sr:sport_event:61301161,2026-04-19T13:00:00+00:00,33,Aston Villa,sr:competitor:40,Sunderland AFC,sr:competitor:41,not_started,not_started,,
 sr:sport_event:61301169,2026-04-19T13:00:00+00:00,33,Everton FC,sr:competitor:48,Liverpool FC,sr:competitor:44,not_started,not_started,,
+sr:sport_event:61301177,2026-04-19T13:00:00+00:00,33,Nottingham Forest,sr:competitor:14,Burnley FC,sr:competitor:6,not_started,not_started,,
 sr:sport_event:61301173,2026-04-19T15:30:00+00:00,33,Manchester City,sr:competitor:17,Arsenal FC,sr:competitor:42,not_started,not_started,,
 sr:sport_event:61301167,2026-04-20T19:00:00+00:00,33,Crystal Palace,sr:competitor:7,West Ham United,sr:competitor:37,not_started,not_started,,
 sr:sport_event:61301195,2026-04-24T19:00:00+00:00,34,Sunderland AFC,sr:competitor:41,Nottingham Forest,sr:competitor:14,not_started,not_started,,
