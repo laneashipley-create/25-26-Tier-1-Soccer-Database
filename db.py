@@ -3,6 +3,7 @@ Supabase helpers for Own Goals pipeline.
 
 Use when USE_SUPABASE is True in config. Provides:
   - get_client() — PostgREST client (avoids full supabase pkg + C++ deps)
+  - sync_competitions_from_config() — upsert public.competitions from config (every pipeline step that resolves seasons)
   - get_or_create_competition() — ensure public.competitions row exists
   - get_or_create_season() / get_or_create_seasons() — ensure public.seasons rows
   - upsert_games() — upsert rows in public.games (sport events per season)
@@ -51,30 +52,65 @@ def get_client():
     return _client
 
 
-def get_or_create_competition(sportradar_competition_id: str, display_name: str | None = None) -> str:
-    """Ensure public.competitions row exists; return its id (uuid)."""
+def sync_competitions_from_config() -> None:
+    """
+    Upsert public.competitions from config.COMPETITIONS (adds new leagues, refreshes metadata).
+
+    Call before resolving seasons so rows always match config when you add/remove/edit entries.
+    Optional keys gender, category_name, country_code: include in the upsert only if present on
+    the dict (so omitted keys leave existing DB values unchanged).
+    """
+    if not USE_SUPABASE:
+        return
+    supabase = get_client()
+    for row in COMPETITIONS:
+        payload: dict = {
+            "sportradar_competition_id": row["competition_id"],
+            "competition_name": row.get("competition_name") or row["competition_id"],
+        }
+        for key in ("gender", "category_name", "country_code"):
+            if key in row:
+                payload[key] = row[key]
+        supabase.table("competitions").upsert(
+            payload,
+            on_conflict="sportradar_competition_id",
+            ignore_duplicates=False,
+        ).execute()
+
+
+def get_or_create_competition(competition_row: dict) -> str:
+    """
+    Ensure public.competitions row exists; return its id (uuid).
+
+    competition_row uses config.COMPETITIONS shape:
+      competition_id, competition_name, optional gender, category_name, country_code
+    """
+    sportradar_competition_id = competition_row["competition_id"]
     supabase = get_client()
     r = supabase.table("competitions").select("id").eq("sportradar_competition_id", sportradar_competition_id).execute()
     if r.data and len(r.data) > 0:
         return r.data[0]["id"]
-    label = display_name or sportradar_competition_id
-    ins = supabase.table("competitions").insert({
+    label = competition_row.get("competition_name") or sportradar_competition_id
+    payload: dict = {
         "sportradar_competition_id": sportradar_competition_id,
-        "name": label,
-    }).execute()
+        "competition_name": label,
+    }
+    for key in ("gender", "category_name", "country_code"):
+        val = competition_row.get(key)
+        if val is not None and val != "":
+            payload[key] = val
+    ins = supabase.table("competitions").insert(payload).execute()
     return ins.data[0]["id"]
 
 
 def get_or_create_season():
     """Ensure the current season exists in public.seasons; return its id (uuid)."""
+    sync_competitions_from_config()
     supabase = get_client()
     r = supabase.table("seasons").select("id").eq("sportradar_season_id", SEASON_ID).execute()
     if r.data and len(r.data) > 0:
         return r.data[0]["id"]
-    comp_pk = get_or_create_competition(
-        COMPETITION_ID,
-        COMPETITIONS[0].get("competition_name"),
-    )
+    comp_pk = get_or_create_competition(COMPETITIONS[0])
     ins = supabase.table("seasons").insert({
         "sportradar_season_id": SEASON_ID,
         "competition_id": comp_pk,
@@ -87,12 +123,11 @@ def get_or_create_season_entry(entry: dict) -> str:
     """Ensure a season exists for a COMPETITIONS list entry; return season UUID."""
     season_id = entry["season_id"]
     season_name = entry["season_name"]
-    sportradar_cid = entry["competition_id"]
     supabase = get_client()
     r = supabase.table("seasons").select("id").eq("sportradar_season_id", season_id).execute()
     if r.data and len(r.data) > 0:
         return r.data[0]["id"]
-    comp_pk = get_or_create_competition(sportradar_cid, entry.get("competition_name"))
+    comp_pk = get_or_create_competition(entry)
     ins = supabase.table("seasons").insert({
         "sportradar_season_id": season_id,
         "competition_id": comp_pk,
@@ -106,6 +141,7 @@ def get_or_create_seasons() -> dict[str, str]:
     Ensure all configured seasons exist.
     Returns mapping: sportradar season_id -> seasons.id UUID
     """
+    sync_competitions_from_config()
     mapping: dict[str, str] = {}
     for c in COMPETITIONS:
         sid = c["season_id"]
@@ -262,7 +298,12 @@ def get_all_own_goals() -> list[dict]:
         csize = 200
         for i in range(0, len(comp_uuids), csize):
             cu = comp_uuids[i : i + csize]
-            cr = supabase.table("competitions").select("id,sportradar_competition_id,name").in_("id", cu).execute()
+            cr = (
+                supabase.table("competitions")
+                .select("id,sportradar_competition_id,competition_name,gender,category_name,country_code")
+                .in_("id", cu)
+                .execute()
+            )
             for crow in cr.data or []:
                 cid = crow.get("id")
                 if cid:

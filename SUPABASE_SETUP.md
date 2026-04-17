@@ -15,6 +15,7 @@
    - `supabase/migrations/20250306000000_epl_own_goals_schema.sql`
    - `supabase/migrations/20260318001000_epl_own_goals_enable_rls.sql` (optional but recommended)
    - `supabase/migrations/20260417140000_competitions_games_sport_event_timelines.sql` — adds `public.competitions`, converts `seasons.competition_id` to a UUID FK, renames `schedule` → `games`, `match_timelines` → `sport_event_timelines`, `schedule_id` → `game_id`.
+   - `supabase/migrations/20260418120000_competitions_columns_expand.sql` — renames `competitions.name` → `competition_name`, adds `gender`, `category_name`, `country_code`.
 
    Use **Supabase SQL Editor** or MCP `apply_migration` for each file’s contents.
 
@@ -22,7 +23,7 @@
 
 The pipeline will be updated to:
 
-1. **Competitions** — Rows in `public.competitions` (`sportradar_competition_id`, `name`); created/ensured by the pipeline from `config.COMPETITIONS`.
+1. **Competitions** — Rows in `public.competitions` (`sportradar_competition_id`, `competition_name`, optional `gender`, `category_name`, `country_code`). Each run that resolves seasons calls **`sync_competitions_from_config()`** (upsert from `config.COMPETITIONS`) so adds/edits in config propagate automatically. Rows removed from config are **not** deleted in Supabase (seasons may still reference them).
 2. **Seasons** — Ensure each configured season exists in `public.seasons` (by `sportradar_season_id`), linked to `competitions` via UUID `competition_id`.
 3. **Games** — Fetch schedules from Sportradar, then **upsert** into `public.games` (one row per `sr:sport_event` per season).
 4. **Timelines** — For completed games, fetch timelines only when there is no row in `public.sport_event_timelines` for that `games.id` (`game_id`), unless using local JSON cache.
