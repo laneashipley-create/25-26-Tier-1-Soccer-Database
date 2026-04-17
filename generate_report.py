@@ -118,6 +118,8 @@ def build_date_filter_tile(date_min: str, date_max: str) -> str:
     </div>"""
     dmin = html.escape(date_min, quote=True)
     dmax = html.escape(date_max, quote=True)
+    # Wide min/max so presets use the viewer's real calendar (today / this week / this month)
+    # even when that range extends past the last match in the export.
     return f"""    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Match date filter">
       <div class="date-filter-head">
         <span class="date-filter-title">Match date range</span>
@@ -130,10 +132,10 @@ def build_date_filter_tile(date_min: str, date_max: str) -> str:
       </div>
       <div class="date-filter-custom">
         <label class="date-filter-label">From
-          <input type="date" id="og-date-from" min="{dmin}" max="{dmax}" value="{dmin}" />
+          <input type="date" id="og-date-from" min="1990-01-01" max="2099-12-31" value="{dmin}" />
         </label>
         <label class="date-filter-label">To
-          <input type="date" id="og-date-to" min="{dmin}" max="{dmax}" value="{dmax}" />
+          <input type="date" id="og-date-to" min="1990-01-01" max="2099-12-31" value="{dmax}" />
         </label>
       </div>
       <p class="date-filter-hint" id="og-date-hint"></p>
@@ -386,15 +388,18 @@ def _inline_report_script() -> str:
     e.setDate(e.getDate() + 6);
     return e;
   }
-  function clampRange(from, to, lo, hi) {
-    var f = from;
-    var t = to;
-    if (f < lo) f = lo;
-    if (f > hi) f = hi;
-    if (t < lo) t = lo;
-    if (t > hi) t = hi;
-    if (f > t) { var x = f; f = t; t = x; }
-    return { from: f, to: t };
+  /** Ensure from <= to only; do not clamp to dataset (presets use real calendar). */
+  function normalizeFromTo(fromEl, toEl, fallbackFrom, fallbackTo) {
+    var from = fromEl.value || fallbackFrom;
+    var to = toEl.value || fallbackTo;
+    if (from > to) {
+      var x = from;
+      from = to;
+      to = x;
+      fromEl.value = from;
+      toEl.value = to;
+    }
+    return { from: from, to: to };
   }
 
   function getDateRange() {
@@ -405,11 +410,7 @@ def _inline_report_script() -> str:
     if (!fromEl || !toEl || !lo || !hi) {
       return { from: lo, to: hi, lo: lo, hi: hi, hasInputs: false };
     }
-    var from = fromEl.value || lo;
-    var to = toEl.value || hi;
-    var c = clampRange(from, to, lo, hi);
-    fromEl.value = c.from;
-    toEl.value = c.to;
+    var c = normalizeFromTo(fromEl, toEl, lo, hi);
     return { from: c.from, to: c.to, lo: lo, hi: hi, hasInputs: true };
   }
 
@@ -454,22 +455,20 @@ def _inline_report_script() -> str:
           toEl.value = hi;
         } else if (preset === 'today') {
           var td = toYMD(today);
-          var c1 = clampRange(td, td, lo, hi);
-          fromEl.value = c1.from;
-          toEl.value = c1.to;
+          fromEl.value = td;
+          toEl.value = td;
         } else if (preset === 'week') {
-          var c2 = clampRange(toYMD(startOfISOWeek(today)), toYMD(endOfISOWeek(today)), lo, hi);
-          fromEl.value = c2.from;
-          toEl.value = c2.to;
+          fromEl.value = toYMD(startOfISOWeek(today));
+          toEl.value = toYMD(endOfISOWeek(today));
         } else if (preset === 'month') {
           var y = today.getFullYear();
           var m = today.getMonth();
           var first = new Date(y, m, 1);
           var last = new Date(y, m + 1, 0);
-          var c3 = clampRange(toYMD(first), toYMD(last), lo, hi);
-          fromEl.value = c3.from;
-          toEl.value = c3.to;
+          fromEl.value = toYMD(first);
+          toEl.value = toYMD(last);
         }
+        normalizeFromTo(fromEl, toEl, lo, hi);
         applyFilter();
       });
     });
