@@ -48,9 +48,141 @@
     }
     .header .subtitle strong { color: #fff; }
 
+    .og-row--hidden { display: none !important; }
+
+    .stat-card--wide { grid-column: 1 / -1; }
+    .stat-card--text-left { text-align: left; }
+    .stat-card--filter-tile { padding: 1rem 1.1rem; }
+
+    .competition-slicer--tile {
+      margin: 0;
+      padding: 0;
+      max-width: none;
+      background: transparent;
+      border: none;
+      text-align: left;
+    }
+    .stat-card--filter-tile .slicer-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .stat-card--filter-tile .slicer-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #cc0000;
+    }
+    .stat-card--filter-tile .slicer-actions { display: inline-flex; gap: 0.35rem; }
+    .stat-card--filter-tile .slicer-btn {
+      font: inherit;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.55rem;
+      border-radius: 6px;
+      border: 1px solid #ddd8d0;
+      background: #faf8f5;
+      color: #333;
+    }
+    .stat-card--filter-tile .slicer-btn:hover {
+      border-color: #cc0000;
+      background: #fff0f0;
+      color: #990000;
+    }
+    .stat-card--filter-tile .slicer-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem 0.65rem;
+      justify-content: flex-start;
+    }
+    .stat-card--filter-tile .slicer-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      color: #333;
+      cursor: pointer;
+      user-select: none;
+    }
+    .stat-card--filter-tile .slicer-chip input { accent-color: #cc0000; width: 1rem; height: 1rem; }
+    .stat-card--filter-tile .slicer-chip span { line-height: 1.25; }
+
+    .date-filter-tile {
+      text-align: left;
+    }
+    .date-filter-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.65rem;
+    }
+    .date-filter-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .date-filter-presets { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .date-preset-btn {
+      font: inherit;
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #ddd8d0;
+      background: #faf8f5;
+      color: #333;
+    }
+    .date-preset-btn:hover { border-color: #cc0000; color: #cc0000; }
+    .date-preset-btn.is-active {
+      border-color: #cc0000;
+      background: #fff0f0;
+      color: #990000;
+    }
+    .date-filter-custom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 1rem;
+    }
+    .date-filter-label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #555;
+    }
+    .date-filter-label input[type="date"] {
+      font: inherit;
+      padding: 0.35rem 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+      color: #111;
+    }
+    .date-filter-hint {
+      margin-top: 0.55rem;
+      font-size: 0.78rem;
+      color: #666;
+      line-height: 1.35;
+    }
+    .date-filter-muted { font-size: 0.82rem; color: #888; margin-top: 0.35rem; }
+
     /* ── Stats ────────────────────────────────────────── */
     .stats-section {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 2rem auto 0;
       padding: 0 1rem;
     }
@@ -58,6 +190,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 0.75rem;
+      align-items: start;
     }
     .stat-card {
       background: #ffffff;
@@ -375,51 +508,93 @@
     <div class="header-badge">Sportradar Soccer</div>
     <h1><span>Own Goals</span> Tracker</h1>
     <div class="subtitle">
-      <strong>217</strong> own goals scored across Bundesliga 25/26, Premier League 25/26, FA Cup 25/26, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Champions League 25/26, UEFA Conference League 25/26, CONMEBOL Libertadores 2026
+      <strong id="subtitle-og-total">217</strong> own goal<span id="subtitle-og-plural">s</span> <span id="subtitle-scope">scored across Bundesliga 25/26, Premier League 25/26, FA Cup 25/26, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Champions League 25/26, UEFA Conference League 25/26, CONMEBOL Libertadores 2026</span>
     </div>
   </div>
 
   <div class="stats-section">
-    
-        <div class="stats-grid">
+    <div class="stats-grid">
+    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left" role="region" aria-label="Filter by competition">
+      <div class="competition-slicer competition-slicer--tile" role="group">
+        <div class="slicer-head">
+          <span class="slicer-title">Competitions</span>
+          <span class="slicer-actions">
+            <button type="button" class="slicer-btn" id="slicer-all">All</button>
+            <button type="button" class="slicer-btn" id="slicer-none">None</button>
+          </span>
+        </div>
+        <div class="slicer-chips"><label class="slicer-chip"><input type="checkbox" name="og-comp" value="Bundesliga 25/26" checked /><span>Bundesliga 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="CONMEBOL Libertadores 2026" checked /><span>CONMEBOL Libertadores 2026</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="FA Cup 25/26" checked /><span>FA Cup 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="LaLiga 25/26" checked /><span>LaLiga 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Ligue 1 25/26" checked /><span>Ligue 1 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="MLS 2026" checked /><span>MLS 2026</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Premier League 25/26" checked /><span>Premier League 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Serie A 25/26" checked /><span>Serie A 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="UEFA Champions League 25/26" checked /><span>UEFA Champions League 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="UEFA Conference League 25/26" checked /><span>UEFA Conference League 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="UEFA Europa League 25/26" checked /><span>UEFA Europa League 25/26</span></label></div>
+      </div>
+    </div>
+    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Match date filter">
+      <div class="date-filter-head">
+        <span class="date-filter-title">Match date range</span>
+        <span class="date-filter-presets">
+          <button type="button" class="date-preset-btn is-active" data-preset="all">All time</button>
+          <button type="button" class="date-preset-btn" data-preset="today">Today</button>
+          <button type="button" class="date-preset-btn" data-preset="week">This week</button>
+          <button type="button" class="date-preset-btn" data-preset="month">This month</button>
+        </span>
+      </div>
+      <div class="date-filter-custom">
+        <label class="date-filter-label">From
+          <input type="date" id="og-date-from" min="2025-07-10" max="2026-04-12" value="2025-07-10" />
+        </label>
+        <label class="date-filter-label">To
+          <input type="date" id="og-date-to" min="2025-07-10" max="2026-04-12" value="2026-04-12" />
+        </label>
+      </div>
+      <p class="date-filter-hint" id="og-date-hint"></p>
+    </div>
+
           <div class="stat-card">
-            <div class="stat-number">2699</div>
+            <div class="stat-number" id="kpi-matches">2,699</div>
             <div class="stat-label">Matches Reviewed</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">334,535</div>
+            <div class="stat-number" id="kpi-events">334,535</div>
             <div class="stat-label">Timeline Events Reviewed</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">217</div>
+            <div class="stat-number" id="kpi-total-og">217</div>
             <div class="stat-label">Total # of Own Goals</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">208</div>
+            <div class="stat-number" id="kpi-games">208</div>
             <div class="stat-label"># of Games with an Own Goal</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">2</div>
-            <div class="stat-label">Most by One Player<br><span class="stat-sub">Andrea Cambiaso &amp; Clement Akpa &amp; Maxime Esteve &amp; Mohammed Salisu &amp; Murillo &amp; Sergi Dominguez &amp; Tarik Muharemovic &amp; Yerson Mosquera</span></div>
+            <div class="stat-number" id="kpi-most-player">2</div>
+            <div class="stat-label">Most by One Player<br><span class="stat-sub" id="kpi-most-player-names">Andrea Cambiaso &amp; Clement Akpa &amp; Maxime Esteve &amp; Mohammed Salisu &amp; Murillo &amp; Sergi Dominguez &amp; Tarik Muharemovic &amp; Yerson Mosquera</span></div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">5</div>
-            <div class="stat-label">Most by One Team<br><span class="stat-sub">Brighton & Hove Albion</span></div>
+            <div class="stat-number" id="kpi-most-team">5</div>
+            <div class="stat-label">Most by One Team<br><span class="stat-sub" id="kpi-most-team-names">Brighton & Hove Albion</span></div>
           </div>
           <div class="stat-card stat-card--correct">
-            <div class="stat-number stat-number--correct">125</div>
+            <div class="stat-number stat-number--correct" id="kpi-commentary-yes">125</div>
             <div class="stat-label">Commentary Correct<br><span class="stat-sub stat-sub--muted">Mentions "own goal"</span></div>
           </div>
           <div class="stat-card stat-card--incorrect">
-            <div class="stat-number stat-number--incorrect">92</div>
+            <div class="stat-number stat-number--incorrect" id="kpi-commentary-no">92</div>
             <div class="stat-label">Commentary Incorrect<br><span class="stat-sub stat-sub--muted">No "own goal" mention</span></div>
           </div>
-        </div>
+</div>
   </div>
 
   <div class="table-section">
     <div class="table-header-row">
-      <div class="table-title">All Own Goals &mdash; Bundesliga 25/26, Premier League 25/26, FA Cup 25/26, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Champions League 25/26, UEFA Conference League 25/26, CONMEBOL Libertadores 2026</div>
+      <div class="table-title" id="table-filter-title">All Own Goals &mdash; Bundesliga 25/26, Premier League 25/26, FA Cup 25/26, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Champions League 25/26, UEFA Conference League 25/26, CONMEBOL Libertadores 2026</div>
       <div class="sort-hint">Click any column header to sort</div>
     </div>
     <div class="table-wrap">
@@ -456,7 +631,7 @@
         </thead>
         <tbody id="og-tbody">
           
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-07-10" data-event-id="sr:sport_event:61282601" data-og-player="Kircough, Gabe" data-og-team="Pen-y-Bont FC">
           <td class="num" data-val="1" data-label="#">1</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -480,7 +655,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-07-10" data-event-id="sr:sport_event:61282661" data-og-player="Drudi, Mirko" data-og-team="SP La Fiorita">
           <td class="num" data-val="2" data-label="#">2</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -504,7 +679,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-07-10" data-event-id="sr:sport_event:61282561" data-og-player="Jukovic, Medo" data-og-team="FK Sutjeska Niksic">
           <td class="num" data-val="3" data-label="#">3</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -528,7 +703,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-07-15" data-event-id="sr:sport_event:61280683" data-og-player="Bodenham, Jack" data-og-team="The New Saints FC">
           <td class="num" data-val="4" data-label="#">4</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -552,7 +727,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-07-17" data-event-id="sr:sport_event:61282629" data-og-player="Manfroni, Matteo" data-og-team="SP Tre Fiori">
           <td class="num" data-val="5" data-label="#">5</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -576,7 +751,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-07-17" data-event-id="sr:sport_event:61282599" data-og-player="Jankulov, Georgije" data-og-team="FK Vardar Skopje">
           <td class="num" data-val="6" data-label="#">6</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -600,7 +775,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-07-22" data-event-id="sr:sport_event:61302473" data-og-player="Gartenmann, Stefan" data-og-team="Ferencvarosi Budapest">
           <td class="num" data-val="7" data-label="#">7</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -624,7 +799,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-07-24" data-event-id="sr:sport_event:61307455" data-og-player="Miljkovic, Aleksandar" data-og-team="FC Pyunik Yerevan">
           <td class="num" data-val="8" data-label="#">8</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -648,7 +823,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-07-24" data-event-id="sr:sport_event:61307461" data-og-player="Bassinga, Deo Gracias Maurile Gloire" data-og-team="Riga FC">
           <td class="num" data-val="9" data-label="#">9</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -672,7 +847,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-07-30" data-event-id="sr:sport_event:61302501" data-og-player="Martin, John" data-og-team="Shelbourne FC">
           <td class="num" data-val="10" data-label="#">10</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -696,7 +871,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-07-31" data-event-id="sr:sport_event:62177216" data-og-player="Miller, Martin" data-og-team="Paide Linnameeskond">
           <td class="num" data-val="11" data-label="#">11</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -720,7 +895,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-07-31" data-event-id="sr:sport_event:61307469" data-og-player="Solvet, Steve" data-og-team="Sabah Masazir">
           <td class="num" data-val="12" data-label="#">12</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -744,7 +919,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-07-31" data-event-id="sr:sport_event:62103758" data-og-player="Unknown" data-og-team="FC Polissya Zhytomyr">
           <td class="num" data-val="13" data-label="#">13</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -768,7 +943,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-07-31" data-event-id="sr:sport_event:61307547" data-og-player="Pedro" data-og-team="Hibernians FC Paola">
           <td class="num" data-val="14" data-label="#">14</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -792,7 +967,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-07-31" data-event-id="sr:sport_event:61303089" data-og-player="Pojezny, Karel" data-og-team="FC Banik Ostrava">
           <td class="num" data-val="15" data-label="#">15</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -816,7 +991,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-08-07" data-event-id="sr:sport_event:62247638" data-og-player="Hall Ben" data-og-team="Linfield FC">
           <td class="num" data-val="16" data-label="#">16</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -840,7 +1015,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-08-07" data-event-id="sr:sport_event:62201964" data-og-player="Baron, Anthony" data-og-team="Servette Geneva">
           <td class="num" data-val="17" data-label="#">17</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -864,7 +1039,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-08-07" data-event-id="sr:sport_event:62202152" data-og-player="Rajovic, Mileta" data-og-team="Legia Warszawa">
           <td class="num" data-val="18" data-label="#">18</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -888,7 +1063,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-08-12" data-event-id="sr:sport_event:62201274" data-og-player="Cake, Klisman" data-og-team="Shkendija Tetovo">
           <td class="num" data-val="19" data-label="#">19</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -912,7 +1087,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-08-13" data-event-id="sr:sport_event:62247818" data-og-player="Bulut, Onur" data-og-team="Istanbul Basaksehir">
           <td class="num" data-val="20" data-label="#">20</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -936,7 +1111,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-08-14" data-event-id="sr:sport_event:62247636" data-og-player="Olsen, Ari" data-og-team="Vikingur Gota">
           <td class="num" data-val="21" data-label="#">21</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -960,7 +1135,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-08-14" data-event-id="sr:sport_event:62201970" data-og-player="De Roeve, Denzel" data-og-team="SK Brann">
           <td class="num" data-val="22" data-label="#">22</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -984,7 +1159,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-08-14" data-event-id="sr:sport_event:62201940" data-og-player="Valgeirsson, Valgeir" data-og-team="Breidablik Kopavogur">
           <td class="num" data-val="23" data-label="#">23</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -1008,7 +1183,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-08-14" data-event-id="sr:sport_event:62247836" data-og-player="Csongvai, Aron" data-og-team="AIK">
           <td class="num" data-val="24" data-label="#">24</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -1032,7 +1207,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-08-16" data-event-id="sr:sport_event:61511944" data-og-player="Lloris, Gautier" data-og-team="Le Havre AC">
           <td class="num" data-val="25" data-label="#">25</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -1056,7 +1231,7 @@
           <td class="commentary-cell" data-val="Goal! Gautier Lloris gives Monaco a 1-0 lead in Fontvieille." data-label="Commentary"><span class="commentary">Goal! Gautier Lloris gives Monaco a 1-0 lead in Fontvieille.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-08-20" data-event-id="sr:sport_event:62599496" data-og-player="Boving, William" data-og-team="SK Sturm Graz">
           <td class="num" data-val="26" data-label="#">26</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -1080,7 +1255,7 @@
           <td class="commentary-cell" data-val="Own goal! William Boving has scored at the wrong end to make it 5-0." data-label="Commentary"><span class="commentary">Own goal! William Boving has scored at the wrong end to make it 5-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-08-21" data-event-id="sr:sport_event:62603424" data-og-player="Kudryk, Oleg" data-og-team="FC Polissya Zhytomyr">
           <td class="num" data-val="27" data-label="#">27</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -1104,7 +1279,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-08-21" data-event-id="sr:sport_event:62602922" data-og-player="Chalus, Matej" data-og-team="FC Banik Ostrava">
           <td class="num" data-val="28" data-label="#">28</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -1128,7 +1303,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-08-21" data-event-id="sr:sport_event:62602128" data-og-player="Gurgul, Michal" data-og-team="KKS Lech Poznan">
           <td class="num" data-val="29" data-label="#">29</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -1152,7 +1327,7 @@
           <td class="commentary-cell" data-val="Genk take a comfortable 1-5 lead thanks to Michal Gurgul." data-label="Commentary"><span class="commentary">Genk take a comfortable 1-5 lead thanks to Michal Gurgul.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-08-23" data-event-id="sr:sport_event:61525996" data-og-player="Akpa, Clement" data-og-team="AJ Auxerre">
           <td class="num" data-val="30" data-label="#">30</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -1176,7 +1351,7 @@
           <td class="commentary-cell" data-val="Clement Akpa is on target to give Nice a 2-1 advantage." data-label="Commentary"><span class="commentary">Clement Akpa is on target to give Nice a 2-1 advantage.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2025-08-23" data-event-id="sr:sport_event:61623968" data-og-player="Elgezabal, Unai" data-og-team="Levante UD">
           <td class="num" data-val="31" data-label="#">31</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -1200,7 +1375,7 @@
           <td class="commentary-cell" data-val="Unai Elgezabal is on target to give Barcelona a 2-3 advantage." data-label="Commentary"><span class="commentary">Unai Elgezabal is on target to give Barcelona a 2-3 advantage.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2025-08-24" data-event-id="sr:sport_event:61060631" data-og-player="Hien, Isak" data-og-team="Atalanta BC">
           <td class="num" data-val="32" data-label="#">32</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -1224,7 +1399,7 @@
           <td class="commentary-cell" data-val="Own goal! Isak Hien has scored at the wrong end to make it 0-1." data-label="Commentary"><span class="commentary">Own goal! Isak Hien has scored at the wrong end to make it 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-08-24" data-event-id="sr:sport_event:61300537" data-og-player="Muniz, Rodrigo" data-og-team="Fulham FC">
           <td class="num" data-val="33" data-label="#">33</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -1248,7 +1423,7 @@
           <td class="commentary-cell" data-val="Rodrigo Muniz scores with a header and the away team now lead 0-1." data-label="Commentary"><span class="commentary">Rodrigo Muniz scores with a header and the away team now lead 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2025-08-25" data-event-id="sr:sport_event:61623974" data-og-player="Iglesias, Juan" data-og-team="Getafe CF">
           <td class="num" data-val="34" data-label="#">34</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -1272,7 +1447,7 @@
           <td class="commentary-cell" data-val="Goal! Juan Iglesias (Sevilla) levels the score at 1-1 with a header in Seville." data-label="Commentary"><span class="commentary">Goal! Juan Iglesias (Sevilla) levels the score at 1-1 with a header in Seville.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-08-30" data-event-id="sr:sport_event:61300555" data-og-player="Cullen, Josh" data-og-team="Burnley FC">
           <td class="num" data-val="35" data-label="#">35</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -1296,7 +1471,7 @@
           <td class="commentary-cell" data-val="Goal! Man Utd take a 1-0 lead through a well-placed header from Josh Cullen." data-label="Commentary"><span class="commentary">Goal! Man Utd take a 1-0 lead through a well-placed header from Josh Cullen.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2025-08-31" data-event-id="sr:sport_event:61623990" data-og-player="Bartra, Marc" data-og-team="Real Betis Seville">
           <td class="num" data-val="36" data-label="#">36</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -1320,7 +1495,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Marc Bartra makes the score 0-1." data-label="Commentary"><span class="commentary">An unfortunate own goal by Marc Bartra makes the score 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-08-31" data-event-id="sr:sport_event:61526022" data-og-player="Balerdi, Leonardo" data-og-team="Olympique Marseille">
           <td class="num" data-val="37" data-label="#">37</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -1344,7 +1519,7 @@
           <td class="commentary-cell" data-val="Own goal in Lyon! Leonardo Balerdi scores in his own net to make it 1-0." data-label="Commentary"><span class="commentary">Own goal in Lyon! Leonardo Balerdi scores in his own net to make it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2025-09-12" data-event-id="sr:sport_event:61513646" data-og-player="Grimaldo, Alex" data-og-team="Eintracht Frankfurt">
           <td class="num" data-val="38" data-label="#">38</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -1368,7 +1543,7 @@
           <td class="commentary-cell" data-val="Goal! Leverkusen have got their heads in front thanks to a Alex Grimaldo strike." data-label="Commentary"><span class="commentary">Goal! Leverkusen have got their heads in front thanks to a Alex Grimaldo strike.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2025-09-13" data-event-id="sr:sport_event:61624010" data-og-player="Berenguer, Alex" data-og-team="Athletic Bilbao">
           <td class="num" data-val="39" data-label="#">39</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -1392,7 +1567,7 @@
           <td class="commentary-cell" data-val="Own goal! Alex Berenguer has scored at the wrong end to make it 0-1." data-label="Commentary"><span class="commentary">Own goal! Alex Berenguer has scored at the wrong end to make it 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-09-13" data-event-id="sr:sport_event:61526028" data-og-player="Salisu, Mohammed" data-og-team="AS Monaco">
           <td class="num" data-val="40" data-label="#">40</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -1416,7 +1591,7 @@
           <td class="commentary-cell" data-val="Own goal! Mohammed Salisu has scored at the wrong end to make it 1-1." data-label="Commentary"><span class="commentary">Own goal! Mohammed Salisu has scored at the wrong end to make it 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-09-13" data-event-id="sr:sport_event:61300577" data-og-player="Gudmundsson, Gabriel" data-og-team="Leeds United">
           <td class="num" data-val="41" data-label="#">41</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -1440,7 +1615,7 @@
           <td class="commentary-cell" data-val="Own goal! Gabriel Gudmundsson has scored at the wrong end to make it 1-0." data-label="Commentary"><span class="commentary">Own goal! Gabriel Gudmundsson has scored at the wrong end to make it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-09-14" data-event-id="sr:sport_event:61526044" data-og-player="Descamps, Remy" data-og-team="Olympique Lyon">
           <td class="num" data-val="42" data-label="#">42</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -1464,7 +1639,7 @@
           <td class="commentary-cell" data-val="Goal! Remy Descamps gives Stade Rennais a 2-1 lead." data-label="Commentary"><span class="commentary">Goal! Remy Descamps gives Stade Rennais a 2-1 lead.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-09-16" data-event-id="sr:sport_event:63369679" data-og-player="Junior, Luiz" data-og-team="Villarreal CF">
           <td class="num" data-val="43" data-label="#">43</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -1488,7 +1663,7 @@
           <td class="commentary-cell" data-val="It's now 1-0 thanks to an own goal from Luiz Junior." data-label="Commentary"><span class="commentary">It's now 1-0 thanks to an own goal from Luiz Junior.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-09-17" data-event-id="sr:sport_event:63369685" data-og-player="Chalobah, Trevoh" data-og-team="Chelsea FC">
           <td class="num" data-val="44" data-label="#">44</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -1512,7 +1687,7 @@
           <td class="commentary-cell" data-val="Trevoh Chalobah blunders with an own goal. This makes it 1-0." data-label="Commentary"><span class="commentary">Trevoh Chalobah blunders with an own goal. This makes it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-09-18" data-event-id="sr:sport_event:63369697" data-og-player="Sanchez, Davinson" data-og-team="Galatasaray Istanbul">
           <td class="num" data-val="45" data-label="#">45</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -1536,7 +1711,7 @@
           <td class="commentary-cell" data-val="Goal! Davinson Sanchez equalizes to bring the score to 1-1." data-label="Commentary"><span class="commentary">Goal! Davinson Sanchez equalizes to bring the score to 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-09-18" data-event-id="sr:sport_event:63369697" data-og-player="Singo, Wilfried" data-og-team="Galatasaray Istanbul">
           <td class="num" data-val="46" data-label="#">46</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -1560,7 +1735,7 @@
           <td class="commentary-cell" data-val="Frankfurt move into a 3-1 lead through a Wilfried Singo header." data-label="Commentary"><span class="commentary">Frankfurt move into a 3-1 lead through a Wilfried Singo header.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-09-18" data-event-id="sr:sport_event:63369695" data-og-player="Chatzidiakos, Pantelis" data-og-team="FC Copenhagen">
           <td class="num" data-val="47" data-label="#">47</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -1584,7 +1759,7 @@
           <td class="commentary-cell" data-val="Pantelis Chatzidiakos blunders with an own goal. This makes it 2-2." data-label="Commentary"><span class="commentary">Pantelis Chatzidiakos blunders with an own goal. This makes it 2-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2025-09-19" data-event-id="sr:sport_event:61624022" data-og-player="Remiro, Alex" data-og-team="Real Sociedad San Sebastian">
           <td class="num" data-val="48" data-label="#">48</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -1608,7 +1783,7 @@
           <td class="commentary-cell" data-val="Alex Remiro heads in to make it 2-1 at Benito Villamarin." data-label="Commentary"><span class="commentary">Alex Remiro heads in to make it 2-1 at Benito Villamarin.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-09-20" data-event-id="sr:sport_event:61300593" data-og-player="Pinnock, Ethan" data-og-team="Brentford FC">
           <td class="num" data-val="49" data-label="#">49</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -1632,7 +1807,7 @@
           <td class="commentary-cell" data-val="It's now 3-1 thanks to an own goal from Ethan Pinnock." data-label="Commentary"><span class="commentary">It's now 3-1 thanks to an own goal from Ethan Pinnock.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2025-09-20" data-event-id="sr:sport_event:61513670" data-og-player="Coulibaly, Karim" data-og-team="Werder Bremen">
           <td class="num" data-val="50" data-label="#">50</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -1656,7 +1831,7 @@
           <td class="commentary-cell" data-val="Own goal! Karim Coulibaly scores in his own net to make it 0-3." data-label="Commentary"><span class="commentary">Own goal! Karim Coulibaly scores in his own net to make it 0-3.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-09-20" data-event-id="sr:sport_event:61300589" data-og-player="Van Hecke, Jan Paul" data-og-team="Brighton &amp; Hove Albion">
           <td class="num" data-val="51" data-label="#">51</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -1680,7 +1855,7 @@
           <td class="commentary-cell" data-val="Jan Paul Van Hecke blunders with an own goal. This makes it 2-2." data-label="Commentary"><span class="commentary">Jan Paul Van Hecke blunders with an own goal. This makes it 2-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2025-09-21" data-event-id="sr:sport_event:61060769" data-og-player="Muharemovic, Tarik" data-og-team="Sassuolo Calcio">
           <td class="num" data-val="52" data-label="#">52</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -1704,7 +1879,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Tarik Muharemovic makes the score 2-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by Tarik Muharemovic makes the score 2-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-09-21" data-event-id="sr:sport_event:61526058" data-og-player="Kouao, Koffi" data-og-team="FC Metz">
           <td class="num" data-val="53" data-label="#">53</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -1728,7 +1903,7 @@
           <td class="commentary-cell" data-val="It's now 4-2 thanks to an own goal from Koffi Kouao." data-label="Commentary"><span class="commentary">It's now 4-2 thanks to an own goal from Koffi Kouao.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-09-22" data-event-id="sr:sport_event:61526062" data-og-player="Marquinhos" data-og-team="Paris Saint-Germain">
           <td class="num" data-val="54" data-label="#">54</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -1752,7 +1927,7 @@
           <td class="commentary-cell" data-val="Goal! Marquinhos heads Marseille into a 1-0 lead." data-label="Commentary"><span class="commentary">Goal! Marquinhos heads Marseille into a 1-0 lead.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-09-24" data-event-id="sr:sport_event:63377751" data-og-player="Christensen, Oliver" data-og-team="SK Sturm Graz">
           <td class="num" data-val="55" data-label="#">55</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -1776,7 +1951,7 @@
           <td class="commentary-cell" data-val="Goal! Oliver Christensen gives Midtjylland a 1-0 lead in Herning." data-label="Commentary"><span class="commentary">Goal! Oliver Christensen gives Midtjylland a 1-0 lead in Herning.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-09-27" data-event-id="sr:sport_event:61300619" data-og-player="Esteve, Maxime" data-og-team="Burnley FC">
           <td class="num" data-val="56" data-label="#">56</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -1800,7 +1975,7 @@
           <td class="commentary-cell" data-val="Maxime Esteve is on target to give Man City a 1-0 advantage." data-label="Commentary"><span class="commentary">Maxime Esteve is on target to give Man City a 1-0 advantage.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-09-27" data-event-id="sr:sport_event:61300619" data-og-player="Esteve, Maxime" data-og-team="Burnley FC">
           <td class="num" data-val="57" data-label="#">57</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -1824,7 +1999,7 @@
           <td class="commentary-cell" data-val="Goal! Maxime Esteve extends Man City's lead to 3-1." data-label="Commentary"><span class="commentary">Goal! Maxime Esteve extends Man City's lead to 3-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-09-30" data-event-id="sr:sport_event:63369737" data-og-player="Rios, Richard" data-og-team="SL Benfica">
           <td class="num" data-val="58" data-label="#">58</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -1848,7 +2023,7 @@
           <td class="commentary-cell" data-val="Richard Rios blunders with an own goal. This makes it 1-0." data-label="Commentary"><span class="commentary">Richard Rios blunders with an own goal. This makes it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-09-30" data-event-id="sr:sport_event:63369741" data-og-player="Gundersen, Jostein" data-og-team="Bodoe/Glimt">
           <td class="num" data-val="59" data-label="#">59</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -1872,7 +2047,7 @@
           <td class="commentary-cell" data-val="Jostein Gundersen is on target to level the scores at 2-2." data-label="Commentary"><span class="commentary">Jostein Gundersen is on target to level the scores at 2-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-10-02" data-event-id="sr:sport_event:63377469" data-og-player="Yirajang, Alasana" data-og-team="SK Slovan Bratislava">
           <td class="num" data-val="60" data-label="#">60</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -1896,7 +2071,7 @@
           <td class="commentary-cell" data-val="Own goal! Alasana Yirajang scores in his own net to make it 0-1." data-label="Commentary"><span class="commentary">Own goal! Alasana Yirajang scores in his own net to make it 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-10-02" data-event-id="sr:sport_event:63377799" data-og-player="Son" data-og-team="PFC Ludogorets 1945 Razgrad">
           <td class="num" data-val="61" data-label="#">61</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -1920,7 +2095,7 @@
           <td class="commentary-cell" data-val="Own goal! Son has scored at the wrong end to make it 0-2." data-label="Commentary"><span class="commentary">Own goal! Son has scored at the wrong end to make it 0-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2025-10-05" data-event-id="sr:sport_event:61624086" data-og-player="Starfelt, Carl" data-og-team="RC Celta de Vigo">
           <td class="num" data-val="62" data-label="#">62</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -1944,7 +2119,7 @@
           <td class="commentary-cell" data-val="Carl Starfelt has the misfortune to make it 0-1 through an own goal." data-label="Commentary"><span class="commentary">Carl Starfelt has the misfortune to make it 0-1 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-10-05" data-event-id="sr:sport_event:61300645" data-og-player="Verbruggen, Bart" data-og-team="Brighton &amp; Hove Albion">
           <td class="num" data-val="63" data-label="#">63</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -1968,7 +2143,7 @@
           <td class="commentary-cell" data-val="Bart Verbruggen puts the ball in the net and the home team now lead 1-0." data-label="Commentary"><span class="commentary">Bart Verbruggen puts the ball in the net and the home team now lead 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-10-05" data-event-id="sr:sport_event:61526086" data-og-player="Mata, Clinton" data-og-team="Olympique Lyon">
           <td class="num" data-val="64" data-label="#">64</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -1992,7 +2167,7 @@
           <td class="commentary-cell" data-val="Clinton Mata grabs a goal to bring things level at 1-1 at Groupama Stadium." data-label="Commentary"><span class="commentary">Clinton Mata grabs a goal to bring things level at 1-1 at Groupama Stadium.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-10-18" data-event-id="sr:sport_event:61300661" data-og-player="Krejci, Ladislav" data-og-team="Wolverhampton Wanderers">
           <td class="num" data-val="65" data-label="#">65</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -2016,7 +2191,7 @@
           <td class="commentary-cell" data-val="Ladislav Krejci has the misfortune to make it 2-0 through an own goal." data-label="Commentary"><span class="commentary">Ladislav Krejci has the misfortune to make it 2-0 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-10-19" data-event-id="sr:sport_event:61526110" data-og-player="Makengo, Jean-Victor" data-og-team="FC Lorient">
           <td class="num" data-val="66" data-label="#">66</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -2040,7 +2215,7 @@
           <td class="commentary-cell" data-val="It's now 1-2 thanks to an own goal from Jean-Victor Makengo." data-label="Commentary"><span class="commentary">It's now 1-2 thanks to an own goal from Jean-Victor Makengo.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-10-21" data-event-id="sr:sport_event:63369781" data-og-player="Anton, Waldemar" data-og-team="Borussia Dortmund">
           <td class="num" data-val="67" data-label="#">67</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -2064,7 +2239,7 @@
           <td class="commentary-cell" data-val="Waldemar Anton scores an unfortunate own goal. This makes it 1-1 at Parken Stadium." data-label="Commentary"><span class="commentary">Waldemar Anton scores an unfortunate own goal. This makes it 1-1 at Parken Stadium.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-10-21" data-event-id="sr:sport_event:63369785" data-og-player="Buongiorno, Alessandro" data-og-team="SSC Napoli">
           <td class="num" data-val="68" data-label="#">68</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -2088,7 +2263,7 @@
           <td class="commentary-cell" data-val="Alessandro Buongiorno levels the score at 1-1." data-label="Commentary"><span class="commentary">Alessandro Buongiorno levels the score at 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-10-23" data-event-id="sr:sport_event:63377843" data-og-player="Peprah Oppong, Kojo" data-og-team="OGC Nice">
           <td class="num" data-val="69" data-label="#">69</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -2112,7 +2287,7 @@
           <td class="commentary-cell" data-val="Goal! The home team take a 2-1 lead through Kojo Peprah Oppong." data-label="Commentary"><span class="commentary">Goal! The home team take a 2-1 lead through Kojo Peprah Oppong.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-10-23" data-event-id="sr:sport_event:63377485" data-og-player="Barrett, Patrick" data-og-team="Shelbourne FC">
           <td class="num" data-val="70" data-label="#">70</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -2136,7 +2311,7 @@
           <td class="commentary-cell" data-val="Own goal in Skopje! Patrick Barrett scores in his own net to make it 1-0." data-label="Commentary"><span class="commentary">Own goal in Skopje! Patrick Barrett scores in his own net to make it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-10-25" data-event-id="sr:sport_event:61300681" data-og-player="Casemiro" data-og-team="Brighton &amp; Hove Albion">
           <td class="num" data-val="71" data-label="#">71</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -2160,7 +2335,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Casemiro makes the score 2-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by Casemiro makes the score 2-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-10-25" data-event-id="sr:sport_event:61526136" data-og-player="Pavard, Benjamin" data-og-team="Olympique Marseille">
           <td class="num" data-val="72" data-label="#">72</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -2184,7 +2359,7 @@
           <td class="commentary-cell" data-val="Benjamin Pavard has the misfortune to make it 2-1 through an own goal." data-label="Commentary"><span class="commentary">Benjamin Pavard has the misfortune to make it 2-1 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-10-26" data-event-id="sr:sport_event:61526122" data-og-player="Doukoure, Ismael" data-og-team="Strasbourg Alsace">
           <td class="num" data-val="73" data-label="#">73</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -2208,7 +2383,7 @@
           <td class="commentary-cell" data-val="Ismael Doukoure has the misfortune to make it 1-1 through an own goal." data-label="Commentary"><span class="commentary">Ismael Doukoure has the misfortune to make it 1-1 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2025-10-26" data-event-id="sr:sport_event:61060855" data-og-player="Sabelli, Stefano" data-og-team="Genoa CFC">
           <td class="num" data-val="74" data-label="#">74</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -2232,7 +2407,7 @@
           <td class="commentary-cell" data-val="It's now 1-1 thanks to an own goal from Stefano Sabelli." data-label="Commentary"><span class="commentary">It's now 1-1 thanks to an own goal from Stefano Sabelli.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2025-11-01" data-event-id="sr:sport_event:61513752" data-og-player="Bade, Loic" data-og-team="Bayer Leverkusen">
           <td class="num" data-val="75" data-label="#">75</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -2256,7 +2431,7 @@
           <td class="commentary-cell" data-val="Own goal in Munich! Loic Bade scores in his own net to make it 3-0." data-label="Commentary"><span class="commentary">Own goal in Munich! Loic Bade scores in his own net to make it 3-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2025-11-01" data-event-id="sr:sport_event:61513756" data-og-player="Chabot, Julian" data-og-team="VfB Stuttgart">
           <td class="num" data-val="76" data-label="#">76</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -2280,7 +2455,7 @@
           <td class="commentary-cell" data-val="Own goal! Julian Chabot has scored at the wrong end to make it 1-0." data-label="Commentary"><span class="commentary">Own goal! Julian Chabot has scored at the wrong end to make it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-11-01" data-event-id="sr:sport_event:61300691" data-og-player="Collins, Nathan" data-og-team="Brentford FC">
           <td class="num" data-val="77" data-label="#">77</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -2304,7 +2479,7 @@
           <td class="commentary-cell" data-val="Nathan Collins blunders with an own goal. This makes it 2-0." data-label="Commentary"><span class="commentary">Nathan Collins blunders with an own goal. This makes it 2-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-11-01" data-event-id="sr:sport_event:61300693" data-og-player="Mosquera, Yerson" data-og-team="Wolverhampton Wanderers">
           <td class="num" data-val="78" data-label="#">78</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -2328,7 +2503,7 @@
           <td class="commentary-cell" data-val="It's now 3-0 thanks to an own goal from Yerson Mosquera." data-label="Commentary"><span class="commentary">It's now 3-0 thanks to an own goal from Yerson Mosquera.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-11-02" data-event-id="sr:sport_event:61300705" data-og-player="Botman, Sven" data-og-team="Newcastle United">
           <td class="num" data-val="79" data-label="#">79</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -2352,7 +2527,7 @@
           <td class="commentary-cell" data-val="Sven Botman blunders with an own goal. This makes it 2-1." data-label="Commentary"><span class="commentary">Sven Botman blunders with an own goal. This makes it 2-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2025-11-02" data-event-id="sr:sport_event:61060909" data-og-player="Frese, Martin" data-og-team="Hellas Verona">
           <td class="num" data-val="80" data-label="#">80</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -2376,7 +2551,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Martin Frese makes the score 1-2." data-label="Commentary"><span class="commentary">An unfortunate own goal by Martin Frese makes the score 1-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2025-11-03" data-event-id="sr:sport_event:64620734" data-og-player="Digie, Kennedy" data-og-team="Tamworth FC">
           <td class="num" data-val="81" data-label="#">81</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -2400,7 +2575,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-11-05" data-event-id="sr:sport_event:63369839" data-og-player="Tzolis, Christos" data-og-team="Club Brugge">
           <td class="num" data-val="82" data-label="#">82</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -2424,7 +2599,7 @@
           <td class="commentary-cell" data-val="Goal! The away team draw level at 3-3 through Christos Tzolis." data-label="Commentary"><span class="commentary">Goal! The away team draw level at 3-3 through Christos Tzolis.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-11-06" data-event-id="sr:sport_event:63377863" data-og-player="Dominguez, Sergi" data-og-team="GNK Dinamo Zagreb">
           <td class="num" data-val="83" data-label="#">83</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -2448,7 +2623,7 @@
           <td class="commentary-cell" data-val="Goal! Sergi Dominguez extends Celta Vigo's lead to 0-2." data-label="Commentary"><span class="commentary">Goal! Sergi Dominguez extends Celta Vigo's lead to 0-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2025-11-08" data-event-id="sr:sport_event:61624160" data-og-player="De La Fuente, Adrian" data-og-team="Levante UD">
           <td class="num" data-val="84" data-label="#">84</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -2472,7 +2647,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Adrian De La Fuente makes the score 1-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by Adrian De La Fuente makes the score 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-11-09" data-event-id="sr:sport_event:61526182" data-og-player="Akpa, Clement" data-og-team="AJ Auxerre">
           <td class="num" data-val="85" data-label="#">85</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -2496,7 +2671,7 @@
           <td class="commentary-cell" data-val="Clement Akpa puts the ball in the net and the home team now lead 1-0." data-label="Commentary"><span class="commentary">Clement Akpa puts the ball in the net and the home team now lead 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2025-11-21" data-event-id="sr:sport_event:61513792" data-og-player="Hanche-Olsen, Andreas" data-og-team="FSV Mainz">
           <td class="num" data-val="86" data-label="#">86</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -2520,7 +2695,7 @@
           <td class="commentary-cell" data-val="Andreas Hanche-Olsen scores an unfortunate own goal. This makes it 0-1 at Mewa Arena." data-label="Commentary"><span class="commentary">Andreas Hanche-Olsen scores an unfortunate own goal. This makes it 0-1 at Mewa Arena.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-11-23" data-event-id="sr:sport_event:61526198" data-og-player="Awaziem, Chidozie" data-og-team="FC Nantes">
           <td class="num" data-val="87" data-label="#">87</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -2544,7 +2719,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Chidozie Awaziem makes the score 0-1." data-label="Commentary"><span class="commentary">An unfortunate own goal by Chidozie Awaziem makes the score 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-11-23" data-event-id="sr:sport_event:61526202" data-og-player="Coulibaly, Soumaila" data-og-team="Stade Brest 29">
           <td class="num" data-val="88" data-label="#">88</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -2568,7 +2743,7 @@
           <td class="commentary-cell" data-val="Own goal! Soumaila Coulibaly scores in his own net to make it 2-2." data-label="Commentary"><span class="commentary">Own goal! Soumaila Coulibaly scores in his own net to make it 2-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2025-11-23" data-event-id="sr:sport_event:61624192" data-og-player="Duarte, Domingos" data-og-team="Getafe CF">
           <td class="num" data-val="89" data-label="#">89</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -2592,7 +2767,7 @@
           <td class="commentary-cell" data-val="Domingos Duarte scores an unfortunate own goal. This makes it 0-1 at Coliseum Alfonso Pérez." data-label="Commentary"><span class="commentary">Domingos Duarte scores an unfortunate own goal. This makes it 0-1 at Coliseum Alfonso Pérez.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2025-11-24" data-event-id="sr:sport_event:61624184" data-og-player="Marcao" data-og-team="Espanyol Barcelona">
           <td class="num" data-val="90" data-label="#">90</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -2616,7 +2791,7 @@
           <td class="commentary-cell" data-val="It's now 2-1 thanks to an own goal from Marcao." data-label="Commentary"><span class="commentary">It's now 2-1 thanks to an own goal from Marcao.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-11-25" data-event-id="sr:sport_event:63369859" data-og-player="Kounde, Jules" data-og-team="FC Barcelona">
           <td class="num" data-val="91" data-label="#">91</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -2640,7 +2815,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Jules Kounde makes the score 1-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by Jules Kounde makes the score 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-11-25" data-event-id="sr:sport_event:63369869" data-og-player="Jankovic, Marko" data-og-team="Qarabag FK">
           <td class="num" data-val="92" data-label="#">92</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -2664,7 +2839,7 @@
           <td class="commentary-cell" data-val="Marko Jankovic scores an unfortunate own goal. This makes it 2-0 at Stadio Diego Armando Maradona." data-label="Commentary"><span class="commentary">Marko Jankovic scores an unfortunate own goal. This makes it 2-0 at Stadio Diego Armando Maradona.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-11-26" data-event-id="sr:sport_event:63369873" data-og-player="Salisu, Mohammed" data-og-team="AS Monaco">
           <td class="num" data-val="93" data-label="#">93</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -2688,7 +2863,7 @@
           <td class="commentary-cell" data-val="Mohammed Salisu (Pafos) nets with a header to make it 2-2 at Alphamega Stadium." data-label="Commentary"><span class="commentary">Mohammed Salisu (Pafos) nets with a header to make it 2-2 at Alphamega Stadium.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2025-11-29" data-event-id="sr:sport_event:61513820" data-og-player="Zesiger, Cedric" data-og-team="FC Augsburg">
           <td class="num" data-val="94" data-label="#">94</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -2712,7 +2887,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Cedric Zesiger makes the score 3-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by Cedric Zesiger makes the score 3-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-11-30" data-event-id="sr:sport_event:61526228" data-og-player="Ebong, Arthur Avom" data-og-team="FC Lorient">
           <td class="num" data-val="95" data-label="#">95</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -2736,7 +2911,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Arthur Avom Ebong makes the score 0-1." data-label="Commentary"><span class="commentary">An unfortunate own goal by Arthur Avom Ebong makes the score 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-12-02" data-event-id="sr:sport_event:61300783" data-og-player="Berge, Sander" data-og-team="Fulham FC">
           <td class="num" data-val="96" data-label="#">96</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -2760,7 +2935,7 @@
           <td class="commentary-cell" data-val="Sander Berge puts the ball in the net and the away team extend their lead. The score-line now reads 1-5." data-label="Commentary"><span class="commentary">Sander Berge puts the ball in the net and the away team extend their lead. The score-line now reads 1-5.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-12-03" data-event-id="sr:sport_event:61300779" data-og-player="Torres, Pau" data-og-team="Aston Villa">
           <td class="num" data-val="97" data-label="#">97</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -2784,7 +2959,7 @@
           <td class="commentary-cell" data-val="Pau Torres scores an unfortunate own goal. This makes it 2-0 at American Express Community Stadium." data-label="Commentary"><span class="commentary">Pau Torres scores an unfortunate own goal. This makes it 2-0 at American Express Community Stadium.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-12-03" data-event-id="sr:sport_event:61300791" data-og-player="Mukiele, Nordi" data-og-team="Sunderland AFC">
           <td class="num" data-val="98" data-label="#">98</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -2808,7 +2983,7 @@
           <td class="commentary-cell" data-val="Goal! Nordi Mukiele levels the match at 1-1." data-label="Commentary"><span class="commentary">Goal! Nordi Mukiele levels the match at 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2025-12-05" data-event-id="sr:sport_event:65271068" data-og-player="Cahill, Killian" data-og-team="Leyton Orient London">
           <td class="num" data-val="99" data-label="#">99</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -2832,7 +3007,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2025-12-05" data-event-id="sr:sport_event:61513826" data-og-player="da Costa, Danny" data-og-team="FSV Mainz">
           <td class="num" data-val="100" data-label="#">100</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -2856,7 +3031,7 @@
           <td class="commentary-cell" data-val="Danny da Costa blunders with an own goal. This makes it 0-1." data-label="Commentary"><span class="commentary">Danny da Costa blunders with an own goal. This makes it 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-12-06" data-event-id="sr:sport_event:61300801" data-og-player="Milenkovic, Nikola" data-og-team="Nottingham Forest">
           <td class="num" data-val="101" data-label="#">101</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -2880,7 +3055,7 @@
           <td class="commentary-cell" data-val="Nikola Milenkovic blunders with an own goal. This makes it 1-0." data-label="Commentary"><span class="commentary">Nikola Milenkovic blunders with an own goal. This makes it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-12-07" data-event-id="sr:sport_event:61526238" data-og-player="El Azzouzi, Oussama" data-og-team="FC Metz">
           <td class="num" data-val="102" data-label="#">102</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -2904,7 +3079,7 @@
           <td class="commentary-cell" data-val="Goal! Auxerre extend their lead to 2-0 through Oussama El Azzouzi." data-label="Commentary"><span class="commentary">Goal! Auxerre extend their lead to 2-0 through Oussama El Azzouzi.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2025-12-07" data-event-id="sr:sport_event:61624236" data-og-player="Tarrega, Cesar" data-og-team="Valencia CF">
           <td class="num" data-val="103" data-label="#">103</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -2928,7 +3103,7 @@
           <td class="commentary-cell" data-val="Cesar Tarrega scores to make it 0-1 at Mestalla." data-label="Commentary"><span class="commentary">Cesar Tarrega scores to make it 0-1 at Mestalla.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-12-09" data-event-id="sr:sport_event:63369913" data-og-player="Zima, David" data-og-team="Slavia Prague">
           <td class="num" data-val="104" data-label="#">104</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -2952,7 +3127,7 @@
           <td class="commentary-cell" data-val="Own goal! David Zima scores in his own net to make it 1-0." data-label="Commentary"><span class="commentary">Own goal! David Zima scores in his own net to make it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-12-09" data-event-id="sr:sport_event:63369899" data-og-player="Kimmich, Joshua" data-og-team="Bayern Munich">
           <td class="num" data-val="105" data-label="#">105</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -2976,7 +3151,7 @@
           <td class="commentary-cell" data-val="It's now 0-1 thanks to an own goal from Joshua Kimmich." data-label="Commentary"><span class="commentary">It's now 0-1 thanks to an own goal from Joshua Kimmich.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2025-12-10" data-event-id="sr:sport_event:63369921" data-og-player="Guimaraes, Bruno" data-og-team="Newcastle United">
           <td class="num" data-val="106" data-label="#">106</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -3000,7 +3175,7 @@
           <td class="commentary-cell" data-val="Leverkusen's Bruno Guimaraes scores with his head to give his side a 1-0 lead." data-label="Commentary"><span class="commentary">Leverkusen's Bruno Guimaraes scores with his head to give his side a 1-0 lead.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-12-11" data-event-id="sr:sport_event:63377593" data-og-player="Moukoudi, Harold" data-og-team="AEK Athens">
           <td class="num" data-val="107" data-label="#">107</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -3024,7 +3199,7 @@
           <td class="commentary-cell" data-val="Samsunspor take a 1-0 lead thanks to Harold Moukoudi." data-label="Commentary"><span class="commentary">Samsunspor take a 1-0 lead thanks to Harold Moukoudi.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-12-11" data-event-id="sr:sport_event:63377955" data-og-player="Scales, Liam" data-og-team="Celtic Glasgow">
           <td class="num" data-val="108" data-label="#">108</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -3048,7 +3223,7 @@
           <td class="commentary-cell" data-val="Liam Scales blunders with an own goal. This makes it 0-1." data-label="Commentary"><span class="commentary">Liam Scales blunders with an own goal. This makes it 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-12-11" data-event-id="sr:sport_event:63377607" data-og-player="Koutny, Jan" data-og-team="SK Sigma Olomouc">
           <td class="num" data-val="109" data-label="#">109</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -3072,7 +3247,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Jan Koutny makes the score 1-1." data-label="Commentary"><span class="commentary">An unfortunate own goal by Jan Koutny makes the score 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-12-11" data-event-id="sr:sport_event:63377931" data-og-player="Dominguez, Sergi" data-og-team="GNK Dinamo Zagreb">
           <td class="num" data-val="110" data-label="#">110</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -3096,7 +3271,7 @@
           <td class="commentary-cell" data-val="It's now 0-1 thanks to an own goal from Sergi Dominguez." data-label="Commentary"><span class="commentary">It's now 0-1 thanks to an own goal from Sergi Dominguez.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-12-11" data-event-id="sr:sport_event:63377595" data-og-player="Bajric, Kenan" data-og-team="SK Slovan Bratislava">
           <td class="num" data-val="111" data-label="#">111</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -3120,7 +3295,7 @@
           <td class="commentary-cell" data-val="Kenan Bajric scores an unfortunate own goal. This makes it 1-0 at Tose Proeski National Arena." data-label="Commentary"><span class="commentary">Kenan Bajric scores an unfortunate own goal. This makes it 1-0 at Tose Proeski National Arena.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-12-11" data-event-id="sr:sport_event:63377587" data-og-player="Helander, Filip" data-og-team="BK Hacken">
           <td class="num" data-val="112" data-label="#">112</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -3144,7 +3319,7 @@
           <td class="commentary-cell" data-val="Filip Helander puts the ball in the net and the away team now lead 0-1." data-label="Commentary"><span class="commentary">Filip Helander puts the ball in the net and the away team now lead 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-12-11" data-event-id="sr:sport_event:63377957" data-og-player="Moura, Francisco" data-og-team="FC Porto">
           <td class="num" data-val="113" data-label="#">113</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -3168,7 +3343,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Francisco Moura makes the score 2-1." data-label="Commentary"><span class="commentary">An unfortunate own goal by Francisco Moura makes the score 2-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2025-12-13" data-event-id="sr:sport_event:61624250" data-og-player="Maffeo, Pablo" data-og-team="RCD Mallorca">
           <td class="num" data-val="114" data-label="#">114</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -3192,7 +3367,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Pablo Maffeo makes the score 1-1." data-label="Commentary"><span class="commentary">An unfortunate own goal by Pablo Maffeo makes the score 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2025-12-13" data-event-id="sr:sport_event:61513852" data-og-player="Koulierakis, Konstantinos" data-og-team="VFL Wolfsburg">
           <td class="num" data-val="115" data-label="#">115</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -3216,7 +3391,7 @@
           <td class="commentary-cell" data-val="Konstantinos Koulierakis scores an unfortunate own goal. This makes it 1-1 at Borussia-Park." data-label="Commentary"><span class="commentary">Konstantinos Koulierakis scores an unfortunate own goal. This makes it 1-1 at Borussia-Park.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-12-13" data-event-id="sr:sport_event:61300815" data-og-player="Johnstone, Sam" data-og-team="Wolverhampton Wanderers">
           <td class="num" data-val="116" data-label="#">116</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -3240,7 +3415,7 @@
           <td class="commentary-cell" data-val="Own goal! Sam Johnstone has scored at the wrong end to make it 1-0." data-label="Commentary"><span class="commentary">Own goal! Sam Johnstone has scored at the wrong end to make it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-12-13" data-event-id="sr:sport_event:61300815" data-og-player="Mosquera, Yerson" data-og-team="Wolverhampton Wanderers">
           <td class="num" data-val="117" data-label="#">117</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -3264,7 +3439,7 @@
           <td class="commentary-cell" data-val="Yerson Mosquera scores with a header and the home team now lead 2-1." data-label="Commentary"><span class="commentary">Yerson Mosquera scores with a header and the home team now lead 2-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-12-14" data-event-id="sr:sport_event:61300833" data-og-player="Mavropanos, Konstantinos" data-og-team="West Ham United">
           <td class="num" data-val="118" data-label="#">118</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -3288,7 +3463,7 @@
           <td class="commentary-cell" data-val="Goal! Konstantinos Mavropanos (Aston Villa) levels the score at 1-1 with a header." data-label="Commentary"><span class="commentary">Goal! Konstantinos Mavropanos (Aston Villa) levels the score at 1-1 with a header.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-12-14" data-event-id="sr:sport_event:61300831" data-og-player="Woltemade, Nick" data-og-team="Newcastle United">
           <td class="num" data-val="119" data-label="#">119</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -3312,7 +3487,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Nick Woltemade makes the score 1-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by Nick Woltemade makes the score 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2025-12-14" data-event-id="sr:sport_event:61526256" data-og-player="Mbemba, Chancel" data-og-team="Lille OSC">
           <td class="num" data-val="120" data-label="#">120</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -3336,7 +3511,7 @@
           <td class="commentary-cell" data-val="Own goal! Chancel Mbemba has scored at the wrong end to make it 2-1." data-label="Commentary"><span class="commentary">Own goal! Chancel Mbemba has scored at the wrong end to make it 2-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2025-12-14" data-event-id="sr:sport_event:61061097" data-og-player="Nunez, Unai" data-og-team="Hellas Verona">
           <td class="num" data-val="121" data-label="#">121</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -3360,7 +3535,7 @@
           <td class="commentary-cell" data-val="Unai Nunez blunders with an own goal. This makes it 1-1." data-label="Commentary"><span class="commentary">Unai Nunez blunders with an own goal. This makes it 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-12-18" data-event-id="sr:sport_event:63377655" data-og-player="Cvetkovic, Nenad" data-og-team="SK Rapid">
           <td class="num" data-val="122" data-label="#">122</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -3384,7 +3559,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Nenad Cvetkovic makes the score 1-1." data-label="Commentary"><span class="commentary">An unfortunate own goal by Nenad Cvetkovic makes the score 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2025-12-20" data-event-id="sr:sport_event:61513868" data-og-player="Seelt, Jenson" data-og-team="VFL Wolfsburg">
           <td class="num" data-val="123" data-label="#">123</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -3408,7 +3583,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Jenson Seelt makes the score 3-3." data-label="Commentary"><span class="commentary">An unfortunate own goal by Jenson Seelt makes the score 3-3.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-12-27" data-event-id="sr:sport_event:61300857" data-og-player="Petrovic, Djordje" data-og-team="AFC Bournemouth">
           <td class="num" data-val="124" data-label="#">124</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -3432,7 +3607,7 @@
           <td class="commentary-cell" data-val="Goal! Djordje Petrovic extends Brentford's lead to 2-0." data-label="Commentary"><span class="commentary">Goal! Djordje Petrovic extends Brentford's lead to 2-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2025-12-27" data-event-id="sr:sport_event:61300855" data-og-player="Rutter, Georginio" data-og-team="Brighton &amp; Hove Albion">
           <td class="num" data-val="125" data-label="#">125</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -3456,7 +3631,7 @@
           <td class="commentary-cell" data-val="Georginio Rutter has the misfortune to make it 2-0 through an own goal." data-label="Commentary"><span class="commentary">Georginio Rutter has the misfortune to make it 2-0 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2025-12-27" data-event-id="sr:sport_event:61061251" data-og-player="Solet, Oumar" data-og-team="Udinese Calcio">
           <td class="num" data-val="126" data-label="#">126</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -3480,7 +3655,7 @@
           <td class="commentary-cell" data-val="Oumar Solet blunders with an own goal. This makes it 0-1." data-label="Commentary"><span class="commentary">Oumar Solet blunders with an own goal. This makes it 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-01-06" data-event-id="sr:sport_event:61300931" data-og-player="Murillo" data-og-team="Nottingham Forest">
           <td class="num" data-val="127" data-label="#">127</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -3504,7 +3679,7 @@
           <td class="commentary-cell" data-val="Murillo blunders with an own goal. This makes it 1-0." data-label="Commentary"><span class="commentary">Murillo blunders with an own goal. This makes it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-01-06" data-event-id="sr:sport_event:61061305" data-og-player="Muharemovic, Tarik" data-og-team="Sassuolo Calcio">
           <td class="num" data-val="128" data-label="#">128</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -3528,7 +3703,7 @@
           <td class="commentary-cell" data-val="Tarik Muharemovic blunders with an own goal. This makes it 0-1." data-label="Commentary"><span class="commentary">Tarik Muharemovic blunders with an own goal. This makes it 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-01-07" data-event-id="sr:sport_event:61300923" data-og-player="Heaven, Ayden" data-og-team="Manchester United">
           <td class="num" data-val="129" data-label="#">129</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -3552,7 +3727,7 @@
           <td class="commentary-cell" data-val="Own goal! Ayden Heaven has scored at the wrong end to make it 1-0." data-label="Commentary"><span class="commentary">Own goal! Ayden Heaven has scored at the wrong end to make it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2026-01-10" data-event-id="sr:sport_event:66577570" data-og-player="O&#x27;Connell, Charlie" data-og-team="Boreham Wood FC">
           <td class="num" data-val="130" data-label="#">130</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -3576,7 +3751,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2026-01-10" data-event-id="sr:sport_event:66577242" data-og-player="Doyle-Hayes, Jake" data-og-team="Exeter City">
           <td class="num" data-val="131" data-label="#">131</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -3600,7 +3775,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2026-01-10" data-event-id="sr:sport_event:66577242" data-og-player="Fitzwater, Jack" data-og-team="Exeter City">
           <td class="num" data-val="132" data-label="#">132</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -3624,7 +3799,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Jack Fitzwater makes the score 4-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by Jack Fitzwater makes the score 4-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-01-11" data-event-id="sr:sport_event:61513878" data-og-player="Fischer, Kilian" data-og-team="VFL Wolfsburg">
           <td class="num" data-val="133" data-label="#">133</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -3648,7 +3823,7 @@
           <td class="commentary-cell" data-val="Kilian Fischer scores an unfortunate own goal. This makes it 1-0 at Allianz Arena." data-label="Commentary"><span class="commentary">Kilian Fischer scores an unfortunate own goal. This makes it 1-0 at Allianz Arena.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2026-01-11" data-event-id="sr:sport_event:66577258" data-og-player="Dozzell, Andre" data-og-team="Portsmouth FC">
           <td class="num" data-val="134" data-label="#">134</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -3672,7 +3847,7 @@
           <td class="commentary-cell" data-val="Andre Dozzell has the misfortune to make it 1-1 through an own goal." data-label="Commentary"><span class="commentary">Andre Dozzell has the misfortune to make it 1-1 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-01-11" data-event-id="sr:sport_event:61513878" data-og-player="Jenz, Moritz" data-og-team="VFL Wolfsburg">
           <td class="num" data-val="135" data-label="#">135</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -3696,7 +3871,7 @@
           <td class="commentary-cell" data-val="Great finish from Moritz Jenz to give Bayern Munich a 4-1 lead." data-label="Commentary"><span class="commentary">Great finish from Moritz Jenz to give Bayern Munich a 4-1 lead.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-01-11" data-event-id="sr:sport_event:61061337" data-og-player="Tiago Gabriel" data-og-team="US Lecce">
           <td class="num" data-val="136" data-label="#">136</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -3720,7 +3895,7 @@
           <td class="commentary-cell" data-val="Tiago Gabriel blunders with an own goal. This makes it 1-1." data-label="Commentary"><span class="commentary">Tiago Gabriel blunders with an own goal. This makes it 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2026-01-11" data-event-id="sr:sport_event:66577284" data-og-player="Moriah-Welsh, Nathan" data-og-team="Mansfield Town">
           <td class="num" data-val="137" data-label="#">137</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -3744,7 +3919,7 @@
           <td class="commentary-cell" data-val="Nathan Moriah-Welsh blunders with an own goal. This makes it 3-4." data-label="Commentary"><span class="commentary">Nathan Moriah-Welsh blunders with an own goal. This makes it 3-4.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-01-11" data-event-id="sr:sport_event:61061343" data-og-player="Nelsson, Victor" data-og-team="Hellas Verona">
           <td class="num" data-val="138" data-label="#">138</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -3768,7 +3943,7 @@
           <td class="commentary-cell" data-val="Victor Nelsson scores an unfortunate own goal. This makes it 0-1 at Stadio Marcantonio Bentegodi." data-label="Commentary"><span class="commentary">Victor Nelsson scores an unfortunate own goal. This makes it 0-1 at Stadio Marcantonio Bentegodi.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-01-12" data-event-id="sr:sport_event:61061335" data-og-player="Terracciano, Filippo" data-og-team="US Cremonese">
           <td class="num" data-val="139" data-label="#">139</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -3792,7 +3967,7 @@
           <td class="commentary-cell" data-val="Goal! Filippo Terracciano extends Juventus's lead to 4-0." data-label="Commentary"><span class="commentary">Goal! Filippo Terracciano extends Juventus's lead to 4-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-01-15" data-event-id="sr:sport_event:64321031" data-og-player="Freuler, Remo" data-og-team="Bologna FC">
           <td class="num" data-val="140" data-label="#">140</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -3816,7 +3991,7 @@
           <td class="commentary-cell" data-val="It's now 2-3 thanks to an own goal from Remo Freuler." data-label="Commentary"><span class="commentary">It's now 2-3 thanks to an own goal from Remo Freuler.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2026-01-20" data-event-id="sr:sport_event:63369959" data-og-player="Kehrer, Thilo" data-og-team="AS Monaco">
           <td class="num" data-val="141" data-label="#">141</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -3840,7 +4015,7 @@
           <td class="commentary-cell" data-val="Thilo Kehrer has the misfortune to make it 4-0 through an own goal." data-label="Commentary"><span class="commentary">Thilo Kehrer has the misfortune to make it 4-0 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2026-01-21" data-event-id="sr:sport_event:63369967" data-og-player="Llorente, Marcos" data-og-team="Atletico Madrid">
           <td class="num" data-val="142" data-label="#">142</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -3864,7 +4039,7 @@
           <td class="commentary-cell" data-val="Own goal in Istanbul! Marcos Llorente scores in his own net to make it 1-1." data-label="Commentary"><span class="commentary">Own goal in Istanbul! Marcos Llorente scores in his own net to make it 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2026-01-21" data-event-id="sr:sport_event:63369973" data-og-player="Lewandowski, Robert" data-og-team="FC Barcelona">
           <td class="num" data-val="143" data-label="#">143</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -3888,7 +4063,7 @@
           <td class="commentary-cell" data-val="Robert Lewandowski has the misfortune to make it 2-2 through an own goal." data-label="Commentary"><span class="commentary">Robert Lewandowski has the misfortune to make it 2-2 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2026-01-21" data-event-id="sr:sport_event:63369975" data-og-player="Rulli, Geronimo" data-og-team="Olympique Marseille">
           <td class="num" data-val="144" data-label="#">144</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -3912,7 +4087,7 @@
           <td class="commentary-cell" data-val="Geronimo Rulli blunders with an own goal. This makes it 0-2." data-label="Commentary"><span class="commentary">Geronimo Rulli blunders with an own goal. This makes it 0-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2026-01-22" data-event-id="sr:sport_event:63377987" data-og-player="Yates, Ryan" data-og-team="Nottingham Forest">
           <td class="num" data-val="145" data-label="#">145</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -3936,7 +4111,7 @@
           <td class="commentary-cell" data-val="It's now 1-0 thanks to an own goal from Ryan Yates." data-label="Commentary"><span class="commentary">It's now 1-0 thanks to an own goal from Ryan Yates.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-01-24" data-event-id="sr:sport_event:61513936" data-og-player="Amenda, Aurele" data-og-team="Eintracht Frankfurt">
           <td class="num" data-val="146" data-label="#">146</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -3960,7 +4135,7 @@
           <td class="commentary-cell" data-val="Hoffenheim take a comfortable 1-3 lead thanks to Aurele Amenda." data-label="Commentary"><span class="commentary">Hoffenheim take a comfortable 1-3 lead thanks to Aurele Amenda.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2026-01-24" data-event-id="sr:sport_event:61624350" data-og-player="Copete, Jose" data-og-team="Valencia CF">
           <td class="num" data-val="147" data-label="#">147</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -3984,7 +4159,7 @@
           <td class="commentary-cell" data-val="Own goal! Jose Copete scores in his own net to make it 2-2." data-label="Commentary"><span class="commentary">Own goal! Jose Copete scores in his own net to make it 2-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2026-01-24" data-event-id="sr:sport_event:61624354" data-og-player="Vertrouwd, Jozhua" data-og-team="Rayo Vallecano">
           <td class="num" data-val="148" data-label="#">148</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -4008,7 +4183,7 @@
           <td class="commentary-cell" data-val="Goal! Osasuna have got their heads in front thanks to a Jozhua Vertrouwd strike." data-label="Commentary"><span class="commentary">Goal! Osasuna have got their heads in front thanks to a Jozhua Vertrouwd strike.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-01-25" data-event-id="sr:sport_event:61513938" data-og-player="Rosenfelder, Maximilian" data-og-team="SC Freiburg">
           <td class="num" data-val="149" data-label="#">149</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -4032,7 +4207,7 @@
           <td class="commentary-cell" data-val="Own goal! Maximilian Rosenfelder scores in his own net to make it 0-1." data-label="Commentary"><span class="commentary">Own goal! Maximilian Rosenfelder scores in his own net to make it 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-01-25" data-event-id="sr:sport_event:61300959" data-og-player="Martinez, Lisandro" data-og-team="Manchester United">
           <td class="num" data-val="150" data-label="#">150</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -4056,7 +4231,7 @@
           <td class="commentary-cell" data-val="Lisandro Martinez scores an unfortunate own goal. This makes it 1-0 at Emirates Stadium." data-label="Commentary"><span class="commentary">Lisandro Martinez scores an unfortunate own goal. This makes it 1-0 at Emirates Stadium.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-01-25" data-event-id="sr:sport_event:61061371" data-og-player="Otoa, Sebastian" data-og-team="Genoa CFC">
           <td class="num" data-val="151" data-label="#">151</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -4080,7 +4255,7 @@
           <td class="commentary-cell" data-val="Bologna take a comfortable 0-2 lead thanks to Sebastian Otoa." data-label="Commentary"><span class="commentary">Bologna take a comfortable 0-2 lead thanks to Sebastian Otoa.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-01-25" data-event-id="sr:sport_event:61513942" data-og-player="Scally, Joe" data-og-team="Borussia Monchengladbach">
           <td class="num" data-val="152" data-label="#">152</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -4104,7 +4279,7 @@
           <td class="commentary-cell" data-val="Own goal! Joe Scally scores in his own net to make it 0-2." data-label="Commentary"><span class="commentary">Own goal! Joe Scally scores in his own net to make it 0-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2026-01-25" data-event-id="sr:sport_event:61624340" data-og-player="Lopez, David" data-og-team="RCD Mallorca">
           <td class="num" data-val="153" data-label="#">153</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -4128,7 +4303,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by David Lopez makes the score 2-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by David Lopez makes the score 2-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2026-01-29" data-event-id="sr:sport_event:63378009" data-og-player="Viergever, Nick" data-og-team="FC Utrecht">
           <td class="num" data-val="154" data-label="#">154</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -4152,7 +4327,7 @@
           <td class="commentary-cell" data-val="Own goal! Nick Viergever scores in his own net to make it 2-0." data-label="Commentary"><span class="commentary">Own goal! Nick Viergever scores in his own net to make it 2-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2026-01-29" data-event-id="sr:sport_event:63378031" data-og-player="Otvos, Bence" data-og-team="Ferencvarosi Budapest">
           <td class="num" data-val="155" data-label="#">155</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -4176,7 +4351,7 @@
           <td class="commentary-cell" data-val="Own goal! Bence Otvos scores in his own net to make it 1-0." data-label="Commentary"><span class="commentary">Own goal! Bence Otvos scores in his own net to make it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2026-01-29" data-event-id="sr:sport_event:63378003" data-og-player="Lindelof, Victor" data-og-team="Aston Villa">
           <td class="num" data-val="156" data-label="#">156</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -4200,7 +4375,7 @@
           <td class="commentary-cell" data-val="Victor Lindelof puts the ball in the net and the away team now lead 0-1." data-label="Commentary"><span class="commentary">Victor Lindelof puts the ball in the net and the away team now lead 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2026-01-29" data-event-id="sr:sport_event:63378013" data-og-player="Fernandez, Emmanuel" data-og-team="Glasgow Rangers">
           <td class="num" data-val="157" data-label="#">157</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -4224,7 +4399,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Emmanuel Fernandez makes the score 3-1." data-label="Commentary"><span class="commentary">An unfortunate own goal by Emmanuel Fernandez makes the score 3-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-01-31" data-event-id="sr:sport_event:61300983" data-og-player="Madueke, Noni" data-og-team="Leeds United">
           <td class="num" data-val="158" data-label="#">158</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -4248,7 +4423,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Noni Madueke makes the score 0-2." data-label="Commentary"><span class="commentary">An unfortunate own goal by Noni Madueke makes the score 0-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-01-31" data-event-id="sr:sport_event:61061399" data-og-player="Caracciolo, António" data-og-team="Pisa SC">
           <td class="num" data-val="159" data-label="#">159</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -4272,7 +4447,7 @@
           <td class="commentary-cell" data-val="António Caracciolo puts the ball in the net and the away team extend their lead. The score-line now reads 0-2." data-label="Commentary"><span class="commentary">António Caracciolo puts the ball in the net and the away team extend their lead. The score-line now reads 0-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-01-31" data-event-id="sr:sport_event:61513962" data-og-player="Leite, Diogo" data-og-team="Union Berlin">
           <td class="num" data-val="160" data-label="#">160</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -4296,7 +4471,7 @@
           <td class="commentary-cell" data-val="Diogo Leite has the misfortune to make it 3-0 through an own goal." data-label="Commentary"><span class="commentary">Diogo Leite has the misfortune to make it 3-0 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-02-01" data-event-id="sr:sport_event:61061397" data-og-player="Cambiaso, Andrea" data-og-team="Juventus Turin">
           <td class="num" data-val="161" data-label="#">161</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -4320,7 +4495,7 @@
           <td class="commentary-cell" data-val="Andrea Cambiaso has the misfortune to make it 1-2 through an own goal." data-label="Commentary"><span class="commentary">Andrea Cambiaso has the misfortune to make it 1-2 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-02-02" data-event-id="sr:sport_event:65905652" data-og-player="Tuanzebe, Axel" data-og-team="Burnley FC">
           <td class="num" data-val="162" data-label="#">162</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -4344,7 +4519,7 @@
           <td class="commentary-cell" data-val="Goal! Sunderland have got their heads in front thanks to a Axel Tuanzebe strike." data-label="Commentary"><span class="commentary">Goal! Sunderland have got their heads in front thanks to a Axel Tuanzebe strike.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-02-07" data-event-id="sr:sport_event:61301007" data-og-player="Mykolenko, Vitaliy" data-og-team="Everton FC">
           <td class="num" data-val="163" data-label="#">163</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -4368,7 +4543,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Vitaliy Mykolenko makes the score 1-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by Vitaliy Mykolenko makes the score 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-02-07" data-event-id="sr:sport_event:61513974" data-og-player="Sander, Philipp" data-og-team="Borussia Monchengladbach">
           <td class="num" data-val="164" data-label="#">164</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -4392,7 +4567,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Philipp Sander makes the score 1-1." data-label="Commentary"><span class="commentary">An unfortunate own goal by Philipp Sander makes the score 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-02-07" data-event-id="sr:sport_event:61301007" data-og-player="Leno, Bernd" data-og-team="Fulham FC">
           <td class="num" data-val="165" data-label="#">165</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -4416,7 +4591,7 @@
           <td class="commentary-cell" data-val="It's now 1-2 thanks to an own goal from Bernd Leno." data-label="Commentary"><span class="commentary">It's now 1-2 thanks to an own goal from Bernd Leno.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2026-02-08" data-event-id="sr:sport_event:61526346" data-og-player="Medina, Facundo" data-og-team="Olympique Marseille">
           <td class="num" data-val="166" data-label="#">166</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -4440,7 +4615,7 @@
           <td class="commentary-cell" data-val="It's now 3-0 thanks to an own goal from Facundo Medina." data-label="Commentary"><span class="commentary">It's now 3-0 thanks to an own goal from Facundo Medina.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2026-02-09" data-event-id="sr:sport_event:61624390" data-og-player="Salinas, Jose" data-og-team="Espanyol Barcelona">
           <td class="num" data-val="167" data-label="#">167</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -4464,7 +4639,7 @@
           <td class="commentary-cell" data-val="Own goal! Jose Salinas has scored at the wrong end to make it 2-0." data-label="Commentary"><span class="commentary">Own goal! Jose Salinas has scored at the wrong end to make it 2-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-02-11" data-event-id="sr:sport_event:61301035" data-og-player="Lerma, Jefferson" data-og-team="Crystal Palace">
           <td class="num" data-val="168" data-label="#">168</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -4488,7 +4663,7 @@
           <td class="commentary-cell" data-val="It's now 2-3 thanks to an own goal from Jefferson Lerma." data-label="Commentary"><span class="commentary">It's now 2-3 thanks to an own goal from Jefferson Lerma.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-02-11" data-event-id="sr:sport_event:61301033" data-og-player="Hinshelwood, Jack" data-og-team="Brighton &amp; Hove Albion">
           <td class="num" data-val="169" data-label="#">169</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -4512,7 +4687,7 @@
           <td class="commentary-cell" data-val="Jack Hinshelwood scores an unfortunate own goal. This makes it 1-0 at Villa Park." data-label="Commentary"><span class="commentary">Jack Hinshelwood scores an unfortunate own goal. This makes it 1-0 at Villa Park.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-02-13" data-event-id="sr:sport_event:61513990" data-og-player="Bensebaini, Ramy" data-og-team="FSV Mainz">
           <td class="num" data-val="170" data-label="#">170</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -4536,7 +4711,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2026-02-14" data-event-id="sr:sport_event:68054842" data-og-player="Dorrington, Alfie" data-og-team="Salford City">
           <td class="num" data-val="171" data-label="#">171</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -4560,7 +4735,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-02-14" data-event-id="sr:sport_event:61061431" data-og-player="Cambiaso, Andrea" data-og-team="Juventus Turin">
           <td class="num" data-val="172" data-label="#">172</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -4584,7 +4759,7 @@
           <td class="commentary-cell" data-val="Own goal in Milan! Andrea Cambiaso scores in his own net to make it 1-0." data-label="Commentary"><span class="commentary">Own goal in Milan! Andrea Cambiaso scores in his own net to make it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-02-14" data-event-id="sr:sport_event:61061427" data-og-player="Parisi, Fabiano" data-og-team="ACF Fiorentina">
           <td class="num" data-val="173" data-label="#">173</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -4608,7 +4783,7 @@
           <td class="commentary-cell" data-val="It's now 1-2 thanks to an own goal from Fabiano Parisi." data-label="Commentary"><span class="commentary">It's now 1-2 thanks to an own goal from Fabiano Parisi.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2026-02-15" data-event-id="sr:sport_event:61526372" data-og-player="Sane, Sadibou" data-og-team="FC Metz">
           <td class="num" data-val="174" data-label="#">174</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -4632,7 +4807,7 @@
           <td class="commentary-cell" data-val="Auxerre take a 0-1 lead thanks to Sadibou Sane." data-label="Commentary"><span class="commentary">Auxerre take a 0-1 lead thanks to Sadibou Sane.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2026-02-15" data-event-id="sr:sport_event:67735916" data-og-player="Hunt, Jack" data-og-team="Wigan Athletic">
           <td class="num" data-val="175" data-label="#">175</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -4656,7 +4831,7 @@
           <td class="commentary-cell" data-val="Jack Hunt has the misfortune to make it 3-0 through an own goal." data-label="Commentary"><span class="commentary">Jack Hunt has the misfortune to make it 3-0 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-02-15" data-event-id="sr:sport_event:61061441" data-og-player="Moro, Nikola" data-og-team="Torino FC">
           <td class="num" data-val="176" data-label="#">176</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -4680,7 +4855,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2026-02-15" data-event-id="sr:sport_event:61526372" data-og-player="Mboula, Urie-Michel" data-og-team="FC Metz">
           <td class="num" data-val="177" data-label="#">177</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -4704,7 +4879,7 @@
           <td class="commentary-cell" data-val="Goal! Urie-Michel Mboula extends Auxerre's lead to 0-2." data-label="Commentary"><span class="commentary">Goal! Urie-Michel Mboula extends Auxerre's lead to 0-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2026-02-16" data-event-id="sr:sport_event:67735940" data-og-player="Heathcote, Sam" data-og-team="Macclesfield FC">
           <td class="num" data-val="178" data-label="#">178</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -4728,7 +4903,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Champions League 25/26" data-match-date="2026-02-18" data-event-id="sr:sport_event:68416480" data-og-player="Ordonez, Joel" data-og-team="Club Brugge">
           <td class="num" data-val="179" data-label="#">179</td>
           <td data-val="UEFA Champions League 25/26" data-label="Competition">
             <div class="match-name">UEFA Champions League 25/26</div>
@@ -4752,7 +4927,7 @@
           <td class="commentary-cell" data-val="Joel Ordonez puts the ball in the net and the away team now lead 2-3." data-label="Commentary"><span class="commentary">Joel Ordonez puts the ball in the net and the away team now lead 2-3.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="CONMEBOL Libertadores 2026" data-match-date="2026-02-18" data-event-id="sr:sport_event:66942230" data-og-player="Silva, Cristiano" data-og-team="Sporting Cristal">
           <td class="num" data-val="180" data-label="#">180</td>
           <td data-val="CONMEBOL Libertadores 2026" data-label="Competition">
             <div class="match-name">CONMEBOL Libertadores 2026</div>
@@ -4776,7 +4951,7 @@
           <td class="commentary-cell" data-val="Own goal! Cristiano Silva has scored at the wrong end to make it 2-1." data-label="Commentary"><span class="commentary">Own goal! Cristiano Silva has scored at the wrong end to make it 2-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="CONMEBOL Libertadores 2026" data-match-date="2026-02-18" data-event-id="sr:sport_event:66942230" data-og-player="Martinez, Angel" data-og-team="CS 2 de Mayo">
           <td class="num" data-val="181" data-label="#">181</td>
           <td data-val="CONMEBOL Libertadores 2026" data-label="Competition">
             <div class="match-name">CONMEBOL Libertadores 2026</div>
@@ -4800,7 +4975,7 @@
           <td class="commentary-cell" data-val="Angel Martinez gets an equalizer for Sporting Cristal. The score is now 2-2." data-label="Commentary"><span class="commentary">Angel Martinez gets an equalizer for Sporting Cristal. The score is now 2-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-02-21" data-event-id="sr:sport_event:61514010" data-og-player="Romulo" data-og-team="RB Leipzig">
           <td class="num" data-val="182" data-label="#">182</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -4824,7 +4999,7 @@
           <td class="commentary-cell" data-val="Own goal! Romulo scores in his own net to make it 2-1." data-label="Commentary"><span class="commentary">Own goal! Romulo scores in his own net to make it 2-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2026-02-22" data-event-id="sr:sport_event:61526392" data-og-player="Zouaoui, Yanis" data-og-team="Le Havre AC">
           <td class="num" data-val="183" data-label="#">183</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -4848,7 +5023,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Yanis Zouaoui makes the score 1-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by Yanis Zouaoui makes the score 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2026-02-26" data-event-id="sr:sport_event:68417328" data-og-player="Perez Vinlof, Matteo" data-og-team="GNK Dinamo Zagreb">
           <td class="num" data-val="184" data-label="#">184</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -4872,7 +5047,7 @@
           <td class="commentary-cell" data-val="Matteo Perez Vinlof keeps the home team in the match by reducing the deficit to 2-3." data-label="Commentary"><span class="commentary">Matteo Perez Vinlof keeps the home team in the match by reducing the deficit to 2-3.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2026-02-26" data-event-id="sr:sport_event:67871782" data-og-player="Romanczuk, Taras" data-og-team="Jagiellonia Bialystok">
           <td class="num" data-val="185" data-label="#">185</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -4896,7 +5071,7 @@
           <td class="commentary-cell" data-val="Taras Romanczuk keeps the home team in the match by reducing the deficit to 2-3." data-label="Commentary"><span class="commentary">Taras Romanczuk keeps the home team in the match by reducing the deficit to 2-3.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-02-28" data-event-id="sr:sport_event:61301065" data-og-player="Kayode, Michael" data-og-team="Brentford FC">
           <td class="num" data-val="186" data-label="#">186</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -4920,7 +5095,7 @@
           <td class="commentary-cell" data-val="It's now 1-3 thanks to an own goal from Michael Kayode." data-label="Commentary"><span class="commentary">It's now 1-3 thanks to an own goal from Michael Kayode.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-02-28" data-event-id="sr:sport_event:61301071" data-og-player="Disasi, Axel" data-og-team="West Ham United">
           <td class="num" data-val="187" data-label="#">187</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -4944,7 +5119,7 @@
           <td class="commentary-cell" data-val="Axel Disasi scores an unfortunate own goal. This makes it 5-2 at Anfield." data-label="Commentary"><span class="commentary">Axel Disasi scores an unfortunate own goal. This makes it 5-2 at Anfield.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-02-28" data-event-id="sr:sport_event:61514028" data-og-player="Behrens, Hennes" data-og-team="1. FC Heidenheim">
           <td class="num" data-val="188" data-label="#">188</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -4968,7 +5143,7 @@
           <td class="commentary-cell" data-val="Own goal! Hennes Behrens has scored at the wrong end to make it 2-0." data-label="Commentary"><span class="commentary">Own goal! Hennes Behrens has scored at the wrong end to make it 2-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-03-01" data-event-id="sr:sport_event:61301061" data-og-player="Hincapie, Piero" data-og-team="Arsenal FC">
           <td class="num" data-val="189" data-label="#">189</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -4992,7 +5167,7 @@
           <td class="commentary-cell" data-val="It's now 1-1 thanks to an own goal from Piero Hincapie." data-label="Commentary"><span class="commentary">It's now 1-1 thanks to an own goal from Piero Hincapie.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2026-03-01" data-event-id="sr:sport_event:61624452" data-og-player="Reis, Vitor" data-og-team="Girona FC">
           <td class="num" data-val="190" data-label="#">190</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -5016,7 +5191,7 @@
           <td class="commentary-cell" data-val="Own goal! Vitor Reis has scored at the wrong end to make it 1-2." data-label="Commentary"><span class="commentary">Own goal! Vitor Reis has scored at the wrong end to make it 1-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2026-03-07" data-event-id="sr:sport_event:69029728" data-og-player="Okonkwo, Arthur" data-og-team="Wrexham AFC">
           <td class="num" data-val="191" data-label="#">191</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -5040,7 +5215,7 @@
           <td class="commentary-cell" data-val="Arthur Okonkwo blunders with an own goal. This makes it 1-1." data-label="Commentary"><span class="commentary">Arthur Okonkwo blunders with an own goal. This makes it 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-03-07" data-event-id="sr:sport_event:61514046" data-og-player="Chaves, Arthur" data-og-team="FC Augsburg">
           <td class="num" data-val="192" data-label="#">192</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -5064,7 +5239,7 @@
           <td class="commentary-cell" data-val="Arthur Chaves scores an unfortunate own goal. This makes it 2-1 at Red Bull Arena." data-label="Commentary"><span class="commentary">Arthur Chaves scores an unfortunate own goal. This makes it 2-1 at Red Bull Arena.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="MLS 2026" data-match-date="2026-03-08" data-event-id="sr:sport_event:66000406" data-og-player="Agyemang, Morrison" data-og-team="Charlotte FC">
           <td class="num" data-val="193" data-label="#">193</td>
           <td data-val="MLS 2026" data-label="Competition">
             <div class="match-name">MLS 2026</div>
@@ -5088,7 +5263,7 @@
           <td class="commentary-cell" data-val="Own goal in Charlotte, NC! Morrison Agyemang scores in his own net to make it 1-1." data-label="Commentary"><span class="commentary">Own goal in Charlotte, NC! Morrison Agyemang scores in his own net to make it 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2026-03-13" data-event-id="sr:sport_event:61624478" data-og-player="Marin, Rafa" data-og-team="Villarreal CF">
           <td class="num" data-val="194" data-label="#">194</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -5112,7 +5287,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Rafa Marin makes the score 1-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by Rafa Marin makes the score 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-03-13" data-event-id="sr:sport_event:61061519" data-og-player="Keita, Mandela" data-og-team="Parma Calcio">
           <td class="num" data-val="195" data-label="#">195</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -5136,7 +5311,7 @@
           <td class="commentary-cell" data-val="Own goal! Mandela Keita has scored at the wrong end to make it 3-1." data-label="Commentary"><span class="commentary">Own goal! Mandela Keita has scored at the wrong end to make it 3-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2026-03-14" data-event-id="sr:sport_event:61624490" data-og-player="Manuel Angel" data-og-team="Real Madrid">
           <td class="num" data-val="196" data-label="#">196</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -5160,7 +5335,7 @@
           <td class="commentary-cell" data-val="Own goal! Manuel Angel has scored at the wrong end to make it 3-1." data-label="Commentary"><span class="commentary">Own goal! Manuel Angel has scored at the wrong end to make it 3-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="MLS 2026" data-match-date="2026-03-15" data-event-id="sr:sport_event:66000448" data-og-player="Svatok, Oleksandr" data-og-team="Austin FC">
           <td class="num" data-val="197" data-label="#">197</td>
           <td data-val="MLS 2026" data-label="Competition">
             <div class="match-name">MLS 2026</div>
@@ -5184,7 +5359,7 @@
           <td class="commentary-cell" data-val="Oleksandr Svatok blunders with an own goal. This makes it 1-1." data-label="Commentary"><span class="commentary">Oleksandr Svatok blunders with an own goal. This makes it 1-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2026-03-19" data-event-id="sr:sport_event:69352732" data-og-player="Moutinho, Joao" data-og-team="KKS Lech Poznan">
           <td class="num" data-val="198" data-label="#">198</td>
           <td data-val="UEFA Conference League 25/26" data-label="Competition">
             <div class="match-name">UEFA Conference League 25/26</div>
@@ -5208,7 +5383,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Joao Moutinho makes the score 1-2." data-label="Commentary"><span class="commentary">An unfortunate own goal by Joao Moutinho makes the score 1-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-03-20" data-event-id="sr:sport_event:61301119" data-og-player="Hill, James" data-og-team="AFC Bournemouth">
           <td class="num" data-val="199" data-label="#">199</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -5232,7 +5407,7 @@
           <td class="commentary-cell" data-val="Goal! Manchester United have taken a 1-2 lead courtesy of a header from James Hill." data-label="Commentary"><span class="commentary">Goal! Manchester United have taken a 1-2 lead courtesy of a header from James Hill.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2026-03-22" data-event-id="sr:sport_event:61526468" data-og-player="Seko, Ayumu" data-og-team="Le Havre AC">
           <td class="num" data-val="200" data-label="#">200</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -5256,7 +5431,7 @@
           <td class="commentary-cell" data-val="Goal! Paris extend their lead to 2-0 through Ayumu Seko." data-label="Commentary"><span class="commentary">Goal! Paris extend their lead to 2-0 through Ayumu Seko.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="MLS 2026" data-match-date="2026-03-22" data-event-id="sr:sport_event:66000548" data-og-player="Sviatchenko, Erik" data-og-team="Houston Dynamo">
           <td class="num" data-val="201" data-label="#">201</td>
           <td data-val="MLS 2026" data-label="Competition">
             <div class="match-name">MLS 2026</div>
@@ -5280,7 +5455,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Erik Sviatchenko makes the score 3-3." data-label="Commentary"><span class="commentary">An unfortunate own goal by Erik Sviatchenko makes the score 3-3.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="FA Cup 25/26" data-match-date="2026-04-04" data-event-id="sr:sport_event:69768350" data-og-player="Lawrence-Gabriel, Jordan" data-og-team="Port Vale">
           <td class="num" data-val="202" data-label="#">202</td>
           <td data-val="FA Cup 25/26" data-label="Competition">
             <div class="match-name">FA Cup 25/26</div>
@@ -5304,7 +5479,7 @@
           <td class="commentary-cell" data-val="Goal! Jordan Lawrence-Gabriel extends Chelsea's lead to 3-0." data-label="Commentary"><span class="commentary">Goal! Jordan Lawrence-Gabriel extends Chelsea's lead to 3-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="MLS 2026" data-match-date="2026-04-04" data-event-id="sr:sport_event:66298962" data-og-player="Smith, Kyle" data-og-team="FC Cincinnati">
           <td class="num" data-val="203" data-label="#">203</td>
           <td data-val="MLS 2026" data-label="Competition">
             <div class="match-name">MLS 2026</div>
@@ -5328,7 +5503,7 @@
           <td class="commentary-cell" data-val="Kyle Smith has the misfortune to make it 3-1 through an own goal." data-label="Commentary"><span class="commentary">Kyle Smith has the misfortune to make it 3-1 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="MLS 2026" data-match-date="2026-04-04" data-event-id="sr:sport_event:66298946" data-og-player="Steffen, Zack" data-og-team="Colorado Rapids">
           <td class="num" data-val="204" data-label="#">204</td>
           <td data-val="MLS 2026" data-label="Competition">
             <div class="match-name">MLS 2026</div>
@@ -5352,7 +5527,7 @@
           <td class="commentary-cell" data-val="Goal! Zack Steffen levels the match at 2-2." data-label="Commentary"><span class="commentary">Goal! Zack Steffen levels the match at 2-2.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="MLS 2026" data-match-date="2026-04-05" data-event-id="sr:sport_event:66298968" data-og-player="Brekalo, David" data-og-team="Orlando City SC">
           <td class="num" data-val="205" data-label="#">205</td>
           <td data-val="MLS 2026" data-label="Competition">
             <div class="match-name">MLS 2026</div>
@@ -5376,7 +5551,7 @@
           <td class="commentary-cell" data-val="Own goal in Los Angeles, CA! David Brekalo scores in his own net to make it 1-0." data-label="Commentary"><span class="commentary">Own goal in Los Angeles, CA! David Brekalo scores in his own net to make it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2026-04-06" data-event-id="sr:sport_event:61624524" data-og-player="Navarro, Pau" data-og-team="Villarreal CF">
           <td class="num" data-val="206" data-label="#">206</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -5400,7 +5575,7 @@
           <td class="commentary-cell" data-val="An unfortunate own goal by Pau Navarro makes the score 1-0." data-label="Commentary"><span class="commentary">An unfortunate own goal by Pau Navarro makes the score 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="CONMEBOL Libertadores 2026" data-match-date="2026-04-07" data-event-id="sr:sport_event:70075696" data-og-player="Lampe, Carlos" data-og-team="Club Bolivar">
           <td class="num" data-val="207" data-label="#">207</td>
           <td data-val="CONMEBOL Libertadores 2026" data-label="Competition">
             <div class="match-name">CONMEBOL Libertadores 2026</div>
@@ -5424,7 +5599,7 @@
           <td class="commentary-cell" data-val="Carlos Lampe is on target to give Rivadavia a 1-0 advantage." data-label="Commentary"><span class="commentary">Carlos Lampe is on target to give Rivadavia a 1-0 advantage.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2026-04-09" data-event-id="sr:sport_event:69340208" data-og-player="Fernandes, Martim" data-og-team="FC Porto">
           <td class="num" data-val="208" data-label="#">208</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
@@ -5448,7 +5623,7 @@
           <td class="commentary-cell" data-val="Martim Fernandes has the misfortune to make it 1-1 through an own goal." data-label="Commentary"><span class="commentary">Martim Fernandes has the misfortune to make it 1-1 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2026-04-11" data-event-id="sr:sport_event:61624548" data-og-player="Caleta-Car, Duje" data-og-team="Real Sociedad San Sebastian">
           <td class="num" data-val="209" data-label="#">209</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -5472,7 +5647,7 @@
           <td class="commentary-cell" data-val="Own goal! Duje Caleta-Car has scored at the wrong end to make it 0-1." data-label="Commentary"><span class="commentary">Own goal! Duje Caleta-Car has scored at the wrong end to make it 0-1.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2026-04-11" data-event-id="sr:sport_event:61526498" data-og-player="Louer, Marius" data-og-team="Angers SCO">
           <td class="num" data-val="210" data-label="#">210</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -5496,7 +5671,7 @@
           <td class="commentary-cell" data-val="Own goal! Marius Louer has scored at the wrong end to make it 1-0." data-label="Commentary"><span class="commentary">Own goal! Marius Louer has scored at the wrong end to make it 1-0.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Serie A 25/26" data-match-date="2026-04-11" data-event-id="sr:sport_event:61061577" data-og-player="Bartesaghi, Davide" data-og-team="AC Milan">
           <td class="num" data-val="211" data-label="#">211</td>
           <td data-val="Serie A 25/26" data-label="Competition">
             <div class="match-name">Serie A 25/26</div>
@@ -5520,7 +5695,7 @@
           <td class="commentary-cell" data-val="Goal! Davide Bartesaghi gives Udinese a 0-1 lead in Milan." data-label="Commentary"><span class="commentary">Goal! Davide Bartesaghi gives Udinese a 0-1 lead in Milan.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="LaLiga 25/26" data-match-date="2026-04-11" data-event-id="sr:sport_event:61624548" data-og-player="Sivera, Antonio" data-og-team="Deportivo Alaves">
           <td class="num" data-val="212" data-label="#">212</td>
           <td data-val="LaLiga 25/26" data-label="Competition">
             <div class="match-name">LaLiga 25/26</div>
@@ -5544,7 +5719,7 @@
           <td class="commentary-cell" data-val="Goal! Real Sociedad go level at 2-2 through Antonio Sivera in San Sebastian." data-label="Commentary"><span class="commentary">Goal! Real Sociedad go level at 2-2 through Antonio Sivera in San Sebastian.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="MLS 2026" data-match-date="2026-04-11" data-event-id="sr:sport_event:66298978" data-og-player="Flores, Gilberto" data-og-team="FC Cincinnati">
           <td class="num" data-val="213" data-label="#">213</td>
           <td data-val="MLS 2026" data-label="Competition">
             <div class="match-name">MLS 2026</div>
@@ -5568,7 +5743,7 @@
           <td class="commentary-cell" data-val="Gilberto Flores has the misfortune to make it 1-0 through an own goal." data-label="Commentary"><span class="commentary">Gilberto Flores has the misfortune to make it 1-0 through an own goal.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-04-12" data-event-id="sr:sport_event:61301155" data-og-player="Murillo" data-og-team="Nottingham Forest">
           <td class="num" data-val="214" data-label="#">214</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
@@ -5592,7 +5767,7 @@
           <td class="commentary-cell" data-val="It's now 0-1 thanks to an own goal from Murillo." data-label="Commentary"><span class="commentary">It's now 0-1 thanks to an own goal from Murillo.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2026-04-12" data-event-id="sr:sport_event:61526510" data-og-player="Nicolaisen, Rasmus" data-og-team="Toulouse FC">
           <td class="num" data-val="215" data-label="#">215</td>
           <td data-val="Ligue 1 25/26" data-label="Competition">
             <div class="match-name">Ligue 1 25/26</div>
@@ -5616,7 +5791,7 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-04-12" data-event-id="sr:sport_event:61514128" data-og-player="Backhaus, Mio" data-og-team="Werder Bremen">
           <td class="num" data-val="216" data-label="#">216</td>
           <td data-val="Bundesliga 25/26" data-label="Competition">
             <div class="match-name">Bundesliga 25/26</div>
@@ -5640,7 +5815,7 @@
           <td class="commentary-cell" data-val="Goal! 1. FC Cologne extend their lead to 3-1 through Mio Backhaus." data-label="Commentary"><span class="commentary">Goal! 1. FC Cologne extend their lead to 3-1 through Mio Backhaus.</span></td>
         </tr>
 
-        <tr>
+        <tr class="og-data-row" data-competition="MLS 2026" data-match-date="2026-04-12" data-event-id="sr:sport_event:66298998" data-og-player="Andrade, Felipe" data-og-team="Houston Dynamo">
           <td class="num" data-val="217" data-label="#">217</td>
           <td data-val="MLS 2026" data-label="Competition">
             <div class="match-name">MLS 2026</div>
@@ -5982,54 +6157,344 @@
   </div>
 
   <div class="footer">
-    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 17 April 2026, 17:23 UTC</p>
+    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 17 April 2026, 23:00 UTC</p>
   </div>
 
+  <script type="application/json" id="report-filter-data">{"pipelineBySeason": {"Bundesliga 25/26": {"matches_reviewed": 261, "timeline_events": 36071}, "Premier League 25/26": {"matches_reviewed": 319, "timeline_events": 42638}, "FA Cup 25/26": {"matches_reviewed": 120, "timeline_events": 13310}, "LaLiga 25/26": {"matches_reviewed": 310, "timeline_events": 43352}, "Ligue 1 25/26": {"matches_reviewed": 258, "timeline_events": 33959}, "MLS 2026": {"matches_reviewed": 103, "timeline_events": 13502}, "Serie A 25/26": {"matches_reviewed": 320, "timeline_events": 43825}, "UEFA Europa League 25/26": {"matches_reviewed": 266, "timeline_events": 37714}, "UEFA Champions League 25/26": {"matches_reviewed": 276, "timeline_events": 38211}, "UEFA Conference League 25/26": {"matches_reviewed": 404, "timeline_events": 22831}, "CONMEBOL Libertadores 2026": {"matches_reviewed": 62, "timeline_events": 9122}}, "pipelineGlobal": {"matches": 2699, "events": 334535}, "allSeasonNames": ["Bundesliga 25/26", "CONMEBOL Libertadores 2026", "FA Cup 25/26", "LaLiga 25/26", "Ligue 1 25/26", "MLS 2026", "Premier League 25/26", "Serie A 25/26", "UEFA Champions League 25/26", "UEFA Conference League 25/26", "UEFA Europa League 25/26"], "scopeLabelDefault": "Bundesliga 25/26, Premier League 25/26, FA Cup 25/26, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Champions League 25/26, UEFA Conference League 25/26, CONMEBOL Libertadores 2026", "dataDateMin": "2025-07-10", "dataDateMax": "2026-04-12"}</script>
   <script>
-    (function () {
-      const tbody = document.getElementById('og-tbody');
-      const headers = document.querySelectorAll('thead th[data-col]');
-      let sortCol = null;
-      let sortAsc = true;
+(function () {
+  const tbody = document.getElementById('og-tbody');
+  if (!tbody) return;
+  const filterPayload = (function () {
+    const el = document.getElementById('report-filter-data');
+    if (!el) return {};
+    try { return JSON.parse(el.textContent); } catch (e) { return {}; }
+  })();
 
-      headers.forEach(th => {
-        th.addEventListener('click', () => {
-          const col = parseInt(th.getAttribute('data-col'));
-          if (sortCol === col) {
-            sortAsc = !sortAsc;
-          } else {
-            sortCol = col;
-            sortAsc = true;
-          }
-          headers.forEach(h => h.classList.remove('sorted-asc', 'sorted-desc'));
-          th.classList.add(sortAsc ? 'sorted-asc' : 'sorted-desc');
-          sortTable(col, sortAsc);
-        });
-      });
+  const allNames = filterPayload.allSeasonNames || [];
+  const pb = filterPayload.pipelineBySeason || {};
+  const pg = filterPayload.pipelineGlobal || { matches: 0, events: 0 };
+  const scopeDefault = filterPayload.scopeLabelDefault || '';
+  const dataDateMin = filterPayload.dataDateMin || '';
+  const dataDateMax = filterPayload.dataDateMax || '';
 
-      function sortTable(colIndex, asc) {
-        const rows = Array.from(tbody.querySelectorAll('tr'));
-        rows.sort((a, b) => {
-          const aVal = a.children[colIndex].getAttribute('data-val') || '';
-          const bVal = b.children[colIndex].getAttribute('data-val') || '';
-          const aNum = parseFloat(aVal);
-          const bNum = parseFloat(bVal);
-          let cmp;
-          if (!isNaN(aNum) && !isNaN(bNum)) {
-            cmp = aNum - bNum;
-          } else {
-            cmp = aVal.localeCompare(bVal, undefined, { numeric: true, sensitivity: 'base' });
-          }
-          return asc ? cmp : -cmp;
-        });
-        rows.forEach(r => tbody.appendChild(r));
-        // Re-stripe rows after sort
-        rows.forEach((r, i) => {
-          r.style.background = '';
-        });
+  const headers = document.querySelectorAll('thead th[data-col]');
+  let sortCol = null;
+  let sortAsc = true;
+
+  function cellVal(tr, idx) {
+    const c = tr.children[idx];
+    return c ? (c.getAttribute('data-val') || '') : '';
+  }
+
+  function sortTable(colIndex, asc) {
+    const all = Array.from(tbody.querySelectorAll('tr.og-data-row'));
+    const visible = all.filter(function (tr) { return !tr.classList.contains('og-row--hidden'); });
+    const hidden = all.filter(function (tr) { return tr.classList.contains('og-row--hidden'); });
+    visible.sort(function (a, b) {
+      const aVal = cellVal(a, colIndex);
+      const bVal = cellVal(b, colIndex);
+      const aNum = parseFloat(aVal);
+      const bNum = parseFloat(bVal);
+      let cmp;
+      if (!isNaN(aNum) && !isNaN(bNum) && aVal !== '' && bVal !== '') {
+        cmp = aNum - bNum;
+      } else {
+        cmp = aVal.localeCompare(bVal, undefined, { numeric: true, sensitivity: 'base' });
       }
-    })();
-  </script>
+      return asc ? cmp : -cmp;
+    });
+    visible.concat(hidden).forEach(function (r) { tbody.appendChild(r); });
+    all.forEach(function (r) { r.style.background = ''; });
+  }
+
+  headers.forEach(function (th) {
+    th.addEventListener('click', function () {
+      const col = parseInt(th.getAttribute('data-col'), 10);
+      if (sortCol === col) sortAsc = !sortAsc;
+      else { sortCol = col; sortAsc = true; }
+      headers.forEach(function (h) { h.classList.remove('sorted-asc', 'sorted-desc'); });
+      th.classList.add(sortAsc ? 'sorted-asc' : 'sorted-desc');
+      sortTable(col, sortAsc);
+      renumberRows();
+    });
+  });
+
+  function renumberRows() {
+    let n = 1;
+    tbody.querySelectorAll('tr.og-data-row').forEach(function (tr) {
+      if (tr.classList.contains('og-row--hidden')) return;
+      const cell = tr.querySelector('td.num');
+      if (cell) {
+        cell.textContent = String(n);
+        cell.setAttribute('data-val', String(n));
+        n += 1;
+      }
+    });
+  }
+
+  function flipName(raw) {
+    const i = raw.indexOf(', ');
+    if (i === -1) return raw;
+    return raw.slice(i + 2) + ' ' + raw.slice(0, i);
+  }
+
+  function fmtInt(n) {
+    return n.toLocaleString('en-US');
+  }
+
+  function pipelineStats(selected) {
+    const keys = Object.keys(pb);
+    if (keys.length === 0) {
+      return { matches: pg.matches || 0, events: pg.events || 0 };
+    }
+    if (selected.length === 0) return { matches: 0, events: 0 };
+    let m = 0;
+    let e = 0;
+    selected.forEach(function (sn) {
+      const row = pb[sn];
+      if (row) {
+        m += row.matches_reviewed || 0;
+        e += row.timeline_events || 0;
+      }
+    });
+    return { matches: m, events: e };
+  }
+
+  function aggVisibleStats() {
+    const visible = Array.prototype.slice.call(tbody.querySelectorAll('tr.og-data-row')).filter(function (tr) {
+      return !tr.classList.contains('og-row--hidden');
+    });
+    const total = visible.length;
+    const eventsSeen = {};
+    const pc = {};
+    const tc = {};
+    let corr = 0;
+    visible.forEach(function (tr) {
+      const evId = tr.getAttribute('data-event-id') || '';
+      if (evId) eventsSeen[evId] = true;
+      const pl = tr.getAttribute('data-og-player') || '';
+      const tm = tr.getAttribute('data-og-team') || '';
+      if (pl) pc[pl] = (pc[pl] || 0) + 1;
+      if (tm) tc[tm] = (tc[tm] || 0) + 1;
+      const rowSays = tr.querySelector('td.og-yes, td.og-no');
+      if (rowSays && rowSays.classList.contains('og-yes')) corr += 1;
+    });
+    const games = Object.keys(eventsSeen).length;
+    let maxP = 0;
+    let namesP = [];
+    Object.keys(pc).forEach(function (k) {
+      if (pc[k] > maxP) { maxP = pc[k]; namesP = [flipName(k)]; }
+      else if (pc[k] === maxP && maxP > 0) namesP.push(flipName(k));
+    });
+    namesP.sort();
+    let maxT = 0;
+    let namesT = [];
+    Object.keys(tc).forEach(function (k) {
+      if (tc[k] > maxT) { maxT = tc[k]; namesT = [k]; }
+      else if (tc[k] === maxT && maxT > 0) namesT.push(k);
+    });
+    namesT.sort();
+    return {
+      total: total,
+      games: games,
+      maxP: maxP,
+      namesP: namesP,
+      maxT: maxT,
+      namesT: namesT,
+      corr: corr,
+      incorr: total - corr
+    };
+  }
+
+  function setText(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  function getSelectedComps() {
+    const boxes = document.querySelectorAll('input[name="og-comp"]');
+    if (!boxes.length) return null;
+    return Array.prototype.slice.call(document.querySelectorAll('input[name="og-comp"]:checked')).map(function (cb) { return cb.value; });
+  }
+
+  function compMatches(tr, selected) {
+    if (selected === null) return true;
+    if (!selected.length) return false;
+    return selected.indexOf(tr.getAttribute('data-competition') || '') !== -1;
+  }
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function toYMD(d) {
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function startOfISOWeek(d) {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const day = x.getDay();
+    const diff = day === 0 ? -6 : 1 - day;
+    x.setDate(x.getDate() + diff);
+    return x;
+  }
+  function endOfISOWeek(d) {
+    const s = startOfISOWeek(d);
+    const e = new Date(s.getFullYear(), s.getMonth(), s.getDate());
+    e.setDate(e.getDate() + 6);
+    return e;
+  }
+  function clampRange(from, to, lo, hi) {
+    var f = from;
+    var t = to;
+    if (f < lo) f = lo;
+    if (f > hi) f = hi;
+    if (t < lo) t = lo;
+    if (t > hi) t = hi;
+    if (f > t) { var x = f; f = t; t = x; }
+    return { from: f, to: t };
+  }
+
+  function getDateRange() {
+    const lo = dataDateMin;
+    const hi = dataDateMax;
+    const fromEl = document.getElementById('og-date-from');
+    const toEl = document.getElementById('og-date-to');
+    if (!fromEl || !toEl || !lo || !hi) {
+      return { from: lo, to: hi, lo: lo, hi: hi, hasInputs: false };
+    }
+    var from = fromEl.value || lo;
+    var to = toEl.value || hi;
+    var c = clampRange(from, to, lo, hi);
+    fromEl.value = c.from;
+    toEl.value = c.to;
+    return { from: c.from, to: c.to, lo: lo, hi: hi, hasInputs: true };
+  }
+
+  function dateMatches(tr, dr) {
+    var d = tr.getAttribute('data-match-date') || '';
+    if (!d || d.length < 10) return false;
+    if (!dr.hasInputs || !dr.lo || !dr.hi) return true;
+    return d >= dr.from && d <= dr.to;
+  }
+
+  function updateDateHint(dr) {
+    var el = document.getElementById('og-date-hint');
+    if (!el) return;
+    if (!dr.hasInputs || !dr.lo || !dr.hi) { el.textContent = ''; return; }
+    if (dr.from === dr.lo && dr.to === dr.hi) {
+      el.textContent = 'Showing all match dates in this report (' + dr.lo + ' to ' + dr.hi + ').';
+    } else {
+      el.textContent = 'Showing goals from matches on ' + dr.from + ' through ' + dr.to + ' (inclusive).';
+    }
+  }
+
+  function clearPresetActive() {
+    document.querySelectorAll('.date-preset-btn').forEach(function (b) { b.classList.remove('is-active'); });
+  }
+
+  function wireDateFilter() {
+    var fromEl = document.getElementById('og-date-from');
+    var toEl = document.getElementById('og-date-to');
+    if (!fromEl || !toEl || !dataDateMin || !dataDateMax) return;
+    fromEl.addEventListener('change', function () { clearPresetActive(); applyFilter(); });
+    toEl.addEventListener('change', function () { clearPresetActive(); applyFilter(); });
+    document.querySelectorAll('.date-preset-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var preset = btn.getAttribute('data-preset');
+        var lo = dataDateMin;
+        var hi = dataDateMax;
+        clearPresetActive();
+        btn.classList.add('is-active');
+        var today = new Date();
+        if (preset === 'all') {
+          fromEl.value = lo;
+          toEl.value = hi;
+        } else if (preset === 'today') {
+          var td = toYMD(today);
+          var c1 = clampRange(td, td, lo, hi);
+          fromEl.value = c1.from;
+          toEl.value = c1.to;
+        } else if (preset === 'week') {
+          var c2 = clampRange(toYMD(startOfISOWeek(today)), toYMD(endOfISOWeek(today)), lo, hi);
+          fromEl.value = c2.from;
+          toEl.value = c2.to;
+        } else if (preset === 'month') {
+          var y = today.getFullYear();
+          var m = today.getMonth();
+          var first = new Date(y, m, 1);
+          var last = new Date(y, m + 1, 0);
+          var c3 = clampRange(toYMD(first), toYMD(last), lo, hi);
+          fromEl.value = c3.from;
+          toEl.value = c3.to;
+        }
+        applyFilter();
+      });
+    });
+  }
+
+  function applyFilter() {
+    var selected = getSelectedComps();
+    var dr = getDateRange();
+    tbody.querySelectorAll('tr.og-data-row').forEach(function (tr) {
+      if (compMatches(tr, selected) && dateMatches(tr, dr)) tr.classList.remove('og-row--hidden');
+      else tr.classList.add('og-row--hidden');
+    });
+    renumberRows();
+
+    var pipeKeys = selected === null ? (allNames.length ? allNames : Object.keys(pb)) : selected;
+    var st = pipelineStats(pipeKeys);
+    setText('kpi-matches', fmtInt(st.matches));
+    setText('kpi-events', fmtInt(st.events));
+
+    var ag = aggVisibleStats();
+    setText('kpi-total-og', String(ag.total));
+    setText('kpi-games', String(ag.games));
+    setText('kpi-most-player', String(ag.maxP || 0));
+    setText('kpi-most-team', String(ag.maxT || 0));
+    setText('kpi-most-player-names', ag.namesP.length ? ag.namesP.join(' & ') : '—');
+    setText('kpi-most-team-names', ag.namesT.length ? ag.namesT.join(' & ') : '—');
+    setText('kpi-commentary-yes', String(ag.corr));
+    setText('kpi-commentary-no', String(ag.incorr));
+
+    setText('subtitle-og-total', String(ag.total));
+    var pl = document.getElementById('subtitle-og-plural');
+    if (pl) pl.textContent = ag.total === 1 ? '' : 's';
+
+    var selArr = selected === null ? allNames : selected;
+    var scopeEl = document.getElementById('subtitle-scope');
+    if (scopeEl) {
+      if (!selArr.length) scopeEl.textContent = '— no competitions selected';
+      else if (selArr.length === allNames.length) scopeEl.textContent = 'scored across ' + scopeDefault;
+      else scopeEl.textContent = 'across ' + selArr.length + ' selected competition' + (selArr.length === 1 ? '' : 's');
+    }
+    var ttitle = document.getElementById('table-filter-title');
+    if (ttitle) {
+      if (!selArr.length) ttitle.textContent = 'All Own Goals — (none selected)';
+      else if (selArr.length === allNames.length) ttitle.textContent = 'All Own Goals — ' + scopeDefault;
+      else ttitle.textContent = 'All Own Goals — ' + selArr.join(', ');
+    }
+    updateDateHint(dr);
+  }
+
+  const allBtn = document.getElementById('slicer-all');
+  const noneBtn = document.getElementById('slicer-none');
+  if (allBtn) {
+    allBtn.addEventListener('click', function () {
+      document.querySelectorAll('input[name="og-comp"]').forEach(function (cb) { cb.checked = true; });
+      applyFilter();
+    });
+  }
+  if (noneBtn) {
+    noneBtn.addEventListener('click', function () {
+      document.querySelectorAll('input[name="og-comp"]').forEach(function (cb) { cb.checked = false; });
+      applyFilter();
+    });
+  }
+  document.querySelectorAll('input[name="og-comp"]').forEach(function (cb) {
+    cb.addEventListener('change', applyFilter);
+  });
+  wireDateFilter();
+  applyFilter();
+})();
+</script>
 
 </body>
 </html>

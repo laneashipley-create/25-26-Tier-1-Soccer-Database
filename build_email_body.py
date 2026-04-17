@@ -27,7 +27,7 @@ def main() -> int:
 
     html = (
         "<p>Esteemed Colleague,</p>"
-        "<p>Your weekly EPL own goals report has been updated.</p>"
+        "<p>Your weekly Tier 1 - Own Goals report has been updated.</p>"
         f"{summary_html}"
         f'<p><a href="{REPORT_URL}">View the report</a></p>'
         "<p>Kind Regards,</p>"

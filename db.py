@@ -3,7 +3,7 @@ Supabase helpers for Own Goals pipeline.
 
 Use when USE_SUPABASE is True in config. Provides:
   - get_client() — PostgREST client (avoids full supabase pkg + C++ deps)
-  - sync_competitions_from_config() — upsert public.competitions from config (every pipeline step that resolves seasons)
+  - sync_competitions_from_config() — upsert public.competitions from config; category_name from Sportradar Competition Info when API key set
   - get_or_create_competition() — ensure public.competitions row exists
   - get_or_create_season() / get_or_create_seasons() — ensure public.seasons rows
   - upsert_games() — upsert rows in public.games (sport events per season)
@@ -17,7 +17,13 @@ Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_ANON_KEY)
 
 from __future__ import annotations
 
+import json
+import urllib.error
+import urllib.request
+
 from config import (
+    API_KEY,
+    BASE_URL,
     USE_SUPABASE,
     SUPABASE_URL,
     SUPABASE_KEY,
@@ -28,6 +34,34 @@ from config import (
 )
 
 _client = None
+
+
+def fetch_sportradar_category_name(sportradar_competition_id: str) -> str | None:
+    """
+    Read competition.category.name from Sportradar Soccer v4 Competition Info (JSON).
+    Same value as the XML <category name="..."/> on the competition element.
+    """
+    if not API_KEY or not sportradar_competition_id:
+        return None
+    url = f"{BASE_URL}/competitions/{sportradar_competition_id}/info.json?api_key={API_KEY}"
+    req = urllib.request.Request(url, headers={"Accept": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=25) as resp:
+            data = json.loads(resp.read().decode())
+    except (
+        urllib.error.URLError,
+        OSError,
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+        ValueError,
+    ):
+        return None
+    comp = data.get("competition") or {}
+    cat = comp.get("category") or {}
+    name = cat.get("name")
+    if isinstance(name, str) and name.strip():
+        return name.strip()
+    return None
 
 
 def get_client():
@@ -57,8 +91,9 @@ def sync_competitions_from_config() -> None:
     Upsert public.competitions from config.COMPETITIONS (adds new leagues, refreshes metadata).
 
     Call before resolving seasons so rows always match config when you add/remove/edit entries.
-    Optional keys gender, category_name, country_code: include in the upsert only if present on
-    the dict (so omitted keys leave existing DB values unchanged).
+    category_name is set from Sportradar Competition Info (category.name) when the API key is
+    configured; otherwise it falls back to the optional category_name on each config entry.
+    Optional keys gender, country_code: included from config when present.
     """
     if not USE_SUPABASE:
         return
@@ -68,9 +103,14 @@ def sync_competitions_from_config() -> None:
             "sportradar_competition_id": row["competition_id"],
             "competition_name": row.get("competition_name") or row["competition_id"],
         }
-        for key in ("gender", "category_name", "country_code"):
+        for key in ("gender", "country_code"):
             if key in row:
                 payload[key] = row[key]
+        api_cat = fetch_sportradar_category_name(row["competition_id"])
+        if api_cat:
+            payload["category_name"] = api_cat
+        elif "category_name" in row:
+            payload["category_name"] = row["category_name"]
         supabase.table("competitions").upsert(
             payload,
             on_conflict="sportradar_competition_id",
@@ -95,10 +135,17 @@ def get_or_create_competition(competition_row: dict) -> str:
         "sportradar_competition_id": sportradar_competition_id,
         "competition_name": label,
     }
-    for key in ("gender", "category_name", "country_code"):
+    for key in ("gender", "country_code"):
         val = competition_row.get(key)
         if val is not None and val != "":
             payload[key] = val
+    api_cat = fetch_sportradar_category_name(sportradar_competition_id)
+    if api_cat:
+        payload["category_name"] = api_cat
+    else:
+        val = competition_row.get("category_name")
+        if val is not None and val != "":
+            payload["category_name"] = val
     ins = supabase.table("competitions").insert(payload).execute()
     return ins.data[0]["id"]
 
@@ -375,6 +422,77 @@ def get_report_stats() -> tuple[int, int]:
             break
         offset += page_size
     return completed_matches, timeline_events
+
+
+def get_pipeline_stats_by_season_name() -> dict[str, dict[str, int]]:
+    """
+    Map season display name (same as config season_name / report rows) to pipeline totals
+    for that season only: completed games with a stored timeline row, and timeline event count.
+    """
+    if not USE_SUPABASE:
+        return {}
+    supabase = get_client()
+    season_ids = get_or_create_seasons()
+    uuid_to_name: dict[str, str] = {}
+    for c in COMPETITIONS:
+        u = season_ids.get(c["season_id"])
+        if u:
+            uuid_to_name[u] = c["season_name"]
+
+    game_to_season: dict[str, str] = {}
+    for season_uuid, name in uuid_to_name.items():
+        offset = 0
+        page = 1000
+        while True:
+            r = (
+                supabase.table("games")
+                .select("id")
+                .eq("season_id", season_uuid)
+                .in_("status", ["closed", "ended"])
+                .range(offset, offset + page - 1)
+                .execute()
+            )
+            chunk = r.data or []
+            for row in chunk:
+                gid = row.get("id")
+                if gid:
+                    game_to_season[str(gid)] = name
+            if len(chunk) < page:
+                break
+            offset += page
+
+    agg: dict[str, dict[str, int]] = {
+        n: {"matches_reviewed": 0, "timeline_events": 0} for n in uuid_to_name.values()
+    }
+
+    offset = 0
+    page = 1000
+    while True:
+        r = (
+            supabase.table("sport_event_timelines")
+            .select("game_id, timeline_json")
+            .range(offset, offset + page - 1)
+            .execute()
+        )
+        chunk = r.data or []
+        if not chunk:
+            break
+        for row in chunk:
+            gid = row.get("game_id")
+            if not gid:
+                continue
+            sn = game_to_season.get(str(gid))
+            if not sn:
+                continue
+            data = row.get("timeline_json") or {}
+            if not data:
+                continue
+            agg[sn]["matches_reviewed"] += 1
+            agg[sn]["timeline_events"] += len(data.get("timeline", []))
+        if len(chunk) < page:
+            break
+        offset += page
+    return agg
 
 
 def get_game_by_sport_event_id(season_id: str, sport_event_id: str) -> dict | None:

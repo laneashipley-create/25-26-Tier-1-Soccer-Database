@@ -22,14 +22,18 @@ BASE_URL = "https://api.sportradar.com/soccer/trial/v4/en"
 #   - season_id (sr:season:...)
 #   - season_name (display label)
 # Optional (stored on public.competitions when present):
-#   - gender, category_name, country_code (ISO 3166-1 alpha-2; null for cross-border UEFA/CONMEBOL)
+#   - gender, country_code (ISO 3166-1 alpha-2 for territory; null for cross-border UEFA/CONMEBOL if you prefer)
+#   - category_name — fallback only when no API key: should match Sportradar Competition Info
+#     JSON path competition.category.name (same as XML <category name="England" .../>).
+#     When SPORTRADAR_API_KEY / config_local is set, db.sync_competitions_from_config() overwrites
+#     this from the live API response.
 #
 # Example:
 # {
 #     "competition_id": "sr:competition:17",
 #     "competition_name": "Premier League",
 #     "gender": "male",
-#     "category_name": "1st tier national league",
+#     "category_name": "England",
 #     "country_code": "GB",
 #     "season_id": "sr:season:130281",
 #     "season_name": "Premier League 25/26",
@@ -39,7 +43,7 @@ COMPETITIONS = [
         "competition_id": "sr:competition:35",
         "competition_name": "1. Bundesliga",
         "gender": "male",
-        "category_name": "1st tier national league",
+        "category_name": "Germany",
         "country_code": "DE",
         "season_id": "sr:season:130571",
         "season_name": "Bundesliga 25/26",
@@ -48,7 +52,7 @@ COMPETITIONS = [
         "competition_id": "sr:competition:17",
         "competition_name": "Premier League",
         "gender": "male",
-        "category_name": "1st tier national league",
+        "category_name": "England",
         "country_code": "GB",
         "season_id": "sr:season:130281",
         "season_name": "Premier League 25/26",
@@ -57,7 +61,7 @@ COMPETITIONS = [
         "competition_id": "sr:competition:19",
         "competition_name": "FA Cup",
         "gender": "male",
-        "category_name": "National knockout cup",
+        "category_name": "England",
         "country_code": "GB",
         "season_id": "sr:season:130931",
         "season_name": "FA Cup 25/26",
@@ -66,7 +70,7 @@ COMPETITIONS = [
         "competition_id": "sr:competition:8",
         "competition_name": "LaLiga",
         "gender": "male",
-        "category_name": "1st tier national league",
+        "category_name": "Spain",
         "country_code": "ES",
         "season_id": "sr:season:130805",
         "season_name": "LaLiga 25/26",
@@ -75,7 +79,7 @@ COMPETITIONS = [
         "competition_id": "sr:competition:34",
         "competition_name": "Ligue 1",
         "gender": "male",
-        "category_name": "1st tier national league",
+        "category_name": "France",
         "country_code": "FR",
         "season_id": "sr:season:131609",
         "season_name": "Ligue 1 25/26",
@@ -84,7 +88,7 @@ COMPETITIONS = [
         "competition_id": "sr:competition:242",
         "competition_name": "MLS",
         "gender": "male",
-        "category_name": "1st tier national league",
+        "category_name": "United States",
         "country_code": "US",
         "season_id": "sr:season:137218",
         "season_name": "MLS 2026",
@@ -93,7 +97,7 @@ COMPETITIONS = [
         "competition_id": "sr:competition:23",
         "competition_name": "Serie A",
         "gender": "male",
-        "category_name": "1st tier national league",
+        "category_name": "Italy",
         "country_code": "IT",
         "season_id": "sr:season:130971",
         "season_name": "Serie A 25/26",
@@ -102,7 +106,7 @@ COMPETITIONS = [
         "competition_id": "sr:competition:679",
         "competition_name": "UEFA Europa League",
         "gender": "male",
-        "category_name": "UEFA club competition",
+        "category_name": "Europe",
         "season_id": "sr:season:131635",
         "season_name": "UEFA Europa League 25/26",
     },
@@ -110,7 +114,7 @@ COMPETITIONS = [
         "competition_id": "sr:competition:7",
         "competition_name": "UEFA Champions League",
         "gender": "male",
-        "category_name": "UEFA club competition",
+        "category_name": "Europe",
         "season_id": "sr:season:131129",
         "season_name": "UEFA Champions League 25/26",
     },
@@ -118,7 +122,7 @@ COMPETITIONS = [
         "competition_id": "sr:competition:34480",
         "competition_name": "UEFA Conference League",
         "gender": "male",
-        "category_name": "UEFA club competition",
+        "category_name": "Europe",
         "season_id": "sr:season:131637",
         "season_name": "UEFA Conference League 25/26",
     },
@@ -126,7 +130,7 @@ COMPETITIONS = [
         "competition_id": "sr:competition:384",
         "competition_name": "CONMEBOL Libertadores",
         "gender": "male",
-        "category_name": "CONMEBOL club competition",
+        "category_name": "South America",
         "season_id": "sr:season:137972",
         "season_name": "CONMEBOL Libertadores 2026",
     },

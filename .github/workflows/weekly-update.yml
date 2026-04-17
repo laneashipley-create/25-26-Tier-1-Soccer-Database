@@ -91,7 +91,7 @@ jobs:
                 {email: "j.herbstman@sportradar.com", name: "Jordan Herbstman"},
                 {email: "p.cohn@sportradar.com"}
               ],
-              subject: "25/26 - EPL Season // Own Goals Report — Weekly Update",
+              subject: "Weekly Tier 1 Own Goals Report",
               htmlContent: $html
             }')
           curl -s -X POST "https://api.brevo.com/v3/smtp/email" \

@@ -23,7 +23,7 @@
 
 The pipeline will be updated to:
 
-1. **Competitions** — Rows in `public.competitions` (`sportradar_competition_id`, `competition_name`, optional `gender`, `category_name`, `country_code`). Each run that resolves seasons calls **`sync_competitions_from_config()`** (upsert from `config.COMPETITIONS`) so adds/edits in config propagate automatically. Rows removed from config are **not** deleted in Supabase (seasons may still reference them).
+1. **Competitions** — Rows in `public.competitions` (`sportradar_competition_id`, `competition_name`, optional `gender`, `category_name`, `country_code`). Each run that resolves seasons calls **`sync_competitions_from_config()`** (upsert from `config.COMPETITIONS`) so adds/edits in config propagate automatically. **`category_name`** is set from Sportradar **Competition Info** (`competition.category.name`, same as XML `<category name="…"/>`) when an API key is configured; otherwise it uses the optional `category_name` on each config entry. Rows removed from config are **not** deleted in Supabase (seasons may still reference them).
 2. **Seasons** — Ensure each configured season exists in `public.seasons` (by `sportradar_season_id`), linked to `competitions` via UUID `competition_id`.
 3. **Games** — Fetch schedules from Sportradar, then **upsert** into `public.games` (one row per `sr:sport_event` per season).
 4. **Timelines** — For completed games, fetch timelines only when there is no row in `public.sport_event_timelines` for that `games.id` (`game_id`), unless using local JSON cache.

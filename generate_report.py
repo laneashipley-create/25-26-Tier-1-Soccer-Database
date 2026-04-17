@@ -6,6 +6,7 @@ Can be re-run at any time to refresh the report from the latest CSV.
 """
 
 import csv
+import html
 import json
 import os
 from datetime import datetime, timezone
@@ -69,6 +70,76 @@ def format_score(home: str, away: str) -> str:
     return f"{home}–{away}"
 
 
+def build_competition_slicer(names: list[str]) -> str:
+    """Full-width KPI-grid tile: multi-select by season_name (matches Competition column)."""
+    if not names:
+        return ""
+    chips = []
+    for name in names:
+        ev = html.escape(name, quote=True)
+        disp = html.escape(name, quote=False)
+        chips.append(
+            f'<label class="slicer-chip"><input type="checkbox" name="og-comp" value="{ev}" checked />'
+            f"<span>{disp}</span></label>"
+        )
+    chips_html = "\n".join(chips)
+    return f"""    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left" role="region" aria-label="Filter by competition">
+      <div class="competition-slicer competition-slicer--tile" role="group">
+        <div class="slicer-head">
+          <span class="slicer-title">Competitions</span>
+          <span class="slicer-actions">
+            <button type="button" class="slicer-btn" id="slicer-all">All</button>
+            <button type="button" class="slicer-btn" id="slicer-none">None</button>
+          </span>
+        </div>
+        <div class="slicer-chips">{chips_html}</div>
+      </div>
+    </div>"""
+
+
+def date_bounds_from_rows(rows: list[dict]) -> tuple[str, str]:
+    """Earliest and latest match_date (YYYY-MM-DD) across own-goal rows; ("","") if none."""
+    dates: list[str] = []
+    for r in rows:
+        d = (r.get("match_date") or "")[:10]
+        if len(d) == 10 and d[4] == "-" and d[7] == "-":
+            dates.append(d)
+    if not dates:
+        return "", ""
+    return min(dates), max(dates)
+
+
+def build_date_filter_tile(date_min: str, date_max: str) -> str:
+    """Card-style match-date filter (client-side); presets + custom from/to."""
+    if not date_min or not date_max:
+        return """    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Match date filter">
+      <div class="date-filter-title">Match date range</div>
+      <p class="date-filter-muted">No match dates in this report yet.</p>
+    </div>"""
+    dmin = html.escape(date_min, quote=True)
+    dmax = html.escape(date_max, quote=True)
+    return f"""    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Match date filter">
+      <div class="date-filter-head">
+        <span class="date-filter-title">Match date range</span>
+        <span class="date-filter-presets">
+          <button type="button" class="date-preset-btn is-active" data-preset="all">All time</button>
+          <button type="button" class="date-preset-btn" data-preset="today">Today</button>
+          <button type="button" class="date-preset-btn" data-preset="week">This week</button>
+          <button type="button" class="date-preset-btn" data-preset="month">This month</button>
+        </span>
+      </div>
+      <div class="date-filter-custom">
+        <label class="date-filter-label">From
+          <input type="date" id="og-date-from" min="{dmin}" max="{dmax}" value="{dmin}" />
+        </label>
+        <label class="date-filter-label">To
+          <input type="date" id="og-date-to" min="{dmin}" max="{dmax}" value="{dmax}" />
+        </label>
+      </div>
+      <p class="date-filter-hint" id="og-date-hint"></p>
+    </div>"""
+
+
 def build_table_rows(rows: list[dict]) -> str:
     if not rows:
         return '<tr><td colspan="12" style="text-align:center;padding:2rem;color:#666;">No own goals found yet.</td></tr>'
@@ -98,8 +169,15 @@ def build_table_rows(rows: list[dict]) -> str:
         og_label = "Yes" if og_mentioned else "No"
         og_sort = "1" if og_mentioned else "0"
 
+        comp = (r.get("season_name") or "").strip()
+        comp_attr = html.escape(comp, quote=True)
+        ev_attr = html.escape(str(r.get("sport_event_id", "")), quote=True)
+        pl_attr = html.escape(str(r.get("og_player", "")), quote=True)
+        tm_attr = html.escape(str(r.get("og_player_team", "")), quote=True)
+        match_date_raw = (r.get("match_date") or "")[:10]
+        date_attr = html.escape(match_date_raw if len(match_date_raw) == 10 else "", quote=True)
         html_rows.append(f"""
-        <tr>
+        <tr class="og-data-row" data-competition="{comp_attr}" data-match-date="{date_attr}" data-event-id="{ev_attr}" data-og-player="{pl_attr}" data-og-team="{tm_attr}">
           <td class="num" data-val="{i}" data-label="#">{i}</td>
           <td data-val="{r.get('season_name','')}" data-label="Competition">
             <div class="match-name">{r.get('season_name','—')}</div>
@@ -126,10 +204,367 @@ def build_table_rows(rows: list[dict]) -> str:
     return "\n".join(html_rows)
 
 
-def generate_html(rows: list[dict], completed_matches: int, timeline_events: int) -> str:
+def _inline_report_script() -> str:
+    """Client-side sort, competition filter, and KPI recompute (no f-string braces)."""
+    return r"""<script>
+(function () {
+  const tbody = document.getElementById('og-tbody');
+  if (!tbody) return;
+  const filterPayload = (function () {
+    const el = document.getElementById('report-filter-data');
+    if (!el) return {};
+    try { return JSON.parse(el.textContent); } catch (e) { return {}; }
+  })();
+
+  const allNames = filterPayload.allSeasonNames || [];
+  const pb = filterPayload.pipelineBySeason || {};
+  const pg = filterPayload.pipelineGlobal || { matches: 0, events: 0 };
+  const scopeDefault = filterPayload.scopeLabelDefault || '';
+  const dataDateMin = filterPayload.dataDateMin || '';
+  const dataDateMax = filterPayload.dataDateMax || '';
+
+  const headers = document.querySelectorAll('thead th[data-col]');
+  let sortCol = null;
+  let sortAsc = true;
+
+  function cellVal(tr, idx) {
+    const c = tr.children[idx];
+    return c ? (c.getAttribute('data-val') || '') : '';
+  }
+
+  function sortTable(colIndex, asc) {
+    const all = Array.from(tbody.querySelectorAll('tr.og-data-row'));
+    const visible = all.filter(function (tr) { return !tr.classList.contains('og-row--hidden'); });
+    const hidden = all.filter(function (tr) { return tr.classList.contains('og-row--hidden'); });
+    visible.sort(function (a, b) {
+      const aVal = cellVal(a, colIndex);
+      const bVal = cellVal(b, colIndex);
+      const aNum = parseFloat(aVal);
+      const bNum = parseFloat(bVal);
+      let cmp;
+      if (!isNaN(aNum) && !isNaN(bNum) && aVal !== '' && bVal !== '') {
+        cmp = aNum - bNum;
+      } else {
+        cmp = aVal.localeCompare(bVal, undefined, { numeric: true, sensitivity: 'base' });
+      }
+      return asc ? cmp : -cmp;
+    });
+    visible.concat(hidden).forEach(function (r) { tbody.appendChild(r); });
+    all.forEach(function (r) { r.style.background = ''; });
+  }
+
+  headers.forEach(function (th) {
+    th.addEventListener('click', function () {
+      const col = parseInt(th.getAttribute('data-col'), 10);
+      if (sortCol === col) sortAsc = !sortAsc;
+      else { sortCol = col; sortAsc = true; }
+      headers.forEach(function (h) { h.classList.remove('sorted-asc', 'sorted-desc'); });
+      th.classList.add(sortAsc ? 'sorted-asc' : 'sorted-desc');
+      sortTable(col, sortAsc);
+      renumberRows();
+    });
+  });
+
+  function renumberRows() {
+    let n = 1;
+    tbody.querySelectorAll('tr.og-data-row').forEach(function (tr) {
+      if (tr.classList.contains('og-row--hidden')) return;
+      const cell = tr.querySelector('td.num');
+      if (cell) {
+        cell.textContent = String(n);
+        cell.setAttribute('data-val', String(n));
+        n += 1;
+      }
+    });
+  }
+
+  function flipName(raw) {
+    const i = raw.indexOf(', ');
+    if (i === -1) return raw;
+    return raw.slice(i + 2) + ' ' + raw.slice(0, i);
+  }
+
+  function fmtInt(n) {
+    return n.toLocaleString('en-US');
+  }
+
+  function pipelineStats(selected) {
+    const keys = Object.keys(pb);
+    if (keys.length === 0) {
+      return { matches: pg.matches || 0, events: pg.events || 0 };
+    }
+    if (selected.length === 0) return { matches: 0, events: 0 };
+    let m = 0;
+    let e = 0;
+    selected.forEach(function (sn) {
+      const row = pb[sn];
+      if (row) {
+        m += row.matches_reviewed || 0;
+        e += row.timeline_events || 0;
+      }
+    });
+    return { matches: m, events: e };
+  }
+
+  function aggVisibleStats() {
+    const visible = Array.prototype.slice.call(tbody.querySelectorAll('tr.og-data-row')).filter(function (tr) {
+      return !tr.classList.contains('og-row--hidden');
+    });
+    const total = visible.length;
+    const eventsSeen = {};
+    const pc = {};
+    const tc = {};
+    let corr = 0;
+    visible.forEach(function (tr) {
+      const evId = tr.getAttribute('data-event-id') || '';
+      if (evId) eventsSeen[evId] = true;
+      const pl = tr.getAttribute('data-og-player') || '';
+      const tm = tr.getAttribute('data-og-team') || '';
+      if (pl) pc[pl] = (pc[pl] || 0) + 1;
+      if (tm) tc[tm] = (tc[tm] || 0) + 1;
+      const rowSays = tr.querySelector('td.og-yes, td.og-no');
+      if (rowSays && rowSays.classList.contains('og-yes')) corr += 1;
+    });
+    const games = Object.keys(eventsSeen).length;
+    let maxP = 0;
+    let namesP = [];
+    Object.keys(pc).forEach(function (k) {
+      if (pc[k] > maxP) { maxP = pc[k]; namesP = [flipName(k)]; }
+      else if (pc[k] === maxP && maxP > 0) namesP.push(flipName(k));
+    });
+    namesP.sort();
+    let maxT = 0;
+    let namesT = [];
+    Object.keys(tc).forEach(function (k) {
+      if (tc[k] > maxT) { maxT = tc[k]; namesT = [k]; }
+      else if (tc[k] === maxT && maxT > 0) namesT.push(k);
+    });
+    namesT.sort();
+    return {
+      total: total,
+      games: games,
+      maxP: maxP,
+      namesP: namesP,
+      maxT: maxT,
+      namesT: namesT,
+      corr: corr,
+      incorr: total - corr
+    };
+  }
+
+  function setText(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  function getSelectedComps() {
+    const boxes = document.querySelectorAll('input[name="og-comp"]');
+    if (!boxes.length) return null;
+    return Array.prototype.slice.call(document.querySelectorAll('input[name="og-comp"]:checked')).map(function (cb) { return cb.value; });
+  }
+
+  function compMatches(tr, selected) {
+    if (selected === null) return true;
+    if (!selected.length) return false;
+    return selected.indexOf(tr.getAttribute('data-competition') || '') !== -1;
+  }
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function toYMD(d) {
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function startOfISOWeek(d) {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const day = x.getDay();
+    const diff = day === 0 ? -6 : 1 - day;
+    x.setDate(x.getDate() + diff);
+    return x;
+  }
+  function endOfISOWeek(d) {
+    const s = startOfISOWeek(d);
+    const e = new Date(s.getFullYear(), s.getMonth(), s.getDate());
+    e.setDate(e.getDate() + 6);
+    return e;
+  }
+  function clampRange(from, to, lo, hi) {
+    var f = from;
+    var t = to;
+    if (f < lo) f = lo;
+    if (f > hi) f = hi;
+    if (t < lo) t = lo;
+    if (t > hi) t = hi;
+    if (f > t) { var x = f; f = t; t = x; }
+    return { from: f, to: t };
+  }
+
+  function getDateRange() {
+    const lo = dataDateMin;
+    const hi = dataDateMax;
+    const fromEl = document.getElementById('og-date-from');
+    const toEl = document.getElementById('og-date-to');
+    if (!fromEl || !toEl || !lo || !hi) {
+      return { from: lo, to: hi, lo: lo, hi: hi, hasInputs: false };
+    }
+    var from = fromEl.value || lo;
+    var to = toEl.value || hi;
+    var c = clampRange(from, to, lo, hi);
+    fromEl.value = c.from;
+    toEl.value = c.to;
+    return { from: c.from, to: c.to, lo: lo, hi: hi, hasInputs: true };
+  }
+
+  function dateMatches(tr, dr) {
+    var d = tr.getAttribute('data-match-date') || '';
+    if (!d || d.length < 10) return false;
+    if (!dr.hasInputs || !dr.lo || !dr.hi) return true;
+    return d >= dr.from && d <= dr.to;
+  }
+
+  function updateDateHint(dr) {
+    var el = document.getElementById('og-date-hint');
+    if (!el) return;
+    if (!dr.hasInputs || !dr.lo || !dr.hi) { el.textContent = ''; return; }
+    if (dr.from === dr.lo && dr.to === dr.hi) {
+      el.textContent = 'Showing all match dates in this report (' + dr.lo + ' to ' + dr.hi + ').';
+    } else {
+      el.textContent = 'Showing goals from matches on ' + dr.from + ' through ' + dr.to + ' (inclusive).';
+    }
+  }
+
+  function clearPresetActive() {
+    document.querySelectorAll('.date-preset-btn').forEach(function (b) { b.classList.remove('is-active'); });
+  }
+
+  function wireDateFilter() {
+    var fromEl = document.getElementById('og-date-from');
+    var toEl = document.getElementById('og-date-to');
+    if (!fromEl || !toEl || !dataDateMin || !dataDateMax) return;
+    fromEl.addEventListener('change', function () { clearPresetActive(); applyFilter(); });
+    toEl.addEventListener('change', function () { clearPresetActive(); applyFilter(); });
+    document.querySelectorAll('.date-preset-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var preset = btn.getAttribute('data-preset');
+        var lo = dataDateMin;
+        var hi = dataDateMax;
+        clearPresetActive();
+        btn.classList.add('is-active');
+        var today = new Date();
+        if (preset === 'all') {
+          fromEl.value = lo;
+          toEl.value = hi;
+        } else if (preset === 'today') {
+          var td = toYMD(today);
+          var c1 = clampRange(td, td, lo, hi);
+          fromEl.value = c1.from;
+          toEl.value = c1.to;
+        } else if (preset === 'week') {
+          var c2 = clampRange(toYMD(startOfISOWeek(today)), toYMD(endOfISOWeek(today)), lo, hi);
+          fromEl.value = c2.from;
+          toEl.value = c2.to;
+        } else if (preset === 'month') {
+          var y = today.getFullYear();
+          var m = today.getMonth();
+          var first = new Date(y, m, 1);
+          var last = new Date(y, m + 1, 0);
+          var c3 = clampRange(toYMD(first), toYMD(last), lo, hi);
+          fromEl.value = c3.from;
+          toEl.value = c3.to;
+        }
+        applyFilter();
+      });
+    });
+  }
+
+  function applyFilter() {
+    var selected = getSelectedComps();
+    var dr = getDateRange();
+    tbody.querySelectorAll('tr.og-data-row').forEach(function (tr) {
+      if (compMatches(tr, selected) && dateMatches(tr, dr)) tr.classList.remove('og-row--hidden');
+      else tr.classList.add('og-row--hidden');
+    });
+    renumberRows();
+
+    var pipeKeys = selected === null ? (allNames.length ? allNames : Object.keys(pb)) : selected;
+    var st = pipelineStats(pipeKeys);
+    setText('kpi-matches', fmtInt(st.matches));
+    setText('kpi-events', fmtInt(st.events));
+
+    var ag = aggVisibleStats();
+    setText('kpi-total-og', String(ag.total));
+    setText('kpi-games', String(ag.games));
+    setText('kpi-most-player', String(ag.maxP || 0));
+    setText('kpi-most-team', String(ag.maxT || 0));
+    setText('kpi-most-player-names', ag.namesP.length ? ag.namesP.join(' & ') : '—');
+    setText('kpi-most-team-names', ag.namesT.length ? ag.namesT.join(' & ') : '—');
+    setText('kpi-commentary-yes', String(ag.corr));
+    setText('kpi-commentary-no', String(ag.incorr));
+
+    setText('subtitle-og-total', String(ag.total));
+    var pl = document.getElementById('subtitle-og-plural');
+    if (pl) pl.textContent = ag.total === 1 ? '' : 's';
+
+    var selArr = selected === null ? allNames : selected;
+    var scopeEl = document.getElementById('subtitle-scope');
+    if (scopeEl) {
+      if (!selArr.length) scopeEl.textContent = '— no competitions selected';
+      else if (selArr.length === allNames.length) scopeEl.textContent = 'scored across ' + scopeDefault;
+      else scopeEl.textContent = 'across ' + selArr.length + ' selected competition' + (selArr.length === 1 ? '' : 's');
+    }
+    var ttitle = document.getElementById('table-filter-title');
+    if (ttitle) {
+      if (!selArr.length) ttitle.textContent = 'All Own Goals — (none selected)';
+      else if (selArr.length === allNames.length) ttitle.textContent = 'All Own Goals — ' + scopeDefault;
+      else ttitle.textContent = 'All Own Goals — ' + selArr.join(', ');
+    }
+    updateDateHint(dr);
+  }
+
+  const allBtn = document.getElementById('slicer-all');
+  const noneBtn = document.getElementById('slicer-none');
+  if (allBtn) {
+    allBtn.addEventListener('click', function () {
+      document.querySelectorAll('input[name="og-comp"]').forEach(function (cb) { cb.checked = true; });
+      applyFilter();
+    });
+  }
+  if (noneBtn) {
+    noneBtn.addEventListener('click', function () {
+      document.querySelectorAll('input[name="og-comp"]').forEach(function (cb) { cb.checked = false; });
+      applyFilter();
+    });
+  }
+  document.querySelectorAll('input[name="og-comp"]').forEach(function (cb) {
+    cb.addEventListener('change', applyFilter);
+  });
+  wireDateFilter();
+  applyFilter();
+})();
+</script>"""
+
+
+def generate_html(
+    rows: list[dict],
+    completed_matches: int,
+    timeline_events: int,
+    pipeline_by_season: dict[str, dict[str, int]] | None = None,
+) -> str:
     generated = datetime.now(timezone.utc).strftime("%d %B %Y, %H:%M UTC")
     total = len(rows)
     logo_svg = load_svg("lanes_sportsdata.svg")
+    pipeline_by_season = pipeline_by_season or {}
+    all_season_names = sorted({(r.get("season_name") or "").strip() for r in rows if (r.get("season_name") or "").strip()})
+    competition_tile = build_competition_slicer(all_season_names)
+    data_date_min, data_date_max = date_bounds_from_rows(rows)
+    date_filter_tile = build_date_filter_tile(data_date_min, data_date_max)
+    filter_payload = {
+        "pipelineBySeason": pipeline_by_season,
+        "pipelineGlobal": {"matches": completed_matches, "events": timeline_events},
+        "allSeasonNames": all_season_names,
+        "scopeLabelDefault": SEASON_LABEL,
+        "dataDateMin": data_date_min,
+        "dataDateMax": data_date_max,
+    }
+    filter_json = json.dumps(filter_payload, ensure_ascii=False)
 
     if rows:
         player_counts: dict[str, int] = {}
@@ -163,43 +598,51 @@ def generate_html(rows: list[dict], completed_matches: int, timeline_events: int
         commentary_incorrect = total - commentary_correct
         games_with_og = len(set(r["sport_event_id"] for r in rows))
 
-        stats_html = f"""
-        <div class="stats-grid">
+        stats_cards_html = f"""
           <div class="stat-card">
-            <div class="stat-number">{completed_matches}</div>
+            <div class="stat-number" id="kpi-matches">{completed_matches:,}</div>
             <div class="stat-label">Matches Reviewed</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">{events_display}</div>
+            <div class="stat-number" id="kpi-events">{events_display}</div>
             <div class="stat-label">Timeline Events Reviewed</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">{total}</div>
+            <div class="stat-number" id="kpi-total-og">{total}</div>
             <div class="stat-label">Total # of Own Goals</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">{games_with_og}</div>
+            <div class="stat-number" id="kpi-games">{games_with_og}</div>
             <div class="stat-label"># of Games with an Own Goal</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">{unlucky_player_count}</div>
-            <div class="stat-label">Most by One Player<br><span class="stat-sub">{player_sub}</span></div>
+            <div class="stat-number" id="kpi-most-player">{unlucky_player_count}</div>
+            <div class="stat-label">Most by One Player<br><span class="stat-sub" id="kpi-most-player-names">{player_sub}</span></div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">{unlucky_team_count}</div>
-            <div class="stat-label">Most by One Team<br><span class="stat-sub">{team_sub}</span></div>
+            <div class="stat-number" id="kpi-most-team">{unlucky_team_count}</div>
+            <div class="stat-label">Most by One Team<br><span class="stat-sub" id="kpi-most-team-names">{team_sub}</span></div>
           </div>
           <div class="stat-card stat-card--correct">
-            <div class="stat-number stat-number--correct">{commentary_correct}</div>
+            <div class="stat-number stat-number--correct" id="kpi-commentary-yes">{commentary_correct}</div>
             <div class="stat-label">Commentary Correct<br><span class="stat-sub stat-sub--muted">Mentions "own goal"</span></div>
           </div>
           <div class="stat-card stat-card--incorrect">
-            <div class="stat-number stat-number--incorrect">{commentary_incorrect}</div>
+            <div class="stat-number stat-number--incorrect" id="kpi-commentary-no">{commentary_incorrect}</div>
             <div class="stat-label">Commentary Incorrect<br><span class="stat-sub stat-sub--muted">No "own goal" mention</span></div>
-          </div>
-        </div>"""
+          </div>"""
     else:
-        stats_html = ""
+        stats_cards_html = ""
+
+    stats_html = (
+        '<div class="stats-grid">\n'
+        + competition_tile
+        + "\n"
+        + date_filter_tile
+        + "\n"
+        + stats_cards_html
+        + "\n</div>"
+    )
 
     table_rows = build_table_rows(rows)
 
@@ -261,9 +704,141 @@ def generate_html(rows: list[dict], completed_matches: int, timeline_events: int
     }}
     .header .subtitle strong {{ color: #fff; }}
 
+    .og-row--hidden {{ display: none !important; }}
+
+    .stat-card--wide {{ grid-column: 1 / -1; }}
+    .stat-card--text-left {{ text-align: left; }}
+    .stat-card--filter-tile {{ padding: 1rem 1.1rem; }}
+
+    .competition-slicer--tile {{
+      margin: 0;
+      padding: 0;
+      max-width: none;
+      background: transparent;
+      border: none;
+      text-align: left;
+    }}
+    .stat-card--filter-tile .slicer-head {{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }}
+    .stat-card--filter-tile .slicer-title {{
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #cc0000;
+    }}
+    .stat-card--filter-tile .slicer-actions {{ display: inline-flex; gap: 0.35rem; }}
+    .stat-card--filter-tile .slicer-btn {{
+      font: inherit;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.55rem;
+      border-radius: 6px;
+      border: 1px solid #ddd8d0;
+      background: #faf8f5;
+      color: #333;
+    }}
+    .stat-card--filter-tile .slicer-btn:hover {{
+      border-color: #cc0000;
+      background: #fff0f0;
+      color: #990000;
+    }}
+    .stat-card--filter-tile .slicer-chips {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem 0.65rem;
+      justify-content: flex-start;
+    }}
+    .stat-card--filter-tile .slicer-chip {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      color: #333;
+      cursor: pointer;
+      user-select: none;
+    }}
+    .stat-card--filter-tile .slicer-chip input {{ accent-color: #cc0000; width: 1rem; height: 1rem; }}
+    .stat-card--filter-tile .slicer-chip span {{ line-height: 1.25; }}
+
+    .date-filter-tile {{
+      text-align: left;
+    }}
+    .date-filter-head {{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.65rem;
+    }}
+    .date-filter-title {{
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }}
+    .date-filter-presets {{ display: flex; flex-wrap: wrap; gap: 0.35rem; }}
+    .date-preset-btn {{
+      font: inherit;
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #ddd8d0;
+      background: #faf8f5;
+      color: #333;
+    }}
+    .date-preset-btn:hover {{ border-color: #cc0000; color: #cc0000; }}
+    .date-preset-btn.is-active {{
+      border-color: #cc0000;
+      background: #fff0f0;
+      color: #990000;
+    }}
+    .date-filter-custom {{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 1rem;
+    }}
+    .date-filter-label {{
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #555;
+    }}
+    .date-filter-label input[type="date"] {{
+      font: inherit;
+      padding: 0.35rem 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+      color: #111;
+    }}
+    .date-filter-hint {{
+      margin-top: 0.55rem;
+      font-size: 0.78rem;
+      color: #666;
+      line-height: 1.35;
+    }}
+    .date-filter-muted {{ font-size: 0.82rem; color: #888; margin-top: 0.35rem; }}
+
     /* ── Stats ────────────────────────────────────────── */
     .stats-section {{
-      max-width: 900px;
+      max-width: 1100px;
       margin: 2rem auto 0;
       padding: 0 1rem;
     }}
@@ -271,6 +846,7 @@ def generate_html(rows: list[dict], completed_matches: int, timeline_events: int
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 0.75rem;
+      align-items: start;
     }}
     .stat-card {{
       background: #ffffff;
@@ -588,7 +1164,7 @@ def generate_html(rows: list[dict], completed_matches: int, timeline_events: int
     <div class="header-badge">Sportradar Soccer</div>
     <h1><span>Own Goals</span> Tracker</h1>
     <div class="subtitle">
-      <strong>{total}</strong> own goal{"s" if total != 1 else ""} scored across {SEASON_LABEL}
+      <strong id="subtitle-og-total">{total}</strong> own goal<span id="subtitle-og-plural">{"s" if total != 1 else ""}</span> <span id="subtitle-scope">scored across {SEASON_LABEL}</span>
     </div>
   </div>
 
@@ -598,7 +1174,7 @@ def generate_html(rows: list[dict], completed_matches: int, timeline_events: int
 
   <div class="table-section">
     <div class="table-header-row">
-      <div class="table-title">All Own Goals &mdash; {SEASON_LABEL}</div>
+      <div class="table-title" id="table-filter-title">All Own Goals &mdash; {SEASON_LABEL}</div>
       <div class="sort-hint">Click any column header to sort</div>
     </div>
     <div class="table-wrap">
@@ -646,61 +1222,20 @@ def generate_html(rows: list[dict], completed_matches: int, timeline_events: int
     <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated {generated}</p>
   </div>
 
-  <script>
-    (function () {{
-      const tbody = document.getElementById('og-tbody');
-      const headers = document.querySelectorAll('thead th[data-col]');
-      let sortCol = null;
-      let sortAsc = true;
-
-      headers.forEach(th => {{
-        th.addEventListener('click', () => {{
-          const col = parseInt(th.getAttribute('data-col'));
-          if (sortCol === col) {{
-            sortAsc = !sortAsc;
-          }} else {{
-            sortCol = col;
-            sortAsc = true;
-          }}
-          headers.forEach(h => h.classList.remove('sorted-asc', 'sorted-desc'));
-          th.classList.add(sortAsc ? 'sorted-asc' : 'sorted-desc');
-          sortTable(col, sortAsc);
-        }});
-      }});
-
-      function sortTable(colIndex, asc) {{
-        const rows = Array.from(tbody.querySelectorAll('tr'));
-        rows.sort((a, b) => {{
-          const aVal = a.children[colIndex].getAttribute('data-val') || '';
-          const bVal = b.children[colIndex].getAttribute('data-val') || '';
-          const aNum = parseFloat(aVal);
-          const bNum = parseFloat(bVal);
-          let cmp;
-          if (!isNaN(aNum) && !isNaN(bNum)) {{
-            cmp = aNum - bNum;
-          }} else {{
-            cmp = aVal.localeCompare(bVal, undefined, {{ numeric: true, sensitivity: 'base' }});
-          }}
-          return asc ? cmp : -cmp;
-        }});
-        rows.forEach(r => tbody.appendChild(r));
-        // Re-stripe rows after sort
-        rows.forEach((r, i) => {{
-          r.style.background = '';
-        }});
-      }}
-    }})();
-  </script>
+  <script type="application/json" id="report-filter-data">{filter_json}</script>
+  {_inline_report_script()}
 
 </body>
 </html>"""
 
 
 def main():
+    pipeline_by_season: dict = {}
     if USE_SUPABASE:
         import db
         rows = db.get_all_own_goals()
         completed_matches, timeline_events = db.get_report_stats()
+        pipeline_by_season = db.get_pipeline_stats_by_season_name()
         rows.sort(key=lambda r: (r["match_date"], int(r["minute"]) if str(r["minute"]).isdigit() else 0))
         print(f"Loaded {len(rows)} own goal records from Supabase")
     else:
@@ -711,7 +1246,7 @@ def main():
         print(f"Loaded {len(rows)} own goal records from {OWN_GOALS_CSV}")
     print(f"Completed matches reviewed : {completed_matches}")
     print(f"Total timeline events      : {timeline_events:,}")
-    html = generate_html(rows, completed_matches, timeline_events)
+    html = generate_html(rows, completed_matches, timeline_events, pipeline_by_season)
     with open(REPORT_HTML, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"Report written to: {REPORT_HTML}")
