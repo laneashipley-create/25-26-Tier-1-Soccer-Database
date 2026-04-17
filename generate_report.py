@@ -10,7 +10,7 @@ import json
 import os
 from datetime import datetime, timezone
 
-from config import OWN_GOALS_CSV, REPORT_HTML, SEASON_NAME, TIMELINES_DIR, USE_SUPABASE
+from config import OWN_GOALS_CSV, REPORT_HTML, SEASON_NAME, SEASON_LABEL, TIMELINES_DIR, USE_SUPABASE
 
 ASSETS_DIR = os.path.join(os.path.dirname(__file__), "assets")
 
@@ -71,7 +71,7 @@ def format_score(home: str, away: str) -> str:
 
 def build_table_rows(rows: list[dict]) -> str:
     if not rows:
-        return '<tr><td colspan="10" style="text-align:center;padding:2rem;color:#666;">No own goals found yet.</td></tr>'
+        return '<tr><td colspan="12" style="text-align:center;padding:2rem;color:#666;">No own goals found yet.</td></tr>'
 
     html_rows = []
     for i, r in enumerate(rows, 1):
@@ -101,6 +101,10 @@ def build_table_rows(rows: list[dict]) -> str:
         html_rows.append(f"""
         <tr>
           <td class="num" data-val="{i}" data-label="#">{i}</td>
+          <td data-val="{r.get('season_name','')}" data-label="Competition">
+            <div class="match-name">{r.get('season_name','—')}</div>
+            <div class="meta">{r.get('competition_id','')}</div>
+          </td>
           <td data-val="{r['match_date']}" data-label="Match">
             <div class="match-name">{match_label}</div>
             <div class="meta">{r['match_date']} &bull; {round_label}</div>
@@ -212,7 +216,7 @@ def generate_html(rows: list[dict], completed_matches: int, timeline_events: int
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EPL Own Goals — {SEASON_NAME}</title>
+  <title>Own Goals — {SEASON_LABEL}</title>
   <style>
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
     html {{ font-size: 14px; }}
@@ -349,16 +353,17 @@ def generate_html(rows: list[dict], completed_matches: int, timeline_events: int
       table-layout: fixed;
     }}
     col.c-num        {{ width: 2%; }}
-    col.c-match      {{ width: 13%; }}
-    col.c-matchid    {{ width: 14%; }}
-    col.c-scorer     {{ width: 11%; }}
+    col.c-comp       {{ width: 12%; }}
+    col.c-match      {{ width: 12%; }}
+    col.c-matchid    {{ width: 12%; }}
+    col.c-scorer     {{ width: 10%; }}
     col.c-playerid   {{ width: 8%; }}
     col.c-min        {{ width: 4%; }}
     col.c-team       {{ width: 9%; }}
     col.c-score      {{ width: 5%; }}
     col.c-final      {{ width: 5%; }}
     col.c-ogmention  {{ width: 5%; }}
-    col.c-commentary {{ width: 24%; }}
+    col.c-commentary {{ width: 25%; }}
 
     thead tr {{
       background: #1a0000;
@@ -580,10 +585,10 @@ def generate_html(rows: list[dict], completed_matches: int, timeline_events: int
 <body>
 
   <div class="header">
-    <div class="header-badge">Premier League &middot; 25/26</div>
-    <h1>EPL <span>Own Goals</span> Tracker</h1>
+    <div class="header-badge">Sportradar Soccer</div>
+    <h1><span>Own Goals</span> Tracker</h1>
     <div class="subtitle">
-      <strong>{total}</strong> own goal{"s" if total != 1 else ""} scored in the {SEASON_NAME} season
+      <strong>{total}</strong> own goal{"s" if total != 1 else ""} scored across {SEASON_LABEL}
     </div>
   </div>
 
@@ -593,13 +598,14 @@ def generate_html(rows: list[dict], completed_matches: int, timeline_events: int
 
   <div class="table-section">
     <div class="table-header-row">
-      <div class="table-title">All Own Goals &mdash; {SEASON_NAME}</div>
+      <div class="table-title">All Own Goals &mdash; {SEASON_LABEL}</div>
       <div class="sort-hint">Click any column header to sort</div>
     </div>
     <div class="table-wrap">
       <table id="og-table">
         <colgroup>
           <col class="c-num">
+          <col class="c-comp">
           <col class="c-match">
           <col class="c-matchid">
           <col class="c-scorer">
@@ -614,16 +620,17 @@ def generate_html(rows: list[dict], completed_matches: int, timeline_events: int
         <thead>
           <tr>
             <th class="num">#</th>
-            <th data-col="1">Match</th>
-            <th data-col="2">Match ID</th>
-            <th data-col="3">Own Goal Scorer</th>
-            <th data-col="4">Player ID</th>
-            <th class="center" data-col="5">Min</th>
-            <th data-col="6">Benefiting Team</th>
-            <th class="center" data-col="7">Score at OG</th>
-            <th class="center" data-col="8">Final Score</th>
-            <th class="center" data-col="9">Mentions OG?</th>
-            <th data-col="10">Commentary</th>
+            <th data-col="1">Competition</th>
+            <th data-col="2">Match</th>
+            <th data-col="3">Match ID</th>
+            <th data-col="4">Own Goal Scorer</th>
+            <th data-col="5">Player ID</th>
+            <th class="center" data-col="6">Min</th>
+            <th data-col="7">Benefiting Team</th>
+            <th class="center" data-col="8">Score at OG</th>
+            <th class="center" data-col="9">Final Score</th>
+            <th class="center" data-col="10">Mentions OG?</th>
+            <th data-col="11">Commentary</th>
           </tr>
         </thead>
         <tbody id="og-tbody">

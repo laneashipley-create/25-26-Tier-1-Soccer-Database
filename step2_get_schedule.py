@@ -1,5 +1,5 @@
 """
-STEP 2 — Pull the full 25/26 EPL schedule and save every match to CSV.
+STEP 2 — Pull configured season schedules and save every match to CSV.
 
 Columns saved:
   sport_event_id, start_time, round, home_team, home_team_id,
@@ -15,9 +15,12 @@ import time
 import urllib.request
 import urllib.error
 
-from config import API_KEY, BASE_URL, SEASON_ID, SCHEDULE_CSV, REQUEST_DELAY_SECONDS, USE_SUPABASE
+from config import API_KEY, BASE_URL, COMPETITIONS, SCHEDULE_CSV, REQUEST_DELAY_SECONDS, USE_SUPABASE
 
 CSV_FIELDS = [
+    "competition_id",
+    "season_id",
+    "season_name",
     "sport_event_id",
     "start_time",
     "round",
@@ -32,9 +35,9 @@ CSV_FIELDS = [
 ]
 
 
-def fetch_schedule() -> list[dict]:
-    """Fetch the full season schedule from Sportradar."""
-    url = f"{BASE_URL}/seasons/{SEASON_ID}/schedules.json?api_key={API_KEY}"
+def fetch_schedule(season_id: str) -> list[dict]:
+    """Fetch a full season schedule from Sportradar."""
+    url = f"{BASE_URL}/seasons/{season_id}/schedules.json?api_key={API_KEY}"
     print(f"Fetching schedule from: {url.split('?')[0]}")
     req = urllib.request.Request(url, headers={"Accept": "application/json"})
     with urllib.request.urlopen(req, timeout=30) as resp:
@@ -44,7 +47,7 @@ def fetch_schedule() -> list[dict]:
     return schedules
 
 
-def parse_schedule(schedules: list[dict]) -> list[dict]:
+def parse_schedule(schedules: list[dict], competition_id: str, season_id: str, season_name: str) -> list[dict]:
     """Flatten each schedule entry into a flat row dict."""
     rows = []
     for item in schedules:
@@ -61,6 +64,9 @@ def parse_schedule(schedules: list[dict]) -> list[dict]:
             round_num = ctx.get("round", {}).get("number", "")
 
         rows.append({
+            "competition_id": competition_id,
+            "season_id": season_id,
+            "season_name": season_name,
             "sport_event_id": se.get("id", ""),
             "start_time": se.get("start_time", ""),
             "round": round_num,
@@ -86,14 +92,30 @@ def save_csv(rows: list[dict], path: str) -> None:
 
 
 def main():
-    schedules = fetch_schedule()
-    rows = parse_schedule(schedules)
+    rows = []
+    for competition in COMPETITIONS:
+        competition_id = competition["competition_id"]
+        season_id = competition["season_id"]
+        season_name = competition["season_name"]
+        print(f"\nCompetition: {competition_id} | Season: {season_name} ({season_id})")
+        schedules = fetch_schedule(season_id)
+        parsed = parse_schedule(schedules, competition_id, season_id, season_name)
+        rows.extend(parsed)
+        time.sleep(REQUEST_DELAY_SECONDS)
 
     if USE_SUPABASE:
         import db
-        season_id = db.get_or_create_season()
-        db.upsert_schedule(season_id, rows)
-        print(f"  -> Upserted {len(rows)} rows to Supabase schedule table")
+        season_ids = db.get_or_create_seasons()
+        by_season: dict[str, list[dict]] = {sid: [] for sid in season_ids.values()}
+        for row in rows:
+            sid = season_ids.get(row["season_id"])
+            if sid:
+                by_season[sid].append(row)
+        upserted = 0
+        for sid, season_rows in by_season.items():
+            db.upsert_games(sid, season_rows)
+            upserted += len(season_rows)
+        print(f"  -> Upserted {upserted} rows to Supabase public.games")
 
     save_csv(rows, SCHEDULE_CSV)
 

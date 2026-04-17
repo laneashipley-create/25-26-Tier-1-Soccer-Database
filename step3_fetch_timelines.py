@@ -60,8 +60,8 @@ def main():
 
     if USE_SUPABASE:
         import db
-        season_id = db.get_or_create_season()
-        matches = db.get_completed_matches_without_timeline(season_id)
+        db.get_or_create_seasons()
+        matches = db.get_completed_matches_without_timeline_for_configured_seasons()
         print(f"Completed matches without timeline (from Supabase): {len(matches)}")
     else:
         matches = load_completed_matches(SCHEDULE_CSV)
@@ -73,7 +73,7 @@ def main():
 
     for i, match in enumerate(matches, 1):
         event_id = match["sport_event_id"]
-        schedule_id = match.get("id")  # Present when from Supabase
+        game_id = match.get("id")  # games.id when from Supabase
         out_path = cache_path(event_id)
 
         if USE_SUPABASE:
@@ -93,8 +93,8 @@ def main():
 
         try:
             data = fetch_timeline(event_id)
-            if USE_SUPABASE and schedule_id:
-                db.upsert_timeline(schedule_id, data)
+            if USE_SUPABASE and game_id:
+                db.upsert_timeline(game_id, data)
             if not USE_SUPABASE:
                 with open(out_path, "w", encoding="utf-8") as f:
                     json.dump(data, f, ensure_ascii=False)
@@ -113,7 +113,7 @@ def main():
     print(f"  Already cached: {skipped}")
     print(f"  Errors        : {errors}")
     if USE_SUPABASE:
-        print(f"  Timelines saved to Supabase match_timelines table")
+        print(f"  Timelines saved to Supabase public.sport_event_timelines")
     else:
         print(f"\nTimelines saved in: {TIMELINES_DIR}/")
 

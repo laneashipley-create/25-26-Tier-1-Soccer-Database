@@ -11,21 +11,22 @@
 ## Applying the schema
 
 1. **Link your Supabase project in Cursor** (if not already) so `project_id` is available.
-2. Apply the migration either:
-   - **Via MCP (agent):** ask the agent to run `apply_migration` with:
-     - `project_id`: your linked project ref
-     - `name`: `epl_own_goals_schema`
-     - `query`: contents of `supabase/migrations/20250306000000_epl_own_goals_schema.sql`
-   - **Manually:** open the [Supabase SQL Editor](https://supabase.com/dashboard), create a new project if needed, then paste and run the SQL from that file.
+2. Apply migrations in order (baseline then renames):
+   - `supabase/migrations/20250306000000_epl_own_goals_schema.sql`
+   - `supabase/migrations/20260318001000_epl_own_goals_enable_rls.sql` (optional but recommended)
+   - `supabase/migrations/20260417140000_competitions_games_sport_event_timelines.sql` — adds `public.competitions`, converts `seasons.competition_id` to a UUID FK, renames `schedule` → `games`, `match_timelines` → `sport_event_timelines`, `schedule_id` → `game_id`.
+
+   Use **Supabase SQL Editor** or MCP `apply_migration` for each file’s contents.
 
 ## Runtime (script) — reducing run time
 
 The pipeline will be updated to:
 
-1. **Seasons** — Ensure the 25/26 season exists in `public.seasons` (by `sportradar_season_id`).
-2. **Schedule** — Fetch schedule from Sportradar, then **upsert** into `public.schedule` so we don’t re-fetch from scratch every time; only refresh when you run step 2.
-3. **Timelines** — For completed matches, only fetch timelines for matches that **don’t** have a row in `public.match_timelines` (or that don’t have a cached file). That way the script doesn’t start from the beginning of the season each run.
-4. **Own goals** — Upsert into `public.own_goals` from the timeline data; report can read from DB (or from CSV if you keep a CSV export step).
+1. **Competitions** — Rows in `public.competitions` (`sportradar_competition_id`, `name`); created/ensured by the pipeline from `config.COMPETITIONS`.
+2. **Seasons** — Ensure each configured season exists in `public.seasons` (by `sportradar_season_id`), linked to `competitions` via UUID `competition_id`.
+3. **Games** — Fetch schedules from Sportradar, then **upsert** into `public.games` (one row per `sr:sport_event` per season).
+4. **Timelines** — For completed games, fetch timelines only when there is no row in `public.sport_event_timelines` for that `games.id` (`game_id`), unless using local JSON cache.
+5. **Own goals** — Insert into `public.own_goals` from timeline data; the report reads from the DB when `USE_SUPABASE` is true.
 
 To do this from Python, the script will use the **Supabase client** with credentials from the environment (not the MCP, which is for Cursor/agent use). Add to `.env` or `config_local.py` (gitignored):
 

@@ -23,6 +23,9 @@ import os
 from config import SCHEDULE_CSV, TIMELINES_DIR, OWN_GOALS_CSV, USE_SUPABASE
 
 OG_FIELDS = [
+    "competition_id",
+    "season_id",
+    "season_name",
     "sport_event_id",
     "match_date",
     "round",
@@ -62,6 +65,9 @@ def _schedule_row_for_extract(row: dict) -> dict:
     """Normalize schedule row (from DB or CSV) for extract_own_goals_from_timeline."""
     start_time = row.get("start_time", "")
     return {
+        "competition_id": row.get("competition_id", ""),
+        "season_id": row.get("season_id", ""),
+        "season_name": row.get("season_name", ""),
         "sport_event_id": row.get("sport_event_id", ""),
         "start_time": str(start_time) if start_time else "",
         "home_team": row.get("home_team", ""),
@@ -87,6 +93,9 @@ def extract_own_goals_from_timeline(data: dict, schedule_row: dict) -> list[dict
     final_away = final_status.get("away_score", "")
 
     event_id = schedule_row.get("sport_event_id", "")
+    competition_id = schedule_row.get("competition_id", "")
+    season_id = schedule_row.get("season_id", "")
+    season_name = schedule_row.get("season_name", "")
     home_team = schedule_row.get("home_team", "")
     home_team_id = schedule_row.get("home_team_id", "")
     away_team = schedule_row.get("away_team", "")
@@ -116,6 +125,9 @@ def extract_own_goals_from_timeline(data: dict, schedule_row: dict) -> list[dict
         stoppage = ev.get("stoppage_time", "")
 
         rows.append({
+            "competition_id": competition_id,
+            "season_id": season_id,
+            "season_name": season_name,
             "sport_event_id": event_id,
             "match_date": match_date,
             "round": round_num,
@@ -144,8 +156,8 @@ def main():
 
     if USE_SUPABASE:
         import db
-        season_id = db.get_or_create_season()
-        matches_with_tl = db.get_completed_matches_with_timelines(season_id)
+        db.get_or_create_seasons()
+        matches_with_tl = db.get_completed_matches_with_timelines_for_configured_seasons()
         print(f"Scanning {len(matches_with_tl)} timelines from Supabase...")
 
         for row in matches_with_tl:

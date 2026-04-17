@@ -2,8 +2,8 @@
 One-off migration: import existing CSV and timeline files into Supabase.
 
 Run once after setting up Supabase to avoid losing existing data.
-  - schedule.csv → schedule table
-  - data/timelines/*.json → match_timelines table (requires schedule rows first)
+  - schedule.csv → public.games
+  - data/timelines/*.json → public.sport_event_timelines (requires games rows first)
   - own_goals.csv → own_goals table
 
 Requires USE_SUPABASE=True (config_local has SUPABASE_KEY).
@@ -13,11 +13,11 @@ import csv
 import json
 import os
 
-from config import USE_SUPABASE, SCHEDULE_CSV, OWN_GOALS_CSV, TIMELINES_DIR, SEASON_ID
+from config import USE_SUPABASE, SCHEDULE_CSV, OWN_GOALS_CSV, TIMELINES_DIR
 
 
 def migrate_schedule():
-    """Import schedule.csv into schedule table."""
+    """Import schedule.csv into public.games."""
     if not os.path.exists(SCHEDULE_CSV):
         print(f"  Skipping schedule — {SCHEDULE_CSV} not found")
         return 0
@@ -28,16 +28,23 @@ def migrate_schedule():
     if not rows:
         return 0
     import db
-    season_id = db.get_or_create_season()
-    db.upsert_schedule(season_id, rows)
+    season_ids = db.get_or_create_seasons()
+    rows_by_season: dict[str, list[dict]] = {sid: [] for sid in season_ids.values()}
+    for row in rows:
+        sid = season_ids.get(row.get("season_id", ""))
+        if sid:
+            rows_by_season[sid].append(row)
+    for sid, season_rows in rows_by_season.items():
+        if season_rows:
+            db.upsert_games(sid, season_rows)
     print(f"  Migrated {len(rows)} schedule rows")
     return len(rows)
 
 
 def migrate_timelines():
-    """Import timeline JSON files into match_timelines table."""
+    """Import timeline JSON files into public.sport_event_timelines."""
     import db
-    season_id = db.get_or_create_season()
+    season_ids = db.get_or_create_seasons()
     if not os.path.isdir(TIMELINES_DIR):
         print(f"  Skipping timelines — {TIMELINES_DIR} not found")
         return 0
@@ -45,7 +52,11 @@ def migrate_timelines():
     count = 0
     for filename in files:
         sport_event_id = filename.replace("sr_sport_event_", "sr:sport_event:").replace(".json", "")
-        row = db.get_schedule_by_sport_event_id(season_id, sport_event_id)
+        row = None
+        for sid in season_ids.values():
+            row = db.get_game_by_sport_event_id(sid, sport_event_id)
+            if row:
+                break
         if not row:
             continue
         filepath = os.path.join(TIMELINES_DIR, filename)

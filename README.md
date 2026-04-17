@@ -1,20 +1,20 @@
-# EPL Own Goals Tracker — 2025/26 Season
+# Own Goals Tracker — Multi-Competition
 
-Pulls data from the Sportradar Soccer API to identify every own goal scored in the 2025/26 English Premier League season and generates a self-contained HTML report.
+Pulls data from the Sportradar Soccer API to identify own goals across one or more configured soccer competitions/seasons and generates a self-contained HTML report.
 
 ---
 
 ## Project Structure
 
 ```
-├── config.py                  # API key, season ID, file paths
-├── step2_get_schedule.py      # Fetch full EPL schedule → data/schedule.csv
+├── config.py                  # API key, competition/season list, file paths
+├── step2_get_schedule.py      # Fetch all configured schedules → data/schedule.csv
 ├── step3_fetch_timelines.py   # Fetch match timelines (cached) → data/timelines/
 ├── step4_extract_own_goals.py # Scan timelines, extract OG events → data/own_goals.csv
 ├── generate_report.py         # Build HTML report → report.html
 ├── run_all.py                 # Orchestrate all steps in sequence
 ├── data/
-│   ├── schedule.csv           # All 393 EPL matches with status/scores
+│   ├── schedule.csv           # Matches across configured competitions/seasons
 │   ├── own_goals.csv          # Extracted own goal records
 │   └── timelines/             # Cached raw JSON from Sportradar (one file per match)
 └── report.html                # Final output — open in browser
@@ -25,8 +25,9 @@ Pulls data from the Sportradar Soccer API to identify every own goal scored in t
 ## API Details
 
 - **API**: Sportradar Soccer v4 (trial)
-- **Season**: `sr:season:130281` — Premier League 25/26
-- **Competition**: `sr:competition:17` — English Premier League
+- **Configured in**: `config.py` → `COMPETITIONS` list
+- **Each entry includes**: `competition_id`, `competition_name`, `season_id`, `season_name`
+- **Supabase** (when enabled): `public.competitions`, `public.seasons`, `public.games`, `public.sport_event_timelines`, `public.own_goals` — see `supabase/migrations/`
 - **Own goal detection**: `timeline.type == "score_change" && timeline.method == "own_goal"`
 
 ---
