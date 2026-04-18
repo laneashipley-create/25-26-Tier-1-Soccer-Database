@@ -18,8 +18,18 @@ Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_ANON_KEY)
 from __future__ import annotations
 
 import json
+import time
 import urllib.error
 import urllib.request
+
+try:
+    from postgrest.exceptions import APIError as PostgrestAPIError
+except ImportError:  # pragma: no cover
+
+    class PostgrestAPIError(Exception):
+        """Placeholder if postgrest is unavailable."""
+
+        pass
 
 from config import (
     API_KEY,
@@ -34,6 +44,29 @@ from config import (
 )
 
 _client = None
+
+
+def _supabase_execute_with_retry(execute_fn, *, attempts: int = 6, base_delay: float = 1.5):
+    """
+    Run a PostgREST .execute() callable; retry on transient gateway / rate errors.
+    Cloudflare sometimes returns HTML 502 — treated as retryable.
+    """
+    delay = base_delay
+    last_exc: BaseException | None = None
+    for i in range(attempts):
+        try:
+            return execute_fn()
+        except PostgrestAPIError as e:
+            last_exc = e
+            info = e.args[0] if e.args and isinstance(e.args[0], dict) else {}
+            code = info.get("code")
+            if code not in (429, 502, 503, 504, 520):
+                raise
+        if i < attempts - 1:
+            time.sleep(delay)
+            delay = min(delay * 2, 45.0)
+    assert last_exc is not None
+    raise last_exc
 
 
 def fetch_sportradar_category_name(sportradar_competition_id: str) -> str | None:
@@ -269,7 +302,11 @@ def upsert_timeline(game_id: str, timeline_json: dict | None = None) -> None:
 def get_timeline_json(game_id: str) -> dict | None:
     """Return stored timeline JSON for a game row, or None if not stored."""
     supabase = get_client()
-    r = supabase.table("sport_event_timelines").select("timeline_json").eq("game_id", game_id).execute()
+
+    def _run():
+        return supabase.table("sport_event_timelines").select("timeline_json").eq("game_id", game_id).execute()
+
+    r = _supabase_execute_with_retry(_run)
     if r.data and len(r.data) > 0 and r.data[0].get("timeline_json"):
         return r.data[0]["timeline_json"]
     return None
@@ -279,11 +316,30 @@ def get_completed_matches_with_timelines(season_id: str) -> list[dict]:
     """Return completed games rows that have timelines, with timeline_json attached. For step4."""
     completed = get_completed_games_for_season(season_id)
     with_tl_ids = get_game_ids_with_timeline(season_id)
+    targets = [row for row in completed if row["id"] in with_tl_ids]
+    if not targets:
+        return []
+
+    game_ids = [str(row["id"]) for row in targets]
+    tl_by_game: dict[str, dict] = {}
+    supabase = get_client()
+    chunk = 80
+    for i in range(0, len(game_ids), chunk):
+        part = game_ids[i : i + chunk]
+
+        def _run(ids=part):
+            return supabase.table("sport_event_timelines").select("game_id, timeline_json").in_("game_id", ids).execute()
+
+        r = _supabase_execute_with_retry(_run)
+        for rec in r.data or []:
+            gid = rec.get("game_id")
+            tj = rec.get("timeline_json")
+            if gid and tj:
+                tl_by_game[str(gid)] = tj
+
     result = []
-    for row in completed:
-        if row["id"] not in with_tl_ids:
-            continue
-        tl = get_timeline_json(row["id"])
+    for row in targets:
+        tl = tl_by_game.get(str(row["id"]))
         if tl:
             row_copy = dict(row)
             row_copy["timeline_json"] = tl

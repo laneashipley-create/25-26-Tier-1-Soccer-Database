@@ -365,6 +365,13 @@ def _inline_report_script() -> str:
     return Array.prototype.slice.call(document.querySelectorAll('input[name="og-comp"]:checked')).map(function (cb) { return cb.value; });
   }
 
+  /** True when every competition slicer box is checked — same scope as terminal / pipelineGlobal. */
+  function allCompetitionChipsSelected() {
+    const boxes = document.querySelectorAll('input[name="og-comp"]');
+    if (!boxes.length) return true;
+    return document.querySelectorAll('input[name="og-comp"]:checked').length === boxes.length;
+  }
+
   function compMatches(tr, selected) {
     if (selected === null) return true;
     if (!selected.length) return false;
@@ -484,7 +491,11 @@ def _inline_report_script() -> str:
     renumberRows();
 
     var pipeKeys = selected === null ? (allNames.length ? allNames : Object.keys(pb)) : selected;
-    var st = pipelineStats(pipeKeys);
+    // Summing pipelineBySeason misses timelines that do not map to a configured season / closed game
+    // (or empty JSON rows still counted globally). When every comp chip is on, match the printed totals.
+    var st = allCompetitionChipsSelected()
+      ? { matches: pg.matches || 0, events: pg.events || 0 }
+      : pipelineStats(pipeKeys);
     setText('kpi-matches', fmtInt(st.matches));
     setText('kpi-events', fmtInt(st.events));
 

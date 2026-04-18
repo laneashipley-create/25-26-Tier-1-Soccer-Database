@@ -103,6 +103,12 @@ def main():
         rows.extend(parsed)
         time.sleep(REQUEST_DELAY_SECONDS)
 
+    print(
+        f"\nSchedules fetched for all competitions ({len(rows)} rows in memory). "
+        "Next: Supabase games upsert (can take several minutes) and CSV export…",
+        flush=True,
+    )
+
     if USE_SUPABASE:
         import db
         season_ids = db.get_or_create_seasons()
@@ -112,10 +118,14 @@ def main():
             if sid:
                 by_season[sid].append(row)
         upserted = 0
+        n_seasons = sum(1 for v in by_season.values() if v)
+        print(f"  -> Upserting games for {n_seasons} season(s) into public.games…", flush=True)
         for sid, season_rows in by_season.items():
+            if not season_rows:
+                continue
             db.upsert_games(sid, season_rows)
             upserted += len(season_rows)
-        print(f"  -> Upserted {upserted} rows to Supabase public.games")
+        print(f"  -> Upserted {upserted} rows to Supabase public.games", flush=True)
 
     save_csv(rows, SCHEDULE_CSV)
 
