@@ -392,16 +392,16 @@ sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886678,2026-04-12T21:00:00+00:00,11,Fluminense FC RJ,sr:competitor:1961,CR Flamengo RJ,sr:competitor:5981,closed,ended,1,2
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886684,2026-04-12T21:30:00+00:00,11,SC Corinthians SP,sr:competitor:1957,SE Palmeiras SP,sr:competitor:1963,closed,ended,0,0
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886688,2026-04-12T21:30:00+00:00,11,Cruzeiro EC MG,sr:competitor:1954,Red Bull Bragantino SP,sr:competitor:1999,closed,ended,2,1
-sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886700,2026-04-18T21:30:00+00:00,12,CR Vasco da Gama RJ,sr:competitor:1974,Sao Paulo FC SP,sr:competitor:1981,not_started,not_started,,
-sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886716,2026-04-18T21:30:00+00:00,12,Chapecoense SC,sr:competitor:21845,Botafogo FR RJ,sr:competitor:1958,not_started,not_started,,
-sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886714,2026-04-18T23:00:00+00:00,12,EC Vitoria BA,sr:competitor:1962,SC Corinthians SP,sr:competitor:1957,not_started,not_started,,
-sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886708,2026-04-18T23:30:00+00:00,12,Cruzeiro EC MG,sr:competitor:1954,Gremio FB Porto Alegrense RS,sr:competitor:5926,not_started,not_started,,
-sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886710,2026-04-19T14:00:00+00:00,12,SC Internacional RS,sr:competitor:1966,Mirassol FC SP,sr:competitor:21982,not_started,not_started,,
-sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886702,2026-04-19T19:00:00+00:00,12,Santos FC SP,sr:competitor:1968,Fluminense FC RJ,sr:competitor:1961,not_started,not_started,,
-sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886712,2026-04-19T19:00:00+00:00,12,Coritiba FC PR,sr:competitor:1982,Atletico Mineiro MG,sr:competitor:1977,not_started,not_started,,
-sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886704,2026-04-19T21:30:00+00:00,12,SE Palmeiras SP,sr:competitor:1963,CA Paranaense PR,sr:competitor:1967,not_started,not_started,,
-sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886706,2026-04-19T21:30:00+00:00,12,Red Bull Bragantino SP,sr:competitor:1999,Clube do Remo PA,sr:competitor:2012,not_started,not_started,,
-sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886698,2026-04-19T22:30:00+00:00,12,CR Flamengo RJ,sr:competitor:5981,EC Bahia BA,sr:competitor:1955,not_started,not_started,,
+sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886700,2026-04-18T21:30:00+00:00,12,CR Vasco da Gama RJ,sr:competitor:1974,Sao Paulo FC SP,sr:competitor:1981,closed,ended,2,1
+sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886716,2026-04-18T21:30:00+00:00,12,Chapecoense SC,sr:competitor:21845,Botafogo FR RJ,sr:competitor:1958,closed,ended,1,4
+sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886714,2026-04-18T23:00:00+00:00,12,EC Vitoria BA,sr:competitor:1962,SC Corinthians SP,sr:competitor:1957,closed,ended,0,0
+sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886708,2026-04-18T23:30:00+00:00,12,Cruzeiro EC MG,sr:competitor:1954,Gremio FB Porto Alegrense RS,sr:competitor:5926,closed,ended,2,0
+sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886710,2026-04-19T14:00:00+00:00,12,SC Internacional RS,sr:competitor:1966,Mirassol FC SP,sr:competitor:21982,closed,ended,1,2
+sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886702,2026-04-19T19:00:00+00:00,12,Santos FC SP,sr:competitor:1968,Fluminense FC RJ,sr:competitor:1961,closed,ended,2,3
+sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886712,2026-04-19T19:00:00+00:00,12,Coritiba FC PR,sr:competitor:1982,Atletico Mineiro MG,sr:competitor:1977,closed,ended,2,0
+sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886704,2026-04-19T21:30:00+00:00,12,SE Palmeiras SP,sr:competitor:1963,CA Paranaense PR,sr:competitor:1967,closed,ended,1,0
+sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886706,2026-04-19T21:30:00+00:00,12,Red Bull Bragantino SP,sr:competitor:1999,Clube do Remo PA,sr:competitor:2012,closed,ended,4,2
+sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886698,2026-04-19T22:30:00+00:00,12,CR Flamengo RJ,sr:competitor:5981,EC Bahia BA,sr:competitor:1955,closed,ended,2,0
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886720,2026-04-25T21:30:00+00:00,13,Botafogo FR RJ,sr:competitor:1958,SC Internacional RS,sr:competitor:1966,not_started,not_started,,
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886734,2026-04-25T21:30:00+00:00,13,EC Bahia BA,sr:competitor:1955,Santos FC SP,sr:competitor:1968,not_started,not_started,,
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886736,2026-04-25T21:30:00+00:00,13,Clube do Remo PA,sr:competitor:2012,Cruzeiro EC MG,sr:competitor:1954,not_started,not_started,,
@@ -413,8 +413,8 @@ sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886718,2026-04-26T23:30:00+00:00,13,Fluminense FC RJ,sr:competitor:1961,Chapecoense SC,sr:competitor:21845,not_started,not_started,,
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886728,2026-04-26T23:30:00+00:00,13,Atletico Mineiro MG,sr:competitor:1977,CR Flamengo RJ,sr:competitor:5981,not_started,not_started,,
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886740,2026-05-02T19:00:00+00:00,14,Botafogo FR RJ,sr:competitor:1958,Clube do Remo PA,sr:competitor:2012,not_started,not_started,,
-sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886754,2026-05-02T19:00:00+00:00,14,EC Vitoria BA,sr:competitor:1962,Coritiba FC PR,sr:competitor:1982,not_started,not_started,,
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886744,2026-05-02T21:30:00+00:00,14,SE Palmeiras SP,sr:competitor:1963,Santos FC SP,sr:competitor:1968,not_started,not_started,,
+sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886754,2026-05-02T21:30:00+00:00,14,EC Vitoria BA,sr:competitor:1962,Coritiba FC PR,sr:competitor:1982,not_started,not_started,,
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886752,2026-05-02T23:30:00+00:00,14,CA Paranaense PR,sr:competitor:1967,Gremio FB Porto Alegrense RS,sr:competitor:5926,not_started,not_started,,
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886748,2026-05-03T00:00:00+00:00,14,Cruzeiro EC MG,sr:competitor:1954,Atletico Mineiro MG,sr:competitor:1977,not_started,not_started,,
 sr:competition:325,sr:season:137706,Brasileiro Serie A 2026,sr:sport_event:66886738,2026-05-03T19:00:00+00:00,14,CR Flamengo RJ,sr:competitor:5981,CR Vasco da Gama RJ,sr:competitor:1974,not_started,not_started,,
@@ -927,14 +927,14 @@ sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514128,2026
 sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514118,2026-04-12T15:30:00+00:00,29,VfB Stuttgart,sr:competitor:2677,Hamburger SV,sr:competitor:2676,closed,ended,4,0
 sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514114,2026-04-12T17:30:00+00:00,29,FSV Mainz,sr:competitor:2556,SC Freiburg,sr:competitor:2538,closed,ended,0,1
 sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514144,2026-04-17T18:30:00+00:00,30,FC St. Pauli,sr:competitor:2526,1. FC Cologne,sr:competitor:2671,closed,ended,1,1
-sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514132,2026-04-18T13:30:00+00:00,30,Bayer Leverkusen,sr:competitor:2681,FC Augsburg,sr:competitor:2600,not_started,not_started,,
-sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514138,2026-04-18T13:30:00+00:00,30,Werder Bremen,sr:competitor:2534,Hamburger SV,sr:competitor:2676,not_started,not_started,,
-sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514142,2026-04-18T13:30:00+00:00,30,Union Berlin,sr:competitor:2547,VFL Wolfsburg,sr:competitor:2524,not_started,not_started,,
-sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514146,2026-04-18T13:30:00+00:00,30,TSG Hoffenheim,sr:competitor:2569,Borussia Dortmund,sr:competitor:2673,not_started,not_started,,
-sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514134,2026-04-18T16:30:00+00:00,30,Eintracht Frankfurt,sr:competitor:2674,RB Leipzig,sr:competitor:36360,not_started,not_started,,
-sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514136,2026-04-19T13:30:00+00:00,30,SC Freiburg,sr:competitor:2538,1. FC Heidenheim,sr:competitor:5885,not_started,not_started,,
-sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514130,2026-04-19T15:30:00+00:00,30,Bayern Munich,sr:competitor:2672,VfB Stuttgart,sr:competitor:2677,not_started,not_started,,
-sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514140,2026-04-19T17:30:00+00:00,30,Borussia Monchengladbach,sr:competitor:2527,FSV Mainz,sr:competitor:2556,not_started,not_started,,
+sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514132,2026-04-18T13:30:00+00:00,30,Bayer Leverkusen,sr:competitor:2681,FC Augsburg,sr:competitor:2600,closed,ended,1,2
+sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514138,2026-04-18T13:30:00+00:00,30,Werder Bremen,sr:competitor:2534,Hamburger SV,sr:competitor:2676,closed,ended,3,1
+sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514142,2026-04-18T13:30:00+00:00,30,Union Berlin,sr:competitor:2547,VFL Wolfsburg,sr:competitor:2524,closed,ended,1,2
+sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514146,2026-04-18T13:30:00+00:00,30,TSG Hoffenheim,sr:competitor:2569,Borussia Dortmund,sr:competitor:2673,closed,ended,2,1
+sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514134,2026-04-18T16:30:00+00:00,30,Eintracht Frankfurt,sr:competitor:2674,RB Leipzig,sr:competitor:36360,closed,ended,1,3
+sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514136,2026-04-19T13:30:00+00:00,30,SC Freiburg,sr:competitor:2538,1. FC Heidenheim,sr:competitor:5885,closed,ended,2,1
+sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514130,2026-04-19T15:30:00+00:00,30,Bayern Munich,sr:competitor:2672,VfB Stuttgart,sr:competitor:2677,closed,ended,4,2
+sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514140,2026-04-19T17:30:00+00:00,30,Borussia Monchengladbach,sr:competitor:2527,FSV Mainz,sr:competitor:2556,closed,ended,1,1
 sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514152,2026-04-24T18:30:00+00:00,31,RB Leipzig,sr:competitor:36360,Union Berlin,sr:competitor:2547,not_started,not_started,,
 sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514150,2026-04-25T13:30:00+00:00,31,FSV Mainz,sr:competitor:2556,Bayern Munich,sr:competitor:2672,not_started,not_started,,
 sr:competition:35,sr:season:130571,Bundesliga 25/26,sr:sport_event:61514156,2026-04-25T13:30:00+00:00,31,VFL Wolfsburg,sr:competitor:2524,Borussia Monchengladbach,sr:competitor:2527,not_started,not_started,,
@@ -1304,17 +1304,17 @@ sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301155,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301157,2026-04-12T13:00:00+00:00,32,Sunderland AFC,sr:competitor:41,Tottenham Hotspur,sr:competitor:33,closed,ended,1,0
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301147,2026-04-12T15:30:00+00:00,32,Chelsea FC,sr:competitor:38,Manchester City,sr:competitor:17,closed,ended,0,3
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301153,2026-04-13T19:00:00+00:00,32,Manchester United,sr:competitor:35,Leeds United,sr:competitor:34,closed,ended,1,2
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301163,2026-04-18T11:30:00+00:00,33,Brentford FC,sr:competitor:50,Fulham FC,sr:competitor:43,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301171,2026-04-18T14:00:00+00:00,33,Leeds United,sr:competitor:34,Wolverhampton Wanderers,sr:competitor:3,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301175,2026-04-18T14:00:00+00:00,33,Newcastle United,sr:competitor:39,AFC Bournemouth,sr:competitor:60,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301179,2026-04-18T16:30:00+00:00,33,Tottenham Hotspur,sr:competitor:33,Brighton & Hove Albion,sr:competitor:30,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301165,2026-04-18T19:00:00+00:00,33,Chelsea FC,sr:competitor:38,Manchester United,sr:competitor:35,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301161,2026-04-19T13:00:00+00:00,33,Aston Villa,sr:competitor:40,Sunderland AFC,sr:competitor:41,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301169,2026-04-19T13:00:00+00:00,33,Everton FC,sr:competitor:48,Liverpool FC,sr:competitor:44,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301177,2026-04-19T13:00:00+00:00,33,Nottingham Forest,sr:competitor:14,Burnley FC,sr:competitor:6,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301173,2026-04-19T15:30:00+00:00,33,Manchester City,sr:competitor:17,Arsenal FC,sr:competitor:42,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301167,2026-04-20T19:00:00+00:00,33,Crystal Palace,sr:competitor:7,West Ham United,sr:competitor:37,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301185,2026-04-21T19:00:00+00:00,34,Brighton & Hove Albion,sr:competitor:30,Chelsea FC,sr:competitor:38,not_started,not_started,,
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301163,2026-04-18T11:30:00+00:00,33,Brentford FC,sr:competitor:50,Fulham FC,sr:competitor:43,closed,ended,0,0
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301171,2026-04-18T14:00:00+00:00,33,Leeds United,sr:competitor:34,Wolverhampton Wanderers,sr:competitor:3,closed,ended,3,0
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301175,2026-04-18T14:00:00+00:00,33,Newcastle United,sr:competitor:39,AFC Bournemouth,sr:competitor:60,closed,ended,1,2
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301179,2026-04-18T16:30:00+00:00,33,Tottenham Hotspur,sr:competitor:33,Brighton & Hove Albion,sr:competitor:30,closed,ended,2,2
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301165,2026-04-18T19:00:00+00:00,33,Chelsea FC,sr:competitor:38,Manchester United,sr:competitor:35,closed,ended,0,1
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301161,2026-04-19T13:00:00+00:00,33,Aston Villa,sr:competitor:40,Sunderland AFC,sr:competitor:41,closed,ended,4,3
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301169,2026-04-19T13:00:00+00:00,33,Everton FC,sr:competitor:48,Liverpool FC,sr:competitor:44,closed,ended,1,2
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301177,2026-04-19T13:00:00+00:00,33,Nottingham Forest,sr:competitor:14,Burnley FC,sr:competitor:6,closed,ended,4,1
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301173,2026-04-19T15:30:00+00:00,33,Manchester City,sr:competitor:17,Arsenal FC,sr:competitor:42,closed,ended,2,1
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301167,2026-04-20T19:00:00+00:00,33,Crystal Palace,sr:competitor:7,West Ham United,sr:competitor:37,closed,ended,0,0
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301185,2026-04-21T19:00:00+00:00,34,Brighton & Hove Albion,sr:competitor:30,Chelsea FC,sr:competitor:38,closed,ended,3,0
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301181,2026-04-22T19:00:00+00:00,34,AFC Bournemouth,sr:competitor:60,Leeds United,sr:competitor:34,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301187,2026-04-22T19:00:00+00:00,34,Burnley FC,sr:competitor:6,Manchester City,sr:competitor:17,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301195,2026-04-24T19:00:00+00:00,34,Sunderland AFC,sr:competitor:41,Nottingham Forest,sr:competitor:14,not_started,not_started,,
@@ -1468,14 +1468,14 @@ sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644920,2026-
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644922,2026-04-11T07:00:00+00:00,10,Gamba Osaka,sr:competitor:3138,Cerezo Osaka,sr:competitor:3141,closed,ended,0,1
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645490,2026-04-12T05:00:00+00:00,10,Urawa Red Diamonds,sr:competitor:3145,Tokyo Verdy,sr:competitor:3139,closed,ap,1,1
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645492,2026-04-12T07:00:00+00:00,10,Kawasaki Frontale,sr:competitor:5127,Kashima Antlers,sr:competitor:3134,closed,ended,0,2
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645494,2026-04-18T04:00:00+00:00,11,Yokohama F Marinos,sr:competitor:3137,Kawasaki Frontale,sr:competitor:5127,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644924,2026-04-18T05:00:00+00:00,11,Sanfrecce Hiroshima,sr:competitor:3135,V-Varen Nagasaki,sr:competitor:38154,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645498,2026-04-18T05:00:00+00:00,11,Kashima Antlers,sr:competitor:3134,Urawa Red Diamonds,sr:competitor:3145,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645500,2026-04-18T06:00:00+00:00,11,Tokyo Verdy,sr:competitor:3139,JEF United Chiba,sr:competitor:3144,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644926,2026-04-18T07:00:00+00:00,11,Cerezo Osaka,sr:competitor:3141,Kyoto Sanga FC,sr:competitor:3149,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645502,2026-04-19T04:00:00+00:00,11,Mito Hollyhock,sr:competitor:21901,Kashiwa Reysol,sr:competitor:3140,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644930,2026-04-19T06:00:00+00:00,11,Gamba Osaka,sr:competitor:3138,Fagiano Okayama,sr:competitor:34034,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644932,2026-04-19T07:00:00+00:00,11,Nagoya Grampus,sr:competitor:3136,Avispa Fukuoka,sr:competitor:3143,not_started,not_started,,
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645494,2026-04-18T04:00:00+00:00,11,Yokohama F Marinos,sr:competitor:3137,Kawasaki Frontale,sr:competitor:5127,closed,ended,1,2
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644924,2026-04-18T05:00:00+00:00,11,Sanfrecce Hiroshima,sr:competitor:3135,V-Varen Nagasaki,sr:competitor:38154,closed,ended,2,0
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645498,2026-04-18T05:00:00+00:00,11,Kashima Antlers,sr:competitor:3134,Urawa Red Diamonds,sr:competitor:3145,closed,ended,1,0
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645500,2026-04-18T06:00:00+00:00,11,Tokyo Verdy,sr:competitor:3139,JEF United Chiba,sr:competitor:3144,closed,ended,1,0
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644926,2026-04-18T07:00:00+00:00,11,Cerezo Osaka,sr:competitor:3141,Kyoto Sanga FC,sr:competitor:3149,closed,ended,3,0
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645502,2026-04-19T04:00:00+00:00,11,Mito Hollyhock,sr:competitor:21901,Kashiwa Reysol,sr:competitor:3140,closed,ended,2,0
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644930,2026-04-19T06:00:00+00:00,11,Gamba Osaka,sr:competitor:3138,Fagiano Okayama,sr:competitor:34034,closed,ap,2,2
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644932,2026-04-19T07:00:00+00:00,11,Nagoya Grampus,sr:competitor:3136,Avispa Fukuoka,sr:competitor:3143,closed,ap,2,2
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645074,2026-04-22T10:00:00+00:00,17,Gamba Osaka,sr:competitor:3138,Avispa Fukuoka,sr:competitor:3143,not_started,not_started,,
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645504,2026-04-24T10:00:00+00:00,12,Kashiwa Reysol,sr:competitor:3140,Kashima Antlers,sr:competitor:3134,not_started,not_started,,
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645506,2026-04-24T10:00:00+00:00,12,FC Tokyo,sr:competitor:3147,Mito Hollyhock,sr:competitor:21901,not_started,not_started,,
@@ -1859,10 +1859,10 @@ sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624546,2026-04-1
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624542,2026-04-12T16:30:00+00:00,31,RC Celta de Vigo,sr:competitor:2821,Real Oviedo,sr:competitor:2851,closed,ended,0,3
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624538,2026-04-12T19:00:00+00:00,31,Athletic Bilbao,sr:competitor:2825,Villarreal CF,sr:competitor:2819,closed,ended,1,2
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624554,2026-04-13T19:00:00+00:00,31,Levante UD,sr:competitor:2849,Getafe CF,sr:competitor:2859,closed,ended,1,0
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624578,2026-04-21T17:00:00+00:00,33,Athletic Bilbao,sr:competitor:2825,CA Osasuna,sr:competitor:2820,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624584,2026-04-21T17:00:00+00:00,33,RCD Mallorca,sr:competitor:2826,Valencia CF,sr:competitor:2828,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624588,2026-04-21T19:30:00+00:00,33,Real Madrid,sr:competitor:2829,Deportivo Alaves,sr:competitor:2885,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624592,2026-04-21T19:30:00+00:00,33,Girona FC,sr:competitor:24264,Real Betis Seville,sr:competitor:2816,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624578,2026-04-21T17:00:00+00:00,33,Athletic Bilbao,sr:competitor:2825,CA Osasuna,sr:competitor:2820,closed,ended,1,0
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624584,2026-04-21T17:00:00+00:00,33,RCD Mallorca,sr:competitor:2826,Valencia CF,sr:competitor:2828,closed,ended,1,1
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624588,2026-04-21T19:30:00+00:00,33,Real Madrid,sr:competitor:2829,Deportivo Alaves,sr:competitor:2885,closed,ended,2,1
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624592,2026-04-21T19:30:00+00:00,33,Girona FC,sr:competitor:24264,Real Betis Seville,sr:competitor:2816,closed,ended,2,3
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624590,2026-04-22T17:00:00+00:00,33,Elche CF,sr:competitor:2846,Atletico Madrid,sr:competitor:2836,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624596,2026-04-22T18:00:00+00:00,33,Real Sociedad San Sebastian,sr:competitor:2824,Getafe CF,sr:competitor:2859,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624580,2026-04-22T19:30:00+00:00,33,FC Barcelona,sr:competitor:2817,RC Celta de Vigo,sr:competitor:2821,not_started,not_started,,
@@ -1889,26 +1889,26 @@ sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624606,2026-05-0
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624600,2026-05-03T16:30:00+00:00,34,Real Betis Seville,sr:competitor:2816,Real Oviedo,sr:competitor:2851,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624604,2026-05-03T19:00:00+00:00,34,Espanyol Barcelona,sr:competitor:2814,Real Madrid,sr:competitor:2829,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624616,2026-05-04T19:00:00+00:00,34,Sevilla FC,sr:competitor:2833,Real Sociedad San Sebastian,sr:competitor:2824,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624618,2026-05-10T19:00:00+00:00,35,Athletic Bilbao,sr:competitor:2825,Valencia CF,sr:competitor:2828,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624620,2026-05-10T19:00:00+00:00,35,Atletico Madrid,sr:competitor:2836,RC Celta de Vigo,sr:competitor:2821,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624624,2026-05-08T19:00:00+00:00,35,Levante UD,sr:competitor:2849,CA Osasuna,sr:competitor:2820,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624628,2026-05-09T12:00:00+00:00,35,Elche CF,sr:competitor:2846,Deportivo Alaves,sr:competitor:2885,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624632,2026-05-09T14:15:00+00:00,35,Sevilla FC,sr:competitor:2833,Espanyol Barcelona,sr:competitor:2814,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624620,2026-05-09T16:30:00+00:00,35,Atletico Madrid,sr:competitor:2836,RC Celta de Vigo,sr:competitor:2821,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624630,2026-05-09T19:00:00+00:00,35,Real Sociedad San Sebastian,sr:competitor:2824,Real Betis Seville,sr:competitor:2816,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624626,2026-05-10T12:00:00+00:00,35,RCD Mallorca,sr:competitor:2826,Villarreal CF,sr:competitor:2819,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624618,2026-05-10T14:15:00+00:00,35,Athletic Bilbao,sr:competitor:2825,Valencia CF,sr:competitor:2828,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624634,2026-05-10T16:30:00+00:00,35,Real Oviedo,sr:competitor:2851,Getafe CF,sr:competitor:2859,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624622,2026-05-10T19:00:00+00:00,35,FC Barcelona,sr:competitor:2817,Real Madrid,sr:competitor:2829,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624624,2026-05-10T19:00:00+00:00,35,Levante UD,sr:competitor:2849,CA Osasuna,sr:competitor:2820,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624626,2026-05-10T19:00:00+00:00,35,RCD Mallorca,sr:competitor:2826,Villarreal CF,sr:competitor:2819,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624628,2026-05-10T19:00:00+00:00,35,Elche CF,sr:competitor:2846,Deportivo Alaves,sr:competitor:2885,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624630,2026-05-10T19:00:00+00:00,35,Real Sociedad San Sebastian,sr:competitor:2824,Real Betis Seville,sr:competitor:2816,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624632,2026-05-10T19:00:00+00:00,35,Sevilla FC,sr:competitor:2833,Espanyol Barcelona,sr:competitor:2814,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624634,2026-05-10T19:00:00+00:00,35,Real Oviedo,sr:competitor:2851,Getafe CF,sr:competitor:2859,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624636,2026-05-10T19:00:00+00:00,35,Rayo Vallecano,sr:competitor:2818,Girona FC,sr:competitor:24264,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624638,2026-05-13T19:00:00+00:00,36,Deportivo Alaves,sr:competitor:2885,FC Barcelona,sr:competitor:2817,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624640,2026-05-13T19:00:00+00:00,36,Real Betis Seville,sr:competitor:2816,Elche CF,sr:competitor:2846,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624642,2026-05-13T19:00:00+00:00,36,RC Celta de Vigo,sr:competitor:2821,Levante UD,sr:competitor:2849,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624644,2026-05-13T19:00:00+00:00,36,Getafe CF,sr:competitor:2859,RCD Mallorca,sr:competitor:2826,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624646,2026-05-13T19:00:00+00:00,36,Girona FC,sr:competitor:24264,Real Sociedad San Sebastian,sr:competitor:2824,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624648,2026-05-13T19:00:00+00:00,36,Espanyol Barcelona,sr:competitor:2814,Athletic Bilbao,sr:competitor:2825,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624650,2026-05-13T19:00:00+00:00,36,CA Osasuna,sr:competitor:2820,Atletico Madrid,sr:competitor:2836,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624652,2026-05-13T19:00:00+00:00,36,Valencia CF,sr:competitor:2828,Rayo Vallecano,sr:competitor:2818,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624654,2026-05-13T19:00:00+00:00,36,Villarreal CF,sr:competitor:2819,Sevilla FC,sr:competitor:2833,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624656,2026-05-13T19:00:00+00:00,36,Real Madrid,sr:competitor:2829,Real Oviedo,sr:competitor:2851,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624636,2026-05-11T19:00:00+00:00,35,Rayo Vallecano,sr:competitor:2818,Girona FC,sr:competitor:24264,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624642,2026-05-12T17:00:00+00:00,36,RC Celta de Vigo,sr:competitor:2821,Levante UD,sr:competitor:2849,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624640,2026-05-12T18:00:00+00:00,36,Real Betis Seville,sr:competitor:2816,Elche CF,sr:competitor:2846,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624650,2026-05-12T19:30:00+00:00,36,CA Osasuna,sr:competitor:2820,Atletico Madrid,sr:competitor:2836,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624648,2026-05-13T17:00:00+00:00,36,Espanyol Barcelona,sr:competitor:2814,Athletic Bilbao,sr:competitor:2825,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624654,2026-05-13T17:00:00+00:00,36,Villarreal CF,sr:competitor:2819,Sevilla FC,sr:competitor:2833,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624638,2026-05-13T19:30:00+00:00,36,Deportivo Alaves,sr:competitor:2885,FC Barcelona,sr:competitor:2817,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624644,2026-05-13T19:30:00+00:00,36,Getafe CF,sr:competitor:2859,RCD Mallorca,sr:competitor:2826,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624652,2026-05-14T17:00:00+00:00,36,Valencia CF,sr:competitor:2828,Rayo Vallecano,sr:competitor:2818,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624646,2026-05-14T18:00:00+00:00,36,Girona FC,sr:competitor:24264,Real Sociedad San Sebastian,sr:competitor:2824,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624656,2026-05-14T19:30:00+00:00,36,Real Madrid,sr:competitor:2829,Real Oviedo,sr:competitor:2851,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624658,2026-05-17T19:00:00+00:00,37,Athletic Bilbao,sr:competitor:2825,RC Celta de Vigo,sr:competitor:2821,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624660,2026-05-17T19:00:00+00:00,37,Atletico Madrid,sr:competitor:2836,Girona FC,sr:competitor:24264,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624662,2026-05-17T19:00:00+00:00,37,FC Barcelona,sr:competitor:2817,Real Betis Seville,sr:competitor:2816,not_started,not_started,,
@@ -2193,14 +2193,14 @@ sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526502,2026-04
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526510,2026-04-12T15:15:00+00:00,29,Toulouse FC,sr:competitor:1681,Lille OSC,sr:competitor:1643,closed,ended,0,4
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526496,2026-04-12T18:45:00+00:00,29,Olympique Lyon,sr:competitor:1649,FC Lorient,sr:competitor:1656,closed,ended,2,0
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526522,2026-04-17T18:45:00+00:00,30,Racing Club De Lens,sr:competitor:1648,Toulouse FC,sr:competitor:1681,closed,ended,3,2
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526516,2026-04-18T15:00:00+00:00,30,FC Lorient,sr:competitor:1656,Olympique Marseille,sr:competitor:1641,not_started,not_started,,
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526524,2026-04-18T17:00:00+00:00,30,Angers SCO,sr:competitor:1684,Le Havre AC,sr:competitor:1662,not_started,not_started,,
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526530,2026-04-18T19:05:00+00:00,30,Lille OSC,sr:competitor:1643,OGC Nice,sr:competitor:1661,not_started,not_started,,
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526526,2026-04-19T13:00:00+00:00,30,AS Monaco,sr:competitor:1653,AJ Auxerre,sr:competitor:1646,not_started,not_started,,
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526518,2026-04-19T15:15:00+00:00,30,Strasbourg Alsace,sr:competitor:1659,Stade Rennais FC,sr:competitor:1658,not_started,not_started,,
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526520,2026-04-19T15:15:00+00:00,30,FC Metz,sr:competitor:1651,Paris FC,sr:competitor:6070,not_started,not_started,,
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526528,2026-04-19T15:15:00+00:00,30,FC Nantes,sr:competitor:1647,Stade Brest 29,sr:competitor:1715,not_started,not_started,,
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526532,2026-04-19T18:45:00+00:00,30,Paris Saint-Germain,sr:competitor:1644,Olympique Lyon,sr:competitor:1649,not_started,not_started,,
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526516,2026-04-18T15:00:00+00:00,30,FC Lorient,sr:competitor:1656,Olympique Marseille,sr:competitor:1641,closed,ended,2,0
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526524,2026-04-18T17:00:00+00:00,30,Angers SCO,sr:competitor:1684,Le Havre AC,sr:competitor:1662,closed,ended,1,1
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526530,2026-04-18T19:05:00+00:00,30,Lille OSC,sr:competitor:1643,OGC Nice,sr:competitor:1661,closed,ended,0,0
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526526,2026-04-19T13:00:00+00:00,30,AS Monaco,sr:competitor:1653,AJ Auxerre,sr:competitor:1646,closed,ended,2,2
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526518,2026-04-19T15:15:00+00:00,30,Strasbourg Alsace,sr:competitor:1659,Stade Rennais FC,sr:competitor:1658,closed,ended,0,3
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526520,2026-04-19T15:15:00+00:00,30,FC Metz,sr:competitor:1651,Paris FC,sr:competitor:6070,closed,ended,1,3
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526528,2026-04-19T15:15:00+00:00,30,FC Nantes,sr:competitor:1647,Stade Brest 29,sr:competitor:1715,closed,ended,1,1
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526532,2026-04-19T18:45:00+00:00,30,Paris Saint-Germain,sr:competitor:1644,Olympique Lyon,sr:competitor:1649,closed,ended,1,2
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526440,2026-04-22T17:00:00+00:00,26,Paris Saint-Germain,sr:competitor:1644,FC Nantes,sr:competitor:1647,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526548,2026-04-24T18:45:00+00:00,31,Stade Brest 29,sr:competitor:1715,Racing Club De Lens,sr:competitor:1648,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526544,2026-04-25T13:00:00+00:00,31,Olympique Lyon,sr:competitor:1649,AJ Auxerre,sr:competitor:1646,not_started,not_started,,
@@ -2211,7 +2211,7 @@ sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526534,2026-04
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526538,2026-04-26T15:15:00+00:00,31,Le Havre AC,sr:competitor:1662,FC Metz,sr:competitor:1651,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526540,2026-04-26T15:15:00+00:00,31,Paris FC,sr:competitor:6070,Lille OSC,sr:competitor:1643,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526550,2026-04-26T18:45:00+00:00,31,Olympique Marseille,sr:competitor:1641,OGC Nice,sr:competitor:1661,not_started,not_started,,
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526554,2026-05-01T18:45:00+00:00,32,FC Nantes,sr:competitor:1647,Olympique Marseille,sr:competitor:1641,not_started,not_started,,
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526554,2026-05-02T13:00:00+00:00,32,FC Nantes,sr:competitor:1647,Olympique Marseille,sr:competitor:1641,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526552,2026-05-02T15:00:00+00:00,32,Paris Saint-Germain,sr:competitor:1644,FC Lorient,sr:competitor:1656,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526556,2026-05-02T17:00:00+00:00,32,FC Metz,sr:competitor:1651,AS Monaco,sr:competitor:1653,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526568,2026-05-02T19:05:00+00:00,32,OGC Nice,sr:competitor:1661,Racing Club De Lens,sr:competitor:1648,not_started,not_started,,
@@ -2229,8 +2229,8 @@ sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526584,2026-05
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526586,2026-05-10T19:00:00+00:00,33,FC Metz,sr:competitor:1651,FC Lorient,sr:competitor:1656,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526588,2026-05-10T19:00:00+00:00,33,Angers SCO,sr:competitor:1684,Strasbourg Alsace,sr:competitor:1659,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526590,2026-05-10T19:00:00+00:00,33,AS Monaco,sr:competitor:1653,Lille OSC,sr:competitor:1643,not_started,not_started,,
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:70315360,2026-05-13T18:00:00+00:00,29,Racing Club De Lens,sr:competitor:1648,Paris Saint-Germain,sr:competitor:1644,not_started,not_started,,
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:70315368,2026-05-13T18:00:00+00:00,29,Stade Brest 29,sr:competitor:1715,Strasbourg Alsace,sr:competitor:1659,not_started,not_started,,
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:70315368,2026-05-13T17:00:00+00:00,29,Stade Brest 29,sr:competitor:1715,Strasbourg Alsace,sr:competitor:1659,not_started,not_started,,
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:70315360,2026-05-13T19:00:00+00:00,29,Racing Club De Lens,sr:competitor:1648,Paris Saint-Germain,sr:competitor:1644,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61512160,2026-05-17T19:00:00+00:00,34,FC Lorient,sr:competitor:1656,Le Havre AC,sr:competitor:1662,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61512162,2026-05-17T19:00:00+00:00,34,FC Nantes,sr:competitor:1647,Toulouse FC,sr:competitor:1681,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61512164,2026-05-17T19:00:00+00:00,34,Lille OSC,sr:competitor:1643,AJ Auxerre,sr:competitor:1646,not_started,not_started,,
@@ -2345,21 +2345,21 @@ sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66298998,2026-04-12T
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299000,2026-04-12T02:30:00+00:00,,San Diego FC,sr:competitor:1217911,Minnesota United FC,sr:competitor:41618,closed,ended,1,2
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299002,2026-04-12T23:00:00+00:00,,Columbus Crew,sr:competitor:2504,Orlando City SC,sr:competitor:52237,closed,ended,1,1
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299004,2026-04-13T01:00:00+00:00,,Seattle Sounders,sr:competitor:22009,Real Salt Lake,sr:competitor:5133,postponed,postponed,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299006,2026-04-18T02:30:00+00:00,,Vancouver Whitecaps FC,sr:competitor:22010,Sporting Kansas City,sr:competitor:2509,live,halftime,3,0
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299008,2026-04-18T17:00:00+00:00,,Toronto FC,sr:competitor:7080,Austin FC,sr:competitor:772256,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299010,2026-04-18T18:30:00+00:00,,CF Montreal,sr:competitor:22006,New York Red Bulls,sr:competitor:2506,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299012,2026-04-18T20:30:00+00:00,,Colorado Rapids,sr:competitor:2510,Inter Miami CF,sr:competitor:659691,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299014,2026-04-18T23:30:00+00:00,,Atlanta United FC,sr:competitor:305920,Nashville SC,sr:competitor:668063,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299016,2026-04-18T23:30:00+00:00,,FC Cincinnati,sr:competitor:245305,Chicago Fire,sr:competitor:2505,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299018,2026-04-18T23:30:00+00:00,,New England Revolution,sr:competitor:2511,Columbus Crew,sr:competitor:2504,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299020,2026-04-18T23:30:00+00:00,,New York City FC,sr:competitor:167510,Charlotte FC,sr:competitor:863473,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299022,2026-04-18T23:30:00+00:00,,Orlando City SC,sr:competitor:52237,Houston Dynamo,sr:competitor:2508,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299024,2026-04-18T23:30:00+00:00,,Philadelphia Union,sr:competitor:39833,DC United,sr:competitor:2502,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299026,2026-04-19T00:30:00+00:00,,FC Dallas,sr:competitor:2512,Los Angeles Galaxy,sr:competitor:2513,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299028,2026-04-19T00:30:00+00:00,,Minnesota United FC,sr:competitor:41618,Portland Timbers,sr:competitor:22007,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299030,2026-04-19T01:30:00+00:00,,Real Salt Lake,sr:competitor:5133,San Diego FC,sr:competitor:1217911,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299032,2026-04-19T01:30:00+00:00,,Seattle Sounders,sr:competitor:22009,Saint Louis City SC,sr:competitor:874725,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299034,2026-04-19T23:00:00+00:00,,Los Angeles FC,sr:competitor:402227,San Jose Earthquakes,sr:competitor:21825,not_started,not_started,,
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299006,2026-04-18T02:30:00+00:00,,Vancouver Whitecaps FC,sr:competitor:22010,Sporting Kansas City,sr:competitor:2509,closed,ended,3,0
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299008,2026-04-18T17:00:00+00:00,,Toronto FC,sr:competitor:7080,Austin FC,sr:competitor:772256,closed,ended,3,3
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299010,2026-04-18T18:30:00+00:00,,CF Montreal,sr:competitor:22006,New York Red Bulls,sr:competitor:2506,closed,ended,4,1
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299012,2026-04-18T20:30:00+00:00,,Colorado Rapids,sr:competitor:2510,Inter Miami CF,sr:competitor:659691,closed,ended,2,3
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299014,2026-04-18T23:30:00+00:00,,Atlanta United FC,sr:competitor:305920,Nashville SC,sr:competitor:668063,closed,ended,0,2
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299016,2026-04-18T23:30:00+00:00,,FC Cincinnati,sr:competitor:245305,Chicago Fire,sr:competitor:2505,closed,ended,3,3
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299018,2026-04-18T23:30:00+00:00,,New England Revolution,sr:competitor:2511,Columbus Crew,sr:competitor:2504,closed,ended,2,1
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299020,2026-04-18T23:30:00+00:00,,New York City FC,sr:competitor:167510,Charlotte FC,sr:competitor:863473,closed,ended,1,2
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299022,2026-04-18T23:30:00+00:00,,Orlando City SC,sr:competitor:52237,Houston Dynamo,sr:competitor:2508,closed,ended,0,1
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299024,2026-04-18T23:30:00+00:00,,Philadelphia Union,sr:competitor:39833,DC United,sr:competitor:2502,closed,ended,0,0
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299026,2026-04-19T00:30:00+00:00,,FC Dallas,sr:competitor:2512,Los Angeles Galaxy,sr:competitor:2513,closed,ended,2,2
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299028,2026-04-19T00:30:00+00:00,,Minnesota United FC,sr:competitor:41618,Portland Timbers,sr:competitor:22007,closed,ended,2,0
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299030,2026-04-19T01:30:00+00:00,,Real Salt Lake,sr:competitor:5133,San Diego FC,sr:competitor:1217911,closed,ended,4,2
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299032,2026-04-19T01:30:00+00:00,,Seattle Sounders,sr:competitor:22009,Saint Louis City SC,sr:competitor:874725,closed,ended,4,1
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299034,2026-04-19T23:00:00+00:00,,Los Angeles FC,sr:competitor:402227,San Jose Earthquakes,sr:competitor:21825,closed,ended,1,4
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299038,2026-04-22T23:30:00+00:00,,Columbus Crew,sr:competitor:2504,Los Angeles Galaxy,sr:competitor:2513,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299040,2026-04-22T23:30:00+00:00,,New York City FC,sr:competitor:167510,FC Cincinnati,sr:competitor:245305,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299042,2026-04-22T23:30:00+00:00,,New York Red Bulls,sr:competitor:2506,DC United,sr:competitor:2502,not_started,not_started,,
@@ -2373,7 +2373,7 @@ sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299054,2026-04-23T
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299056,2026-04-23T02:30:00+00:00,,San Jose Earthquakes,sr:competitor:21825,Austin FC,sr:competitor:772256,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299060,2026-04-25T17:00:00+00:00,,Toronto FC,sr:competitor:7080,Atlanta United FC,sr:competitor:305920,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299062,2026-04-25T18:30:00+00:00,,CF Montreal,sr:competitor:22006,New York City FC,sr:competitor:167510,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299058,2026-04-25T20:30:00+00:00,,Minnesota United FC,sr:competitor:41618,Los Angeles FC,sr:competitor:402227,not_started,not_started,,
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299058,2026-04-25T20:45:00+00:00,,Minnesota United FC,sr:competitor:41618,Los Angeles FC,sr:competitor:402227,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299064,2026-04-25T23:30:00+00:00,,FC Cincinnati,sr:competitor:245305,New York Red Bulls,sr:competitor:2506,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299066,2026-04-25T23:30:00+00:00,,Columbus Crew,sr:competitor:2504,Philadelphia Union,sr:competitor:39833,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299068,2026-04-25T23:30:00+00:00,,DC United,sr:competitor:2502,Orlando City SC,sr:competitor:52237,not_started,not_started,,
@@ -2401,7 +2401,7 @@ sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299110,2026-05-03T
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299112,2026-05-03T02:30:00+00:00,,Los Angeles Galaxy,sr:competitor:2513,Vancouver Whitecaps FC,sr:competitor:22010,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299114,2026-05-03T19:00:00+00:00,,New York City FC,sr:competitor:167510,DC United,sr:competitor:2502,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299116,2026-05-03T21:30:00+00:00,,Austin FC,sr:competitor:772256,Saint Louis City SC,sr:competitor:874725,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299678,2026-05-06T23:30:00+00:00,,New York City FC,sr:competitor:167510,Los Angeles FC,sr:competitor:402227,not_started,not_started,,
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299678,2026-05-06T23:30:00+00:00,,New York City FC,sr:competitor:167510,Los Angeles FC,sr:competitor:402227,postponed,postponed,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299122,2026-05-09T17:00:00+00:00,,Toronto FC,sr:competitor:7080,Inter Miami CF,sr:competitor:659691,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299118,2026-05-09T18:30:00+00:00,,Chicago Fire,sr:competitor:2505,New York Red Bulls,sr:competitor:2506,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299120,2026-05-09T20:30:00+00:00,,CF Montreal,sr:competitor:22006,Orlando City SC,sr:competitor:52237,not_started,not_started,,
@@ -2737,6 +2737,7 @@ sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299780,2026-11-01T
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299782,2026-11-01T20:30:00+00:00,,Atlanta United FC,sr:competitor:305920,Toronto FC,sr:competitor:7080,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299784,2026-11-01T23:00:00+00:00,,New England Revolution,sr:competitor:2511,Inter Miami CF,sr:competitor:659691,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299786,2026-11-02T02:00:00+00:00,,Portland Timbers,sr:competitor:22007,Houston Dynamo,sr:competitor:2508,not_started,not_started,,
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:70988156,2026-11-05T00:30:00+00:00,,New York City FC,sr:competitor:167510,Los Angeles FC,sr:competitor:402227,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299788,2026-11-07T21:00:00+00:00,,Chicago Fire,sr:competitor:2505,Columbus Crew,sr:competitor:2504,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299790,2026-11-07T21:00:00+00:00,,FC Cincinnati,sr:competitor:245305,Nashville SC,sr:competitor:668063,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299792,2026-11-07T21:00:00+00:00,,DC United,sr:competitor:2502,New York City FC,sr:competitor:167510,not_started,not_started,,
@@ -3082,14 +3083,14 @@ sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061571,2026-04
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061573,2026-04-13T18:45:00+00:00,32,ACF Fiorentina,sr:competitor:2693,Lazio Rome,sr:competitor:2699,closed,ended,1,0
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061599,2026-04-17T16:30:00+00:00,33,Sassuolo Calcio,sr:competitor:2793,Como 1907,sr:competitor:2704,closed,ended,2,1
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061587,2026-04-17T18:45:00+00:00,33,Inter Milano,sr:competitor:2697,Cagliari Calcio,sr:competitor:2719,closed,ended,3,0
-sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061601,2026-04-18T13:00:00+00:00,33,Udinese Calcio,sr:competitor:2695,Parma Calcio,sr:competitor:2690,not_started,not_started,,
-sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061593,2026-04-18T16:00:00+00:00,33,SSC Napoli,sr:competitor:2714,Lazio Rome,sr:competitor:2699,not_started,not_started,,
-sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061597,2026-04-18T18:45:00+00:00,33,AS Roma,sr:competitor:2702,Atalanta BC,sr:competitor:2686,not_started,not_started,,
-sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061585,2026-04-19T10:30:00+00:00,33,US Cremonese,sr:competitor:2761,Torino FC,sr:competitor:2696,not_started,not_started,,
-sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061603,2026-04-19T13:00:00+00:00,33,Hellas Verona,sr:competitor:2701,AC Milan,sr:competitor:2692,not_started,not_started,,
-sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061595,2026-04-19T16:00:00+00:00,33,Pisa SC,sr:competitor:2737,Genoa CFC,sr:competitor:2713,not_started,not_started,,
-sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061589,2026-04-19T18:45:00+00:00,33,Juventus Turin,sr:competitor:2687,Bologna FC,sr:competitor:2685,not_started,not_started,,
-sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061591,2026-04-20T18:45:00+00:00,33,US Lecce,sr:competitor:2689,ACF Fiorentina,sr:competitor:2693,not_started,not_started,,
+sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061601,2026-04-18T13:00:00+00:00,33,Udinese Calcio,sr:competitor:2695,Parma Calcio,sr:competitor:2690,closed,ended,0,1
+sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061593,2026-04-18T16:00:00+00:00,33,SSC Napoli,sr:competitor:2714,Lazio Rome,sr:competitor:2699,closed,ended,0,2
+sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061597,2026-04-18T18:45:00+00:00,33,AS Roma,sr:competitor:2702,Atalanta BC,sr:competitor:2686,closed,ended,1,1
+sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061585,2026-04-19T10:30:00+00:00,33,US Cremonese,sr:competitor:2761,Torino FC,sr:competitor:2696,closed,ended,0,0
+sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061603,2026-04-19T13:00:00+00:00,33,Hellas Verona,sr:competitor:2701,AC Milan,sr:competitor:2692,closed,ended,0,1
+sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061595,2026-04-19T16:00:00+00:00,33,Pisa SC,sr:competitor:2737,Genoa CFC,sr:competitor:2713,closed,ended,1,2
+sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061589,2026-04-19T18:45:00+00:00,33,Juventus Turin,sr:competitor:2687,Bologna FC,sr:competitor:2685,closed,ended,2,0
+sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061591,2026-04-20T18:45:00+00:00,33,US Lecce,sr:competitor:2689,ACF Fiorentina,sr:competitor:2693,closed,ended,1,1
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061617,2026-04-24T18:45:00+00:00,34,SSC Napoli,sr:competitor:2714,US Cremonese,sr:competitor:2761,not_started,not_started,,
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061619,2026-04-25T13:00:00+00:00,34,Parma Calcio,sr:competitor:2690,Pisa SC,sr:competitor:2737,not_started,not_started,,
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061605,2026-04-25T16:00:00+00:00,34,Bologna FC,sr:competitor:2685,AS Roma,sr:competitor:2702,not_started,not_started,,
@@ -3100,11 +3101,11 @@ sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061621,2026-04
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061615,2026-04-26T18:45:00+00:00,34,AC Milan,sr:competitor:2692,Juventus Turin,sr:competitor:2687,not_started,not_started,,
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061607,2026-04-27T16:30:00+00:00,34,Cagliari Calcio,sr:competitor:2719,Atalanta BC,sr:competitor:2686,not_started,not_started,,
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061613,2026-04-27T18:45:00+00:00,34,Lazio Rome,sr:competitor:2699,Udinese Calcio,sr:competitor:2695,not_started,not_started,,
+sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061637,2026-05-01T18:45:00+00:00,35,Pisa SC,sr:competitor:2737,US Lecce,sr:competitor:2689,not_started,not_started,,
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061643,2026-05-02T13:00:00+00:00,35,Udinese Calcio,sr:competitor:2695,Torino FC,sr:competitor:2696,not_started,not_started,,
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061629,2026-05-02T16:00:00+00:00,35,Como 1907,sr:competitor:2704,SSC Napoli,sr:competitor:2714,not_started,not_started,,
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061625,2026-05-02T18:45:00+00:00,35,Atalanta BC,sr:competitor:2686,Genoa CFC,sr:competitor:2713,not_started,not_started,,
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061627,2026-05-03T10:30:00+00:00,35,Bologna FC,sr:competitor:2685,Cagliari Calcio,sr:competitor:2719,not_started,not_started,,
-sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061637,2026-05-03T13:00:00+00:00,35,Pisa SC,sr:competitor:2737,US Lecce,sr:competitor:2689,not_started,not_started,,
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061641,2026-05-03T13:00:00+00:00,35,Sassuolo Calcio,sr:competitor:2793,AC Milan,sr:competitor:2692,not_started,not_started,,
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061635,2026-05-03T16:00:00+00:00,35,Juventus Turin,sr:competitor:2687,Hellas Verona,sr:competitor:2701,not_started,not_started,,
 sr:competition:23,sr:season:130971,Serie A 25/26,sr:sport_event:61061633,2026-05-03T18:45:00+00:00,35,Inter Milano,sr:competitor:2697,Parma Calcio,sr:competitor:2690,not_started,not_started,,
@@ -4459,7 +4460,7 @@ sr:competition:329,sr:season:131970,Copa del Rey 25/26,sr:sport_event:68724446,2
 sr:competition:329,sr:season:131970,Copa del Rey 25/26,sr:sport_event:68724444,2026-02-12T20:00:00+00:00,,Atletico Madrid,sr:competitor:2836,FC Barcelona,sr:competitor:2817,closed,ended,4,0
 sr:competition:329,sr:season:131970,Copa del Rey 25/26,sr:sport_event:68724454,2026-03-03T20:00:00+00:00,,FC Barcelona,sr:competitor:2817,Atletico Madrid,sr:competitor:2836,closed,ended,3,0
 sr:competition:329,sr:season:131970,Copa del Rey 25/26,sr:sport_event:68724470,2026-03-04T20:00:00+00:00,,Real Sociedad San Sebastian,sr:competitor:2824,Athletic Bilbao,sr:competitor:2825,closed,ended,1,0
-sr:competition:329,sr:season:131970,Copa del Rey 25/26,sr:sport_event:69589774,2026-04-18T19:00:00+00:00,,Atletico Madrid,sr:competitor:2836,Real Sociedad San Sebastian,sr:competitor:2824,not_started,not_started,,
+sr:competition:329,sr:season:131970,Copa del Rey 25/26,sr:sport_event:69589774,2026-04-18T19:00:00+00:00,,Atletico Madrid,sr:competitor:2836,Real Sociedad San Sebastian,sr:competitor:2824,closed,ap,2,2
 sr:competition:335,sr:season:132930,Coupe de France 25/26,sr:sport_event:65100024,2025-11-14T19:00:00+00:00,7,Olympique de Villefontaine,sr:competitor:1303114,Grenoble Foot,sr:competitor:1671,closed,ended,0,3
 sr:competition:335,sr:season:132930,Coupe de France 25/26,sr:sport_event:65100026,2025-11-14T19:00:00+00:00,7,AS Cannes,sr:competitor:1755,FC Annecy,sr:competitor:234888,closed,ended,1,2
 sr:competition:335,sr:season:132930,Coupe de France 25/26,sr:sport_event:65752990,2025-11-15T04:00:00+00:00,7,AS Magenta,sr:competitor:46491,FC Mulhouse,sr:competitor:34737,closed,ended,0,3
@@ -4658,7 +4659,7 @@ sr:competition:335,sr:season:132930,Coupe de France 25/26,sr:sport_event:6868812
 sr:competition:335,sr:season:132930,Coupe de France 25/26,sr:sport_event:68688128,2026-03-04T19:30:00+00:00,,FC Lorient,sr:competitor:1656,OGC Nice,sr:competitor:1661,closed,ap,0,0
 sr:competition:335,sr:season:132930,Coupe de France 25/26,sr:sport_event:68688130,2026-03-04T20:00:00+00:00,,Olympique Marseille,sr:competitor:1641,Toulouse FC,sr:competitor:1681,closed,ap,2,2
 sr:competition:335,sr:season:132930,Coupe de France 25/26,sr:sport_event:68688132,2026-03-05T20:10:00+00:00,,Olympique Lyon,sr:competitor:1649,Racing Club De Lens,sr:competitor:1648,closed,ap,2,2
-sr:competition:335,sr:season:132930,Coupe de France 25/26,sr:sport_event:69623604,2026-04-21T19:10:00+00:00,,Racing Club De Lens,sr:competitor:1648,Toulouse FC,sr:competitor:1681,not_started,not_started,,
+sr:competition:335,sr:season:132930,Coupe de France 25/26,sr:sport_event:69623604,2026-04-21T19:10:00+00:00,,Racing Club De Lens,sr:competitor:1648,Toulouse FC,sr:competitor:1681,closed,ended,4,1
 sr:competition:335,sr:season:132930,Coupe de France 25/26,sr:sport_event:69623606,2026-04-22T19:00:00+00:00,,Strasbourg Alsace,sr:competitor:1659,OGC Nice,sr:competitor:1661,not_started,not_started,,
 sr:competition:328,sr:season:130975,Coppa Italia 25/26,sr:sport_event:61464983,2025-08-09T18:30:00+00:00,,Virtus Entella,sr:competitor:43680,Ternana Calcio,sr:competitor:2708,closed,ended,4,0
 sr:competition:328,sr:season:130975,Coppa Italia 25/26,sr:sport_event:61464985,2025-08-10T17:30:00+00:00,,Calcio Padova,sr:competitor:2741,L.R. Vicenza,sr:competitor:2722,closed,ended,0,2
@@ -4706,7 +4707,7 @@ sr:competition:328,sr:season:130975,Coppa Italia 25/26,sr:sport_event:67806336,2
 sr:competition:328,sr:season:130975,Coppa Italia 25/26,sr:sport_event:68872028,2026-03-03T20:00:00+00:00,,Como 1907,sr:competitor:2704,Inter Milano,sr:competitor:2697,closed,ended,0,0
 sr:competition:328,sr:season:130975,Coppa Italia 25/26,sr:sport_event:68901008,2026-03-04T17:00:00+00:00,,Atalanta BC,sr:competitor:2686,Lazio Rome,sr:competitor:2699,postponed,postponed,,
 sr:competition:328,sr:season:130975,Coppa Italia 25/26,sr:sport_event:68901012,2026-03-04T20:00:00+00:00,,Lazio Rome,sr:competitor:2699,Atalanta BC,sr:competitor:2686,closed,ended,2,2
-sr:competition:328,sr:season:130975,Coppa Italia 25/26,sr:sport_event:68872112,2026-04-21T19:00:00+00:00,,Inter Milano,sr:competitor:2697,Como 1907,sr:competitor:2704,not_started,not_started,,
+sr:competition:328,sr:season:130975,Coppa Italia 25/26,sr:sport_event:68872112,2026-04-21T19:00:00+00:00,,Inter Milano,sr:competitor:2697,Como 1907,sr:competitor:2704,closed,ended,3,2
 sr:competition:328,sr:season:130975,Coppa Italia 25/26,sr:sport_event:68910656,2026-04-22T19:00:00+00:00,,Atalanta BC,sr:competitor:2686,Lazio Rome,sr:competitor:2699,not_started,not_started,,
 sr:competition:346,sr:season:130941,Community Shield 2025,sr:sport_event:61377539,2025-08-10T14:00:00+00:00,,Crystal Palace,sr:competitor:7,Liverpool FC,sr:competitor:44,closed,ap,2,2
 sr:competition:465,sr:season:131121,UEFA Super Cup 2025,sr:sport_event:60941915,2025-08-13T19:00:00+00:00,,Paris Saint-Germain,sr:competitor:1644,Tottenham Hotspur,sr:competitor:33,closed,ap,2,2
@@ -4965,22 +4966,22 @@ sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66
 sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856134,2026-04-13T01:00:00+00:00,14,Deportivo Toluca FC,sr:competitor:1931,Atletico San Luis,sr:competitor:1950,closed,ended,1,1
 sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856136,2026-04-18T01:00:00+00:00,15,Atletico San Luis,sr:competitor:1950,Pumas UNAM,sr:competitor:1933,closed,ended,0,2
 sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856138,2026-04-18T01:00:00+00:00,15,Mazatlan FC,sr:competitor:1946,Queretaro FC,sr:competitor:1951,closed,ended,1,1
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856140,2026-04-18T23:00:00+00:00,15,Club Necaxa,sr:competitor:1944,Tigres UANL,sr:competitor:1940,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856142,2026-04-18T23:00:00+00:00,15,CF Cruz Azul,sr:competitor:1947,Club Tijuana de Caliente,sr:competitor:36525,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856146,2026-04-19T01:05:00+00:00,15,CF Monterrey,sr:competitor:1932,CF Pachuca,sr:competitor:1936,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856144,2026-04-19T01:07:00+00:00,15,CD Guadalajara,sr:competitor:1938,Club Puebla,sr:competitor:1941,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856150,2026-04-19T03:06:00+00:00,15,Club Leon,sr:competitor:36534,FC Juarez,sr:competitor:215048,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856148,2026-04-19T03:10:00+00:00,15,CF America,sr:competitor:1939,Deportivo Toluca FC,sr:competitor:1931,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856152,2026-04-19T23:00:00+00:00,15,Club Santos Laguna,sr:competitor:1948,Atlas FC,sr:competitor:1949,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856154,2026-04-22T01:00:00+00:00,16,Queretaro FC,sr:competitor:1951,CF Cruz Azul,sr:competitor:1947,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856156,2026-04-22T01:00:00+00:00,16,Pumas UNAM,sr:competitor:1933,FC Juarez,sr:competitor:215048,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856160,2026-04-22T03:00:00+00:00,16,CF Monterrey,sr:competitor:1932,Club Puebla,sr:competitor:1941,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856158,2026-04-22T03:06:00+00:00,16,Club Leon,sr:competitor:36534,CF America,sr:competitor:1939,not_started,not_started,,
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856140,2026-04-18T23:00:00+00:00,15,Club Necaxa,sr:competitor:1944,Tigres UANL,sr:competitor:1940,closed,ended,1,1
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856142,2026-04-18T23:00:00+00:00,15,CF Cruz Azul,sr:competitor:1947,Club Tijuana de Caliente,sr:competitor:36525,closed,ended,1,1
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856146,2026-04-19T01:05:00+00:00,15,CF Monterrey,sr:competitor:1932,CF Pachuca,sr:competitor:1936,closed,ended,1,3
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856144,2026-04-19T01:07:00+00:00,15,CD Guadalajara,sr:competitor:1938,Club Puebla,sr:competitor:1941,closed,ended,5,0
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856150,2026-04-19T03:06:00+00:00,15,Club Leon,sr:competitor:36534,FC Juarez,sr:competitor:215048,closed,ended,3,1
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856148,2026-04-19T03:10:00+00:00,15,CF America,sr:competitor:1939,Deportivo Toluca FC,sr:competitor:1931,closed,ended,2,1
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856152,2026-04-19T23:00:00+00:00,15,Club Santos Laguna,sr:competitor:1948,Atlas FC,sr:competitor:1949,closed,ended,0,1
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856154,2026-04-22T01:00:00+00:00,16,Queretaro FC,sr:competitor:1951,CF Cruz Azul,sr:competitor:1947,closed,ended,1,1
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856156,2026-04-22T01:00:00+00:00,16,Pumas UNAM,sr:competitor:1933,FC Juarez,sr:competitor:215048,closed,ended,4,2
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856160,2026-04-22T03:05:00+00:00,16,CF Monterrey,sr:competitor:1932,Club Puebla,sr:competitor:1941,live,halftime,2,1
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856158,2026-04-22T03:06:00+00:00,16,Club Leon,sr:competitor:36534,CF America,sr:competitor:1939,live,halftime,2,2
 sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856162,2026-04-23T01:00:00+00:00,16,Atletico San Luis,sr:competitor:1950,Club Santos Laguna,sr:competitor:1948,not_started,not_started,,
 sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856164,2026-04-23T01:00:00+00:00,16,Atlas FC,sr:competitor:1949,Tigres UANL,sr:competitor:1940,not_started,not_started,,
 sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856166,2026-04-23T01:00:00+00:00,16,Mazatlan FC,sr:competitor:1946,Deportivo Toluca FC,sr:competitor:1931,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856168,2026-04-23T03:00:00+00:00,16,Club Tijuana de Caliente,sr:competitor:36525,CF Pachuca,sr:competitor:1936,not_started,not_started,,
-sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856170,2026-04-23T03:00:00+00:00,16,Club Necaxa,sr:competitor:1944,CD Guadalajara,sr:competitor:1938,not_started,not_started,,
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856170,2026-04-23T03:05:00+00:00,16,Club Necaxa,sr:competitor:1944,CD Guadalajara,sr:competitor:1938,not_started,not_started,,
+sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856168,2026-04-23T03:06:00+00:00,16,Club Tijuana de Caliente,sr:competitor:36525,CF Pachuca,sr:competitor:1936,not_started,not_started,,
 sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856172,2026-04-25T03:00:00+00:00,17,Club Puebla,sr:competitor:1941,Queretaro FC,sr:competitor:1951,not_started,not_started,,
 sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856174,2026-04-25T23:00:00+00:00,17,CF Pachuca,sr:competitor:1936,Pumas UNAM,sr:competitor:1933,not_started,not_started,,
 sr:competition:27466,sr:season:137954,"Liga MX, Clausura 2026",sr:sport_event:66856176,2026-04-25T23:00:00+00:00,17,Tigres UANL,sr:competitor:1940,Mazatlan FC,sr:competitor:1946,not_started,not_started,,
