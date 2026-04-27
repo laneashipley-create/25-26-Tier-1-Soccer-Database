@@ -4,6 +4,7 @@
 --   match_status = 'ap' on timeline_json.sport_event_status (same as live "after penalties").
 --   shootout_attempts: count of timeline events type=penalty_shootout, period_type=penalties.
 --   sudden_death: yes if attempts > 10 (IFAB-style first phase max 10 kicks); unknown if no such events (sparse feed).
+--   recorded: from public.games — true when the match is flagged as having recording/simulations.
 --
 -- Uses LEFT JOIN to seasons/competitions so rows are not dropped when FK data is missing
 -- (inner join would undercount). Re-run in Supabase: SQL Editor → paste → Run.
@@ -15,6 +16,7 @@ select
   g.home_team,
   g.away_team,
   g.status,
+  g.recorded,
   c.sportradar_competition_id as sportradar_competition_id,
   c.competition_name as competition_name,
   coalesce(ps.attempts, 0) as shootout_attempts,
