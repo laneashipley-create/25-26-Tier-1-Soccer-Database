@@ -1,0 +1,56 @@
+# EPL Own Goals — Daily Supabase / schedule / timeline refresh (no email)
+# Weekly email is sent only from weekly-update.yml (Wed 01:07 UTC).
+name: Daily EPL Own Goals Data Refresh
+
+on:
+  schedule:
+    # 06:00 UTC daily — staggered from Wed 01:07 weekly run to avoid duplicate back-to-back runs
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run update pipeline
+        env:
+          SPORTRADAR_API_KEY: ${{ secrets.SPORTRADAR_API_KEY }}
+          SUPABASE_URL: https://yoesorfzvtbdmvrdtqoo.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          export PYTHONUTF8=1
+          python run_all.py
+
+      - name: Convert logo SVG to PNG (for Outlook/Gmail compatibility)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq librsvg2-bin
+          rsvg-convert -w 360 assets/lanes_sportsdata.svg -o assets/lanes_sportsdata.png
+
+      - name: Commit and push updated report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add report.html data/schedule.csv data/own_goals.csv assets/lanes_sportsdata.png
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: daily own goals pipeline refresh [skip ci]"
+            git push
+          fi

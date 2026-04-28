@@ -1,5 +1,5 @@
-# EPL Own Goals — Weekly auto-update after each match week
-# Runs every Wednesday 1:07 AM UTC (Tuesday evening in San Francisco)
+# EPL Own Goals — Weekly email + pipeline run (daily refresh is daily-update.yml)
+# Runs every Wednesday 1:07 AM UTC (Tuesday evening Pacific); only this workflow sends Brevo email.
 name: Weekly EPL Own Goals Update
 
 on:
