@@ -70,7 +70,7 @@ The trial API key allows **1 request/second**. `step3_fetch_timelines.py` enforc
 
 ## GitHub Pages & Weekly Email
 
-The report is hosted at **https://laneashipley-create.github.io/25-26-EPL_own.goals/report.html**.
+The report is hosted at **https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/report.html**.
 
 ### Enabling GitHub Pages
 
