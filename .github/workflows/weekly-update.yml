@@ -88,6 +88,7 @@ jobs:
                 {email: "n.masterson@sportradar.com", name: "Nicole Masterson"},
                 {email: "v.gupta@sportradar.com", name: "Vishaal Gupta"},
                 {email: "m.byrnes@sportradar.com", name: "Matt Byrnes"},
+                {email: "m.lopez@sportradar.com", name: "Matt Lopez"},
                 {email: "j.herbstman@sportradar.com", name: "Jordan Herbstman"},
                 {email: "p.cohn@sportradar.com"}
               ],
