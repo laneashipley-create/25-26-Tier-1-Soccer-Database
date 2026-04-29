@@ -1486,8 +1486,8 @@ sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645508,2026-
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645512,2026-04-25T06:00:00+00:00,12,Kawasaki Frontale,sr:competitor:5127,JEF United Chiba,sr:competitor:3144,closed,ended,2,1
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644938,2026-04-25T07:00:00+00:00,12,Sanfrecce Hiroshima,sr:competitor:3135,Cerezo Osaka,sr:competitor:3141,closed,ended,2,1
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644940,2026-04-25T09:30:00+00:00,12,V-Varen Nagasaki,sr:competitor:38154,Gamba Osaka,sr:competitor:3138,closed,ap,1,1
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644944,2026-04-29T04:00:00+00:00,13,Shimizu S-Pulse,sr:competitor:3133,V-Varen Nagasaki,sr:competitor:38154,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645514,2026-04-29T04:00:00+00:00,13,Tokyo Verdy,sr:competitor:3139,Kashima Antlers,sr:competitor:3134,not_started,not_started,,
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644944,2026-04-29T04:00:00+00:00,13,Shimizu S-Pulse,sr:competitor:3133,V-Varen Nagasaki,sr:competitor:38154,live,1st_half,1,0
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645514,2026-04-29T04:00:00+00:00,13,Tokyo Verdy,sr:competitor:3139,Kashima Antlers,sr:competitor:3134,live,1st_half,0,1
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644946,2026-04-29T05:00:00+00:00,13,Avispa Fukuoka,sr:competitor:3143,Sanfrecce Hiroshima,sr:competitor:3135,not_started,not_started,,
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645030,2026-04-29T05:00:00+00:00,13,Vissel Kobe,sr:competitor:3146,Cerezo Osaka,sr:competitor:3141,not_started,not_started,,
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645516,2026-04-29T05:00:00+00:00,13,JEF United Chiba,sr:competitor:3144,Yokohama F Marinos,sr:competitor:3137,not_started,not_started,,
@@ -4778,12 +4778,12 @@ sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70076008,2026-04-16T22:00:00+00:00,2,CA Lanus,sr:competitor:3218,Always Ready,sr:competitor:378096,closed,ended,1,0
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075644,2026-04-17T00:30:00+00:00,2,CR Flamengo RJ,sr:competitor:5981,Independiente Medellin,sr:competitor:6115,closed,ended,4,1
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075772,2026-04-17T00:30:00+00:00,2,CA Penarol Montevideo,sr:competitor:3227,CA Platense,sr:competitor:36837,closed,ended,1,2
-sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70076012,2026-04-28T22:00:00+00:00,3,CA Lanus,sr:competitor:3218,LDU Quito,sr:competitor:5257,live,2nd_half,0,0
-sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70076098,2026-04-28T22:00:00+00:00,3,Libertad Asuncion,sr:competitor:5996,CSD Independiente del Valle,sr:competitor:39723,live,2nd_half,1,2
-sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70076100,2026-04-29T00:00:00+00:00,3,UCV FC,sr:competitor:324069,CA Rosario Central,sr:competitor:3217,not_started,not_started,,
-sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075742,2026-04-29T00:30:00+00:00,3,Cruzeiro EC MG,sr:competitor:1954,Boca Juniors,sr:competitor:3202,not_started,not_started,,
-sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075672,2026-04-29T02:00:00+00:00,3,CD Tolima,sr:competitor:6111,Coquimbo Unido,sr:competitor:3165,not_started,not_started,,
-sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075866,2026-04-29T02:00:00+00:00,3,Sporting Cristal,sr:competitor:2302,CD Junior FC,sr:competitor:6105,not_started,not_started,,
+sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70076012,2026-04-28T22:00:00+00:00,3,CA Lanus,sr:competitor:3218,LDU Quito,sr:competitor:5257,closed,ended,1,0
+sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70076098,2026-04-28T22:00:00+00:00,3,Libertad Asuncion,sr:competitor:5996,CSD Independiente del Valle,sr:competitor:39723,closed,ended,2,3
+sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70076100,2026-04-29T00:00:00+00:00,3,UCV FC,sr:competitor:324069,CA Rosario Central,sr:competitor:3217,closed,ended,0,3
+sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075742,2026-04-29T00:30:00+00:00,3,Cruzeiro EC MG,sr:competitor:1954,Boca Juniors,sr:competitor:3202,closed,ended,1,0
+sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075672,2026-04-29T02:00:00+00:00,3,CD Tolima,sr:competitor:6111,Coquimbo Unido,sr:competitor:3165,closed,ended,3,0
+sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075866,2026-04-29T02:00:00+00:00,3,Sporting Cristal,sr:competitor:2302,CD Junior FC,sr:competitor:6105,closed,ended,2,0
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075776,2026-04-29T22:00:00+00:00,3,CA Platense,sr:competitor:36837,Independiente Santa Fe,sr:competitor:6116,not_started,not_started,,
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70076014,2026-04-29T22:00:00+00:00,3,Mirassol FC SP,sr:competitor:21982,Always Ready,sr:competitor:378096,not_started,not_started,,
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075744,2026-04-30T00:00:00+00:00,3,Barcelona SC,sr:competitor:5250,CD Universidad Catolica,sr:competitor:3151,not_started,not_started,,
