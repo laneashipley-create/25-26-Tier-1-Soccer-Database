@@ -1344,6 +1344,7 @@ sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301229,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301237,2026-05-10T13:00:00+00:00,36,Nottingham Forest,sr:competitor:14,Newcastle United,sr:competitor:39,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301245,2026-05-10T15:30:00+00:00,36,West Ham United,sr:competitor:37,Arsenal FC,sr:competitor:42,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301243,2026-05-11T19:00:00+00:00,36,Tottenham Hotspur,sr:competitor:33,Leeds United,sr:competitor:34,not_started,not_started,,
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:70784812,2026-05-13T19:00:00+00:00,31,Manchester City,sr:competitor:17,Crystal Palace,sr:competitor:7,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301251,2026-05-17T11:30:00+00:00,37,Aston Villa,sr:competitor:40,Liverpool FC,sr:competitor:44,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301261,2026-05-17T11:30:00+00:00,37,Manchester United,sr:competitor:35,Nottingham Forest,sr:competitor:14,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301253,2026-05-17T14:00:00+00:00,37,Brentford FC,sr:competitor:50,Crystal Palace,sr:competitor:7,not_started,not_started,,
@@ -1355,7 +1356,6 @@ sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301263,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301249,2026-05-18T19:00:00+00:00,37,Arsenal FC,sr:competitor:42,Burnley FC,sr:competitor:6,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301247,2026-05-19T18:30:00+00:00,37,AFC Bournemouth,sr:competitor:60,Manchester City,sr:competitor:17,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:71173724,2026-05-19T19:15:00+00:00,37,Chelsea FC,sr:competitor:38,Tottenham Hotspur,sr:competitor:33,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:70784812,2026-05-22T14:00:00+00:00,31,Manchester City,sr:competitor:17,Crystal Palace,sr:competitor:7,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301267,2026-05-24T15:00:00+00:00,38,Brighton & Hove Albion,sr:competitor:30,Manchester United,sr:competitor:35,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301269,2026-05-24T15:00:00+00:00,38,Burnley FC,sr:competitor:6,Wolverhampton Wanderers,sr:competitor:3,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301271,2026-05-24T15:00:00+00:00,38,Crystal Palace,sr:competitor:7,Arsenal FC,sr:competitor:42,not_started,not_started,,
@@ -1486,16 +1486,16 @@ sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645508,2026-
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645512,2026-04-25T06:00:00+00:00,12,Kawasaki Frontale,sr:competitor:5127,JEF United Chiba,sr:competitor:3144,closed,ended,2,1
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644938,2026-04-25T07:00:00+00:00,12,Sanfrecce Hiroshima,sr:competitor:3135,Cerezo Osaka,sr:competitor:3141,closed,ended,2,1
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644940,2026-04-25T09:30:00+00:00,12,V-Varen Nagasaki,sr:competitor:38154,Gamba Osaka,sr:competitor:3138,closed,ap,1,1
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644944,2026-04-29T04:00:00+00:00,13,Shimizu S-Pulse,sr:competitor:3133,V-Varen Nagasaki,sr:competitor:38154,live,1st_half,1,0
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645514,2026-04-29T04:00:00+00:00,13,Tokyo Verdy,sr:competitor:3139,Kashima Antlers,sr:competitor:3134,live,1st_half,0,1
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644946,2026-04-29T05:00:00+00:00,13,Avispa Fukuoka,sr:competitor:3143,Sanfrecce Hiroshima,sr:competitor:3135,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645030,2026-04-29T05:00:00+00:00,13,Vissel Kobe,sr:competitor:3146,Cerezo Osaka,sr:competitor:3141,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645516,2026-04-29T05:00:00+00:00,13,JEF United Chiba,sr:competitor:3144,Yokohama F Marinos,sr:competitor:3137,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645032,2026-04-29T06:00:00+00:00,13,Nagoya Grampus,sr:competitor:3136,Fagiano Okayama,sr:competitor:34034,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645034,2026-04-29T06:00:00+00:00,13,Kyoto Sanga FC,sr:competitor:3149,Gamba Osaka,sr:competitor:3138,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645518,2026-04-29T06:00:00+00:00,13,Urawa Red Diamonds,sr:competitor:3145,Kawasaki Frontale,sr:competitor:5127,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645520,2026-04-29T07:00:00+00:00,13,Mito Hollyhock,sr:competitor:21901,Machida Zelvia,sr:competitor:44409,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645522,2026-04-29T07:00:00+00:00,13,Kashiwa Reysol,sr:competitor:3140,FC Tokyo,sr:competitor:3147,not_started,not_started,,
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644944,2026-04-29T04:00:00+00:00,13,Shimizu S-Pulse,sr:competitor:3133,V-Varen Nagasaki,sr:competitor:38154,closed,ended,1,2
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645514,2026-04-29T04:00:00+00:00,13,Tokyo Verdy,sr:competitor:3139,Kashima Antlers,sr:competitor:3134,closed,ended,2,1
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644946,2026-04-29T05:00:00+00:00,13,Avispa Fukuoka,sr:competitor:3143,Sanfrecce Hiroshima,sr:competitor:3135,closed,ap,2,2
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645030,2026-04-29T05:00:00+00:00,13,Vissel Kobe,sr:competitor:3146,Cerezo Osaka,sr:competitor:3141,closed,ap,0,0
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645516,2026-04-29T05:00:00+00:00,13,JEF United Chiba,sr:competitor:3144,Yokohama F Marinos,sr:competitor:3137,closed,ended,2,3
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645032,2026-04-29T06:00:00+00:00,13,Nagoya Grampus,sr:competitor:3136,Fagiano Okayama,sr:competitor:34034,live,penalties,1,1
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645034,2026-04-29T06:00:00+00:00,13,Kyoto Sanga FC,sr:competitor:3149,Gamba Osaka,sr:competitor:3138,closed,ap,1,1
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645518,2026-04-29T06:00:00+00:00,13,Urawa Red Diamonds,sr:competitor:3145,Kawasaki Frontale,sr:competitor:5127,closed,ended,2,0
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645520,2026-04-29T07:00:00+00:00,13,Mito Hollyhock,sr:competitor:21901,Machida Zelvia,sr:competitor:44409,live,2nd_half,0,2
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645522,2026-04-29T07:00:00+00:00,13,Kashiwa Reysol,sr:competitor:3140,FC Tokyo,sr:competitor:3147,live,2nd_half,0,1
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645036,2026-05-02T03:55:00+00:00,14,Fagiano Okayama,sr:competitor:34034,Sanfrecce Hiroshima,sr:competitor:3135,not_started,not_started,,
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645038,2026-05-02T05:00:00+00:00,14,Kyoto Sanga FC,sr:competitor:3149,Shimizu S-Pulse,sr:competitor:3133,not_started,not_started,,
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645524,2026-05-02T05:00:00+00:00,14,FC Tokyo,sr:competitor:3147,Kawasaki Frontale,sr:competitor:5127,not_started,not_started,,
