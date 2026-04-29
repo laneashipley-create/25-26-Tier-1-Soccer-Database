@@ -11,8 +11,8 @@ import sys
 from pathlib import Path
 
 
-REPORT_URL = "https://laneashipley-create.github.io/25-26-EPL_own.goals/report.html"
-IMG_URL = "https://laneashipley-create.github.io/25-26-EPL_own.goals/assets/lanes_sportsdata.png"
+REPORT_URL = "https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/report.html"
+IMG_URL = "https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/assets/lanes_sportsdata.png"
 
 
 def main() -> int:

@@ -31,9 +31,14 @@ left join public.seasons s on s.id = g.season_id
 left join public.competitions c on c.id = s.competition_id
 left join lateral (
   select count(*)::int as attempts
-  from jsonb_array_elements(coalesce(t.timeline_json -> 'timeline', '[]'::jsonb)) e
+  from jsonb_array_elements(
+    case
+      when jsonb_typeof(t.timeline_json -> 'timeline') = 'array' then t.timeline_json -> 'timeline'
+      else '[]'::jsonb
+    end
+  ) e
   where e ->> 'type' = 'penalty_shootout'
     and e ->> 'period_type' = 'penalties'
 ) ps on true
-where (t.timeline_json #>> '{sport_event_status,match_status}') = 'ap'
+where jsonb_extract_path_text(t.timeline_json, 'sport_event_status', 'match_status') = 'ap'
 order by c.competition_name nulls last, g.start_time nulls last, g.sport_event_id;
