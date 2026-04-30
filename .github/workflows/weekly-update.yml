@@ -1,10 +1,10 @@
-# EPL Own Goals — Weekly email + pipeline run (daily refresh is daily-update.yml)
-# Runs every Wednesday 1:07 AM UTC (Tuesday evening Pacific); only this workflow sends Brevo email.
+# EPL Own Goals — Weekly email + pipeline run (daily refresh is daily-update.yml).
+# Runs every Wednesday 01:07 UTC (Tuesday evening Pacific). This is the only workflow that sends Brevo email.
 name: Weekly EPL Own Goals Update
 
 on:
   schedule:
-    # Wed 1:07 AM UTC — Tuesday evening in San Francisco
+    # Wed 01:07 UTC — Tuesday evening in US Pacific (one email per week).
     - cron: "7 1 * * 3"
   workflow_dispatch:  # Allow manual trigger
 

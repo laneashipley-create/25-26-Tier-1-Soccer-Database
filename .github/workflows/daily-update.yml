@@ -1,10 +1,13 @@
-# EPL Own Goals — Daily Supabase / schedule / timeline refresh (no email)
-# Weekly email is sent only from weekly-update.yml (Wed 01:07 UTC).
+# EPL Own Goals — Daily Supabase / schedule / timeline refresh (no email).
+# Weekly email is sent only from weekly-update.yml (Wed 01:07 UTC, Tue evening Pacific).
+#
+# Not the same as any other repo’s “reload_daily” workflows: this file is daily-update.yml only.
 name: Daily EPL Own Goals Data Refresh
 
 on:
   schedule:
-    # 06:00 UTC daily — staggered from Wed 01:07 weekly run to avoid duplicate back-to-back runs
+    # 06:00 UTC every day (~10:00 PM previous calendar date Pacific in standard time, ~11:00 PM in DST).
+    # Email is never sent from this workflow.
     - cron: "0 6 * * *"
   workflow_dispatch:
 
@@ -47,7 +50,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add report.html report_own_goals.html report_penalty_shootouts.html report_var_events.html report_var_unpaired.html report_recordings_library.html data/schedule.csv data/own_goals.csv assets/lanes_sportsdata.png
+          git add report.html report_hub.html report_own_goals.html report_penalty_shootouts.html report_var_events.html report_var_unpaired.html report_recordings_library.html data/schedule.csv data/own_goals.csv assets/lanes_sportsdata.png
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
