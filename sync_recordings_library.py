@@ -228,82 +228,16 @@ def _execute_with_retry_http(
 
 
 
-def _clear_table_in_chunks(
-
-    client: httpx.Client,
-
-    endpoint: str,
-
-    key: str,
-
-    pk_col: str,
-
-    *,
-
-    batch: int = 500,
-
-) -> None:
-
+def _truncate_recordings_library_rpc(client: httpx.Client, rest_v1_base: str, key: str) -> None:
+    """Truncate + restart identity so the next inserts use ID 1, 2, ... (see migration truncate_soccer_recordings_library)."""
+    rpc_url = f"{rest_v1_base.rstrip('/')}/rpc/truncate_soccer_recordings_library"
     hdr = _headers(key)
 
-    while True:
+    def post():
+        r = client.post(rpc_url, headers=hdr, json={})
+        r.raise_for_status()
 
-
-
-        def fetch_chunk():
-
-            r = client.get(
-
-                endpoint,
-
-                headers=hdr,
-
-                params={"select": pk_col, "order": pk_col, "limit": str(batch)},
-
-            )
-
-            r.raise_for_status()
-
-            return r.json()
-
-
-
-        rows = _execute_with_retry_http(fetch_chunk) or []
-
-        if not rows:
-
-            break
-
-        ids = [r[pk_col] for r in rows if pk_col in r and r[pk_col] is not None]
-
-        if not ids:
-
-            break
-
-
-
-        def do_delete(ids=ids):
-
-            filt = ",".join(quote(str(x), safe="") for x in ids)
-
-            r = client.delete(
-
-                endpoint,
-
-                headers=hdr,
-
-                params={pk_col: f"in.({filt})"},
-
-            )
-
-            r.raise_for_status()
-
-
-
-        _execute_with_retry_http(do_delete)
-
-
-
+    _execute_with_retry_http(post)
 
 
 def _insert_batches(
@@ -586,9 +520,9 @@ def sync(json_path: Path) -> None:
 
     with httpx.Client(timeout=120.0) as client:
 
-        print(f"Clearing {T_LIBRARY} ...")
+        print(f"Truncating {T_LIBRARY} (reset ID sequence) ...")
 
-        _clear_table_in_chunks(client, endpoint, key, "recording_id")
+        _truncate_recordings_library_rpc(client, rest, key)
 
 
 
