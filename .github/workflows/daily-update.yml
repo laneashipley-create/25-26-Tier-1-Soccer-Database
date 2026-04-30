@@ -1,7 +1,8 @@
-# EPL Own Goals — Daily Supabase / schedule / timeline refresh (no email).
-# Weekly email is sent only from weekly-update.yml (Wed 01:07 UTC, Tue evening Pacific).
-#
-# Not the same as any other repo’s “reload_daily” workflows: this file is daily-update.yml only.
+# EPL Own Goals — Daily schedule refresh; timelines + downstream only when needed (no email).
+# Uses: python run_all.py --conditional-daily
+#   → Always step 2 (schedule / games). Steps 3–6 run only if some completed match is still
+#   missing a timeline in Supabase (or missing local cache when USE_SUPABASE is false).
+# Weekly full pipeline + Brevo email: weekly-update.yml (Wed 05:00 UTC).
 name: Daily EPL Own Goals Data Refresh
 
 on:
@@ -39,7 +40,7 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           export PYTHONUTF8=1
-          python run_all.py
+          python run_all.py --conditional-daily
 
       - name: Convert logo SVG to PNG (for Outlook/Gmail compatibility)
         run: |
