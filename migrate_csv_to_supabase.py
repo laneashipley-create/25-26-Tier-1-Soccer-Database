@@ -85,6 +85,13 @@ def migrate_own_goals():
     return len(rows)
 
 
+def migrate_var_and_shootouts():
+    """Build derived VAR + shootout tables from stored timeline_json."""
+    import step5_extract_var_and_shootouts
+
+    step5_extract_var_and_shootouts.main()
+
+
 def main():
     if not USE_SUPABASE:
         print("USE_SUPABASE is False. Add SUPABASE_KEY to config_local.py and try again.")
@@ -93,6 +100,7 @@ def main():
     migrate_schedule()
     migrate_timelines()
     migrate_own_goals()
+    migrate_var_and_shootouts()
     print("Migration done.")
 
 

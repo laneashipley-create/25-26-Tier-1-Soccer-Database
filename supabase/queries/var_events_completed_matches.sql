@@ -5,7 +5,12 @@
 --   type = video_assistant_referee_over
 --
 -- Includes:
---   description  -> event qualifier (e.g. red_card, no_red_card, possible_goal)
+--   description  -> VAR outcome (goal, no_goal, penalty, no_penalty, red_card, no_red_card);
+--                  on video_assistant_referee_over this is usually where the result lives.
+--   decision     -> Documented for VAR on Soccer *Extended* extended_timeline.json
+--                  (pending, cancelled, upheld, overturned). Standard sport_events/.../timeline.json
+--                  (what step3_fetch_timelines.py stores) typically omits `decision` on VAR events,
+--                  including video_assistant_referee_over — so this column is often NULL here.
 --   recorded     -> public.games flag for your recording/simulation tracking
 --
 -- One row per VAR event.
@@ -24,6 +29,7 @@ select
   (e ->> 'id')::bigint as timeline_event_id,
   e ->> 'type' as var_event_type,
   nullif(trim(e ->> 'description'), '') as description,
+  nullif(trim(e ->> 'decision'), '') as decision,
   (e ->> 'match_time')::int as match_minute,
   nullif(e ->> 'stoppage_time', '')::int as stoppage_minute,
   e ->> 'match_clock' as match_clock,

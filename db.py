@@ -598,6 +598,89 @@ def upsert_own_goals(rows: list[dict], replace: bool = True) -> None:
         supabase.table("own_goals").insert(payload).execute()
 
 
+def clear_penalty_shootout_matches() -> None:
+    """Delete all penalty_shootout_matches rows."""
+    supabase = get_client()
+    r = supabase.table("penalty_shootout_matches").select("id").execute()
+    ids = [x["id"] for x in (r.data or [])]
+    if ids:
+        supabase.table("penalty_shootout_matches").delete().in_("id", ids).execute()
+
+
+def upsert_penalty_shootout_matches(rows: list[dict], replace: bool = True) -> None:
+    """Insert penalty shootout match rows derived from timelines."""
+    supabase = get_client()
+    if replace:
+        clear_penalty_shootout_matches()
+    if not rows:
+        return
+    for row in rows:
+        payload = {
+            "game_id": row.get("game_id"),
+            "sport_event_id": row.get("sport_event_id", ""),
+            "match_date": row.get("match_date"),
+            "home_team": row.get("home_team"),
+            "away_team": row.get("away_team"),
+            "status": row.get("status"),
+            "recorded": row.get("recorded"),
+            "sportradar_competition_id": row.get("sportradar_competition_id"),
+            "competition_name": row.get("competition_name"),
+            "shootout_attempts": _int_or_none(row.get("shootout_attempts")) or 0,
+            "sudden_death": bool(row.get("sudden_death")),
+        }
+        supabase.table("penalty_shootout_matches").upsert(
+            payload,
+            on_conflict="game_id",
+            ignore_duplicates=False,
+        ).execute()
+
+
+def clear_var_timeline_events() -> None:
+    """Delete all var_timeline_events rows."""
+    supabase = get_client()
+    r = supabase.table("var_timeline_events").select("id").execute()
+    ids = [x["id"] for x in (r.data or [])]
+    if ids:
+        supabase.table("var_timeline_events").delete().in_("id", ids).execute()
+
+
+def upsert_var_timeline_events(rows: list[dict], replace: bool = True) -> None:
+    """Insert VAR timeline event rows derived from timeline_json."""
+    supabase = get_client()
+    if replace:
+        clear_var_timeline_events()
+    if not rows:
+        return
+    for row in rows:
+        payload = {
+            "game_id": row.get("game_id"),
+            "sport_event_id": row.get("sport_event_id", ""),
+            "match_date": row.get("match_date"),
+            "home_team": row.get("home_team"),
+            "away_team": row.get("away_team"),
+            "status": row.get("status"),
+            "recorded": row.get("recorded"),
+            "sportradar_competition_id": row.get("sportradar_competition_id"),
+            "competition_name": row.get("competition_name"),
+            "timeline_event_id": _int_or_none(row.get("timeline_event_id")),
+            "var_event_type": row.get("var_event_type", ""),
+            "description": row.get("description"),
+            "decision": row.get("decision"),
+            "match_minute": _int_or_none(row.get("match_minute")),
+            "stoppage_minute": _int_or_none(row.get("stoppage_minute")),
+            "match_clock": row.get("match_clock"),
+            "period_type": row.get("period_type"),
+            "competitor_side": row.get("competitor_side"),
+            "affected_team": row.get("affected_team"),
+            "commentary": row.get("commentary"),
+        }
+        supabase.table("var_timeline_events").upsert(
+            payload,
+            on_conflict="game_id,timeline_event_id,var_event_type",
+            ignore_duplicates=False,
+        ).execute()
+
+
 def _int_or_none(v):
     if v is None or v == "":
         return None
