@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 
-REPORT_URL = "https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/report_own_goals.html"
+REPORT_URL = "https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/report_hub.html"
 IMG_URL = "https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/assets/lanes_sportsdata.png"
 
 
@@ -23,13 +23,15 @@ def main() -> int:
     summary_path = Path(sys.argv[1])
     output_path = Path(sys.argv[2])
 
-    summary_html = summary_path.read_text(encoding="utf-8") if summary_path.exists() else ""
+    # Kept for backward compatibility with workflow inputs; not used in current template.
+    _ = summary_path.read_text(encoding="utf-8") if summary_path.exists() else ""
 
     html = (
         "<p>Esteemed Colleague,</p>"
-        "<p>Your weekly Tier 1 - Own Goals report has been updated.</p>"
-        f"{summary_html}"
-        f'<p><a href="{REPORT_URL}">View the report</a></p>'
+        "<p>Your weekly Tier 1 Soccer League Report has been updated.</p>"
+        f'<p>View the <a href="{REPORT_URL}">report</a>. '
+        "This contains multiple tabs looking at things like Own Goals, VAR Events, "
+        "Matches with Penalty Shootouts, and more.</p>"
         "<p>Kind Regards,</p>"
         "<p>Lane's SportsData Bot</p>"
         f'<p><img src="{IMG_URL}" alt="Lane\'s SportsData" width="360" '

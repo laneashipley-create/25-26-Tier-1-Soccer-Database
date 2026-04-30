@@ -18,6 +18,7 @@ Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_ANON_KEY)
 from __future__ import annotations
 
 import json
+import os
 import time
 import urllib.error
 import urllib.request
@@ -48,8 +49,50 @@ T_COMPETITIONS = "Competitions"
 T_SEASONS = "Seasons (current sr:season:ID)"
 T_GAMES = "All Games (sr:sport_events)"
 T_TIMELINES = "Completed Matches - full sport_event_timelines"
+RECORDINGS_EXPORT_JSON = "soccer record replay list of sr sport event ids.json"
 
 _client = None
+_recording_id_by_event_cache: dict[str, str] | None = None
+
+
+def _load_recording_id_by_event() -> dict[str, str]:
+    """Map sport_event_id -> recording UUID from local export JSON."""
+    global _recording_id_by_event_cache
+    if _recording_id_by_event_cache is not None:
+        return _recording_id_by_event_cache
+
+    out: dict[str, str] = {}
+    path = os.path.join(os.path.dirname(__file__), RECORDINGS_EXPORT_JSON)
+    if not os.path.exists(path):
+        _recording_id_by_event_cache = out
+        return out
+    try:
+        with open(path, encoding="utf-8") as f:
+            doc = json.load(f)
+    except Exception:
+        _recording_id_by_event_cache = out
+        return out
+
+    recs = (((doc or {}).get("data") or {}).get("recordingsBySport") or [])
+    for rec in recs:
+        if not isinstance(rec, dict):
+            continue
+        rid = rec.get("id")
+        meta = rec.get("meta") or {}
+        game_id = meta.get("gameId") if isinstance(meta, dict) else None
+        if rid and game_id:
+            out[str(game_id)] = str(rid)
+    _recording_id_by_event_cache = out
+    return out
+
+
+def _recording_id_for_event(sport_event_id: object, recorded: object) -> str:
+    """Return recording UUID only for recorded=true rows; else blank."""
+    if recorded is not True:
+        return ""
+    if not sport_event_id:
+        return ""
+    return _load_recording_id_by_event().get(str(sport_event_id), "")
 
 
 def _supabase_execute_with_retry(execute_fn, *, attempts: int = 6, base_delay: float = 1.5):
@@ -362,6 +405,7 @@ def get_completed_matches_with_timelines_for_configured_seasons() -> list[dict]:
         if season_uuid:
             meta_by_uuid[season_uuid] = {
                 "competition_id": c["competition_id"],
+                "competition_name": c.get("competition_name", ""),
                 "season_id": c["season_id"],
                 "season_name": c["season_name"],
             }
@@ -372,6 +416,7 @@ def get_completed_matches_with_timelines_for_configured_seasons() -> list[dict]:
         for row in rows:
             if meta:
                 row["competition_id"] = meta["competition_id"]
+                row["competition_name"] = meta["competition_name"]
                 row["season_id"] = meta["season_id"]
                 row["season_name"] = meta["season_name"]
         out.extend(rows)
@@ -420,7 +465,12 @@ def get_all_own_goals() -> list[dict]:
         chunk_size = 200
         for i in range(0, len(event_ids), chunk_size):
             chunk = event_ids[i : i + chunk_size]
-            sched = supabase.table(T_GAMES).select("sport_event_id,season_id").in_("sport_event_id", chunk).execute()
+            sched = (
+                supabase.table(T_GAMES)
+                .select("sport_event_id,season_id,recorded")
+                .in_("sport_event_id", chunk)
+                .execute()
+            )
             for srow in sched.data or []:
                 event_id = srow.get("sport_event_id")
                 season_uuid = srow.get("season_id")
@@ -431,6 +481,7 @@ def get_all_own_goals() -> list[dict]:
                         "competition_id": comp.get("sportradar_competition_id", ""),
                         "season_id": season.get("sportradar_season_id", ""),
                         "season_name": season.get("name", ""),
+                        "recorded": srow.get("recorded"),
                     }
     out = []
     for row in rows:
@@ -440,6 +491,8 @@ def get_all_own_goals() -> list[dict]:
             "season_id": str(meta.get("season_id", "")),
             "season_name": str(meta.get("season_name", "")),
             "sport_event_id": row.get("sport_event_id", ""),
+            "recorded": meta.get("recorded"),
+            "recording_id": _recording_id_for_event(row.get("sport_event_id"), meta.get("recorded")),
             "match_date": str(row.get("match_date") or "")[:10],
             "round": str(row.get("round") or ""),
             "home_team": str(row.get("home_team") or ""),
@@ -459,37 +512,50 @@ def get_all_own_goals() -> list[dict]:
     return out
 
 
-def get_report_stats() -> tuple[int, int]:
-    """Return (completed_matches, timeline_events) for the report."""
+def get_completed_timelines_count() -> int:
+    """
+    Number of stored timeline rows (= completed matches with a timeline row).
+    Uses PostgREST exact count — no full timeline_json download.
+    """
     supabase = get_client()
-    page_size = 1000
-    offset = 0
-    completed_matches = 0
-    timeline_events = 0
-    while True:
-        tl = (
+
+    def _count():
+        return (
             supabase.table(T_TIMELINES)
-            .select("timeline_json")
-            .range(offset, offset + page_size - 1)
+            .select("game_id", count="exact")
+            .limit(1)
             .execute()
         )
+
+    r = _supabase_execute_with_retry(_count)
+    c = getattr(r, "count", None)
+    if c is not None:
+        return int(c)
+    # Fallback: paginate lightweight game_id column only (no JSON).
+    page_size = 1000
+    offset = 0
+    total = 0
+    while True:
+        tl = (
+            _supabase_execute_with_retry(
+                lambda o=offset: supabase.table(T_TIMELINES)
+                .select("game_id")
+                .range(o, o + page_size - 1)
+                .execute()
+            )
+        )
         rows = tl.data or []
-        if not rows:
-            break
-        completed_matches += len(rows)
-        for row in rows:
-            data = row.get("timeline_json") or {}
-            timeline_events += len(data.get("timeline", []))
+        total += len(rows)
         if len(rows) < page_size:
             break
         offset += page_size
-    return completed_matches, timeline_events
+    return total
 
 
 def get_pipeline_stats_by_season_name() -> dict[str, dict[str, int]]:
     """
     Map season display name (same as config season_name / report rows) to pipeline totals
-    for that season only: completed games with a stored timeline row, and timeline event count.
+    for that season only: count of stored timeline rows (matches with timelines), per season.
     """
     if not USE_SUPABASE:
         return {}
@@ -523,18 +589,18 @@ def get_pipeline_stats_by_season_name() -> dict[str, dict[str, int]]:
                 break
             offset += page
 
-    agg: dict[str, dict[str, int]] = {
-        n: {"matches_reviewed": 0, "timeline_events": 0} for n in uuid_to_name.values()
-    }
+    agg: dict[str, dict[str, int]] = {n: {"matches_reviewed": 0} for n in uuid_to_name.values()}
 
     offset = 0
     page = 1000
     while True:
         r = (
-            supabase.table(T_TIMELINES)
-            .select("game_id, timeline_json")
-            .range(offset, offset + page - 1)
-            .execute()
+            _supabase_execute_with_retry(
+                lambda o=offset: supabase.table(T_TIMELINES)
+                .select("game_id")
+                .range(o, o + page - 1)
+                .execute()
+            )
         )
         chunk = r.data or []
         if not chunk:
@@ -546,11 +612,7 @@ def get_pipeline_stats_by_season_name() -> dict[str, dict[str, int]]:
             sn = game_to_season.get(str(gid))
             if not sn:
                 continue
-            data = row.get("timeline_json") or {}
-            if not data:
-                continue
             agg[sn]["matches_reviewed"] += 1
-            agg[sn]["timeline_events"] += len(data.get("timeline", []))
         if len(chunk) < page:
             break
         offset += page
@@ -568,11 +630,23 @@ def get_game_by_sport_event_id(season_id: str, sport_event_id: str) -> dict | No
 
 def clear_own_goals() -> None:
     """Delete all own_goals. Call before re-inserting to avoid duplicates on pipeline re-run."""
+    _clear_table_in_chunks("own_goals", "id")
+
+
+def _clear_table_in_chunks(table: str, pk_col: str, *, batch: int = 500) -> None:
+    """
+    Delete all rows from a table in manageable chunks.
+
+    Using a single huge `in_(...)` delete can hit URI/query-size limits with PostgREST and
+    leave rows behind. Chunking keeps refreshes idempotent for large tables.
+    """
     supabase = get_client()
-    r = supabase.table("own_goals").select("id").execute()
-    ids = [x["id"] for x in (r.data or [])]
-    if ids:
-        supabase.table("own_goals").delete().in_("id", ids).execute()
+    while True:
+        r = supabase.table(table).select(pk_col).limit(batch).execute()
+        ids = [x.get(pk_col) for x in (r.data or []) if x.get(pk_col)]
+        if not ids:
+            break
+        supabase.table(table).delete().in_(pk_col, ids).execute()
 
 
 def upsert_own_goals(rows: list[dict], replace: bool = True) -> None:
@@ -606,11 +680,7 @@ def upsert_own_goals(rows: list[dict], replace: bool = True) -> None:
 
 def clear_penalty_shootout_matches() -> None:
     """Delete all penalty_shootout_matches rows."""
-    supabase = get_client()
-    r = supabase.table("penalty_shootout_matches").select("id").execute()
-    ids = [x["id"] for x in (r.data or [])]
-    if ids:
-        supabase.table("penalty_shootout_matches").delete().in_("id", ids).execute()
+    _clear_table_in_chunks("penalty_shootout_matches", "id")
 
 
 def upsert_penalty_shootout_matches(rows: list[dict], replace: bool = True) -> None:
@@ -643,11 +713,7 @@ def upsert_penalty_shootout_matches(rows: list[dict], replace: bool = True) -> N
 
 def clear_var_timeline_events() -> None:
     """Delete all var_timeline_events rows."""
-    supabase = get_client()
-    r = supabase.table("var_timeline_events").select("id").execute()
-    ids = [x["id"] for x in (r.data or [])]
-    if ids:
-        supabase.table("var_timeline_events").delete().in_("id", ids).execute()
+    _clear_table_in_chunks("var_timeline_events", "id")
 
 
 def upsert_var_timeline_events(rows: list[dict], replace: bool = True) -> None:
@@ -712,26 +778,54 @@ def _fetch_all_ordered(table: str, orders: list[tuple[str, bool]]) -> list[dict]
 
 def fetch_penalty_shootout_match_rows() -> list[dict]:
     """All rows from public.penalty_shootout_matches (newest match dates first)."""
-    return _fetch_all_ordered(
+    rows = _fetch_all_ordered(
         "penalty_shootout_matches",
         [("match_date", True), ("id", False)],
     )
+    for r in rows:
+        r["recording_id"] = _recording_id_for_event(r.get("sport_event_id"), r.get("recorded"))
+    return rows
 
 
 def fetch_var_timeline_event_rows() -> list[dict]:
     """All rows from public.var_timeline_events."""
-    return _fetch_all_ordered(
+    rows = _fetch_all_ordered(
         "var_timeline_events",
         [("match_date", True), ("id", False)],
     )
+    for r in rows:
+        r["recording_id"] = _recording_id_for_event(r.get("sport_event_id"), r.get("recorded"))
+    return rows
 
 
 def fetch_var_unpaired_match_rows() -> list[dict]:
-    """Rows from public.var_unpaired_event_matches view."""
-    return _fetch_all_ordered(
+    """Rows from public.var_unpaired_event_matches view, with recorded from games (T_GAMES)."""
+    rows = _fetch_all_ordered(
         "var_unpaired_event_matches",
         [("unpaired_var_starts", True), ("sport_event_id", False)],
     )
+    event_ids = list({r.get("sport_event_id") for r in rows if r.get("sport_event_id")})
+    recorded_by_event: dict[str, object] = {}
+    if event_ids:
+        supabase = get_client()
+        chunk_size = 200
+        for i in range(0, len(event_ids), chunk_size):
+            chunk = event_ids[i : i + chunk_size]
+            sched = (
+                supabase.table(T_GAMES)
+                .select("sport_event_id,recorded")
+                .in_("sport_event_id", chunk)
+                .execute()
+            )
+            for srow in sched.data or []:
+                eid = srow.get("sport_event_id")
+                if eid:
+                    recorded_by_event[str(eid)] = srow.get("recorded")
+    for r in rows:
+        eid = r.get("sport_event_id")
+        r["recorded"] = recorded_by_event.get(str(eid)) if eid else None
+        r["recording_id"] = _recording_id_for_event(eid, r.get("recorded"))
+    return rows
 
 
 def _int_or_none(v):

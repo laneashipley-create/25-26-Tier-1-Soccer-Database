@@ -73,8 +73,7 @@ def main():
     rows_og = generate_report.load_own_goals(generate_report.OWN_GOALS_CSV)
     rows_og.sort(key=lambda r: (r["match_date"], int(r["minute"]) if str(r["minute"]).isdigit() else 0))
     completed = generate_report.count_completed_matches()
-    events = generate_report.count_timeline_events()
-    html = generate_report.generate_html(rows_og, completed, events)
+    html = generate_report.generate_html(rows_og, completed, {})
     with open(generate_report.REPORT_HTML, "w", encoding="utf-8") as f:
         f.write(html)
     generate_report.write_legacy_report_redirect()

@@ -40,24 +40,6 @@ def count_completed_matches() -> int:
     return sum(1 for f in os.listdir(TIMELINES_DIR) if f.endswith(".json"))
 
 
-def count_timeline_events() -> int:
-    """Total number of individual timeline events across all cached matches."""
-    if not os.path.isdir(TIMELINES_DIR):
-        return 0
-    total = 0
-    for filename in os.listdir(TIMELINES_DIR):
-        if not filename.endswith(".json"):
-            continue
-        filepath = os.path.join(TIMELINES_DIR, filename)
-        try:
-            with open(filepath, encoding="utf-8") as f:
-                data = json.load(f)
-            total += len(data.get("timeline", []))
-        except Exception:
-            pass
-    return total
-
-
 def load_own_goals(csv_path: str) -> list[dict]:
     if not os.path.exists(csv_path):
         return []
@@ -159,9 +141,18 @@ def build_date_filter_tile(date_min: str, date_max: str) -> str:
     </div>"""
 
 
+def _og_recorded_attrs(raw) -> tuple[str, str, str]:
+    """Sort/filter value, cell text, CSS class for games.recorded (true/false/unknown)."""
+    if raw is True:
+        return "true", "true", "recorded-true"
+    if raw is False:
+        return "false", "false", "recorded-false"
+    return "", "—", "recorded-unknown"
+
+
 def build_table_rows(rows: list[dict]) -> str:
     if not rows:
-        return '<tr><td colspan="12" style="text-align:center;padding:2rem;color:#666;">No own goals found yet.</td></tr>'
+        return '<tr><td colspan="14" style="text-align:center;padding:2rem;color:#666;">No own goals found yet.</td></tr>'
 
     html_rows = []
     for i, r in enumerate(rows, 1):
@@ -188,6 +179,8 @@ def build_table_rows(rows: list[dict]) -> str:
         og_label = "Yes" if og_mentioned else "No"
         og_sort = "1" if og_mentioned else "0"
 
+        rec_val, rec_txt, rec_cls = _og_recorded_attrs(r.get("recorded"))
+
         comp = (r.get("season_name") or "").strip()
         comp_attr = html.escape(comp, quote=True)
         ev_attr = html.escape(str(r.get("sport_event_id", "")), quote=True)
@@ -207,6 +200,8 @@ def build_table_rows(rows: list[dict]) -> str:
             <div class="meta">{r['match_date']} &bull; {round_label}</div>
           </td>
           <td class="id-cell match-id-cell" data-val="{r['sport_event_id']}" data-label="Match ID"><code title="{r['sport_event_id']}">{r['sport_event_id']}</code></td>
+          <td class="center {rec_cls}" data-val="{html.escape(rec_val, quote=True)}" data-label="Recorded">{html.escape(rec_txt, quote=False)}</td>
+          <td class="id-cell" data-val="{html.escape(str(r.get('recording_id', '') or ''), quote=True)}" data-label="Recording ID"><code title="{html.escape(str(r.get('recording_id', '') or ''), quote=True)}">{html.escape(str(r.get('recording_id', '') or ''), quote=False)}</code></td>
           <td data-val="{r['og_player']}" data-label="Scorer">
             <div class="player-name">{display_name}</div>
             <div class="meta">{r['og_player_team']}</div>
@@ -229,6 +224,8 @@ def _inline_report_script() -> str:
 (function () {
   const tbody = document.getElementById('og-tbody');
   if (!tbody) return;
+  var ogTable = document.getElementById('og-table');
+  if (ogTable) ogTable._excelColSelections = ogTable._excelColSelections || {};
   const filterPayload = (function () {
     const el = document.getElementById('report-filter-data');
     if (!el) return {};
@@ -237,7 +234,7 @@ def _inline_report_script() -> str:
 
   const allNames = filterPayload.allSeasonNames || [];
   const pb = filterPayload.pipelineBySeason || {};
-  const pg = filterPayload.pipelineGlobal || { matches: 0, events: 0 };
+  const pg = filterPayload.pipelineGlobal || { matches: 0 };
   const scopeDefault = filterPayload.scopeLabelDefault || '';
   const dataDateMin = filterPayload.dataDateMin || '';
   const dataDateMax = filterPayload.dataDateMax || '';
@@ -310,19 +307,17 @@ def _inline_report_script() -> str:
   function pipelineStats(selected) {
     const keys = Object.keys(pb);
     if (keys.length === 0) {
-      return { matches: pg.matches || 0, events: pg.events || 0 };
+      return { matches: pg.matches || 0 };
     }
-    if (selected.length === 0) return { matches: 0, events: 0 };
+    if (selected.length === 0) return { matches: 0 };
     let m = 0;
-    let e = 0;
     selected.forEach(function (sn) {
       const row = pb[sn];
       if (row) {
         m += row.matches_reviewed || 0;
-        e += row.timeline_events || 0;
       }
     });
-    return { matches: m, events: e };
+    return { matches: m };
   }
 
   function aggVisibleStats() {
@@ -499,16 +494,57 @@ def _inline_report_script() -> str:
   }
 
   function colFiltersMatch(tr) {
-    var inputs = document.querySelectorAll('.og-col-filter');
-    for (var i = 0; i < inputs.length; i++) {
-      var inp = inputs[i];
-      var q = (inp.value || '').trim().toLowerCase();
-      if (!q) continue;
-      var col = parseInt(inp.getAttribute('data-col'), 10);
-      var v = (cellVal(tr, col) || '').toLowerCase();
-      if (v.indexOf(q) === -1) return false;
+    if (!ogTable || !ogTable._excelColSelections) return true;
+    var selMap = ogTable._excelColSelections;
+    for (var k in selMap) {
+      if (!Object.prototype.hasOwnProperty.call(selMap, k)) continue;
+      var sset = selMap[k];
+      if (sset == null) continue;
+      var col = parseInt(k, 10);
+      var v = cellVal(tr, col) || '';
+      if (!sset.has(v)) return false;
     }
     return true;
+  }
+
+  function distinctOgColumn(activeCol) {
+    var selected = getSelectedComps();
+    var dr = getDateRange();
+    var selMap = ogTable && ogTable._excelColSelections ? ogTable._excelColSelections : {};
+    var s = new Set();
+    tbody.querySelectorAll('tr.og-data-row').forEach(function (tr) {
+      if (!compMatches(tr, selected) || !dateMatches(tr, dr)) return;
+      for (var k in selMap) {
+        if (!Object.prototype.hasOwnProperty.call(selMap, k)) continue;
+        if (parseInt(k, 10) === activeCol) continue;
+        var sset = selMap[k];
+        if (sset == null) continue;
+        var v = cellVal(tr, parseInt(k, 10)) || '';
+        if (!sset.has(v)) return;
+      }
+      s.add(cellVal(tr, activeCol) || '');
+    });
+    return Array.from(s).sort(function (a, b) {
+      return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: 'base' });
+    });
+  }
+
+  function updateOgFilterButtons() {
+    if (!ogTable) return;
+    document.querySelectorAll('#og-table .excel-filter-btn').forEach(function (btn) {
+      var c = String(btn.getAttribute('data-col'));
+      var sel = ogTable._excelColSelections[c];
+      if (sel == null) {
+        btn.textContent = 'Values…';
+        btn.classList.remove('is-filtered');
+      } else if (sel.size === 0) {
+        btn.textContent = 'None';
+        btn.classList.add('is-filtered');
+      } else {
+        btn.textContent = sel.size + ' picked';
+        btn.classList.add('is-filtered');
+      }
+    });
   }
 
   function applyFilter() {
@@ -524,10 +560,9 @@ def _inline_report_script() -> str:
     // Summing pipelineBySeason misses timelines that do not map to a configured season / closed game
     // (or empty JSON rows still counted globally). When every comp chip is on, match the printed totals.
     var st = allCompetitionChipsSelected()
-      ? { matches: pg.matches || 0, events: pg.events || 0 }
+      ? { matches: pg.matches || 0 }
       : pipelineStats(pipeKeys);
     setText('kpi-matches', fmtInt(st.matches));
-    setText('kpi-events', fmtInt(st.events));
 
     var ag = aggVisibleStats();
     setText('kpi-total-og', String(ag.total));
@@ -576,9 +611,33 @@ def _inline_report_script() -> str:
   document.querySelectorAll('input[name="og-comp"]').forEach(function (cb) {
     cb.addEventListener('change', applyFilter);
   });
-  document.querySelectorAll('.og-col-filter').forEach(function (inp) {
-    inp.addEventListener('input', applyFilter);
-  });
+  if (ogTable) {
+    document.querySelectorAll('#og-table .excel-filter-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        var col = parseInt(btn.getAttribute('data-col'), 10);
+        var dist = distinctOgColumn(col);
+        var key = String(col);
+        var cur = ogTable._excelColSelections[key];
+        var initial = cur == null ? null : new Set(cur);
+        if (!window.ReportExcelFilter) return;
+        window.ReportExcelFilter.open({
+          anchor: btn,
+          title: 'Filter column',
+          distinctSnapshot: dist,
+          selectedSet: initial,
+          onApply: function (set) {
+            if (set == null) delete ogTable._excelColSelections[key];
+            else if (set.size === 0) ogTable._excelColSelections[key] = new Set();
+            else ogTable._excelColSelections[key] = set;
+            updateOgFilterButtons();
+            applyFilter();
+          }
+        });
+      });
+    });
+    updateOgFilterButtons();
+  }
   wireDateFilter();
   applyFilter();
 })();
@@ -605,6 +664,279 @@ def write_legacy_report_redirect() -> None:
         f.write(doc)
 
 
+# --- Excel-style column filter (checkbox popover; own goals + derived tables) --------
+
+EXCEL_FILTER_CSS = """
+    .excel-filter-btn {
+      width: 100%;
+      max-width: 100%;
+      font: inherit;
+      font-size: 0.65rem;
+      padding: 0.28rem 0.35rem;
+      cursor: pointer;
+      border-radius: 5px;
+      border: 1px solid #8a6666;
+      background: #faf8f5;
+      color: #222;
+      text-align: center;
+    }
+    .excel-filter-btn:hover { border-color: #cc0000; color: #800; }
+    .excel-filter-btn.is-filtered {
+      background: #fff4e6;
+      border-color: #cc7700;
+      font-weight: 700;
+    }
+    .excel-filter-popover {
+      position: fixed;
+      z-index: 400;
+      min-width: 280px;
+      max-width: min(360px, 92vw);
+      max-height: min(420px, 70vh);
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border: 1px solid #c8c0b8;
+      border-radius: 10px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+      font-size: 0.82rem;
+    }
+    .excel-filter-popover[hidden] { display: none !important; }
+    .excel-filter-popover-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.5rem 0.65rem;
+      border-bottom: 1px solid #e0dcd4;
+      background: #2a1515;
+      color: #fff;
+      border-radius: 10px 10px 0 0;
+    }
+    .excel-filter-title { font-weight: 700; font-size: 0.78rem; flex: 1; }
+    .excel-filter-close {
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 0.2rem;
+    }
+    .excel-filter-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      padding: 0.45rem 0.6rem;
+      border-bottom: 1px solid #e8e4dc;
+    }
+    .excel-filter-toolbar button {
+      font: inherit;
+      font-size: 0.72rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background: #faf8f5;
+      cursor: pointer;
+    }
+    .excel-filter-toolbar button:hover { border-color: #cc0000; }
+    .excel-filter-search {
+      margin: 0.4rem 0.6rem 0;
+      width: calc(100% - 1.2rem);
+      font: inherit;
+      padding: 0.35rem 0.45rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .excel-filter-note {
+      padding: 0.25rem 0.65rem 0;
+      font-size: 0.7rem;
+      color: #a60;
+      line-height: 1.3;
+    }
+    .excel-filter-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.35rem 0.5rem 0.5rem;
+      max-height: 240px;
+    }
+    .excel-filter-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+      padding: 0.2rem 0.15rem;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .excel-filter-item:hover { background: #f5f2ec; }
+    .excel-filter-item input { margin-top: 0.15rem; flex-shrink: 0; }
+    .excel-filter-item span { word-break: break-word; line-height: 1.25; }
+    .excel-filter-foot {
+      padding: 0.45rem 0.6rem;
+      border-top: 1px solid #e8e4dc;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.4rem;
+    }
+    .excel-filter-foot button {
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #cc0000;
+      background: #cc0000;
+      color: #fff;
+      cursor: pointer;
+    }
+    .excel-filter-foot .excel-filter-cancel {
+      background: #f5f2ec;
+      color: #333;
+      border-color: #ccc;
+    }
+"""
+
+EXCEL_FILTER_CORE_SCRIPT = r"""<script>
+(function () {
+  if (window.ReportExcelFilter) return;
+  var activeCtx = null;
+
+  function installPopover() {
+    if (document.getElementById("excel-filter-popover")) return;
+    var el = document.createElement("div");
+    el.id = "excel-filter-popover";
+    el.className = "excel-filter-popover";
+    el.setAttribute("hidden", "");
+    el.innerHTML =
+      '<div class="excel-filter-popover-head">' +
+      '<span class="excel-filter-title" id="excel-filter-title">Filter</span>' +
+      '<button type="button" class="excel-filter-close" id="excel-filter-close" aria-label="Close">×</button></div>' +
+      '<div class="excel-filter-toolbar">' +
+      '<button type="button" id="excel-filter-all-column">All values</button>' +
+      '<button type="button" id="excel-filter-visible-all">Select visible</button>' +
+      '<button type="button" id="excel-filter-visible-none">Clear visible</button></div>' +
+      '<input type="search" class="excel-filter-search" id="excel-filter-search" placeholder="Search values…" />' +
+      '<div class="excel-filter-note" id="excel-filter-note"></div>' +
+      '<div class="excel-filter-list" id="excel-filter-list"></div>' +
+      '<div class="excel-filter-foot">' +
+      '<button type="button" class="excel-filter-cancel" id="excel-filter-cancel">Cancel</button>' +
+      '<button type="button" id="excel-filter-apply">Apply</button></div>';
+    document.body.appendChild(el);
+    document.getElementById("excel-filter-close").addEventListener("click", close);
+    document.getElementById("excel-filter-cancel").addEventListener("click", close);
+    document.getElementById("excel-filter-apply").addEventListener("click", onApplyClick);
+    document.getElementById("excel-filter-all-column").addEventListener("click", function () {
+      if (!activeCtx) return;
+      var cb = activeCtx.onApply;
+      close();
+      if (cb) cb(null);
+    });
+    document.getElementById("excel-filter-visible-all").addEventListener("click", function () {
+      document.querySelectorAll("#excel-filter-list input[type=checkbox]").forEach(function (c) { c.checked = true; });
+    });
+    document.getElementById("excel-filter-visible-none").addEventListener("click", function () {
+      document.querySelectorAll("#excel-filter-list input[type=checkbox]").forEach(function (c) { c.checked = false; });
+    });
+    document.getElementById("excel-filter-search").addEventListener("input", function () {
+      if (activeCtx) renderList(activeCtx);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") close();
+    });
+    document.addEventListener("click", function (e) {
+      var pop = document.getElementById("excel-filter-popover");
+      if (!pop || pop.hidden) return;
+      if (pop.contains(e.target)) return;
+      if (e.target.closest && e.target.closest(".excel-filter-btn")) return;
+      close();
+    });
+  }
+
+  function close() {
+    var pop = document.getElementById("excel-filter-popover");
+    if (pop) pop.setAttribute("hidden", "");
+    activeCtx = null;
+  }
+
+  function renderList(ctx) {
+    var list = document.getElementById("excel-filter-list");
+    var note = document.getElementById("excel-filter-note");
+    var q = (document.getElementById("excel-filter-search").value || "").trim().toLowerCase();
+    var all = ctx.distinctSnapshot;
+    var filtered = all.filter(function (v) { return !q || String(v).toLowerCase().indexOf(q) !== -1; });
+    var cap = 350;
+    var show = filtered.slice(0, cap);
+    if (note) {
+      if (all.length > cap) note.textContent = "Column has " + all.length + " unique values; list capped — use search to find more.";
+      else if (filtered.length > cap) note.textContent = "Too many matches — refine search.";
+      else note.textContent = "";
+    }
+    list.innerHTML = "";
+    var sel = ctx.selectedSet;
+    show.forEach(function (v) {
+      var lab = document.createElement("label");
+      lab.className = "excel-filter-item";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var key = encodeURIComponent(v);
+      inp.dataset.ev = key;
+      inp.checked = sel === null || sel.has(v);
+      lab.appendChild(inp);
+      var sp = document.createElement("span");
+      sp.textContent = v === "" ? "(blank)" : String(v);
+      lab.appendChild(sp);
+      list.appendChild(lab);
+    });
+  }
+
+  function onApplyClick() {
+    if (!activeCtx) return;
+    var ctx = activeCtx;
+    var checked = [];
+    document.querySelectorAll("#excel-filter-list input[type=checkbox]").forEach(function (inp) {
+      if (inp.checked) checked.push(decodeURIComponent(inp.dataset.ev));
+    });
+    var all = ctx.distinctSnapshot;
+    var set = new Set(checked);
+    var out;
+    if (checked.length === 0) {
+      out = new Set();
+    } else {
+      var full = true;
+      for (var i = 0; i < all.length; i++) {
+        if (!set.has(all[i])) { full = false; break; }
+      }
+      out = full ? null : set;
+    }
+    var cb = ctx.onApply;
+    close();
+    if (cb) cb(out);
+  }
+
+  function open(opts) {
+    installPopover();
+    var pop = document.getElementById("excel-filter-popover");
+    document.getElementById("excel-filter-title").textContent = opts.title || "Filter";
+    document.getElementById("excel-filter-search").value = "";
+    var snap = opts.distinctSnapshot || [];
+    activeCtx = {
+      distinctSnapshot: snap.slice(),
+      selectedSet: opts.selectedSet == null ? null : new Set(opts.selectedSet),
+      onApply: opts.onApply,
+      forceAll: false
+    };
+    renderList(activeCtx);
+    var r = opts.anchor.getBoundingClientRect();
+    pop.style.left = Math.max(8, r.left + window.scrollX) + "px";
+    pop.style.top = (r.bottom + window.scrollY + 4) + "px";
+    pop.removeAttribute("hidden");
+  }
+
+  window.ReportExcelFilter = { open: open, close: close };
+})();
+</script>"""
+
+
 # --- Supabase-derived reports (penalty shootouts, VAR, VAR unpaired) -----------------
 
 DERIVED_TABLE_SCRIPT = r"""<script>
@@ -612,8 +944,8 @@ DERIVED_TABLE_SCRIPT = r"""<script>
   document.querySelectorAll("table.sortable-derived").forEach(function (table) {
     var tbody = table.querySelector("tbody");
     if (!tbody) return;
+    table._excelColSelections = table._excelColSelections || {};
     var headers = table.querySelectorAll("thead tr:first-child th[data-col]");
-    var filters = table.querySelectorAll(".derived-col-filter");
     var sortCol = null;
     var sortAsc = true;
 
@@ -625,15 +957,16 @@ DERIVED_TABLE_SCRIPT = r"""<script>
       return (c.textContent || "").trim();
     }
 
-    function rowPassesFilters(tr) {
+    function rowPassesColSelections(tr) {
       if (tr.querySelector("td[colspan]")) return true;
-      for (var i = 0; i < filters.length; i++) {
-        var inp = filters[i];
-        var q = (inp.value || "").trim().toLowerCase();
-        if (!q) continue;
-        var col = parseInt(inp.getAttribute("data-col"), 10);
-        var v = (cellVal(tr, col) || "").toLowerCase();
-        if (v.indexOf(q) === -1) return false;
+      var sel = table._excelColSelections;
+      for (var k in sel) {
+        if (!Object.prototype.hasOwnProperty.call(sel, k)) continue;
+        var sset = sel[k];
+        if (sset == null) continue;
+        var col = parseInt(k, 10);
+        var v = cellVal(tr, col) || "";
+        if (!sset.has(v)) return false;
       }
       return true;
     }
@@ -641,8 +974,52 @@ DERIVED_TABLE_SCRIPT = r"""<script>
     function applyFilters() {
       tbody.querySelectorAll("tr").forEach(function (tr) {
         if (tr.querySelector("td[colspan]")) return;
-        if (rowPassesFilters(tr)) tr.classList.remove("derived-row--hidden");
+        if (rowPassesColSelections(tr)) tr.classList.remove("derived-row--hidden");
         else tr.classList.add("derived-row--hidden");
+      });
+      updateFilterButtons();
+    }
+
+    function distinctForColumn(col, excludeCol) {
+      var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr")).filter(function (tr) {
+        return !tr.querySelector("td[colspan]");
+      });
+      function passesOther(tr) {
+        var sel = table._excelColSelections;
+        for (var k in sel) {
+          if (!Object.prototype.hasOwnProperty.call(sel, k)) continue;
+          if (parseInt(k, 10) === excludeCol) continue;
+          var sset = sel[k];
+          if (sset == null) continue;
+          var v = cellVal(tr, parseInt(k, 10)) || "";
+          if (!sset.has(v)) return false;
+        }
+        return true;
+      }
+      var s = new Set();
+      rows.forEach(function (tr) {
+        if (!passesOther(tr)) return;
+        s.add(cellVal(tr, col) || "");
+      });
+      return Array.from(s).sort(function (a, b) {
+        return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: "base" });
+      });
+    }
+
+    function updateFilterButtons() {
+      table.querySelectorAll(".excel-filter-btn").forEach(function (btn) {
+        var c = String(btn.getAttribute("data-col"));
+        var sel = table._excelColSelections[c];
+        if (sel == null) {
+          btn.textContent = "Values…";
+          btn.classList.remove("is-filtered");
+        } else if (sel.size === 0) {
+          btn.textContent = "None";
+          btn.classList.add("is-filtered");
+        } else {
+          btn.textContent = sel.size + " picked";
+          btn.classList.add("is-filtered");
+        }
       });
     }
 
@@ -665,11 +1042,6 @@ DERIVED_TABLE_SCRIPT = r"""<script>
       vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
     }
 
-    function onFilterInput() {
-      applyFilters();
-      if (sortCol !== null) sortTable(sortCol, sortAsc);
-    }
-
     headers.forEach(function (th) {
       th.addEventListener("click", function () {
         var col = parseInt(th.getAttribute("data-col"), 10);
@@ -680,9 +1052,32 @@ DERIVED_TABLE_SCRIPT = r"""<script>
         sortTable(col, sortAsc);
       });
     });
-    filters.forEach(function (inp) {
-      inp.addEventListener("input", onFilterInput);
+
+    table.querySelectorAll(".excel-filter-btn").forEach(function (btn) {
+      btn.addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        var col = parseInt(btn.getAttribute("data-col"), 10);
+        var dist = distinctForColumn(col, col);
+        var key = String(col);
+        var cur = table._excelColSelections[key];
+        var initial = cur == null ? null : new Set(cur);
+        if (!window.ReportExcelFilter) return;
+        window.ReportExcelFilter.open({
+          anchor: btn,
+          title: "Filter column",
+          distinctSnapshot: dist,
+          selectedSet: initial,
+          onApply: function (set) {
+            if (set == null) delete table._excelColSelections[key];
+            else if (set.size === 0) table._excelColSelections[key] = new Set();
+            else table._excelColSelections[key] = set;
+            applyFilters();
+            if (sortCol !== null) sortTable(sortCol, sortAsc);
+          }
+        });
+      });
     });
+
     applyFilters();
   });
 })();
@@ -699,18 +1094,36 @@ def _derived_fmt(v) -> str:
     return str(v)
 
 
+def _derived_fmt_recorded(v) -> str:
+    """Literal true/false for games.recorded (HTML reports / SQL parity)."""
+    if v is True:
+        return "true"
+    if v is False:
+        return "false"
+    if v is None or v == "":
+        return "—"
+    if isinstance(v, str):
+        lo = v.strip().lower()
+        if lo in ("true", "t", "1", "yes"):
+            return "true"
+        if lo in ("false", "f", "0", "no"):
+            return "false"
+    return "—"
+
+
 def _derived_esc(v) -> str:
     return html.escape(_derived_fmt(v), quote=False)
 
 
 def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], table_id: str) -> str:
+    safe_id = html.escape(table_id, quote=True)
     th_row = "".join(
         f'<th data-col="{i}" title="Click to sort">{html.escape(h, quote=False)}</th>'
         for i, h in enumerate(headers)
     )
     filter_row = "".join(
-        f'<th><input type="search" class="derived-col-filter" data-col="{i}" placeholder="Filter…" '
-        f'aria-label="{html.escape("Filter " + headers[i], quote=True)}"></th>'
+        f'<th><button type="button" class="excel-filter-btn" data-col="{i}" data-table="{safe_id}" '
+        f'title="Pick values like Excel">Values…</button></th>'
         for i in range(len(headers))
     )
     body: list[str] = []
@@ -720,6 +1133,11 @@ def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], 
             raw = r.get(k)
             if k == "commentary" and raw and len(str(raw)) > 240:
                 raw = str(raw)[:240] + "…"
+            if k == "recorded":
+                lit = _derived_fmt_recorded(raw)
+                dv = html.escape(lit, quote=True)
+                tds.append(f'<td class="center" data-val="{dv}">{html.escape(lit, quote=False)}</td>')
+                continue
             dv = html.escape(_derived_fmt(raw), quote=True)
             if k in ("sport_event_id", "game_id") and raw:
                 inner = f'<code>{html.escape(str(raw), quote=False)}</code>'
@@ -728,7 +1146,6 @@ def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], 
                 tds.append(f'<td data-val="{dv}">{_derived_esc(raw)}</td>')
         body.append("<tr>" + "".join(tds) + "</tr>")
     tbody = "\n".join(body) if body else '<tr><td colspan="' + str(len(headers)) + '">No rows.</td></tr>'
-    safe_id = html.escape(table_id, quote=True)
     return f"""<div class="table-wrap">
       <table id="{safe_id}" class="sortable-derived">
         <thead>
@@ -823,16 +1240,6 @@ def _derived_page_shell(
       padding: 0.35rem 0.4rem;
       border-bottom: 2px solid #cc0000;
     }}
-    thead tr.derived-col-filters input {{
-      width: 100%;
-      min-width: 0;
-      font: inherit;
-      font-size: 0.72rem;
-      padding: 0.28rem 0.4rem;
-      border-radius: 5px;
-      border: 1px solid #8a6666;
-      box-sizing: border-box;
-    }}
     .derived-row--hidden {{ display: none !important; }}
     tr:nth-child(even) td {{ background: #faf8f4; }}
     td.mono, td code {{ font-size: 0.76rem; }}
@@ -843,6 +1250,7 @@ def _derived_page_shell(
       line-height: 1.35;
     }}
     .footer {{ text-align: center; margin-top: 2rem; font-size: 0.82rem; color: #666; }}
+    {EXCEL_FILTER_CSS}
     {NAV_CSS}
   </style>
 </head>
@@ -857,12 +1265,13 @@ def _derived_page_shell(
   </div>
   <p class="meta">{meta}</p>
   <div class="table-section">
-    <p class="table-toolbar-hint">Click a column header to sort. Type in the filter boxes under each column to narrow rows (matches if the cell text contains your text, case-insensitive).</p>
+    <p class="table-toolbar-hint">Click a column header to sort. Use <strong>Values…</strong> under each column for an Excel-style checklist (search within the list when there are many values).</p>
     {table_html}
   </div>
   <div class="footer">
     <p>Data from Supabase (Sportradar timelines) · Generated {html.escape(gen, quote=False)}</p>
   </div>
+{EXCEL_FILTER_CORE_SCRIPT}
 {DERIVED_TABLE_SCRIPT}
 </body>
 </html>"""
@@ -901,6 +1310,7 @@ def write_derived_reports() -> None:
         "Attempts",
         "Sudden death",
         "Recorded",
+        "Recording ID",
         "Competition",
         "Status",
         "Sport event ID",
@@ -912,6 +1322,7 @@ def write_derived_reports() -> None:
         "shootout_attempts",
         "sudden_death",
         "recorded",
+        "recording_id",
         "competition_name",
         "status",
         "sport_event_id",
@@ -949,7 +1360,8 @@ def write_derived_reports() -> None:
         "Affected team",
         "Event ID",
         "Sport event ID",
-        "Commentary",
+        "Recorded",
+        "Recording ID",
     ]
     vr_keys = [
         "match_date",
@@ -967,7 +1379,8 @@ def write_derived_reports() -> None:
         "affected_team",
         "timeline_event_id",
         "sport_event_id",
-        "commentary",
+        "recorded",
+        "recording_id",
     ]
     vr_html = _derived_build_table(vr_headers, vr_keys, vr, "table-var-events")
     vr_doc = _derived_page_shell(
@@ -994,6 +1407,8 @@ def write_derived_reports() -> None:
         "VAR starts",
         "VAR overs",
         "Δ (starts − overs)",
+        "Recorded",
+        "Recording ID",
         "Sport event ID",
     ]
     vu_keys = [
@@ -1004,6 +1419,8 @@ def write_derived_reports() -> None:
         "video_assistant_referee",
         "video_assistant_referee_over",
         "unpaired_var_starts",
+        "recorded",
+        "recording_id",
         "sport_event_id",
     ]
     vu_html = _derived_build_table(vu_headers, vu_keys, vu, "table-var-unpaired")
@@ -1026,7 +1443,6 @@ def write_derived_reports() -> None:
 def generate_html(
     rows: list[dict],
     completed_matches: int,
-    timeline_events: int,
     pipeline_by_season: dict[str, dict[str, int]] | None = None,
 ) -> str:
     generated = datetime.now(timezone.utc).strftime("%d %B %Y, %H:%M UTC")
@@ -1039,7 +1455,7 @@ def generate_html(
     date_filter_tile = build_date_filter_tile(data_date_min, data_date_max)
     filter_payload = {
         "pipelineBySeason": pipeline_by_season,
-        "pipelineGlobal": {"matches": completed_matches, "events": timeline_events},
+        "pipelineGlobal": {"matches": completed_matches},
         "allSeasonNames": all_season_names,
         "scopeLabelDefault": SEASON_LABEL,
         "dataDateMin": data_date_min,
@@ -1073,8 +1489,6 @@ def generate_html(
         player_sub = " &amp; ".join(top_players)
         team_sub = " &amp; ".join(top_teams)
 
-        events_display = f"{timeline_events:,}"
-
         commentary_correct = sum(1 for r in rows if "own goal" in r.get("commentary", "").lower())
         commentary_incorrect = total - commentary_correct
         games_with_og = len(set(r["sport_event_id"] for r in rows))
@@ -1083,10 +1497,6 @@ def generate_html(
           <div class="stat-card">
             <div class="stat-number" id="kpi-matches">{completed_matches:,}</div>
             <div class="stat-label">Matches Reviewed</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" id="kpi-events">{events_display}</div>
-            <div class="stat-label">Timeline Events Reviewed</div>
           </div>
           <div class="stat-card">
             <div class="stat-number" id="kpi-total-og">{total}</div>
@@ -1113,7 +1523,11 @@ def generate_html(
             <div class="stat-label">Commentary Incorrect<br><span class="stat-sub stat-sub--muted">No "own goal" mention</span></div>
           </div>"""
     else:
-        stats_cards_html = ""
+        stats_cards_html = f"""
+          <div class="stat-card">
+            <div class="stat-number" id="kpi-matches">{completed_matches:,}</div>
+            <div class="stat-label">Matches Reviewed</div>
+          </div>"""
 
     stats_html = (
         '<div class="stats-grid">\n'
@@ -1415,7 +1829,9 @@ def generate_html(
     col.c-num        {{ width: 2%; }}
     col.c-comp       {{ width: 12%; }}
     col.c-match      {{ width: 12%; }}
-    col.c-matchid    {{ width: 12%; }}
+    col.c-matchid    {{ width: 11%; }}
+    col.c-recorded   {{ width: 5%; }}
+    col.c-recordingid {{ width: 9%; }}
     col.c-scorer     {{ width: 10%; }}
     col.c-playerid   {{ width: 8%; }}
     col.c-min        {{ width: 4%; }}
@@ -1423,7 +1839,7 @@ def generate_html(
     col.c-score      {{ width: 5%; }}
     col.c-final      {{ width: 5%; }}
     col.c-ogmention  {{ width: 5%; }}
-    col.c-commentary {{ width: 25%; }}
+    col.c-commentary {{ width: 16%; }}
 
     thead tr:first-child {{
       background: #1a0000;
@@ -1456,17 +1872,6 @@ def generate_html(
       font-weight: 400;
       letter-spacing: normal;
     }}
-    thead tr.og-col-filters input {{
-      width: 100%;
-      min-width: 0;
-      font: inherit;
-      font-size: 0.65rem;
-      padding: 0.22rem 0.35rem;
-      border-radius: 4px;
-      border: 1px solid #666;
-      box-sizing: border-box;
-    }}
-
     tbody tr {{ background: #ffffff; transition: background 0.12s; }}
     tbody tr:nth-child(even) {{ background: #faf7f2; }}
     tbody tr:hover {{ background: #fff0f0; }}
@@ -1543,6 +1948,26 @@ def generate_html(
     }}
     td.og-yes {{ text-align: center; color: #1a7a1a; font-weight: 700; font-size: 0.82rem; }}
     td.og-no  {{ text-align: center; color: #cc0000; font-weight: 700; font-size: 0.82rem; }}
+    td.recorded-true {{
+      text-align: center;
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1a5c1a;
+    }}
+    td.recorded-false {{
+      text-align: center;
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #666;
+    }}
+    td.recorded-unknown {{
+      text-align: center;
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      font-size: 0.78rem;
+      color: #999;
+    }}
     .commentary-cell {{ white-space: normal; max-width: 260px; }}
     .commentary {{
       font-size: 0.75rem;
@@ -1659,6 +2084,7 @@ def generate_html(
     @media (min-width: 600px) and (max-width: 899px) and (orientation: portrait) {{
       .id-cell {{ display: none; }}
     }}
+{EXCEL_FILTER_CSS}
 {NAV_CSS}
   </style>
 </head>
@@ -1683,7 +2109,7 @@ def generate_html(
   <div class="table-section">
     <div class="table-header-row">
       <div class="table-title" id="table-filter-title">All Own Goals &mdash; {SEASON_LABEL}</div>
-      <div class="sort-hint">Click a column header to sort. Use filter boxes under headers to narrow rows (contains match, case-insensitive).</div>
+      <div class="sort-hint">Click a column header to sort. Use <strong>Values…</strong> for an Excel-style value checklist (search inside the list when needed).</div>
     </div>
     <div class="table-wrap">
       <table id="og-table">
@@ -1692,6 +2118,8 @@ def generate_html(
           <col class="c-comp">
           <col class="c-match">
           <col class="c-matchid">
+          <col class="c-recorded">
+          <col class="c-recordingid">
           <col class="c-scorer">
           <col class="c-playerid">
           <col class="c-min">
@@ -1707,28 +2135,32 @@ def generate_html(
             <th data-col="1">Competition</th>
             <th data-col="2">Match</th>
             <th data-col="3">Match ID</th>
-            <th data-col="4">Own Goal Scorer</th>
-            <th data-col="5">Player ID</th>
-            <th class="center" data-col="6">Min</th>
-            <th data-col="7">Benefiting Team</th>
-            <th class="center" data-col="8">Score at OG</th>
-            <th class="center" data-col="9">Final Score</th>
-            <th class="center" data-col="10">Mentions OG?</th>
-            <th data-col="11">Commentary</th>
+            <th class="center" data-col="4">Recorded</th>
+            <th data-col="5">Recording ID</th>
+            <th data-col="6">Own Goal Scorer</th>
+            <th data-col="7">Player ID</th>
+            <th class="center" data-col="8">Min</th>
+            <th data-col="9">Benefiting Team</th>
+            <th class="center" data-col="10">Score at OG</th>
+            <th class="center" data-col="11">Final Score</th>
+            <th class="center" data-col="12">Mentions OG?</th>
+            <th data-col="13">Commentary</th>
           </tr>
           <tr class="og-col-filters">
             <th class="num"></th>
-            <th><input type="search" class="og-col-filter" data-col="1" placeholder="Filter…" aria-label="Filter competition"></th>
-            <th><input type="search" class="og-col-filter" data-col="2" placeholder="Filter…" aria-label="Filter match"></th>
-            <th><input type="search" class="og-col-filter" data-col="3" placeholder="Filter…" aria-label="Filter match ID"></th>
-            <th><input type="search" class="og-col-filter" data-col="4" placeholder="Filter…" aria-label="Filter scorer"></th>
-            <th><input type="search" class="og-col-filter" data-col="5" placeholder="Filter…" aria-label="Filter player ID"></th>
-            <th><input type="search" class="og-col-filter" data-col="6" placeholder="Filter…" aria-label="Filter minute"></th>
-            <th><input type="search" class="og-col-filter" data-col="7" placeholder="Filter…" aria-label="Filter benefiting team"></th>
-            <th><input type="search" class="og-col-filter" data-col="8" placeholder="Filter…" aria-label="Filter score at OG"></th>
-            <th><input type="search" class="og-col-filter" data-col="9" placeholder="Filter…" aria-label="Filter final score"></th>
-            <th><input type="search" class="og-col-filter" data-col="10" placeholder="Filter…" aria-label="Filter mentions OG"></th>
-            <th><input type="search" class="og-col-filter" data-col="11" placeholder="Filter…" aria-label="Filter commentary"></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="1" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="2" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="3" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="4" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="5" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="6" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="7" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="8" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="9" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="10" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="11" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="12" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="13" title="Pick values like Excel">Values…</button></th>
           </tr>
         </thead>
         <tbody id="og-tbody">
@@ -1744,6 +2176,7 @@ def generate_html(
     <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated {generated}</p>
   </div>
 
+  {EXCEL_FILTER_CORE_SCRIPT}
   <script type="application/json" id="report-filter-data">{filter_json}</script>
   {_inline_report_script()}
 
@@ -1752,28 +2185,31 @@ def generate_html(
 
 
 def main():
+    print("Generating reports…", flush=True)
     pipeline_by_season: dict = {}
     if USE_SUPABASE:
         import db
+        print("  Loading own goals from Supabase (may take a bit)…", flush=True)
         rows = db.get_all_own_goals()
-        completed_matches, timeline_events = db.get_report_stats()
+        print("  Counting stored timelines (exact count)…", flush=True)
+        completed_matches = db.get_completed_timelines_count()
+        print("  Pipeline match counts by season…", flush=True)
         pipeline_by_season = db.get_pipeline_stats_by_season_name()
         rows.sort(key=lambda r: (r["match_date"], int(r["minute"]) if str(r["minute"]).isdigit() else 0))
         print(f"Loaded {len(rows)} own goal records from Supabase")
     else:
+        print(f"  Reading {OWN_GOALS_CSV} and cached timelines…", flush=True)
         rows = load_own_goals(OWN_GOALS_CSV)
         rows.sort(key=lambda r: (r["match_date"], int(r["minute"]) if str(r["minute"]).isdigit() else 0))
         completed_matches = count_completed_matches()
-        timeline_events = count_timeline_events()
         print(f"Loaded {len(rows)} own goal records from {OWN_GOALS_CSV}")
-    print(f"Completed matches reviewed : {completed_matches}")
-    print(f"Total timeline events      : {timeline_events:,}")
-    html = generate_html(rows, completed_matches, timeline_events, pipeline_by_season)
+    print(f"Matches with stored timeline : {completed_matches:,}")
+    html = generate_html(rows, completed_matches, pipeline_by_season)
     with open(REPORT_HTML, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"Report written to: {REPORT_HTML}")
     write_legacy_report_redirect()
-    print(f"Legacy redirect written to: {REPORT_HTML_LEGACY_REDIRECT} → {REPORT_HTML}")
+    print(f"Legacy redirect written to: {REPORT_HTML_LEGACY_REDIRECT} -> {REPORT_HTML}")
     print("Generating companion reports (penalty shootouts, VAR, VAR unpaired)…")
     write_derived_reports()
     print(f"Open {REPORT_HTML} (and linked pages) in your browser to view.")
