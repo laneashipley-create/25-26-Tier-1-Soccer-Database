@@ -28,7 +28,7 @@ def main() -> int:
 
     html = (
         "<p>Esteemed Colleague,</p>"
-        "<p>Your weekly Tier 1 Soccer League Report has been updated.</p>"
+        "<p>Your weekly Tier 1 Soccer Leagues || 25/26 Seasons || Various Reports hub has been updated.</p>"
         f'<p>View the <a href="{REPORT_URL}">report</a>. '
         "This contains multiple tabs looking at things like Own Goals, VAR Events, "
         "Matches with Penalty Shootouts, and more.</p>"

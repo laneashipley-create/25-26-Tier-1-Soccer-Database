@@ -1,11 +1,12 @@
 """
 STEP 6 — Generate HTML reports.
 
-Writes all four static pages in one place:
+Writes all five derived static pages in one place:
 
 - report_own_goals.html — own goals (CSV or Supabase)
-- report_penalty_shootouts.html, report_var_events.html, report_var_unpaired.html — from Supabase
-  when USE_SUPABASE is set; otherwise stub HTML for those three files.
+- report_penalty_shootouts.html, report_var_events.html, report_var_unpaired.html,
+  report_recordings_library.html — from Supabase when USE_SUPABASE is set;
+  otherwise stub HTML for those four files.
 
 Without Supabase, own goals are read from data/own_goals.csv.
 """
@@ -23,6 +24,7 @@ from config import (
     REPORT_HTML_PENALTY_SHOOTOUTS,
     REPORT_HTML_VAR_EVENTS,
     REPORT_HTML_VAR_UNPAIRED,
+    REPORT_HTML_RECORDINGS_LIBRARY,
     SEASON_NAME,
     SEASON_LABEL,
     TIMELINES_DIR,
@@ -1139,7 +1141,7 @@ def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], 
                 tds.append(f'<td class="center" data-val="{dv}">{html.escape(lit, quote=False)}</td>')
                 continue
             dv = html.escape(_derived_fmt(raw), quote=True)
-            if k in ("sport_event_id", "game_id") and raw:
+            if k in ("sport_event_id", "game_id", "recording_id", "sr_sport_event_id") and raw:
                 inner = f'<code>{html.escape(str(raw), quote=False)}</code>'
                 tds.append(f'<td class="mono" data-val="{dv}">{inner}</td>')
             else:
@@ -1166,9 +1168,11 @@ def _derived_page_shell(
     meta: str,
     table_html: str,
     nav_href: str,
+    footer_mid: str | None = None,
 ) -> str:
     gen = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nav = navigation_html(nav_href)
+    footer_note = footer_mid if footer_mid is not None else "(Sportradar timelines)"
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1269,7 +1273,7 @@ def _derived_page_shell(
     {table_html}
   </div>
   <div class="footer">
-    <p>Data from Supabase (Sportradar timelines) · Generated {html.escape(gen, quote=False)}</p>
+    <p>Data from Supabase {html.escape(footer_note, quote=False)} · Generated {html.escape(gen, quote=False)}</p>
   </div>
 {EXCEL_FILTER_CORE_SCRIPT}
 {DERIVED_TABLE_SCRIPT}
@@ -1285,14 +1289,30 @@ def _derived_stub_page(title: str, nav_href: str) -> str:
 <body><div class="report-sticky-top">{nav}</div><p>Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or config_local) to build this report.</p></body></html>"""
 
 
+def _prepare_recordings_library_rows(rows: list[dict]) -> list[dict]:
+    """Oldest kickoff first; renumber ID column 1..n for the HTML report (not DB identity)."""
+
+    def sort_key(r: dict) -> tuple:
+        start = r.get("sport_event_start")
+        if start is None or start == "":
+            return (1, "", str(r.get("sr_sport_event_id") or ""))
+        return (0, str(start), str(r.get("sr_sport_event_id") or ""))
+
+    rows.sort(key=sort_key)
+    for i, r in enumerate(rows, start=1):
+        r["id"] = i
+    return rows
+
+
 def write_derived_reports() -> None:
-    """Penalty shootouts, VAR events, VAR unpaired — Supabase or stubs."""
+    """Penalty shootouts, VAR events, VAR unpaired, recordings library — Supabase or stubs."""
     if not USE_SUPABASE:
         print("USE_SUPABASE is False — writing stub HTML for derived reports.")
         stubs = [
             (REPORT_HTML_PENALTY_SHOOTOUTS, "Penalty shootouts", "report_penalty_shootouts.html"),
             (REPORT_HTML_VAR_EVENTS, "VAR events", "report_var_events.html"),
             (REPORT_HTML_VAR_UNPAIRED, "VAR unpaired", "report_var_unpaired.html"),
+            (REPORT_HTML_RECORDINGS_LIBRARY, "Recordings library", "report_recordings_library.html"),
         ]
         for path, title, nav in stubs:
             with open(path, "w", encoding="utf-8") as f:
@@ -1438,6 +1458,69 @@ def write_derived_reports() -> None:
     with open(REPORT_HTML_VAR_UNPAIRED, "w", encoding="utf-8") as f:
         f.write(vu_doc)
     print(f"  Wrote {REPORT_HTML_VAR_UNPAIRED} ({len(vu)} rows)")
+
+    rl = _prepare_recordings_library_rows(db.fetch_recordings_library_rows())
+    rl_headers = [
+        "ID",
+        "sr_sport_event_id",
+        "recording_id",
+        "Title",
+        "Season",
+        "Competition Name",
+        "Category",
+        "Sport Event Status",
+        "Sport Event Start",
+        "Sport Event Venue",
+        "SR Sport Event Venue ID",
+        "Sport Event City",
+        "Event Summary",
+        "Event Statistics",
+        "Event Lineup",
+        "Event VAR",
+        "Event Commentary",
+        "Event Timeline",
+        "Event Win Prob",
+        "Status",
+    ]
+    rl_keys = [
+        "id",
+        "sr_sport_event_id",
+        "recording_id",
+        "title",
+        "season",
+        "competition_name",
+        "category",
+        "sport_event_status",
+        "sport_event_start",
+        "sport_event_venue",
+        "sr_sport_event_venue_id",
+        "sport_event_city",
+        "event_summary",
+        "event_statistics",
+        "event_lineup",
+        "event_var",
+        "event_commentary",
+        "event_timeline",
+        "event_win_prob",
+        "status",
+    ]
+    rl_html = _derived_build_table(rl_headers, rl_keys, rl, "table-recordings-library")
+    rl_doc = _derived_page_shell(
+        title=f"Recordings library — {SEASON_LABEL}",
+        badge="Sportradar Soccer",
+        headline="Soccer // Recordings Library",
+        subtitle="Record / Replay export (Library Details layout)",
+        meta=f"<strong>{len(rl):,}</strong> recording row(s) from Supabase "
+        "<code>recordings_library_report</code> (sync via <code>sync_recordings_library.py</code>). "
+        "<strong>ID</strong> is row order in this report (1 = oldest <strong>Sport Event Start</strong>). "
+        "Boolean columns reflect which APIs were captured in the export.",
+        table_html=rl_html,
+        nav_href="report_recordings_library.html",
+        footer_mid="(Record/Replay library table Soccer // Recordings Library)",
+    )
+    with open(REPORT_HTML_RECORDINGS_LIBRARY, "w", encoding="utf-8") as f:
+        f.write(rl_doc)
+    print(f"  Wrote {REPORT_HTML_RECORDINGS_LIBRARY} ({len(rl)} rows)")
 
 
 def generate_html(

@@ -256,6 +256,7 @@ REPORT_HTML_LEGACY_REDIRECT = "report.html"
 REPORT_HTML_PENALTY_SHOOTOUTS = "report_penalty_shootouts.html"
 REPORT_HTML_VAR_EVENTS = "report_var_events.html"
 REPORT_HTML_VAR_UNPAIRED = "report_var_unpaired.html"
+REPORT_HTML_RECORDINGS_LIBRARY = "report_recordings_library.html"
 
 # Rate limiting: Sportradar trial keys are limited to 1 request/second
 REQUEST_DELAY_SECONDS = 1.1

@@ -13,6 +13,7 @@ REPORT_NAV_ITEMS: list[tuple[str, str]] = [
     ("report_penalty_shootouts.html", "Penalty shootouts"),
     ("report_var_events.html", "VAR events"),
     ("report_var_unpaired.html", "VAR unpaired"),
+    ("report_recordings_library.html", "Recordings library"),
 ]
 
 NAV_CSS = """

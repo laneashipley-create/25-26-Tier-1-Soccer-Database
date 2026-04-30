@@ -798,6 +798,14 @@ def fetch_var_timeline_event_rows() -> list[dict]:
     return rows
 
 
+def fetch_recordings_library_rows() -> list[dict]:
+    """Rows from public.recordings_library_report (Record/Replay library export in Supabase)."""
+    return _fetch_all_ordered(
+        "recordings_library_report",
+        [("sport_event_start", False), ("sr_sport_event_id", False)],
+    )
+
+
 def fetch_var_unpaired_match_rows() -> list[dict]:
     """Rows from public.var_unpaired_event_matches view, with recorded from games (T_GAMES)."""
     rows = _fetch_all_ordered(
