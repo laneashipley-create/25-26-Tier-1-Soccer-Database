@@ -1222,7 +1222,7 @@ def _derived_page_shell(
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }}
     table {{ border-collapse: collapse; width: 100%; min-width: 640px; font-size: 0.82rem; }}
-    th, td {{ border-bottom: 1px solid #e8e4dc; padding: 0.38rem 0.5rem; text-align: left; vertical-align: top; }}
+    th, td {{ border-bottom: 1px solid #e8e4dc; padding: 0.38rem 0.5rem; text-align: center; vertical-align: top; }}
     thead tr:first-child th {{
       background: #2a1515;
       color: #fff;
@@ -1878,6 +1878,7 @@ def generate_html(
 
     td {{
       padding: 0.45rem 0.4rem;
+      text-align: center;
       vertical-align: middle;
       border-bottom: 1px solid #e8e2d8;
       white-space: nowrap;
@@ -1902,12 +1903,14 @@ def generate_html(
     .match-name {{
       font-weight: 600;
       color: #111;
+      text-align: center;
       white-space: normal;
       overflow: visible;
     }}
     .player-name {{
       font-weight: 600;
       color: #222;
+      text-align: center;
       white-space: normal;
       overflow: visible;
     }}
@@ -1915,6 +1918,7 @@ def generate_html(
       font-size: 0.68rem;
       color: #999;
       margin-top: 0.1rem;
+      text-align: center;
       white-space: normal;
     }}
     .team-badge {{

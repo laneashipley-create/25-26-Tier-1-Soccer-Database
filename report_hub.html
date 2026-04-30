@@ -5,63 +5,167 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tier 1 Soccer League Reports</title>
   <style>
+    :root {
+      --bg: #120000;
+      --panel: #1b0505;
+      --panel-soft: #2b0d0d;
+      --line: #5a2222;
+      --text: #f8e6e6;
+      --muted: #d1b9b9;
+      --accent: #ff9a32;
+      --accent-2: #ff4d4d;
+    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: #f5f2ec;
-      color: #1f1f1f;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 420px at 15% -5%, #5c0808 0%, rgba(92,8,8,0) 70%),
+        radial-gradient(900px 380px at 85% -20%, #3e0c5f 0%, rgba(62,12,95,0) 70%),
+        var(--bg);
+      min-height: 100vh;
     }
+    .topbar {
+      border-bottom: 1px solid #4a1111;
+      background: #1a0000;
+      text-align: center;
+      padding: 0.6rem 1rem;
+      box-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
+    }
+    .topbar a, .topbar span {
+      margin: 0 0.45rem;
+      color: #ffb8b8;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .topbar a:hover { color: #ffe1e1; text-decoration: underline; }
+    .topbar .active { color: #fff; font-weight: 700; }
     .wrap {
-      max-width: 900px;
-      margin: 2rem auto;
+      max-width: 980px;
+      margin: 1.8rem auto 2.5rem;
       padding: 0 1rem;
     }
-    .card {
-      background: #fff;
-      border: 1px solid #ddd8d0;
-      border-radius: 10px;
-      padding: 1.25rem 1.25rem 1rem;
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    .hero {
+      background: linear-gradient(160deg, rgba(35, 7, 7, 0.98), rgba(15, 0, 0, 0.98));
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.5rem 1.4rem;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+      text-align: center;
+    }
+    .logo {
+      width: min(360px, 82%);
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #5d2c2c;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+      margin-bottom: 1rem;
     }
     h1 {
-      margin: 0 0 0.35rem 0;
-      font-size: 1.35rem;
-      color: #5a0000;
+      margin: 0 0 0.4rem 0;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      letter-spacing: 0.01em;
+      color: #fff;
     }
-    p {
-      margin: 0.4rem 0 1rem;
-      color: #555;
+    .subtitle {
+      margin: 0 auto 1.2rem;
+      max-width: 760px;
+      color: var(--muted);
       line-height: 1.45;
     }
-    ul {
-      margin: 0.2rem 0 0.4rem 1.1rem;
-      padding: 0;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+      text-align: left;
     }
-    li {
-      margin: 0.45rem 0;
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; }
     }
-    a {
-      color: #b00000;
+    .tile {
+      display: block;
       text-decoration: none;
-      font-weight: 600;
+      background: linear-gradient(180deg, var(--panel-soft), var(--panel));
+      border: 1px solid #643131;
+      border-radius: 12px;
+      padding: 0.9rem 0.95rem;
+      transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+      color: inherit;
+      min-height: 112px;
     }
-    a:hover {
-      text-decoration: underline;
+    .tile:hover {
+      transform: translateY(-2px);
+      border-color: #9b4a4a;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    .tile-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+    .tile-desc {
+      color: #d8c3c3;
+      font-size: 0.86rem;
+      line-height: 1.35;
+    }
+    .accent {
+      display: inline-block;
+      margin-top: 0.45rem;
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
   </style>
 </head>
 <body>
+  <div class="topbar">
+    <span class="active">Home</span>
+    <span aria-hidden="true">·</span>
+    <a href="report_own_goals.html">Own goals</a>
+    <span aria-hidden="true">·</span>
+    <a href="report_penalty_shootouts.html">Penalty shootouts</a>
+    <span aria-hidden="true">·</span>
+    <a href="report_var_events.html">VAR events</a>
+    <span aria-hidden="true">·</span>
+    <a href="report_var_unpaired.html">VAR unpaired</a>
+  </div>
+
   <div class="wrap">
-    <div class="card">
+    <section class="hero">
+      <img class="logo" src="assets/lanes_sportsdata.png" alt="Lane's SportsData">
       <h1>Tier 1 Soccer League Reports</h1>
-      <p>Use the links below to open each weekly report:</p>
-      <ul>
-        <li><a href="report_own_goals.html">Own Goals Report</a></li>
-        <li><a href="report_var_events.html">VAR Events Report</a></li>
-        <li><a href="report_penalty_shootouts.html">Penalty Shootouts Report</a></li>
-        <li><a href="report_var_unpaired.html">VAR Unpaired Report</a></li>
-      </ul>
-    </div>
+      <p class="subtitle">
+        Open the weekly report tabs below. These pages cover own goals, VAR activity,
+        penalty shootouts, and unpaired VAR sequences.
+      </p>
+
+      <div class="grid">
+        <a class="tile" href="report_own_goals.html">
+          <div class="tile-title">Own Goals</div>
+          <div class="tile-desc">Track own-goal events with match context, commentary checks, and recording flags.</div>
+          <span class="accent">Open report</span>
+        </a>
+        <a class="tile" href="report_var_events.html">
+          <div class="tile-title">VAR Events</div>
+          <div class="tile-desc">Review all VAR timeline events with type, timing, affected side, and recording metadata.</div>
+          <span class="accent">Open report</span>
+        </a>
+        <a class="tile" href="report_penalty_shootouts.html">
+          <div class="tile-title">Penalty Shootouts</div>
+          <div class="tile-desc">Find matches decided via penalties, including attempts and sudden-death indicators.</div>
+          <span class="accent">Open report</span>
+        </a>
+        <a class="tile" href="report_var_unpaired.html">
+          <div class="tile-title">VAR Unpaired</div>
+          <div class="tile-desc">Spot matches where VAR start/over counts do not reconcile cleanly for review.</div>
+          <span class="accent">Open report</span>
+        </a>
+      </div>
+    </section>
   </div>
 </body>
 </html>
