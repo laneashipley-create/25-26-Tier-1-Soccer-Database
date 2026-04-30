@@ -1,8 +1,8 @@
 -- Disciplinary cards (yellow, straight red, red-yellow / second yellow) for completed matches
--- that have a stored timeline in public.sport_event_timelines.
+-- that have a stored timeline in public."Completed Matches - full sport_event_timelines".
 --
 -- Rules:
---   Completed: games.status in ('closed', 'ended') (same as the app pipeline).
+--   Completed: match row status in ('closed', 'ended') (same as the app pipeline).
 --   Card types from Sportradar timeline event `type`:
 --     yellow_card, red_card, yellow_red_card (second yellow → sending off).
 --   card_description: optional Sportradar field on the event (e.g. player_on_bench, post_match, half_time);
@@ -40,10 +40,10 @@ select
   coalesce(e -> 'players' -> 0 ->> 'name', '') as player_name,
   e -> 'players' -> 0 ->> 'id' as player_id,
   coalesce(e -> 'commentaries' -> 0 ->> 'text', '') as commentary
-from public.sport_event_timelines t
-join public.games g on g.id = t.game_id
-left join public.seasons s on s.id = g.season_id
-left join public.competitions c on c.id = s.competition_id
+from public."Completed Matches - full sport_event_timelines" t
+join public."All Games (sr:sport_events)" g on g.id = t.game_id
+left join public."Seasons (current sr:season:ID)" s on s.id = g.season_id
+left join public."Competitions" c on c.id = s.competition_id
 cross join lateral jsonb_array_elements(coalesce(t.timeline_json -> 'timeline', '[]'::jsonb)) as e
 where g.status in ('closed', 'ended')
   and e ->> 'type' in ('yellow_card', 'red_card', 'yellow_red_card')

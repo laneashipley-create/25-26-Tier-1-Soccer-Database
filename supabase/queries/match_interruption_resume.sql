@@ -38,10 +38,10 @@ select
   res.e ->> 'match_clock' as resume_match_clock,
   (res.e ->> 'time')::timestamptz - (intr.e ->> 'time')::timestamptz as interruption_gap,
   (res.e ->> 'time')::date > (intr.e ->> 'time')::date as resumed_later_calendar_day
-from public.sport_event_timelines t
-join public.games g on g.id = t.game_id
-left join public.seasons s on s.id = g.season_id
-left join public.competitions c on c.id = s.competition_id
+from public."Completed Matches - full sport_event_timelines" t
+join public."All Games (sr:sport_events)" g on g.id = t.game_id
+left join public."Seasons (current sr:season:ID)" s on s.id = g.season_id
+left join public."Competitions" c on c.id = s.competition_id
 cross join lateral (
   select e
   from jsonb_array_elements(coalesce(t.timeline_json -> 'timeline', '[]'::jsonb)) as e

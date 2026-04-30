@@ -3,12 +3,12 @@ Supabase helpers for Own Goals pipeline.
 
 Use when USE_SUPABASE is True in config. Provides:
   - get_client() — PostgREST client (avoids full supabase pkg + C++ deps)
-  - sync_competitions_from_config() — upsert public.competitions from config; category_name from Sportradar Competition Info when API key set
-  - get_or_create_competition() — ensure public.competitions row exists
-  - get_or_create_season() / get_or_create_seasons() — ensure public.seasons rows
-  - upsert_games() — upsert rows in public.games (sport events per season)
+  - sync_competitions_from_config() — upsert public."Competitions" from config; category_name from Sportradar Competition Info when API key set
+  - get_or_create_competition() — ensure public."Competitions" row exists
+  - get_or_create_season() / get_or_create_seasons() — ensure public."Seasons (current sr:season:ID)" rows
+  - upsert_games() — upsert rows in public."All Games (sr:sport_events)" (sport events per season)
   - get_completed_matches_without_timeline* — for step 3
-  - upsert_timeline() / get_timeline_json() — public.sport_event_timelines
+  - upsert_timeline() / get_timeline_json() — public."Completed Matches - full sport_event_timelines"
   - upsert_own_goals() — write extracted own goals
 
 Install: pip install postgrest httpx
@@ -42,6 +42,12 @@ from config import (
     COMPETITION_ID,
     SEASON_NAME,
 )
+
+# Public schema PostgREST table names (must match Postgres identifiers / Supabase renames).
+T_COMPETITIONS = "Competitions"
+T_SEASONS = "Seasons (current sr:season:ID)"
+T_GAMES = "All Games (sr:sport_events)"
+T_TIMELINES = "Completed Matches - full sport_event_timelines"
 
 _client = None
 
@@ -121,7 +127,7 @@ def get_client():
 
 def sync_competitions_from_config() -> None:
     """
-    Upsert public.competitions from config.COMPETITIONS (adds new leagues, refreshes metadata).
+    Upsert public."Competitions" from config.COMPETITIONS (adds new leagues, refreshes metadata).
 
     Call before resolving seasons so rows always match config when you add/remove/edit entries.
     category_name is set from Sportradar Competition Info (category.name) when the API key is
@@ -144,7 +150,7 @@ def sync_competitions_from_config() -> None:
             payload["category_name"] = api_cat
         elif "category_name" in row:
             payload["category_name"] = row["category_name"]
-        supabase.table("competitions").upsert(
+        supabase.table(T_COMPETITIONS).upsert(
             payload,
             on_conflict="sportradar_competition_id",
             ignore_duplicates=False,
@@ -153,14 +159,14 @@ def sync_competitions_from_config() -> None:
 
 def get_or_create_competition(competition_row: dict) -> str:
     """
-    Ensure public.competitions row exists; return its id (uuid).
+    Ensure public."Competitions" row exists; return its id (uuid).
 
     competition_row uses config.COMPETITIONS shape:
       competition_id, competition_name, optional gender, category_name, country_code
     """
     sportradar_competition_id = competition_row["competition_id"]
     supabase = get_client()
-    r = supabase.table("competitions").select("id").eq("sportradar_competition_id", sportradar_competition_id).execute()
+    r = supabase.table(T_COMPETITIONS).select("id").eq("sportradar_competition_id", sportradar_competition_id).execute()
     if r.data and len(r.data) > 0:
         return r.data[0]["id"]
     label = competition_row.get("competition_name") or sportradar_competition_id
@@ -179,19 +185,19 @@ def get_or_create_competition(competition_row: dict) -> str:
         val = competition_row.get("category_name")
         if val is not None and val != "":
             payload["category_name"] = val
-    ins = supabase.table("competitions").insert(payload).execute()
+    ins = supabase.table(T_COMPETITIONS).insert(payload).execute()
     return ins.data[0]["id"]
 
 
 def get_or_create_season():
-    """Ensure the current season exists in public.seasons; return its id (uuid)."""
+    """Ensure the current season exists in public."Seasons (current sr:season:ID)"; return its id (uuid)."""
     sync_competitions_from_config()
     supabase = get_client()
-    r = supabase.table("seasons").select("id").eq("sportradar_season_id", SEASON_ID).execute()
+    r = supabase.table(T_SEASONS).select("id").eq("sportradar_season_id", SEASON_ID).execute()
     if r.data and len(r.data) > 0:
         return r.data[0]["id"]
     comp_pk = get_or_create_competition(COMPETITIONS[0])
-    ins = supabase.table("seasons").insert({
+    ins = supabase.table(T_SEASONS).insert({
         "sportradar_season_id": SEASON_ID,
         "competition_id": comp_pk,
         "name": SEASON_NAME,
@@ -204,11 +210,11 @@ def get_or_create_season_entry(entry: dict) -> str:
     season_id = entry["season_id"]
     season_name = entry["season_name"]
     supabase = get_client()
-    r = supabase.table("seasons").select("id").eq("sportradar_season_id", season_id).execute()
+    r = supabase.table(T_SEASONS).select("id").eq("sportradar_season_id", season_id).execute()
     if r.data and len(r.data) > 0:
         return r.data[0]["id"]
     comp_pk = get_or_create_competition(entry)
-    ins = supabase.table("seasons").insert({
+    ins = supabase.table(T_SEASONS).insert({
         "sportradar_season_id": season_id,
         "competition_id": comp_pk,
         "name": season_name,
@@ -219,7 +225,7 @@ def get_or_create_season_entry(entry: dict) -> str:
 def get_or_create_seasons() -> dict[str, str]:
     """
     Ensure all configured seasons exist.
-    Returns mapping: sportradar season_id -> seasons.id UUID
+    Returns mapping: sportradar season_id -> seasons UUID primary key
     """
     sync_competitions_from_config()
     mapping: dict[str, str] = {}
@@ -230,7 +236,7 @@ def get_or_create_seasons() -> dict[str, str]:
 
 
 def upsert_games(season_id: str, rows: list[dict]) -> None:
-    """Upsert public.games rows for the given season_id. Each row must include sport_event_id and match fields."""
+    """Upsert public."All Games (sr:sport_events)" rows for the given season_id. Each row must include sport_event_id and match fields."""
     if not rows:
         return
     supabase = get_client()
@@ -249,7 +255,7 @@ def upsert_games(season_id: str, rows: list[dict]) -> None:
             "home_score": _int_or_none(row.get("home_score")),
             "away_score": _int_or_none(row.get("away_score")),
         }
-        supabase.table("games").upsert(
+        supabase.table(T_GAMES).upsert(
             payload,
             on_conflict="season_id,sport_event_id",
             ignore_duplicates=False,
@@ -259,18 +265,18 @@ def upsert_games(season_id: str, rows: list[dict]) -> None:
 def get_completed_games_for_season(season_id: str) -> list[dict]:
     """Return games rows that are completed (status in closed/ended)."""
     supabase = get_client()
-    r = supabase.table("games").select("*").eq("season_id", season_id).in_("status", ["closed", "ended"]).execute()
+    r = supabase.table(T_GAMES).select("*").eq("season_id", season_id).in_("status", ["closed", "ended"]).execute()
     return r.data or []
 
 
 def get_game_ids_with_timeline(season_id: str) -> set[str]:
-    """Return set of games.id (uuid) that already have a sport_event_timelines row."""
+    """Return set of game row ids (uuid) that already have a timelines row."""
     supabase = get_client()
-    sched = supabase.table("games").select("id").eq("season_id", season_id).execute()
+    sched = supabase.table(T_GAMES).select("id").eq("season_id", season_id).execute()
     sched_ids = [x["id"] for x in (sched.data or [])]
     if not sched_ids:
         return set()
-    tl = supabase.table("sport_event_timelines").select("game_id").in_("game_id", sched_ids).execute()
+    tl = supabase.table(T_TIMELINES).select("game_id").in_("game_id", sched_ids).execute()
     return {x["game_id"] for x in (tl.data or [])}
 
 
@@ -293,7 +299,7 @@ def get_completed_matches_without_timeline_for_configured_seasons() -> list[dict
 def upsert_timeline(game_id: str, timeline_json: dict | None = None) -> None:
     """Record that we have fetched the timeline for this game row. Optionally store timeline_json."""
     supabase = get_client()
-    supabase.table("sport_event_timelines").upsert({
+    supabase.table(T_TIMELINES).upsert({
         "game_id": game_id,
         "timeline_json": timeline_json,
     }, on_conflict="game_id", ignore_duplicates=False).execute()
@@ -304,7 +310,7 @@ def get_timeline_json(game_id: str) -> dict | None:
     supabase = get_client()
 
     def _run():
-        return supabase.table("sport_event_timelines").select("timeline_json").eq("game_id", game_id).execute()
+        return supabase.table(T_TIMELINES).select("timeline_json").eq("game_id", game_id).execute()
 
     r = _supabase_execute_with_retry(_run)
     if r.data and len(r.data) > 0 and r.data[0].get("timeline_json"):
@@ -328,7 +334,7 @@ def get_completed_matches_with_timelines(season_id: str) -> list[dict]:
         part = game_ids[i : i + chunk]
 
         def _run(ids=part):
-            return supabase.table("sport_event_timelines").select("game_id, timeline_json").in_("game_id", ids).execute()
+            return supabase.table(T_TIMELINES).select("game_id, timeline_json").in_("game_id", ids).execute()
 
         r = _supabase_execute_with_retry(_run)
         for rec in r.data or []:
@@ -385,7 +391,7 @@ def get_all_own_goals() -> list[dict]:
         page = 500
         while True:
             chunk = (
-                supabase.table("seasons")
+                supabase.table(T_SEASONS)
                 .select("id,sportradar_season_id,name,competition_id")
                 .range(off, off + page - 1)
                 .execute()
@@ -402,7 +408,7 @@ def get_all_own_goals() -> list[dict]:
         for i in range(0, len(comp_uuids), csize):
             cu = comp_uuids[i : i + csize]
             cr = (
-                supabase.table("competitions")
+                supabase.table(T_COMPETITIONS)
                 .select("id,sportradar_competition_id,competition_name,gender,category_name,country_code")
                 .in_("id", cu)
                 .execute()
@@ -414,7 +420,7 @@ def get_all_own_goals() -> list[dict]:
         chunk_size = 200
         for i in range(0, len(event_ids), chunk_size):
             chunk = event_ids[i : i + chunk_size]
-            sched = supabase.table("games").select("sport_event_id,season_id").in_("sport_event_id", chunk).execute()
+            sched = supabase.table(T_GAMES).select("sport_event_id,season_id").in_("sport_event_id", chunk).execute()
             for srow in sched.data or []:
                 event_id = srow.get("sport_event_id")
                 season_uuid = srow.get("season_id")
@@ -462,7 +468,7 @@ def get_report_stats() -> tuple[int, int]:
     timeline_events = 0
     while True:
         tl = (
-            supabase.table("sport_event_timelines")
+            supabase.table(T_TIMELINES)
             .select("timeline_json")
             .range(offset, offset + page_size - 1)
             .execute()
@@ -501,7 +507,7 @@ def get_pipeline_stats_by_season_name() -> dict[str, dict[str, int]]:
         page = 1000
         while True:
             r = (
-                supabase.table("games")
+                supabase.table(T_GAMES)
                 .select("id")
                 .eq("season_id", season_uuid)
                 .in_("status", ["closed", "ended"])
@@ -525,7 +531,7 @@ def get_pipeline_stats_by_season_name() -> dict[str, dict[str, int]]:
     page = 1000
     while True:
         r = (
-            supabase.table("sport_event_timelines")
+            supabase.table(T_TIMELINES)
             .select("game_id, timeline_json")
             .range(offset, offset + page - 1)
             .execute()
@@ -554,7 +560,7 @@ def get_pipeline_stats_by_season_name() -> dict[str, dict[str, int]]:
 def get_game_by_sport_event_id(season_id: str, sport_event_id: str) -> dict | None:
     """Return games row by sport_event_id, or None."""
     supabase = get_client()
-    r = supabase.table("games").select("*").eq("season_id", season_id).eq("sport_event_id", sport_event_id).execute()
+    r = supabase.table(T_GAMES).select("*").eq("season_id", season_id).eq("sport_event_id", sport_event_id).execute()
     if r.data and len(r.data) > 0:
         return r.data[0]
     return None
@@ -679,6 +685,53 @@ def upsert_var_timeline_events(rows: list[dict], replace: bool = True) -> None:
             on_conflict="game_id,timeline_event_id,var_event_type",
             ignore_duplicates=False,
         ).execute()
+
+
+def _fetch_all_ordered(table: str, orders: list[tuple[str, bool]]) -> list[dict]:
+    """Paginated select(*) for reporting; orders is (column, desc) pairs applied in order."""
+    supabase = get_client()
+    out: list[dict] = []
+    offset = 0
+    page = 1000
+    while True:
+
+        def _build_query():
+            q = supabase.table(table).select("*")
+            for col, desc in orders:
+                q = q.order(col, desc=desc)
+            return q.range(offset, offset + page - 1).execute()
+
+        r = _supabase_execute_with_retry(_build_query)
+        chunk = r.data or []
+        out.extend(chunk)
+        if len(chunk) < page:
+            break
+        offset += page
+    return out
+
+
+def fetch_penalty_shootout_match_rows() -> list[dict]:
+    """All rows from public.penalty_shootout_matches (newest match dates first)."""
+    return _fetch_all_ordered(
+        "penalty_shootout_matches",
+        [("match_date", True), ("id", False)],
+    )
+
+
+def fetch_var_timeline_event_rows() -> list[dict]:
+    """All rows from public.var_timeline_events."""
+    return _fetch_all_ordered(
+        "var_timeline_events",
+        [("match_date", True), ("id", False)],
+    )
+
+
+def fetch_var_unpaired_match_rows() -> list[dict]:
+    """Rows from public.var_unpaired_event_matches view."""
+    return _fetch_all_ordered(
+        "var_unpaired_event_matches",
+        [("unpaired_var_starts", True), ("sport_event_id", False)],
+    )
 
 
 def _int_or_none(v):

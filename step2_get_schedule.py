@@ -119,13 +119,13 @@ def main():
                 by_season[sid].append(row)
         upserted = 0
         n_seasons = sum(1 for v in by_season.values() if v)
-        print(f"  -> Upserting games for {n_seasons} season(s) into public.games…", flush=True)
+        print(f"  -> Upserting games for {n_seasons} season(s) into public.\"All Games (sr:sport_events)\"…", flush=True)
         for sid, season_rows in by_season.items():
             if not season_rows:
                 continue
             db.upsert_games(sid, season_rows)
             upserted += len(season_rows)
-        print(f"  -> Upserted {upserted} rows to Supabase public.games", flush=True)
+        print(f"  -> Upserted {upserted} rows to Supabase public.\"All Games (sr:sport_events)\"", flush=True)
 
     save_csv(rows, SCHEDULE_CSV)
 

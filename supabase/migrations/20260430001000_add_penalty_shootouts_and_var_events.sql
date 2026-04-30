@@ -1,4 +1,4 @@
--- Derived event tables from public.sport_event_timelines (similar pattern to public.own_goals).
+-- Derived event tables (FK to public.games at apply time; see 20260430004000 for display-name renames).
 
 create table if not exists public.penalty_shootout_matches (
   id uuid primary key default gen_random_uuid(),

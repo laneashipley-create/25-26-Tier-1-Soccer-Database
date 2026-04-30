@@ -2,8 +2,8 @@
 One-off migration: import existing CSV and timeline files into Supabase.
 
 Run once after setting up Supabase to avoid losing existing data.
-  - schedule.csv → public.games
-  - data/timelines/*.json → public.sport_event_timelines (requires games rows first)
+  - schedule.csv → public."All Games (sr:sport_events)"
+  - data/timelines/*.json → public."Completed Matches - full sport_event_timelines" (requires game rows first)
   - own_goals.csv → own_goals table
 
 Requires USE_SUPABASE=True (config_local has SUPABASE_KEY).
@@ -17,7 +17,7 @@ from config import USE_SUPABASE, SCHEDULE_CSV, OWN_GOALS_CSV, TIMELINES_DIR
 
 
 def migrate_schedule():
-    """Import schedule.csv into public.games."""
+    """Import schedule.csv into public."All Games (sr:sport_events)"."""
     if not os.path.exists(SCHEDULE_CSV):
         print(f"  Skipping schedule — {SCHEDULE_CSV} not found")
         return 0
@@ -42,7 +42,7 @@ def migrate_schedule():
 
 
 def migrate_timelines():
-    """Import timeline JSON files into public.sport_event_timelines."""
+    """Import timeline JSON files into public."Completed Matches - full sport_event_timelines"."""
     import db
     season_ids = db.get_or_create_seasons()
     if not os.path.isdir(TIMELINES_DIR):

@@ -13,7 +13,13 @@ def main():
         return
     import db
     client = db.get_client()
-    tables = ["competitions", "seasons", "games", "sport_event_timelines", "own_goals"]
+    tables = [
+        db.T_COMPETITIONS,
+        db.T_SEASONS,
+        db.T_GAMES,
+        db.T_TIMELINES,
+        "own_goals",
+    ]
     print("Testing Supabase connection...")
     for table in tables:
         try:

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VAR unpaired — UEFA Champions League 25/26, Brasileiro Serie A 2026, Bundesliga 25/26, Premier League 25/26, J1 League 2026, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Conference League 25/26, UEFA Nations League 26/27, World Cup 2026, UEFA Euro 2028, DFB Pokal 25/26, FA Cup 25/26, Copa del Rey 25/26, Coupe de France 25/26, Coppa Italia 25/26, Community Shield 2025, UEFA Super Cup 2025, CONMEBOL Libertadores 2026, Liga MX, Clausura 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 14px; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f5f2ec;
+      color: #1a1a2a;
+      min-height: 100vh;
+      padding-bottom: 3rem;
+    }
+    .header {
+      background: linear-gradient(160deg, #1a0000 0%, #2e0000 45%, #1a0000 100%);
+      border-bottom: 3px solid #cc0000;
+      padding: 1.65rem 1.25rem 1.4rem;
+      text-align: center;
+    }
+    .header-badge {
+      display: inline-block;
+      background: #cc0000;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.45rem;
+    }
+    h1 { font-size: 1.6rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+    .subtitle { margin-top: 0.4rem; font-size: 0.9rem; color: #ccc; }
+    .meta {
+      max-width: 1100px;
+      margin: 0.85rem auto 0;
+      padding: 0 1rem;
+      color: #444;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+    .table-section { padding: 1rem 1rem 0; max-width: 1480px; margin: 0 auto; }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid #d8d2c8;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 0.82rem; }
+    th, td { border-bottom: 1px solid #e8e4dc; padding: 0.38rem 0.5rem; text-align: left; vertical-align: top; }
+    thead tr:first-child th {
+      background: #2a1515;
+      color: #fff;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    thead tr:first-child th:hover { background: #3d2020; }
+    thead tr:first-child th.sorted-asc::after  { content: " ▲"; font-size: 0.65rem; color: #ffaaaa; }
+    thead tr:first-child th.sorted-desc::after { content: " ▼"; font-size: 0.65rem; color: #ffaaaa; }
+    thead tr.derived-col-filters th {
+      background: #352020;
+      cursor: default;
+      padding: 0.35rem 0.4rem;
+      border-bottom: 2px solid #cc0000;
+    }
+    thead tr.derived-col-filters input {
+      width: 100%;
+      min-width: 0;
+      font: inherit;
+      font-size: 0.72rem;
+      padding: 0.28rem 0.4rem;
+      border-radius: 5px;
+      border: 1px solid #8a6666;
+      box-sizing: border-box;
+    }
+    .derived-row--hidden { display: none !important; }
+    tr:nth-child(even) td { background: #faf8f4; }
+    td.mono, td code { font-size: 0.76rem; }
+    .table-toolbar-hint {
+      font-size: 0.78rem;
+      color: #555;
+      margin: 0 0 0.65rem 0.15rem;
+      line-height: 1.35;
+    }
+    .footer { text-align: center; margin-top: 2rem; font-size: 0.82rem; color: #666; }
+    
+    .report-sticky-top {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }
+    .report-nav {
+      text-align: center;
+      background: #1a0000;
+      padding: 0.55rem 1rem 0.65rem;
+      font-size: 0.88rem;
+      border-bottom: 1px solid #440000;
+    }
+    .report-nav a {
+      color: #ff9999;
+      margin: 0 0.4rem;
+      text-decoration: none;
+    }
+    .report-nav a:hover { text-decoration: underline; color: #ffcccc; }
+    .report-nav .nav-active {
+      color: #fff;
+      font-weight: 700;
+      margin: 0 0.4rem;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="report-sticky-top">
+    <div class="header">
+      <div class="header-badge">Sportradar Soccer</div>
+      <h1>Matches with unpaired VAR counts</h1>
+      <div class="subtitle">UEFA Champions League 25/26, Brasileiro Serie A 2026, Bundesliga 25/26, Premier League 25/26, J1 League 2026, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Conference League 25/26, UEFA Nations League 26/27, World Cup 2026, UEFA Euro 2028, DFB Pokal 25/26, FA Cup 25/26, Copa del Rey 25/26, Coupe de France 25/26, Coppa Italia 25/26, Community Shield 2025, UEFA Super Cup 2025, CONMEBOL Libertadores 2026, Liga MX, Clausura 2026</div>
+    </div>
+  <nav class="report-nav" aria-label="Reports"><a href="report_own_goals.html">Own goals</a>
+      <span class="nav-sep" aria-hidden="true"> · </span>
+      <a href="report_penalty_shootouts.html">Penalty shootouts</a>
+      <span class="nav-sep" aria-hidden="true"> · </span>
+      <a href="report_var_events.html">VAR events</a>
+      <span class="nav-sep" aria-hidden="true"> · </span>
+      <span class="nav-active">VAR unpaired</span>
+  </nav>
+  </div>
+  <p class="meta"><strong>Review queue:</strong> matches where counts of <code>video_assistant_referee</code> and <code>video_assistant_referee_over</code> differ (feed may omit <code>_over</code> events). <strong>101</strong> match(es) in this export.</p>
+  <div class="table-section">
+    <p class="table-toolbar-hint">Click a column header to sort. Type in the filter boxes under each column to narrow rows (matches if the cell text contains your text, case-insensitive).</p>
+    <div class="table-wrap">
+      <table id="table-var-unpaired" class="sortable-derived">
+        <thead>
+          <tr><th data-col="0" title="Click to sort">Match date</th><th data-col="1" title="Click to sort">Competition</th><th data-col="2" title="Click to sort">Home</th><th data-col="3" title="Click to sort">Away</th><th data-col="4" title="Click to sort">VAR starts</th><th data-col="5" title="Click to sort">VAR overs</th><th data-col="6" title="Click to sort">Δ (starts − overs)</th><th data-col="7" title="Click to sort">Sport event ID</th></tr>
+          <tr class="derived-col-filters"><th><input type="search" class="derived-col-filter" data-col="0" placeholder="Filter…" aria-label="Filter Match date"></th><th><input type="search" class="derived-col-filter" data-col="1" placeholder="Filter…" aria-label="Filter Competition"></th><th><input type="search" class="derived-col-filter" data-col="2" placeholder="Filter…" aria-label="Filter Home"></th><th><input type="search" class="derived-col-filter" data-col="3" placeholder="Filter…" aria-label="Filter Away"></th><th><input type="search" class="derived-col-filter" data-col="4" placeholder="Filter…" aria-label="Filter VAR starts"></th><th><input type="search" class="derived-col-filter" data-col="5" placeholder="Filter…" aria-label="Filter VAR overs"></th><th><input type="search" class="derived-col-filter" data-col="6" placeholder="Filter…" aria-label="Filter Δ (starts − overs)"></th><th><input type="search" class="derived-col-filter" data-col="7" placeholder="Filter…" aria-label="Filter Sport event ID"></th></tr>
+        </thead>
+        <tbody><tr><td data-val="2025-12-20">2025-12-20</td><td data-val="Serie A">Serie A</td><td data-val="Lazio Rome">Lazio Rome</td><td data-val="US Cremonese">US Cremonese</td><td data-val="4">4</td><td data-val="0">0</td><td data-val="4">4</td><td class="mono" data-val="sr:sport_event:61061239"><code>sr:sport_event:61061239</code></td></tr>
+<tr><td data-val="2025-08-24">2025-08-24</td><td data-val="Serie A">Serie A</td><td data-val="Atalanta BC">Atalanta BC</td><td data-val="Pisa SC">Pisa SC</td><td data-val="3">3</td><td data-val="0">0</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61060631"><code>sr:sport_event:61060631</code></td></tr>
+<tr><td data-val="2025-09-28">2025-09-28</td><td data-val="Serie A">Serie A</td><td data-val="Sassuolo Calcio">Sassuolo Calcio</td><td data-val="Udinese Calcio">Udinese Calcio</td><td data-val="5">5</td><td data-val="2">2</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61060795"><code>sr:sport_event:61060795</code></td></tr>
+<tr><td data-val="2025-10-05">2025-10-05</td><td data-val="Serie A">Serie A</td><td data-val="Juventus Turin">Juventus Turin</td><td data-val="AC Milan">AC Milan</td><td data-val="3">3</td><td data-val="0">0</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61060815"><code>sr:sport_event:61060815</code></td></tr>
+<tr><td data-val="2025-11-08">2025-11-08</td><td data-val="Serie A">Serie A</td><td data-val="Parma Calcio">Parma Calcio</td><td data-val="AC Milan">AC Milan</td><td data-val="4">4</td><td data-val="1">1</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61061021"><code>sr:sport_event:61061021</code></td></tr>
+<tr><td data-val="2025-11-08">2025-11-08</td><td data-val="Serie A">Serie A</td><td data-val="Juventus Turin">Juventus Turin</td><td data-val="Torino FC">Torino FC</td><td data-val="3">3</td><td data-val="0">0</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61061031"><code>sr:sport_event:61061031</code></td></tr>
+<tr><td data-val="2025-11-24">2025-11-24</td><td data-val="Serie A">Serie A</td><td data-val="Torino FC">Torino FC</td><td data-val="Como 1907">Como 1907</td><td data-val="5">5</td><td data-val="2">2</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61061039"><code>sr:sport_event:61061039</code></td></tr>
+<tr><td data-val="2025-11-22">2025-11-22</td><td data-val="Serie A">Serie A</td><td data-val="Cagliari Calcio">Cagliari Calcio</td><td data-val="Genoa CFC">Genoa CFC</td><td data-val="3">3</td><td data-val="0">0</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61061051"><code>sr:sport_event:61061051</code></td></tr>
+<tr><td data-val="2025-11-29">2025-11-29</td><td data-val="Serie A">Serie A</td><td data-val="AC Milan">AC Milan</td><td data-val="Lazio Rome">Lazio Rome</td><td data-val="4">4</td><td data-val="1">1</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61061059"><code>sr:sport_event:61061059</code></td></tr>
+<tr><td data-val="2025-12-01">2025-12-01</td><td data-val="Serie A">Serie A</td><td data-val="Bologna FC">Bologna FC</td><td data-val="US Cremonese">US Cremonese</td><td data-val="3">3</td><td data-val="0">0</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61061067"><code>sr:sport_event:61061067</code></td></tr>
+<tr><td data-val="2025-12-15">2025-12-15</td><td data-val="Serie A">Serie A</td><td data-val="AS Roma">AS Roma</td><td data-val="Como 1907">Como 1907</td><td data-val="3">3</td><td data-val="0">0</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61061107"><code>sr:sport_event:61061107</code></td></tr>
+<tr><td data-val="2025-12-21">2025-12-21</td><td data-val="Serie A">Serie A</td><td data-val="ACF Fiorentina">ACF Fiorentina</td><td data-val="Udinese Calcio">Udinese Calcio</td><td data-val="3">3</td><td data-val="0">0</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61061231"><code>sr:sport_event:61061231</code></td></tr>
+<tr><td data-val="2026-01-07">2026-01-07</td><td data-val="Serie A">Serie A</td><td data-val="Lazio Rome">Lazio Rome</td><td data-val="ACF Fiorentina">ACF Fiorentina</td><td data-val="4">4</td><td data-val="1">1</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61061293"><code>sr:sport_event:61061293</code></td></tr>
+<tr><td data-val="2026-01-11">2026-01-11</td><td data-val="Serie A">Serie A</td><td data-val="ACF Fiorentina">ACF Fiorentina</td><td data-val="AC Milan">AC Milan</td><td data-val="3">3</td><td data-val="0">0</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61061329"><code>sr:sport_event:61061329</code></td></tr>
+<tr><td data-val="2026-02-28">2026-02-28</td><td data-val="Serie A">Serie A</td><td data-val="Hellas Verona">Hellas Verona</td><td data-val="SSC Napoli">SSC Napoli</td><td data-val="3">3</td><td data-val="0">0</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61061483"><code>sr:sport_event:61061483</code></td></tr>
+<tr><td data-val="2026-02-08">2026-02-08</td><td data-val="1. Bundesliga">1. Bundesliga</td><td data-val="Bayern Munich">Bayern Munich</td><td data-val="TSG Hoffenheim">TSG Hoffenheim</td><td data-val="3">3</td><td data-val="0">0</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:61513968"><code>sr:sport_event:61513968</code></td></tr>
+<tr><td data-val="2025-08-16">2025-08-16</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="Cagliari Calcio">Cagliari Calcio</td><td data-val="Virtus Entella">Virtus Entella</td><td data-val="3">3</td><td data-val="0">0</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:62780961"><code>sr:sport_event:62780961</code></td></tr>
+<tr><td data-val="2026-01-08">2026-01-08</td><td data-val="Serie A">Serie A</td><td data-val="AC Milan">AC Milan</td><td data-val="Genoa CFC">Genoa CFC</td><td data-val="4">4</td><td data-val="1">1</td><td data-val="3">3</td><td class="mono" data-val="sr:sport_event:64321165"><code>sr:sport_event:64321165</code></td></tr>
+<tr><td data-val="2025-08-24">2025-08-24</td><td data-val="Serie A">Serie A</td><td data-val="Cagliari Calcio">Cagliari Calcio</td><td data-val="ACF Fiorentina">ACF Fiorentina</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61060633"><code>sr:sport_event:61060633</code></td></tr>
+<tr><td data-val="2025-10-18">2025-10-18</td><td data-val="Serie A">Serie A</td><td data-val="Torino FC">Torino FC</td><td data-val="SSC Napoli">SSC Napoli</td><td data-val="3">3</td><td data-val="1">1</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61060831"><code>sr:sport_event:61060831</code></td></tr>
+<tr><td data-val="2025-10-18">2025-10-18</td><td data-val="Serie A">Serie A</td><td data-val="Pisa SC">Pisa SC</td><td data-val="Hellas Verona">Hellas Verona</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61060835"><code>sr:sport_event:61060835</code></td></tr>
+<tr><td data-val="2025-10-30">2025-10-30</td><td data-val="Serie A">Serie A</td><td data-val="Cagliari Calcio">Cagliari Calcio</td><td data-val="Sassuolo Calcio">Sassuolo Calcio</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61060873"><code>sr:sport_event:61060873</code></td></tr>
+<tr><td data-val="2025-11-24">2025-11-24</td><td data-val="Serie A">Serie A</td><td data-val="Sassuolo Calcio">Sassuolo Calcio</td><td data-val="Pisa SC">Pisa SC</td><td data-val="3">3</td><td data-val="1">1</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061041"><code>sr:sport_event:61061041</code></td></tr>
+<tr><td data-val="2025-12-21">2025-12-21</td><td data-val="Serie A">Serie A</td><td data-val="Genoa CFC">Genoa CFC</td><td data-val="Atalanta BC">Atalanta BC</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061233"><code>sr:sport_event:61061233</code></td></tr>
+<tr><td data-val="2025-12-20">2025-12-20</td><td data-val="Serie A">Serie A</td><td data-val="Juventus Turin">Juventus Turin</td><td data-val="AS Roma">AS Roma</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061237"><code>sr:sport_event:61061237</code></td></tr>
+<tr><td data-val="2025-12-29">2025-12-29</td><td data-val="Serie A">Serie A</td><td data-val="AS Roma">AS Roma</td><td data-val="Genoa CFC">Genoa CFC</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061255"><code>sr:sport_event:61061255</code></td></tr>
+<tr><td data-val="2026-01-12">2026-01-12</td><td data-val="Serie A">Serie A</td><td data-val="Juventus Turin">Juventus Turin</td><td data-val="US Cremonese">US Cremonese</td><td data-val="3">3</td><td data-val="1">1</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061335"><code>sr:sport_event:61061335</code></td></tr>
+<tr><td data-val="2026-01-11">2026-01-11</td><td data-val="Serie A">Serie A</td><td data-val="Hellas Verona">Hellas Verona</td><td data-val="Lazio Rome">Lazio Rome</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061343"><code>sr:sport_event:61061343</code></td></tr>
+<tr><td data-val="2026-01-25">2026-01-25</td><td data-val="Serie A">Serie A</td><td data-val="Atalanta BC">Atalanta BC</td><td data-val="Parma Calcio">Parma Calcio</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061365"><code>sr:sport_event:61061365</code></td></tr>
+<tr><td data-val="2026-01-23">2026-01-23</td><td data-val="Serie A">Serie A</td><td data-val="Inter Milano">Inter Milano</td><td data-val="Pisa SC">Pisa SC</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061373"><code>sr:sport_event:61061373</code></td></tr>
+<tr><td data-val="2026-01-25">2026-01-25</td><td data-val="Serie A">Serie A</td><td data-val="Juventus Turin">Juventus Turin</td><td data-val="SSC Napoli">SSC Napoli</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061375"><code>sr:sport_event:61061375</code></td></tr>
+<tr><td data-val="2026-02-01">2026-02-01</td><td data-val="Serie A">Serie A</td><td data-val="US Cremonese">US Cremonese</td><td data-val="Inter Milano">Inter Milano</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061391"><code>sr:sport_event:61061391</code></td></tr>
+<tr><td data-val="2026-02-22">2026-02-22</td><td data-val="Serie A">Serie A</td><td data-val="Genoa CFC">Genoa CFC</td><td data-val="Torino FC">Torino FC</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061453"><code>sr:sport_event:61061453</code></td></tr>
+<tr><td data-val="2026-03-01">2026-03-01</td><td data-val="Serie A">Serie A</td><td data-val="US Cremonese">US Cremonese</td><td data-val="AC Milan">AC Milan</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061467"><code>sr:sport_event:61061467</code></td></tr>
+<tr><td data-val="2026-03-01">2026-03-01</td><td data-val="Serie A">Serie A</td><td data-val="AS Roma">AS Roma</td><td data-val="Juventus Turin">Juventus Turin</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61061475"><code>sr:sport_event:61061475</code></td></tr>
+<tr><td data-val="2025-12-21">2025-12-21</td><td data-val="LaLiga">LaLiga</td><td data-val="Real Betis Seville">Real Betis Seville</td><td data-val="Getafe CF">Getafe CF</td><td data-val="6">6</td><td data-val="4">4</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:61624260"><code>sr:sport_event:61624260</code></td></tr>
+<tr><td data-val="2025-10-02">2025-10-02</td><td data-val="UEFA Conference League">UEFA Conference League</td><td data-val="Sparta Prague">Sparta Prague</td><td data-val="Shamrock Rovers">Shamrock Rovers</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:63377471"><code>sr:sport_event:63377471</code></td></tr>
+<tr><td data-val="2026-02-18">2026-02-18</td><td data-val="Serie A">Serie A</td><td data-val="AC Milan">AC Milan</td><td data-val="Como 1907">Como 1907</td><td data-val="2">2</td><td data-val="0">0</td><td data-val="2">2</td><td class="mono" data-val="sr:sport_event:68485418"><code>sr:sport_event:68485418</code></td></tr>
+<tr><td data-val="2025-08-25">2025-08-25</td><td data-val="Serie A">Serie A</td><td data-val="Udinese Calcio">Udinese Calcio</td><td data-val="Hellas Verona">Hellas Verona</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61060649"><code>sr:sport_event:61060649</code></td></tr>
+<tr><td data-val="2025-08-31">2025-08-31</td><td data-val="Serie A">Serie A</td><td data-val="Inter Milano">Inter Milano</td><td data-val="Udinese Calcio">Udinese Calcio</td><td data-val="3">3</td><td data-val="2">2</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61060661"><code>sr:sport_event:61060661</code></td></tr>
+<tr><td data-val="2025-08-30">2025-08-30</td><td data-val="Serie A">Serie A</td><td data-val="SSC Napoli">SSC Napoli</td><td data-val="Cagliari Calcio">Cagliari Calcio</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61060667"><code>sr:sport_event:61060667</code></td></tr>
+<tr><td data-val="2025-08-29">2025-08-29</td><td data-val="Serie A">Serie A</td><td data-val="US Cremonese">US Cremonese</td><td data-val="Sassuolo Calcio">Sassuolo Calcio</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61060675"><code>sr:sport_event:61060675</code></td></tr>
+<tr><td data-val="2025-09-14">2025-09-14</td><td data-val="Serie A">Serie A</td><td data-val="AC Milan">AC Milan</td><td data-val="Bologna FC">Bologna FC</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61060745"><code>sr:sport_event:61060745</code></td></tr>
+<tr><td data-val="2025-09-28">2025-09-28</td><td data-val="Serie A">Serie A</td><td data-val="US Lecce">US Lecce</td><td data-val="Bologna FC">Bologna FC</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61060785"><code>sr:sport_event:61060785</code></td></tr>
+<tr><td data-val="2025-09-28">2025-09-28</td><td data-val="Serie A">Serie A</td><td data-val="AC Milan">AC Milan</td><td data-val="SSC Napoli">SSC Napoli</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61060787"><code>sr:sport_event:61060787</code></td></tr>
+<tr><td data-val="2025-09-29">2025-09-29</td><td data-val="Serie A">Serie A</td><td data-val="Parma Calcio">Parma Calcio</td><td data-val="Torino FC">Torino FC</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61060789"><code>sr:sport_event:61060789</code></td></tr>
+<tr><td data-val="2025-10-26">2025-10-26</td><td data-val="Serie A">Serie A</td><td data-val="Lazio Rome">Lazio Rome</td><td data-val="Juventus Turin">Juventus Turin</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61060865"><code>sr:sport_event:61060865</code></td></tr>
+<tr><td data-val="2025-11-01">2025-11-01</td><td data-val="Serie A">Serie A</td><td data-val="US Cremonese">US Cremonese</td><td data-val="Juventus Turin">Juventus Turin</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61060891"><code>sr:sport_event:61060891</code></td></tr>
+<tr><td data-val="2025-11-23">2025-11-23</td><td data-val="Serie A">Serie A</td><td data-val="Inter Milano">Inter Milano</td><td data-val="AC Milan">AC Milan</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061045"><code>sr:sport_event:61061045</code></td></tr>
+<tr><td data-val="2025-11-28">2025-11-28</td><td data-val="Serie A">Serie A</td><td data-val="Como 1907">Como 1907</td><td data-val="Sassuolo Calcio">Sassuolo Calcio</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061065"><code>sr:sport_event:61061065</code></td></tr>
+<tr><td data-val="2025-12-08">2025-12-08</td><td data-val="Serie A">Serie A</td><td data-val="Udinese Calcio">Udinese Calcio</td><td data-val="Genoa CFC">Genoa CFC</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061077"><code>sr:sport_event:61061077</code></td></tr>
+<tr><td data-val="2025-12-13">2025-12-13</td><td data-val="Serie A">Serie A</td><td data-val="Atalanta BC">Atalanta BC</td><td data-val="Cagliari Calcio">Cagliari Calcio</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061093"><code>sr:sport_event:61061093</code></td></tr>
+<tr><td data-val="2025-12-14">2025-12-14</td><td data-val="Serie A">Serie A</td><td data-val="AC Milan">AC Milan</td><td data-val="Sassuolo Calcio">Sassuolo Calcio</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061103"><code>sr:sport_event:61061103</code></td></tr>
+<tr><td data-val="2025-12-13">2025-12-13</td><td data-val="Serie A">Serie A</td><td data-val="Torino FC">Torino FC</td><td data-val="US Cremonese">US Cremonese</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061109"><code>sr:sport_event:61061109</code></td></tr>
+<tr><td data-val="2026-01-03">2026-01-03</td><td data-val="Serie A">Serie A</td><td data-val="Genoa CFC">Genoa CFC</td><td data-val="Pisa SC">Pisa SC</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061281"><code>sr:sport_event:61061281</code></td></tr>
+<tr><td data-val="2026-01-10">2026-01-10</td><td data-val="Serie A">Serie A</td><td data-val="Atalanta BC">Atalanta BC</td><td data-val="Torino FC">Torino FC</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061325"><code>sr:sport_event:61061325</code></td></tr>
+<tr><td data-val="2026-01-16">2026-01-16</td><td data-val="Serie A">Serie A</td><td data-val="Pisa SC">Pisa SC</td><td data-val="Atalanta BC">Atalanta BC</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061359"><code>sr:sport_event:61061359</code></td></tr>
+<tr><td data-val="2026-01-24">2026-01-24</td><td data-val="Serie A">Serie A</td><td data-val="US Lecce">US Lecce</td><td data-val="Lazio Rome">Lazio Rome</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061377"><code>sr:sport_event:61061377</code></td></tr>
+<tr><td data-val="2026-02-01">2026-02-01</td><td data-val="Serie A">Serie A</td><td data-val="Torino FC">Torino FC</td><td data-val="US Lecce">US Lecce</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061401"><code>sr:sport_event:61061401</code></td></tr>
+<tr><td data-val="2026-02-09">2026-02-09</td><td data-val="Serie A">Serie A</td><td data-val="Atalanta BC">Atalanta BC</td><td data-val="US Cremonese">US Cremonese</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061405"><code>sr:sport_event:61061405</code></td></tr>
+<tr><td data-val="2026-02-08">2026-02-08</td><td data-val="Serie A">Serie A</td><td data-val="Bologna FC">Bologna FC</td><td data-val="Parma Calcio">Parma Calcio</td><td data-val="3">3</td><td data-val="2">2</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061407"><code>sr:sport_event:61061407</code></td></tr>
+<tr><td data-val="2026-02-14">2026-02-14</td><td data-val="Serie A">Serie A</td><td data-val="Lazio Rome">Lazio Rome</td><td data-val="Atalanta BC">Atalanta BC</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061433"><code>sr:sport_event:61061433</code></td></tr>
+<tr><td data-val="2026-02-13">2026-02-13</td><td data-val="Serie A">Serie A</td><td data-val="Pisa SC">Pisa SC</td><td data-val="AC Milan">AC Milan</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061439"><code>sr:sport_event:61061439</code></td></tr>
+<tr><td data-val="2026-02-15">2026-02-15</td><td data-val="Serie A">Serie A</td><td data-val="Udinese Calcio">Udinese Calcio</td><td data-val="Sassuolo Calcio">Sassuolo Calcio</td><td data-val="3">3</td><td data-val="2">2</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061443"><code>sr:sport_event:61061443</code></td></tr>
+<tr><td data-val="2026-02-23">2026-02-23</td><td data-val="Serie A">Serie A</td><td data-val="ACF Fiorentina">ACF Fiorentina</td><td data-val="Pisa SC">Pisa SC</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061451"><code>sr:sport_event:61061451</code></td></tr>
+<tr><td data-val="2026-03-02">2026-03-02</td><td data-val="Serie A">Serie A</td><td data-val="Udinese Calcio">Udinese Calcio</td><td data-val="ACF Fiorentina">ACF Fiorentina</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061481"><code>sr:sport_event:61061481</code></td></tr>
+<tr><td data-val="2026-04-04">2026-04-04</td><td data-val="Serie A">Serie A</td><td data-val="Sassuolo Calcio">Sassuolo Calcio</td><td data-val="Cagliari Calcio">Cagliari Calcio</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61061559"><code>sr:sport_event:61061559</code></td></tr>
+<tr><td data-val="2025-09-27">2025-09-27</td><td data-val="Premier League">Premier League</td><td data-val="Nottingham Forest">Nottingham Forest</td><td data-val="Sunderland AFC">Sunderland AFC</td><td data-val="3">3</td><td data-val="2">2</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61300623"><code>sr:sport_event:61300623</code></td></tr>
+<tr><td data-val="2025-11-22">2025-11-22</td><td data-val="Premier League">Premier League</td><td data-val="Newcastle United">Newcastle United</td><td data-val="Manchester City">Manchester City</td><td data-val="4">4</td><td data-val="3">3</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61300749"><code>sr:sport_event:61300749</code></td></tr>
+<tr><td data-val="2026-03-03">2026-03-03</td><td data-val="Premier League">Premier League</td><td data-val="Everton FC">Everton FC</td><td data-val="Burnley FC">Burnley FC</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61301083"><code>sr:sport_event:61301083</code></td></tr>
+<tr><td data-val="2025-07-22">2025-07-22</td><td data-val="UEFA Champions League">UEFA Champions League</td><td data-val="KKS Lech Poznan">KKS Lech Poznan</td><td data-val="Breidablik Kopavogur">Breidablik Kopavogur</td><td data-val="3">3</td><td data-val="2">2</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61302477"><code>sr:sport_event:61302477</code></td></tr>
+<tr><td data-val="2025-08-17">2025-08-17</td><td data-val="Ligue 1">Ligue 1</td><td data-val="FC Metz">FC Metz</td><td data-val="Strasbourg Alsace">Strasbourg Alsace</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61511940"><code>sr:sport_event:61511940</code></td></tr>
+<tr><td data-val="2025-12-06">2025-12-06</td><td data-val="1. Bundesliga">1. Bundesliga</td><td data-val="RB Leipzig">RB Leipzig</td><td data-val="Eintracht Frankfurt">Eintracht Frankfurt</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61513828"><code>sr:sport_event:61513828</code></td></tr>
+<tr><td data-val="2026-01-14">2026-01-14</td><td data-val="1. Bundesliga">1. Bundesliga</td><td data-val="TSG Hoffenheim">TSG Hoffenheim</td><td data-val="Borussia Monchengladbach">Borussia Monchengladbach</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61513908"><code>sr:sport_event:61513908</code></td></tr>
+<tr><td data-val="2026-01-24">2026-01-24</td><td data-val="1. Bundesliga">1. Bundesliga</td><td data-val="Bayer Leverkusen">Bayer Leverkusen</td><td data-val="Werder Bremen">Werder Bremen</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61513934"><code>sr:sport_event:61513934</code></td></tr>
+<tr><td data-val="2026-04-25">2026-04-25</td><td data-val="1. Bundesliga">1. Bundesliga</td><td data-val="FSV Mainz">FSV Mainz</td><td data-val="Bayern Munich">Bayern Munich</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61514150"><code>sr:sport_event:61514150</code></td></tr>
+<tr><td data-val="2025-11-21">2025-11-21</td><td data-val="Ligue 1">Ligue 1</td><td data-val="OGC Nice">OGC Nice</td><td data-val="Olympique Marseille">Olympique Marseille</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61526208"><code>sr:sport_event:61526208</code></td></tr>
+<tr><td data-val="2025-11-30">2025-11-30</td><td data-val="Ligue 1">Ligue 1</td><td data-val="Le Havre AC">Le Havre AC</td><td data-val="Lille OSC">Lille OSC</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61526222"><code>sr:sport_event:61526222</code></td></tr>
+<tr><td data-val="2026-02-21">2026-02-21</td><td data-val="Ligue 1">Ligue 1</td><td data-val="Toulouse FC">Toulouse FC</td><td data-val="Paris FC">Paris FC</td><td data-val="3">3</td><td data-val="2">2</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61526394"><code>sr:sport_event:61526394</code></td></tr>
+<tr><td data-val="2025-11-08">2025-11-08</td><td data-val="LaLiga">LaLiga</td><td data-val="Girona FC">Girona FC</td><td data-val="Deportivo Alaves">Deportivo Alaves</td><td data-val="3">3</td><td data-val="2">2</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61624168"><code>sr:sport_event:61624168</code></td></tr>
+<tr><td data-val="2025-11-22">2025-11-22</td><td data-val="LaLiga">LaLiga</td><td data-val="CA Osasuna">CA Osasuna</td><td data-val="Real Sociedad San Sebastian">Real Sociedad San Sebastian</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61624186"><code>sr:sport_event:61624186</code></td></tr>
+<tr><td data-val="2025-11-30">2025-11-30</td><td data-val="LaLiga">LaLiga</td><td data-val="Girona FC">Girona FC</td><td data-val="Real Madrid">Real Madrid</td><td data-val="3">3</td><td data-val="2">2</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61624202"><code>sr:sport_event:61624202</code></td></tr>
+<tr><td data-val="2025-12-06">2025-12-06</td><td data-val="LaLiga">LaLiga</td><td data-val="Deportivo Alaves">Deportivo Alaves</td><td data-val="Real Sociedad San Sebastian">Real Sociedad San Sebastian</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61624218"><code>sr:sport_event:61624218</code></td></tr>
+<tr><td data-val="2025-12-14">2025-12-14</td><td data-val="LaLiga">LaLiga</td><td data-val="Deportivo Alaves">Deportivo Alaves</td><td data-val="Real Madrid">Real Madrid</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61624238"><code>sr:sport_event:61624238</code></td></tr>
+<tr><td data-val="2026-02-02">2026-02-02</td><td data-val="LaLiga">LaLiga</td><td data-val="RCD Mallorca">RCD Mallorca</td><td data-val="Sevilla FC">Sevilla FC</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61624362"><code>sr:sport_event:61624362</code></td></tr>
+<tr><td data-val="2026-03-01">2026-03-01</td><td data-val="LaLiga">LaLiga</td><td data-val="Elche CF">Elche CF</td><td data-val="Espanyol Barcelona">Espanyol Barcelona</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61624442"><code>sr:sport_event:61624442</code></td></tr>
+<tr><td data-val="2026-03-08">2026-03-08</td><td data-val="LaLiga">LaLiga</td><td data-val="Valencia CF">Valencia CF</td><td data-val="Deportivo Alaves">Deportivo Alaves</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:61624466"><code>sr:sport_event:61624466</code></td></tr>
+<tr><td data-val="2025-12-10">2025-12-10</td><td data-val="UEFA Champions League">UEFA Champions League</td><td data-val="Qarabag FK">Qarabag FK</td><td data-val="Ajax Amsterdam">Ajax Amsterdam</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:63369915"><code>sr:sport_event:63369915</code></td></tr>
+<tr><td data-val="2025-10-02">2025-10-02</td><td data-val="UEFA Conference League">UEFA Conference League</td><td data-val="FC Dynamo Kyiv">FC Dynamo Kyiv</td><td data-val="Crystal Palace">Crystal Palace</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:63377437"><code>sr:sport_event:63377437</code></td></tr>
+<tr><td data-val="2025-09-24">2025-09-24</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="Malmo FF">Malmo FF</td><td data-val="PFC Ludogorets 1945 Razgrad">PFC Ludogorets 1945 Razgrad</td><td data-val="5">5</td><td data-val="4">4</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:63377765"><code>sr:sport_event:63377765</code></td></tr>
+<tr><td data-val="2025-09-25">2025-09-25</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="VfB Stuttgart">VfB Stuttgart</td><td data-val="RC Celta de Vigo">RC Celta de Vigo</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:63377781"><code>sr:sport_event:63377781</code></td></tr>
+<tr><td data-val="2025-10-23">2025-10-23</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="Feyenoord Rotterdam">Feyenoord Rotterdam</td><td data-val="Panathinaikos Athens">Panathinaikos Athens</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:63377831"><code>sr:sport_event:63377831</code></td></tr>
+<tr><td data-val="2025-11-06">2025-11-06</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="FC Viktoria Plzen">FC Viktoria Plzen</td><td data-val="Fenerbahce Istanbul">Fenerbahce Istanbul</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:63377889"><code>sr:sport_event:63377889</code></td></tr>
+<tr><td data-val="2026-01-22">2026-01-22</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="GNK Dinamo Zagreb">GNK Dinamo Zagreb</td><td data-val="Fotbal Club FCSB">Fotbal Club FCSB</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:63377991"><code>sr:sport_event:63377991</code></td></tr>
+<tr><td data-val="2026-01-22">2026-01-22</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="FC Utrecht">FC Utrecht</td><td data-val="KRC Genk">KRC Genk</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:63378001"><code>sr:sport_event:63378001</code></td></tr>
+<tr><td data-val="2026-01-15">2026-01-15</td><td data-val="Serie A">Serie A</td><td data-val="Como 1907">Como 1907</td><td data-val="AC Milan">AC Milan</td><td data-val="1">1</td><td data-val="0">0</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:64320965"><code>sr:sport_event:64320965</code></td></tr>
+<tr><td data-val="2026-01-08">2026-01-08</td><td data-val="Serie A">Serie A</td><td data-val="US Cremonese">US Cremonese</td><td data-val="Cagliari Calcio">Cagliari Calcio</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:64321163"><code>sr:sport_event:64321163</code></td></tr>
+<tr><td data-val="2026-03-14">2026-03-14</td><td data-val="Liga MX (Apertura + Clausura)">Liga MX (Apertura + Clausura)</td><td data-val="FC Juarez">FC Juarez</td><td data-val="CF Monterrey">CF Monterrey</td><td data-val="3">3</td><td data-val="2">2</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:66856068"><code>sr:sport_event:66856068</code></td></tr>
+<tr><td data-val="2026-03-22">2026-03-22</td><td data-val="Brasileiro Serie A">Brasileiro Serie A</td><td data-val="CA Paranaense PR">CA Paranaense PR</td><td data-val="Coritiba FC PR">Coritiba FC PR</td><td data-val="4">4</td><td data-val="3">3</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:66886632"><code>sr:sport_event:66886632</code></td></tr>
+<tr><td data-val="2026-02-10">2026-02-10</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="SSC Napoli">SSC Napoli</td><td data-val="Como 1907">Como 1907</td><td data-val="3">3</td><td data-val="2">2</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:68313134"><code>sr:sport_event:68313134</code></td></tr>
+<tr><td data-val="2026-04-08">2026-04-08</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="Coquimbo Unido">Coquimbo Unido</td><td data-val="Club Nacional de Football">Club Nacional de Football</td><td data-val="2">2</td><td data-val="1">1</td><td data-val="1">1</td><td class="mono" data-val="sr:sport_event:70075664"><code>sr:sport_event:70075664</code></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+    <p>Data from Supabase (Sportradar timelines) · Generated 2026-04-30 04:51 UTC</p>
+  </div>
+<script>
+(function () {
+  document.querySelectorAll("table.sortable-derived").forEach(function (table) {
+    var tbody = table.querySelector("tbody");
+    if (!tbody) return;
+    var headers = table.querySelectorAll("thead tr:first-child th[data-col]");
+    var filters = table.querySelectorAll(".derived-col-filter");
+    var sortCol = null;
+    var sortAsc = true;
+
+    function cellVal(tr, idx) {
+      var c = tr.children[idx];
+      if (!c) return "";
+      var dv = c.getAttribute("data-val");
+      if (dv !== null && dv !== "") return dv;
+      return (c.textContent || "").trim();
+    }
+
+    function rowPassesFilters(tr) {
+      if (tr.querySelector("td[colspan]")) return true;
+      for (var i = 0; i < filters.length; i++) {
+        var inp = filters[i];
+        var q = (inp.value || "").trim().toLowerCase();
+        if (!q) continue;
+        var col = parseInt(inp.getAttribute("data-col"), 10);
+        var v = (cellVal(tr, col) || "").toLowerCase();
+        if (v.indexOf(q) === -1) return false;
+      }
+      return true;
+    }
+
+    function applyFilters() {
+      tbody.querySelectorAll("tr").forEach(function (tr) {
+        if (tr.querySelector("td[colspan]")) return;
+        if (rowPassesFilters(tr)) tr.classList.remove("derived-row--hidden");
+        else tr.classList.add("derived-row--hidden");
+      });
+    }
+
+    function sortTable(col, asc) {
+      var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr")).filter(function (tr) {
+        return !tr.querySelector("td[colspan]");
+      });
+      var vis = rows.filter(function (tr) { return !tr.classList.contains("derived-row--hidden"); });
+      var hid = rows.filter(function (tr) { return tr.classList.contains("derived-row--hidden"); });
+      vis.sort(function (a, b) {
+        var aVal = cellVal(a, col);
+        var bVal = cellVal(b, col);
+        var aNum = parseFloat(aVal);
+        var bNum = parseFloat(bVal);
+        var cmp;
+        if (!isNaN(aNum) && !isNaN(bNum) && aVal !== "" && bVal !== "") cmp = aNum - bNum;
+        else cmp = String(aVal).localeCompare(String(bVal), undefined, { numeric: true, sensitivity: "base" });
+        return asc ? cmp : -cmp;
+      });
+      vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
+    }
+
+    function onFilterInput() {
+      applyFilters();
+      if (sortCol !== null) sortTable(sortCol, sortAsc);
+    }
+
+    headers.forEach(function (th) {
+      th.addEventListener("click", function () {
+        var col = parseInt(th.getAttribute("data-col"), 10);
+        if (sortCol === col) sortAsc = !sortAsc;
+        else { sortCol = col; sortAsc = true; }
+        headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
+        th.classList.add(sortAsc ? "sorted-asc" : "sorted-desc");
+        sortTable(col, sortAsc);
+      });
+    });
+    filters.forEach(function (inp) {
+      inp.addEventListener("input", onFilterInput);
+    });
+    applyFilters();
+  });
+})();
+</script>
+</body>
+</html>

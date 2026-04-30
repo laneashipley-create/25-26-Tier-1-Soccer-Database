@@ -113,7 +113,7 @@ def main():
     print(f"  Already cached: {skipped}")
     print(f"  Errors        : {errors}")
     if USE_SUPABASE:
-        print(f"  Timelines saved to Supabase public.sport_event_timelines")
+        print('  Timelines saved to Supabase public."Completed Matches - full sport_event_timelines"')
     else:
         print(f"\nTimelines saved in: {TIMELINES_DIR}/")
 

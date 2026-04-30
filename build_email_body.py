@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 
-REPORT_URL = "https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/report.html"
+REPORT_URL = "https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/report_own_goals.html"
 IMG_URL = "https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/assets/lanes_sportsdata.png"
 
 

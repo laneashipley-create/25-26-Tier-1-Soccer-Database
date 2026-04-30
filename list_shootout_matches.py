@@ -16,7 +16,7 @@ attempt counts and sudden death cannot be inferred from JSON alone.
 """
 from __future__ import annotations
 
-from db import get_client
+from db import T_GAMES, T_TIMELINES, get_client
 
 # Sportradar: match ended after penalty shootout (not the string "eq").
 AFTER_PENALTIES_MATCH_STATUS = "ap"
@@ -40,22 +40,43 @@ def sudden_death_label(timeline_json: dict | None) -> str:
     return "yes" if n > 10 else "no"
 
 
+def _games_by_id(c, game_ids: list[str]) -> dict[str, dict]:
+    out: dict[str, dict] = {}
+    chunk = 80
+    for i in range(0, len(game_ids), chunk):
+        part = game_ids[i : i + chunk]
+        if not part:
+            continue
+        r = (
+            c.table(T_GAMES)
+            .select("id, sport_event_id, home_team, away_team, start_time, status")
+            .in_("id", part)
+            .execute()
+        )
+        for g in r.data or []:
+            gid = g.get("id")
+            if gid is not None:
+                out[str(gid)] = g
+    return out
+
+
 def main() -> None:
     c = get_client()
     status_path = "timeline_json->sport_event_status->>match_status"
     r = (
-        c.table("sport_event_timelines")
-        .select(
-            "game_id, timeline_json, games(sport_event_id, home_team, away_team, start_time, status)"
-        )
+        c.table(T_TIMELINES)
+        .select("game_id, timeline_json")
         .eq(status_path, AFTER_PENALTIES_MATCH_STATUS)
         .execute()
     )
     rows = r.data or []
+    game_ids = sorted({str(row["game_id"]) for row in rows if row.get("game_id")})
+    games = _games_by_id(c, game_ids)
+
     print(f"total_shootout_matches\t{len(rows)}\n")
 
     def sort_key(row: dict) -> str:
-        g = row.get("games") or {}
+        g = games.get(str(row.get("game_id") or "")) or {}
         st = g.get("start_time")
         return str(st) if st else ""
 
@@ -64,7 +85,7 @@ def main() -> None:
         "sport_event_id"
     )
     for row in sorted(rows, key=sort_key):
-        g = row.get("games") or {}
+        g = games.get(str(row.get("game_id") or "")) or {}
         st = g.get("start_time")
         date = str(st)[:10] if st else "?"
         hid = g.get("sport_event_id", "")

@@ -18,10 +18,10 @@ BASE_URL = "https://api.sportradar.com/soccer/trial/v4/en"
 # Add more entries to this list when you want to monitor additional competitions.
 # Each entry must include:
 #   - competition_id (sr:competition:...)
-#   - competition_name (stored in public.competitions.competition_name)
+#   - competition_name (stored in public."Competitions".competition_name)
 #   - season_id (sr:season:...)
 #   - season_name (display label)
-# Optional (stored on public.competitions when present):
+# Optional (stored on public."Competitions" when present):
 #   - gender, country_code (ISO 3166-1 alpha-2 for territory; null for cross-border UEFA/CONMEBOL if you prefer)
 #   - category_name — fallback only when no API key: should match Sportradar Competition Info
 #     JSON path competition.category.name (same as XML <category name="England" .../>).
@@ -250,7 +250,12 @@ SEASON_LABEL = ", ".join(c["season_name"] for c in COMPETITIONS)
 SCHEDULE_CSV = "data/schedule.csv"
 OWN_GOALS_CSV = "data/own_goals.csv"
 TIMELINES_DIR = "data/timelines"       # cached raw JSON responses
-REPORT_HTML = "report.html"
+REPORT_HTML = "report_own_goals.html"
+# Old bookmarks / GitHub Pages links; regenerated as an instant redirect to REPORT_HTML.
+REPORT_HTML_LEGACY_REDIRECT = "report.html"
+REPORT_HTML_PENALTY_SHOOTOUTS = "report_penalty_shootouts.html"
+REPORT_HTML_VAR_EVENTS = "report_var_events.html"
+REPORT_HTML_VAR_UNPAIRED = "report_var_unpaired.html"
 
 # Rate limiting: Sportradar trial keys are limited to 1 request/second
 REQUEST_DELAY_SECONDS = 1.1

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Penalty shootouts — UEFA Champions League 25/26, Brasileiro Serie A 2026, Bundesliga 25/26, Premier League 25/26, J1 League 2026, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Conference League 25/26, UEFA Nations League 26/27, World Cup 2026, UEFA Euro 2028, DFB Pokal 25/26, FA Cup 25/26, Copa del Rey 25/26, Coupe de France 25/26, Coppa Italia 25/26, Community Shield 2025, UEFA Super Cup 2025, CONMEBOL Libertadores 2026, Liga MX, Clausura 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 14px; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f5f2ec;
+      color: #1a1a2a;
+      min-height: 100vh;
+      padding-bottom: 3rem;
+    }
+    .header {
+      background: linear-gradient(160deg, #1a0000 0%, #2e0000 45%, #1a0000 100%);
+      border-bottom: 3px solid #cc0000;
+      padding: 1.65rem 1.25rem 1.4rem;
+      text-align: center;
+    }
+    .header-badge {
+      display: inline-block;
+      background: #cc0000;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.45rem;
+    }
+    h1 { font-size: 1.6rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+    .subtitle { margin-top: 0.4rem; font-size: 0.9rem; color: #ccc; }
+    .meta {
+      max-width: 1100px;
+      margin: 0.85rem auto 0;
+      padding: 0 1rem;
+      color: #444;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+    .table-section { padding: 1rem 1rem 0; max-width: 1480px; margin: 0 auto; }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid #d8d2c8;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 0.82rem; }
+    th, td { border-bottom: 1px solid #e8e4dc; padding: 0.38rem 0.5rem; text-align: left; vertical-align: top; }
+    thead tr:first-child th {
+      background: #2a1515;
+      color: #fff;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    thead tr:first-child th:hover { background: #3d2020; }
+    thead tr:first-child th.sorted-asc::after  { content: " ▲"; font-size: 0.65rem; color: #ffaaaa; }
+    thead tr:first-child th.sorted-desc::after { content: " ▼"; font-size: 0.65rem; color: #ffaaaa; }
+    thead tr.derived-col-filters th {
+      background: #352020;
+      cursor: default;
+      padding: 0.35rem 0.4rem;
+      border-bottom: 2px solid #cc0000;
+    }
+    thead tr.derived-col-filters input {
+      width: 100%;
+      min-width: 0;
+      font: inherit;
+      font-size: 0.72rem;
+      padding: 0.28rem 0.4rem;
+      border-radius: 5px;
+      border: 1px solid #8a6666;
+      box-sizing: border-box;
+    }
+    .derived-row--hidden { display: none !important; }
+    tr:nth-child(even) td { background: #faf8f4; }
+    td.mono, td code { font-size: 0.76rem; }
+    .table-toolbar-hint {
+      font-size: 0.78rem;
+      color: #555;
+      margin: 0 0 0.65rem 0.15rem;
+      line-height: 1.35;
+    }
+    .footer { text-align: center; margin-top: 2rem; font-size: 0.82rem; color: #666; }
+    
+    .report-sticky-top {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }
+    .report-nav {
+      text-align: center;
+      background: #1a0000;
+      padding: 0.55rem 1rem 0.65rem;
+      font-size: 0.88rem;
+      border-bottom: 1px solid #440000;
+    }
+    .report-nav a {
+      color: #ff9999;
+      margin: 0 0.4rem;
+      text-decoration: none;
+    }
+    .report-nav a:hover { text-decoration: underline; color: #ffcccc; }
+    .report-nav .nav-active {
+      color: #fff;
+      font-weight: 700;
+      margin: 0 0.4rem;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="report-sticky-top">
+    <div class="header">
+      <div class="header-badge">Sportradar Soccer</div>
+      <h1>Penalty shootout matches</h1>
+      <div class="subtitle">UEFA Champions League 25/26, Brasileiro Serie A 2026, Bundesliga 25/26, Premier League 25/26, J1 League 2026, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Conference League 25/26, UEFA Nations League 26/27, World Cup 2026, UEFA Euro 2028, DFB Pokal 25/26, FA Cup 25/26, Copa del Rey 25/26, Coupe de France 25/26, Coppa Italia 25/26, Community Shield 2025, UEFA Super Cup 2025, CONMEBOL Libertadores 2026, Liga MX, Clausura 2026</div>
+    </div>
+  <nav class="report-nav" aria-label="Reports"><a href="report_own_goals.html">Own goals</a>
+      <span class="nav-sep" aria-hidden="true"> · </span>
+      <span class="nav-active">Penalty shootouts</span>
+      <span class="nav-sep" aria-hidden="true"> · </span>
+      <a href="report_var_events.html">VAR events</a>
+      <span class="nav-sep" aria-hidden="true"> · </span>
+      <a href="report_var_unpaired.html">VAR unpaired</a>
+  </nav>
+  </div>
+  <p class="meta"><strong>111</strong> matches with timeline <code>match_status = ap</code> (after penalties). Attempts count <code>penalty_shootout</code> events with <code>period_type = penalties</code>. <strong>Sudden death</strong> = more than 10 attempts in that feed.</p>
+  <div class="table-section">
+    <p class="table-toolbar-hint">Click a column header to sort. Type in the filter boxes under each column to narrow rows (matches if the cell text contains your text, case-insensitive).</p>
+    <div class="table-wrap">
+      <table id="table-penalty-shootouts" class="sortable-derived">
+        <thead>
+          <tr><th data-col="0" title="Click to sort">Match date</th><th data-col="1" title="Click to sort">Home</th><th data-col="2" title="Click to sort">Away</th><th data-col="3" title="Click to sort">Attempts</th><th data-col="4" title="Click to sort">Sudden death</th><th data-col="5" title="Click to sort">Recorded</th><th data-col="6" title="Click to sort">Competition</th><th data-col="7" title="Click to sort">Status</th><th data-col="8" title="Click to sort">Sport event ID</th></tr>
+          <tr class="derived-col-filters"><th><input type="search" class="derived-col-filter" data-col="0" placeholder="Filter…" aria-label="Filter Match date"></th><th><input type="search" class="derived-col-filter" data-col="1" placeholder="Filter…" aria-label="Filter Home"></th><th><input type="search" class="derived-col-filter" data-col="2" placeholder="Filter…" aria-label="Filter Away"></th><th><input type="search" class="derived-col-filter" data-col="3" placeholder="Filter…" aria-label="Filter Attempts"></th><th><input type="search" class="derived-col-filter" data-col="4" placeholder="Filter…" aria-label="Filter Sudden death"></th><th><input type="search" class="derived-col-filter" data-col="5" placeholder="Filter…" aria-label="Filter Recorded"></th><th><input type="search" class="derived-col-filter" data-col="6" placeholder="Filter…" aria-label="Filter Competition"></th><th><input type="search" class="derived-col-filter" data-col="7" placeholder="Filter…" aria-label="Filter Status"></th><th><input type="search" class="derived-col-filter" data-col="8" placeholder="Filter…" aria-label="Filter Sport event ID"></th></tr>
+        </thead>
+        <tbody><tr><td data-val="2026-04-22">2026-04-22</td><td data-val="Atalanta BC">Atalanta BC</td><td data-val="Lazio Rome">Lazio Rome</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:68910656"><code>sr:sport_event:68910656</code></td></tr>
+<tr><td data-val="2026-04-19">2026-04-19</td><td data-val="Nagoya Grampus">Nagoya Grampus</td><td data-val="Avispa Fukuoka">Avispa Fukuoka</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644932"><code>sr:sport_event:67644932</code></td></tr>
+<tr><td data-val="2026-04-19">2026-04-19</td><td data-val="Gamba Osaka">Gamba Osaka</td><td data-val="Fagiano Okayama">Fagiano Okayama</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644930"><code>sr:sport_event:67644930</code></td></tr>
+<tr><td data-val="2026-04-18">2026-04-18</td><td data-val="Atletico Madrid">Atletico Madrid</td><td data-val="Real Sociedad San Sebastian">Real Sociedad San Sebastian</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Copa del Rey">Copa del Rey</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:69589774"><code>sr:sport_event:69589774</code></td></tr>
+<tr><td data-val="2026-04-12">2026-04-12</td><td data-val="Urawa Red Diamonds">Urawa Red Diamonds</td><td data-val="Tokyo Verdy">Tokyo Verdy</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67645490"><code>sr:sport_event:67645490</code></td></tr>
+<tr><td data-val="2026-04-11">2026-04-11</td><td data-val="Sanfrecce Hiroshima">Sanfrecce Hiroshima</td><td data-val="Shimizu S-Pulse">Shimizu S-Pulse</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644914"><code>sr:sport_event:67644914</code></td></tr>
+<tr><td data-val="2026-04-11">2026-04-11</td><td data-val="JEF United Chiba">JEF United Chiba</td><td data-val="Mito Hollyhock">Mito Hollyhock</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67645484"><code>sr:sport_event:67645484</code></td></tr>
+<tr><td data-val="2026-04-05">2026-04-05</td><td data-val="FC Tokyo">FC Tokyo</td><td data-val="Machida Zelvia">Machida Zelvia</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67645480"><code>sr:sport_event:67645480</code></td></tr>
+<tr><td data-val="2026-04-05">2026-04-05</td><td data-val="West Ham United">West Ham United</td><td data-val="Leeds United">Leeds United</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="Yes">Yes</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:69769208"><code>sr:sport_event:69769208</code></td></tr>
+<tr><td data-val="2026-04-04">2026-04-04</td><td data-val="Mito Hollyhock">Mito Hollyhock</td><td data-val="Kashima Antlers">Kashima Antlers</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67645476"><code>sr:sport_event:67645476</code></td></tr>
+<tr><td data-val="2026-03-28">2026-03-28</td><td data-val="Machida Zelvia">Machida Zelvia</td><td data-val="Kawasaki Frontale">Kawasaki Frontale</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:69267840"><code>sr:sport_event:69267840</code></td></tr>
+<tr><td data-val="2026-03-22">2026-03-22</td><td data-val="Cerezo Osaka">Cerezo Osaka</td><td data-val="Vissel Kobe">Vissel Kobe</td><td data-val="12">12</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644902"><code>sr:sport_event:67644902</code></td></tr>
+<tr><td data-val="2026-03-22">2026-03-22</td><td data-val="Tokyo Verdy">Tokyo Verdy</td><td data-val="FC Tokyo">FC Tokyo</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="Yes">Yes</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67645464"><code>sr:sport_event:67645464</code></td></tr>
+<tr><td data-val="2026-03-22">2026-03-22</td><td data-val="Kyoto Sanga FC">Kyoto Sanga FC</td><td data-val="Nagoya Grampus">Nagoya Grampus</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644900"><code>sr:sport_event:67644900</code></td></tr>
+<tr><td data-val="2026-03-21">2026-03-21</td><td data-val="Avispa Fukuoka">Avispa Fukuoka</td><td data-val="Gamba Osaka">Gamba Osaka</td><td data-val="30">30</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644896"><code>sr:sport_event:67644896</code></td></tr>
+<tr><td data-val="2026-03-19">2026-03-19</td><td data-val="FC Midtjylland">FC Midtjylland</td><td data-val="Nottingham Forest">Nottingham Forest</td><td data-val="6">6</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:69351098"><code>sr:sport_event:69351098</code></td></tr>
+<tr><td data-val="2026-03-18">2026-03-18</td><td data-val="Avispa Fukuoka">Avispa Fukuoka</td><td data-val="Shimizu S-Pulse">Shimizu S-Pulse</td><td data-val="14">14</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644892"><code>sr:sport_event:67644892</code></td></tr>
+<tr><td data-val="2026-03-18">2026-03-18</td><td data-val="Urawa Red Diamonds">Urawa Red Diamonds</td><td data-val="Kashiwa Reysol">Kashiwa Reysol</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67645460"><code>sr:sport_event:67645460</code></td></tr>
+<tr><td data-val="2026-03-18">2026-03-18</td><td data-val="Vissel Kobe">Vissel Kobe</td><td data-val="Gamba Osaka">Gamba Osaka</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644890"><code>sr:sport_event:67644890</code></td></tr>
+<tr><td data-val="2026-03-14">2026-03-14</td><td data-val="Mito Hollyhock">Mito Hollyhock</td><td data-val="FC Tokyo">FC Tokyo</td><td data-val="12">12</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67645446"><code>sr:sport_event:67645446</code></td></tr>
+<tr><td data-val="2026-03-14">2026-03-14</td><td data-val="Shimizu S-Pulse">Shimizu S-Pulse</td><td data-val="Fagiano Okayama">Fagiano Okayama</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644874"><code>sr:sport_event:67644874</code></td></tr>
+<tr><td data-val="2026-03-11">2026-03-11</td><td data-val="Sporting Cristal">Sporting Cristal</td><td data-val="Carabobo FC">Carabobo FC</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66942260"><code>sr:sport_event:66942260</code></td></tr>
+<tr><td data-val="2026-03-09">2026-03-09</td><td data-val="West Ham United">West Ham United</td><td data-val="Brentford FC">Brentford FC</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:69111176"><code>sr:sport_event:69111176</code></td></tr>
+<tr><td data-val="2026-03-07">2026-03-07</td><td data-val="Cerezo Osaka">Cerezo Osaka</td><td data-val="Shimizu S-Pulse">Shimizu S-Pulse</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="Yes">Yes</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644864"><code>sr:sport_event:67644864</code></td></tr>
+<tr><td data-val="2026-03-05">2026-03-05</td><td data-val="Olympique Lyon">Olympique Lyon</td><td data-val="Racing Club De Lens">Racing Club De Lens</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coupe de France">Coupe de France</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:68688132"><code>sr:sport_event:68688132</code></td></tr>
+<tr><td data-val="2026-03-04">2026-03-04</td><td data-val="FC Lorient">FC Lorient</td><td data-val="OGC Nice">OGC Nice</td><td data-val="16">16</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="Coupe de France">Coupe de France</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:68688128"><code>sr:sport_event:68688128</code></td></tr>
+<tr><td data-val="2026-03-04">2026-03-04</td><td data-val="Olympique Marseille">Olympique Marseille</td><td data-val="Toulouse FC">Toulouse FC</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coupe de France">Coupe de France</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:68688130"><code>sr:sport_event:68688130</code></td></tr>
+<tr><td data-val="2026-03-01">2026-03-01</td><td data-val="Kawasaki Frontale">Kawasaki Frontale</td><td data-val="Mito Hollyhock">Mito Hollyhock</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67645432"><code>sr:sport_event:67645432</code></td></tr>
+<tr><td data-val="2026-03-01">2026-03-01</td><td data-val="Fagiano Okayama">Fagiano Okayama</td><td data-val="Nagoya Grampus">Nagoya Grampus</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644862"><code>sr:sport_event:67644862</code></td></tr>
+<tr><td data-val="2026-02-28">2026-02-28</td><td data-val="Gamba Osaka">Gamba Osaka</td><td data-val="Shimizu S-Pulse">Shimizu S-Pulse</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67644858"><code>sr:sport_event:67644858</code></td></tr>
+<tr><td data-val="2026-02-27">2026-02-27</td><td data-val="CD Tolima">CD Tolima</td><td data-val="Deportivo Tachira">Deportivo Tachira</td><td data-val="7">7</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66942252"><code>sr:sport_event:66942252</code></td></tr>
+<tr><td data-val="2026-02-26">2026-02-26</td><td data-val="Argentinos Juniors">Argentinos Juniors</td><td data-val="Barcelona SC">Barcelona SC</td><td data-val="14">14</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66942246"><code>sr:sport_event:66942246</code></td></tr>
+<tr><td data-val="2026-02-26">2026-02-26</td><td data-val="FC Viktoria Plzen">FC Viktoria Plzen</td><td data-val="Panathinaikos Athens">Panathinaikos Athens</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:68417312"><code>sr:sport_event:68417312</code></td></tr>
+<tr><td data-val="2026-02-25">2026-02-25</td><td data-val="Sporting Cristal">Sporting Cristal</td><td data-val="CS 2 de Mayo">CS 2 de Mayo</td><td data-val="12">12</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66942240"><code>sr:sport_event:66942240</code></td></tr>
+<tr><td data-val="2026-02-25">2026-02-25</td><td data-val="EC Bahia BA">EC Bahia BA</td><td data-val="CD O´Higgins">CD O´Higgins</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66942250"><code>sr:sport_event:66942250</code></td></tr>
+<tr><td data-val="2026-02-22">2026-02-22</td><td data-val="Mito Hollyhock">Mito Hollyhock</td><td data-val="JEF United Chiba">JEF United Chiba</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67645422"><code>sr:sport_event:67645422</code></td></tr>
+<tr><td data-val="2026-02-21">2026-02-21</td><td data-val="Tokyo Verdy">Tokyo Verdy</td><td data-val="Machida Zelvia">Machida Zelvia</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67645416"><code>sr:sport_event:67645416</code></td></tr>
+<tr><td data-val="2026-02-15">2026-02-15</td><td data-val="Gamba Osaka">Gamba Osaka</td><td data-val="Nagoya Grampus">Nagoya Grampus</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67150242"><code>sr:sport_event:67150242</code></td></tr>
+<tr><td data-val="2026-02-15">2026-02-15</td><td data-val="JEF United Chiba">JEF United Chiba</td><td data-val="Kawasaki Frontale">Kawasaki Frontale</td><td data-val="20">20</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67150230"><code>sr:sport_event:67150230</code></td></tr>
+<tr><td data-val="2026-02-15">2026-02-15</td><td data-val="Birmingham City">Birmingham City</td><td data-val="Leeds United">Leeds United</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67735942"><code>sr:sport_event:67735942</code></td></tr>
+<tr><td data-val="2026-02-14">2026-02-14</td><td data-val="Shimizu S-Pulse">Shimizu S-Pulse</td><td data-val="Kyoto Sanga FC">Kyoto Sanga FC</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67150236"><code>sr:sport_event:67150236</code></td></tr>
+<tr><td data-val="2026-02-14">2026-02-14</td><td data-val="Machida Zelvia">Machida Zelvia</td><td data-val="Mito Hollyhock">Mito Hollyhock</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67150224"><code>sr:sport_event:67150224</code></td></tr>
+<tr><td data-val="2026-02-14">2026-02-14</td><td data-val="Sanfrecce Hiroshima">Sanfrecce Hiroshima</td><td data-val="Fagiano Okayama">Fagiano Okayama</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67150238"><code>sr:sport_event:67150238</code></td></tr>
+<tr><td data-val="2026-02-14">2026-02-14</td><td data-val="FC Tokyo">FC Tokyo</td><td data-val="Urawa Red Diamonds">Urawa Red Diamonds</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67150228"><code>sr:sport_event:67150228</code></td></tr>
+<tr><td data-val="2026-02-13">2026-02-13</td><td data-val="CD Universidad Catolica del Ecuador">CD Universidad Catolica del Ecuador</td><td data-val="CA Juventud de Las Piedras">CA Juventud de Las Piedras</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66938624"><code>sr:sport_event:66938624</code></td></tr>
+<tr><td data-val="2026-02-11">2026-02-11</td><td data-val="Bologna FC">Bologna FC</td><td data-val="Lazio Rome">Lazio Rome</td><td data-val="7">7</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67806336"><code>sr:sport_event:67806336</code></td></tr>
+<tr><td data-val="2026-02-11">2026-02-11</td><td data-val="Deportivo Tachira">Deportivo Tachira</td><td data-val="The Strongest">The Strongest</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66942228"><code>sr:sport_event:66942228</code></td></tr>
+<tr><td data-val="2026-02-10">2026-02-10</td><td data-val="Hertha BSC">Hertha BSC</td><td data-val="SC Freiburg">SC Freiburg</td><td data-val="12">12</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="DFB Pokal">DFB Pokal</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66531036"><code>sr:sport_event:66531036</code></td></tr>
+<tr><td data-val="2026-02-10">2026-02-10</td><td data-val="SSC Napoli">SSC Napoli</td><td data-val="Como 1907">Como 1907</td><td data-val="16">16</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:68313134"><code>sr:sport_event:68313134</code></td></tr>
+<tr><td data-val="2026-02-08">2026-02-08</td><td data-val="Avispa Fukuoka">Avispa Fukuoka</td><td data-val="Fagiano Okayama">Fagiano Okayama</td><td data-val="14">14</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67092084"><code>sr:sport_event:67092084</code></td></tr>
+<tr><td data-val="2026-02-07">2026-02-07</td><td data-val="FC Tokyo">FC Tokyo</td><td data-val="Kashima Antlers">Kashima Antlers</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67092070"><code>sr:sport_event:67092070</code></td></tr>
+<tr><td data-val="2026-02-07">2026-02-07</td><td data-val="Cerezo Osaka">Cerezo Osaka</td><td data-val="Gamba Osaka">Gamba Osaka</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67092082"><code>sr:sport_event:67092082</code></td></tr>
+<tr><td data-val="2026-02-06">2026-02-06</td><td data-val="Kyoto Sanga FC">Kyoto Sanga FC</td><td data-val="Vissel Kobe">Vissel Kobe</td><td data-val="7">7</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="J.League">J.League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67092076"><code>sr:sport_event:67092076</code></td></tr>
+<tr><td data-val="2026-01-13">2026-01-13</td><td data-val="Real Sociedad San Sebastian">Real Sociedad San Sebastian</td><td data-val="CA Osasuna">CA Osasuna</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Copa del Rey">Copa del Rey</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67539510"><code>sr:sport_event:67539510</code></td></tr>
+<tr><td data-val="2026-01-11">2026-01-11</td><td data-val="Le Mans FC">Le Mans FC</td><td data-val="Nancy-Lorraine">Nancy-Lorraine</td><td data-val="7">7</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coupe de France">Coupe de France</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67053934"><code>sr:sport_event:67053934</code></td></tr>
+<tr><td data-val="2026-01-11">2026-01-11</td><td data-val="Hull City">Hull City</td><td data-val="Blackburn Rovers">Blackburn Rovers</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66577266"><code>sr:sport_event:66577266</code></td></tr>
+<tr><td data-val="2026-01-11">2026-01-11</td><td data-val="Swansea City">Swansea City</td><td data-val="West Bromwich Albion">West Bromwich Albion</td><td data-val="14">14</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66577262"><code>sr:sport_event:66577262</code></td></tr>
+<tr><td data-val="2026-01-11">2026-01-11</td><td data-val="FC Nantes">FC Nantes</td><td data-val="OGC Nice">OGC Nice</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coupe de France">Coupe de France</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67053846"><code>sr:sport_event:67053846</code></td></tr>
+<tr><td data-val="2026-01-10">2026-01-10</td><td data-val="Le Puy Foot 43 Auvergne">Le Puy Foot 43 Auvergne</td><td data-val="Stade Reims">Stade Reims</td><td data-val="7">7</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coupe de France">Coupe de France</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67053848"><code>sr:sport_event:67053848</code></td></tr>
+<tr><td data-val="2026-01-10">2026-01-10</td><td data-val="Everton FC">Everton FC</td><td data-val="Sunderland AFC">Sunderland AFC</td><td data-val="6">6</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66577250"><code>sr:sport_event:66577250</code></td></tr>
+<tr><td data-val="2026-01-10">2026-01-10</td><td data-val="Newcastle United">Newcastle United</td><td data-val="AFC Bournemouth">AFC Bournemouth</td><td data-val="18">18</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66577268"><code>sr:sport_event:66577268</code></td></tr>
+<tr><td data-val="2026-01-10">2026-01-10</td><td data-val="Angers SCO">Angers SCO</td><td data-val="Toulouse FC">Toulouse FC</td><td data-val="14">14</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="Coupe de France">Coupe de France</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:67054014"><code>sr:sport_event:67054014</code></td></tr>
+<tr><td data-val="2026-01-09">2026-01-09</td><td data-val="Milton Keynes Dons">Milton Keynes Dons</td><td data-val="Oxford United">Oxford United</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66577270"><code>sr:sport_event:66577270</code></td></tr>
+<tr><td data-val="2026-01-09">2026-01-09</td><td data-val="Wrexham AFC">Wrexham AFC</td><td data-val="Nottingham Forest">Nottingham Forest</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66577238"><code>sr:sport_event:66577238</code></td></tr>
+<tr><td data-val="2025-12-20">2025-12-20</td><td data-val="Sa Merignac">Sa Merignac</td><td data-val="Istres FC">Istres FC</td><td data-val="14">14</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="Coupe de France">Coupe de France</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66338018"><code>sr:sport_event:66338018</code></td></tr>
+<tr><td data-val="2025-12-20">2025-12-20</td><td data-val="Grenoble Foot">Grenoble Foot</td><td data-val="Nancy-Lorraine">Nancy-Lorraine</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coupe de France">Coupe de France</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66338014"><code>sr:sport_event:66338014</code></td></tr>
+<tr><td data-val="2025-12-19">2025-12-19</td><td data-val="Les Herbiers">Les Herbiers</td><td data-val="Angers SCO">Angers SCO</td><td data-val="16">16</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="Coupe de France">Coupe de France</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66338586"><code>sr:sport_event:66338586</code></td></tr>
+<tr><td data-val="2025-12-19">2025-12-19</td><td data-val="US Avranches">US Avranches</td><td data-val="Stade Brest 29">Stade Brest 29</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coupe de France">Coupe de France</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66338814"><code>sr:sport_event:66338814</code></td></tr>
+<tr><td data-val="2025-12-17">2025-12-17</td><td data-val="Albacete Balompie">Albacete Balompie</td><td data-val="RC Celta de Vigo">RC Celta de Vigo</td><td data-val="6">6</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Copa del Rey">Copa del Rey</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:66609740"><code>sr:sport_event:66609740</code></td></tr>
+<tr><td data-val="2025-12-06">2025-12-06</td><td data-val="Stockport County FC">Stockport County FC</td><td data-val="Cambridge United">Cambridge United</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:65271084"><code>sr:sport_event:65271084</code></td></tr>
+<tr><td data-val="2025-12-06">2025-12-06</td><td data-val="Accrington Stanley">Accrington Stanley</td><td data-val="Mansfield Town">Mansfield Town</td><td data-val="7">7</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:65271086"><code>sr:sport_event:65271086</code></td></tr>
+<tr><td data-val="2025-12-06">2025-12-06</td><td data-val="Wigan Athletic">Wigan Athletic</td><td data-val="Barrow AFC">Barrow AFC</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:65271092"><code>sr:sport_event:65271092</code></td></tr>
+<tr><td data-val="2025-12-06">2025-12-06</td><td data-val="Fleetwood Town">Fleetwood Town</td><td data-val="Luton Town">Luton Town</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:65271090"><code>sr:sport_event:65271090</code></td></tr>
+<tr><td data-val="2025-12-04">2025-12-04</td><td data-val="UE Sant Andreu">UE Sant Andreu</td><td data-val="RC Celta de Vigo">RC Celta de Vigo</td><td data-val="14">14</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="Copa del Rey">Copa del Rey</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:65582240"><code>sr:sport_event:65582240</code></td></tr>
+<tr><td data-val="2025-12-03">2025-12-03</td><td data-val="Hamburger SV">Hamburger SV</td><td data-val="Holstein Kiel">Holstein Kiel</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="DFB Pokal">DFB Pokal</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:65216716"><code>sr:sport_event:65216716</code></td></tr>
+<tr><td data-val="2025-12-03">2025-12-03</td><td data-val="SSC Napoli">SSC Napoli</td><td data-val="Cagliari Calcio">Cagliari Calcio</td><td data-val="20">20</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:64100007"><code>sr:sport_event:64100007</code></td></tr>
+<tr><td data-val="2025-12-03">2025-12-03</td><td data-val="CA Antoniano">CA Antoniano</td><td data-val="Villarreal CF">Villarreal CF</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Copa del Rey">Copa del Rey</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:65582288"><code>sr:sport_event:65582288</code></td></tr>
+<tr><td data-val="2025-11-01">2025-11-01</td><td data-val="Wigan Athletic">Wigan Athletic</td><td data-val="Hemel Hempstead Town">Hemel Hempstead Town</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:64513499"><code>sr:sport_event:64513499</code></td></tr>
+<tr><td data-val="2025-11-01">2025-11-01</td><td data-val="Salford City">Salford City</td><td data-val="Lincoln City">Lincoln City</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:64513479"><code>sr:sport_event:64513479</code></td></tr>
+<tr><td data-val="2025-11-01">2025-11-01</td><td data-val="Brackley Town FC">Brackley Town FC</td><td data-val="Notts County">Notts County</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:64513511"><code>sr:sport_event:64513511</code></td></tr>
+<tr><td data-val="2025-11-01">2025-11-01</td><td data-val="Newport County">Newport County</td><td data-val="Gillingham FC">Gillingham FC</td><td data-val="14">14</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="FA Cup">FA Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:64513467"><code>sr:sport_event:64513467</code></td></tr>
+<tr><td data-val="2025-10-28">2025-10-28</td><td data-val="FC St. Pauli">FC St. Pauli</td><td data-val="TSG Hoffenheim">TSG Hoffenheim</td><td data-val="18">18</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="DFB Pokal">DFB Pokal</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:63402537"><code>sr:sport_event:63402537</code></td></tr>
+<tr><td data-val="2025-10-28">2025-10-28</td><td data-val="Eintracht Frankfurt">Eintracht Frankfurt</td><td data-val="Borussia Dortmund">Borussia Dortmund</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="DFB Pokal">DFB Pokal</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:63402477"><code>sr:sport_event:63402477</code></td></tr>
+<tr><td data-val="2025-09-24">2025-09-24</td><td data-val="Hellas Verona">Hellas Verona</td><td data-val="Venezia FC">Venezia FC</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:63099185"><code>sr:sport_event:63099185</code></td></tr>
+<tr><td data-val="2025-09-24">2025-09-24</td><td data-val="Parma Calcio">Parma Calcio</td><td data-val="Spezia Calcio">Spezia Calcio</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:63099177"><code>sr:sport_event:63099177</code></td></tr>
+<tr><td data-val="2025-08-28">2025-08-28</td><td data-val="AC Omonia Nicosia">AC Omonia Nicosia</td><td data-val="Wolfsberger AC">Wolfsberger AC</td><td data-val="0">0</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Conference League">UEFA Conference League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:62603330"><code>sr:sport_event:62603330</code></td></tr>
+<tr><td data-val="2025-08-26">2025-08-26</td><td data-val="FC Kairat Almaty">FC Kairat Almaty</td><td data-val="Celtic Glasgow">Celtic Glasgow</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Champions League">UEFA Champions League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:62599502"><code>sr:sport_event:62599502</code></td></tr>
+<tr><td data-val="2025-08-26">2025-08-26</td><td data-val="Eintracht Braunschweig">Eintracht Braunschweig</td><td data-val="VfB Stuttgart">VfB Stuttgart</td><td data-val="20">20</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="DFB Pokal">DFB Pokal</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61232419"><code>sr:sport_event:61232419</code></td></tr>
+<tr><td data-val="2025-08-18">2025-08-18</td><td data-val="Spezia Calcio">Spezia Calcio</td><td data-val="Sampdoria Genoa">Sampdoria Genoa</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61465017"><code>sr:sport_event:61465017</code></td></tr>
+<tr><td data-val="2025-08-18">2025-08-18</td><td data-val="Audace Cerignola">Audace Cerignola</td><td data-val="Hellas Verona">Hellas Verona</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:62844365"><code>sr:sport_event:62844365</code></td></tr>
+<tr><td data-val="2025-08-18">2025-08-18</td><td data-val="SC Preussen 06 Munster">SC Preussen 06 Munster</td><td data-val="Hertha BSC">Hertha BSC</td><td data-val="9">9</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="DFB Pokal">DFB Pokal</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61232401"><code>sr:sport_event:61232401</code></td></tr>
+<tr><td data-val="2025-08-17">2025-08-17</td><td data-val="Cesena FC">Cesena FC</td><td data-val="Pisa SC">Pisa SC</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61465013"><code>sr:sport_event:61465013</code></td></tr>
+<tr><td data-val="2025-08-16">2025-08-16</td><td data-val="FV Illertissen">FV Illertissen</td><td data-val="1 FC Nuremberg">1 FC Nuremberg</td><td data-val="14">14</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="DFB Pokal">DFB Pokal</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61232415"><code>sr:sport_event:61232415</code></td></tr>
+<tr><td data-val="2025-08-16">2025-08-16</td><td data-val="Cagliari Calcio">Cagliari Calcio</td><td data-val="Virtus Entella">Virtus Entella</td><td data-val="12">12</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:62780961"><code>sr:sport_event:62780961</code></td></tr>
+<tr><td data-val="2025-08-16">2025-08-16</td><td data-val="Eintracht Norderstedt">Eintracht Norderstedt</td><td data-val="FC St. Pauli">FC St. Pauli</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="DFB Pokal">DFB Pokal</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61232409"><code>sr:sport_event:61232409</code></td></tr>
+<tr><td data-val="2025-08-16">2025-08-16</td><td data-val="US Cremonese">US Cremonese</td><td data-val="Palermo FC">Palermo FC</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61465009"><code>sr:sport_event:61465009</code></td></tr>
+<tr><td data-val="2025-08-15">2025-08-15</td><td data-val="Empoli FC">Empoli FC</td><td data-val="Reggiana 1919">Reggiana 1919</td><td data-val="7">7</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61464995"><code>sr:sport_event:61464995</code></td></tr>
+<tr><td data-val="2025-08-14">2025-08-14</td><td data-val="FC Shakhtar Donetsk">FC Shakhtar Donetsk</td><td data-val="Panathinaikos Athens">Panathinaikos Athens</td><td data-val="12">12</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:62201972"><code>sr:sport_event:62201972</code></td></tr>
+<tr><td data-val="2025-08-14">2025-08-14</td><td data-val="Dundee United">Dundee United</td><td data-val="SK Rapid">SK Rapid</td><td data-val="0">0</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Conference League">UEFA Conference League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:62247642"><code>sr:sport_event:62247642</code></td></tr>
+<tr><td data-val="2025-08-14">2025-08-14</td><td data-val="FC Neman Grodno">FC Neman Grodno</td><td data-val="KI Klaksvik">KI Klaksvik</td><td data-val="0">0</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Conference League">UEFA Conference League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:62247658"><code>sr:sport_event:62247658</code></td></tr>
+<tr><td data-val="2025-08-14">2025-08-14</td><td data-val="FC Noah Yerevan">FC Noah Yerevan</td><td data-val="Lincoln Red Imps">Lincoln Red Imps</td><td data-val="14">14</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:62201924"><code>sr:sport_event:62201924</code></td></tr>
+<tr><td data-val="2025-08-13">2025-08-13</td><td data-val="Paris Saint-Germain">Paris Saint-Germain</td><td data-val="Tottenham Hotspur">Tottenham Hotspur</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Super Cup">UEFA Super Cup</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:60941915"><code>sr:sport_event:60941915</code></td></tr>
+<tr><td data-val="2025-08-12">2025-08-12</td><td data-val="SK Slovan Bratislava">SK Slovan Bratislava</td><td data-val="FC Kairat Almaty">FC Kairat Almaty</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Champions League">UEFA Champions League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:62201250"><code>sr:sport_event:62201250</code></td></tr>
+<tr><td data-val="2025-08-10">2025-08-10</td><td data-val="Crystal Palace">Crystal Palace</td><td data-val="Liverpool FC">Liverpool FC</td><td data-val="10">10</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="Community Shield">Community Shield</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61377539"><code>sr:sport_event:61377539</code></td></tr>
+<tr><td data-val="2025-07-31">2025-07-31</td><td data-val="BK Hacken">BK Hacken</td><td data-val="RSC Anderlecht">RSC Anderlecht</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61303097"><code>sr:sport_event:61303097</code></td></tr>
+<tr><td data-val="2025-07-31">2025-07-31</td><td data-val="FC Prishtina">FC Prishtina</td><td data-val="Larne FC">Larne FC</td><td data-val="0">0</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Conference League">UEFA Conference League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61307437"><code>sr:sport_event:61307437</code></td></tr>
+<tr><td data-val="2025-07-31">2025-07-31</td><td data-val="HJK Helsinki">HJK Helsinki</td><td data-val="FC Arda Kardzhali">FC Arda Kardzhali</td><td data-val="0">0</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Conference League">UEFA Conference League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61307589"><code>sr:sport_event:61307589</code></td></tr>
+<tr><td data-val="2025-07-17">2025-07-17</td><td data-val="FK Partizan Belgrade">FK Partizan Belgrade</td><td data-val="AEK Larnaca">AEK Larnaca</td><td data-val="16">16</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61281691"><code>sr:sport_event:61281691</code></td></tr>
+<tr><td data-val="2025-07-17">2025-07-17</td><td data-val="Hapoel Be`er Sheva FC">Hapoel Be`er Sheva FC</td><td data-val="PFC Levski Sofia">PFC Levski Sofia</td><td data-val="8">8</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Europa League">UEFA Europa League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61281687"><code>sr:sport_event:61281687</code></td></tr>
+<tr><td data-val="2025-07-16">2025-07-16</td><td data-val="FK Auda Riga">FK Auda Riga</td><td data-val="Larne FC">Larne FC</td><td data-val="0">0</td><td data-val="No">No</td><td data-val="No">No</td><td data-val="UEFA Conference League">UEFA Conference League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61282637"><code>sr:sport_event:61282637</code></td></tr>
+<tr><td data-val="2025-07-15">2025-07-15</td><td data-val="Hamrun Spartans FC">Hamrun Spartans FC</td><td data-val="Vilnius FK Zalgiris">Vilnius FK Zalgiris</td><td data-val="28">28</td><td data-val="Yes">Yes</td><td data-val="No">No</td><td data-val="UEFA Champions League">UEFA Champions League</td><td data-val="closed">closed</td><td class="mono" data-val="sr:sport_event:61280675"><code>sr:sport_event:61280675</code></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+    <p>Data from Supabase (Sportradar timelines) · Generated 2026-04-30 04:51 UTC</p>
+  </div>
+<script>
+(function () {
+  document.querySelectorAll("table.sortable-derived").forEach(function (table) {
+    var tbody = table.querySelector("tbody");
+    if (!tbody) return;
+    var headers = table.querySelectorAll("thead tr:first-child th[data-col]");
+    var filters = table.querySelectorAll(".derived-col-filter");
+    var sortCol = null;
+    var sortAsc = true;
+
+    function cellVal(tr, idx) {
+      var c = tr.children[idx];
+      if (!c) return "";
+      var dv = c.getAttribute("data-val");
+      if (dv !== null && dv !== "") return dv;
+      return (c.textContent || "").trim();
+    }
+
+    function rowPassesFilters(tr) {
+      if (tr.querySelector("td[colspan]")) return true;
+      for (var i = 0; i < filters.length; i++) {
+        var inp = filters[i];
+        var q = (inp.value || "").trim().toLowerCase();
+        if (!q) continue;
+        var col = parseInt(inp.getAttribute("data-col"), 10);
+        var v = (cellVal(tr, col) || "").toLowerCase();
+        if (v.indexOf(q) === -1) return false;
+      }
+      return true;
+    }
+
+    function applyFilters() {
+      tbody.querySelectorAll("tr").forEach(function (tr) {
+        if (tr.querySelector("td[colspan]")) return;
+        if (rowPassesFilters(tr)) tr.classList.remove("derived-row--hidden");
+        else tr.classList.add("derived-row--hidden");
+      });
+    }
+
+    function sortTable(col, asc) {
+      var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr")).filter(function (tr) {
+        return !tr.querySelector("td[colspan]");
+      });
+      var vis = rows.filter(function (tr) { return !tr.classList.contains("derived-row--hidden"); });
+      var hid = rows.filter(function (tr) { return tr.classList.contains("derived-row--hidden"); });
+      vis.sort(function (a, b) {
+        var aVal = cellVal(a, col);
+        var bVal = cellVal(b, col);
+        var aNum = parseFloat(aVal);
+        var bNum = parseFloat(bVal);
+        var cmp;
+        if (!isNaN(aNum) && !isNaN(bNum) && aVal !== "" && bVal !== "") cmp = aNum - bNum;
+        else cmp = String(aVal).localeCompare(String(bVal), undefined, { numeric: true, sensitivity: "base" });
+        return asc ? cmp : -cmp;
+      });
+      vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
+    }
+
+    function onFilterInput() {
+      applyFilters();
+      if (sortCol !== null) sortTable(sortCol, sortAsc);
+    }
+
+    headers.forEach(function (th) {
+      th.addEventListener("click", function () {
+        var col = parseInt(th.getAttribute("data-col"), 10);
+        if (sortCol === col) sortAsc = !sortAsc;
+        else { sortCol = col; sortAsc = true; }
+        headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
+        th.classList.add(sortAsc ? "sorted-asc" : "sorted-desc");
+        sortTable(col, sortAsc);
+      });
+    });
+    filters.forEach(function (inp) {
+      inp.addEventListener("input", onFilterInput);
+    });
+    applyFilters();
+  });
+})();
+</script>
+</body>
+</html>

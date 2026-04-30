@@ -39,10 +39,10 @@ with timeline_events as (
         nullif(e ->> 'stoppage_time', '')::int nulls last,
         (e ->> 'id')::bigint nulls last
     ) as seq_in_match
-  from public.sport_event_timelines t
-  join public.games g on g.id = t.game_id
-  left join public.seasons s on s.id = g.season_id
-  left join public.competitions c on c.id = s.competition_id
+  from public."Completed Matches - full sport_event_timelines" t
+  join public."All Games (sr:sport_events)" g on g.id = t.game_id
+  left join public."Seasons (current sr:season:ID)" s on s.id = g.season_id
+  left join public."Competitions" c on c.id = s.competition_id
   cross join lateral jsonb_array_elements(coalesce(t.timeline_json -> 'timeline', '[]'::jsonb)) as e
   where g.status in ('closed', 'ended')
     and e ->> 'type' in ('video_assistant_referee', 'video_assistant_referee_over')

@@ -4,7 +4,7 @@
 --   match_status = 'ap' on timeline_json.sport_event_status (same as live "after penalties").
 --   shootout_attempts: count of timeline events type=penalty_shootout, period_type=penalties.
 --   sudden_death: yes if attempts > 10 (IFAB-style first phase max 10 kicks); unknown if no such events (sparse feed).
---   recorded: from public.games — true when the match is flagged as having recording/simulations.
+--   recorded: from public."All Games (sr:sport_events)" — true when the match is flagged as having recording/simulations.
 --
 -- Uses LEFT JOIN to seasons/competitions so rows are not dropped when FK data is missing
 -- (inner join would undercount). Re-run in Supabase: SQL Editor → paste → Run.
@@ -25,10 +25,10 @@ select
     when ps.attempts > 10 then 'yes'
     else 'no'
   end as sudden_death
-from public.sport_event_timelines t
-join public.games g on g.id = t.game_id
-left join public.seasons s on s.id = g.season_id
-left join public.competitions c on c.id = s.competition_id
+from public."Completed Matches - full sport_event_timelines" t
+join public."All Games (sr:sport_events)" g on g.id = t.game_id
+left join public."Seasons (current sr:season:ID)" s on s.id = g.season_id
+left join public."Competitions" c on c.id = s.competition_id
 left join lateral (
   select count(*)::int as attempts
   from jsonb_array_elements(

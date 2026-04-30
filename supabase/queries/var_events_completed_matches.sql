@@ -11,7 +11,7 @@
 --                  (pending, cancelled, upheld, overturned). Standard sport_events/.../timeline.json
 --                  (what step3_fetch_timelines.py stores) typically omits `decision` on VAR events,
 --                  including video_assistant_referee_over — so this column is often NULL here.
---   recorded     -> public.games flag for your recording/simulation tracking
+--   recorded     -> public."All Games (sr:sport_events)" flag for your recording/simulation tracking
 --
 -- One row per VAR event.
 -- Re-run in Supabase: SQL Editor -> paste -> Run.
@@ -41,10 +41,10 @@ select
     else null
   end as affected_team,
   coalesce(e -> 'commentaries' -> 0 ->> 'text', '') as commentary
-from public.sport_event_timelines t
-join public.games g on g.id = t.game_id
-left join public.seasons s on s.id = g.season_id
-left join public.competitions c on c.id = s.competition_id
+from public."Completed Matches - full sport_event_timelines" t
+join public."All Games (sr:sport_events)" g on g.id = t.game_id
+left join public."Seasons (current sr:season:ID)" s on s.id = g.season_id
+left join public."Competitions" c on c.id = s.competition_id
 cross join lateral jsonb_array_elements(coalesce(t.timeline_json -> 'timeline', '[]'::jsonb)) as e
 where g.status in ('closed', 'ended')
   and e ->> 'type' in ('video_assistant_referee', 'video_assistant_referee_over')

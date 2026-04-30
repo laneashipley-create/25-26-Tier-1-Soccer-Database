@@ -1,8 +1,13 @@
 """
-STEP 5 — Generate the EPL Own Goals HTML report.
+STEP 6 — Generate HTML reports.
 
-Reads data/own_goals.csv and produces a self-contained report.html.
-Can be re-run at any time to refresh the report from the latest CSV.
+Writes all four static pages in one place:
+
+- report_own_goals.html — own goals (CSV or Supabase)
+- report_penalty_shootouts.html, report_var_events.html, report_var_unpaired.html — from Supabase
+  when USE_SUPABASE is set; otherwise stub HTML for those three files.
+
+Without Supabase, own goals are read from data/own_goals.csv.
 """
 
 import csv
@@ -11,7 +16,19 @@ import json
 import os
 from datetime import datetime, timezone
 
-from config import OWN_GOALS_CSV, REPORT_HTML, SEASON_NAME, SEASON_LABEL, TIMELINES_DIR, USE_SUPABASE
+from config import (
+    OWN_GOALS_CSV,
+    REPORT_HTML,
+    REPORT_HTML_LEGACY_REDIRECT,
+    REPORT_HTML_PENALTY_SHOOTOUTS,
+    REPORT_HTML_VAR_EVENTS,
+    REPORT_HTML_VAR_UNPAIRED,
+    SEASON_NAME,
+    SEASON_LABEL,
+    TIMELINES_DIR,
+    USE_SUPABASE,
+)
+from report_navigation import NAV_CSS, navigation_html
 
 ASSETS_DIR = os.path.join(os.path.dirname(__file__), "assets")
 
@@ -225,7 +242,7 @@ def _inline_report_script() -> str:
   const dataDateMin = filterPayload.dataDateMin || '';
   const dataDateMax = filterPayload.dataDateMax || '';
 
-  const headers = document.querySelectorAll('thead th[data-col]');
+  const headers = document.querySelectorAll('thead tr:first-child th[data-col]');
   let sortCol = null;
   let sortAsc = true;
 
@@ -481,11 +498,24 @@ def _inline_report_script() -> str:
     });
   }
 
+  function colFiltersMatch(tr) {
+    var inputs = document.querySelectorAll('.og-col-filter');
+    for (var i = 0; i < inputs.length; i++) {
+      var inp = inputs[i];
+      var q = (inp.value || '').trim().toLowerCase();
+      if (!q) continue;
+      var col = parseInt(inp.getAttribute('data-col'), 10);
+      var v = (cellVal(tr, col) || '').toLowerCase();
+      if (v.indexOf(q) === -1) return false;
+    }
+    return true;
+  }
+
   function applyFilter() {
     var selected = getSelectedComps();
     var dr = getDateRange();
     tbody.querySelectorAll('tr.og-data-row').forEach(function (tr) {
-      if (compMatches(tr, selected) && dateMatches(tr, dr)) tr.classList.remove('og-row--hidden');
+      if (compMatches(tr, selected) && dateMatches(tr, dr) && colFiltersMatch(tr)) tr.classList.remove('og-row--hidden');
       else tr.classList.add('og-row--hidden');
     });
     renumberRows();
@@ -546,10 +576,451 @@ def _inline_report_script() -> str:
   document.querySelectorAll('input[name="og-comp"]').forEach(function (cb) {
     cb.addEventListener('change', applyFilter);
   });
+  document.querySelectorAll('.og-col-filter').forEach(function (inp) {
+    inp.addEventListener('input', applyFilter);
+  });
   wireDateFilter();
   applyFilter();
 })();
 </script>"""
+
+
+def write_legacy_report_redirect() -> None:
+    """Write legacy report.html so old URLs land on REPORT_HTML (with shared nav)."""
+    dest = html.escape(REPORT_HTML, quote=True)
+    doc = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0; url={dest}">
+  <link rel="canonical" href="{dest}">
+  <title>Redirecting…</title>
+</head>
+<body style="font-family:system-ui,sans-serif;padding:2rem;background:#1a0000;color:#ccc;text-align:center">
+  <p>Own goals report: <a href="{dest}" style="color:#ff9999">open {html.escape(REPORT_HTML, quote=False)}</a></p>
+</body>
+</html>"""
+    with open(REPORT_HTML_LEGACY_REDIRECT, "w", encoding="utf-8") as f:
+        f.write(doc)
+
+
+# --- Supabase-derived reports (penalty shootouts, VAR, VAR unpaired) -----------------
+
+DERIVED_TABLE_SCRIPT = r"""<script>
+(function () {
+  document.querySelectorAll("table.sortable-derived").forEach(function (table) {
+    var tbody = table.querySelector("tbody");
+    if (!tbody) return;
+    var headers = table.querySelectorAll("thead tr:first-child th[data-col]");
+    var filters = table.querySelectorAll(".derived-col-filter");
+    var sortCol = null;
+    var sortAsc = true;
+
+    function cellVal(tr, idx) {
+      var c = tr.children[idx];
+      if (!c) return "";
+      var dv = c.getAttribute("data-val");
+      if (dv !== null && dv !== "") return dv;
+      return (c.textContent || "").trim();
+    }
+
+    function rowPassesFilters(tr) {
+      if (tr.querySelector("td[colspan]")) return true;
+      for (var i = 0; i < filters.length; i++) {
+        var inp = filters[i];
+        var q = (inp.value || "").trim().toLowerCase();
+        if (!q) continue;
+        var col = parseInt(inp.getAttribute("data-col"), 10);
+        var v = (cellVal(tr, col) || "").toLowerCase();
+        if (v.indexOf(q) === -1) return false;
+      }
+      return true;
+    }
+
+    function applyFilters() {
+      tbody.querySelectorAll("tr").forEach(function (tr) {
+        if (tr.querySelector("td[colspan]")) return;
+        if (rowPassesFilters(tr)) tr.classList.remove("derived-row--hidden");
+        else tr.classList.add("derived-row--hidden");
+      });
+    }
+
+    function sortTable(col, asc) {
+      var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr")).filter(function (tr) {
+        return !tr.querySelector("td[colspan]");
+      });
+      var vis = rows.filter(function (tr) { return !tr.classList.contains("derived-row--hidden"); });
+      var hid = rows.filter(function (tr) { return tr.classList.contains("derived-row--hidden"); });
+      vis.sort(function (a, b) {
+        var aVal = cellVal(a, col);
+        var bVal = cellVal(b, col);
+        var aNum = parseFloat(aVal);
+        var bNum = parseFloat(bVal);
+        var cmp;
+        if (!isNaN(aNum) && !isNaN(bNum) && aVal !== "" && bVal !== "") cmp = aNum - bNum;
+        else cmp = String(aVal).localeCompare(String(bVal), undefined, { numeric: true, sensitivity: "base" });
+        return asc ? cmp : -cmp;
+      });
+      vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
+    }
+
+    function onFilterInput() {
+      applyFilters();
+      if (sortCol !== null) sortTable(sortCol, sortAsc);
+    }
+
+    headers.forEach(function (th) {
+      th.addEventListener("click", function () {
+        var col = parseInt(th.getAttribute("data-col"), 10);
+        if (sortCol === col) sortAsc = !sortAsc;
+        else { sortCol = col; sortAsc = true; }
+        headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
+        th.classList.add(sortAsc ? "sorted-asc" : "sorted-desc");
+        sortTable(col, sortAsc);
+      });
+    });
+    filters.forEach(function (inp) {
+      inp.addEventListener("input", onFilterInput);
+    });
+    applyFilters();
+  });
+})();
+</script>"""
+
+
+def _derived_fmt(v) -> str:
+    if v is True:
+        return "Yes"
+    if v is False:
+        return "No"
+    if v is None or v == "":
+        return "—"
+    return str(v)
+
+
+def _derived_esc(v) -> str:
+    return html.escape(_derived_fmt(v), quote=False)
+
+
+def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], table_id: str) -> str:
+    th_row = "".join(
+        f'<th data-col="{i}" title="Click to sort">{html.escape(h, quote=False)}</th>'
+        for i, h in enumerate(headers)
+    )
+    filter_row = "".join(
+        f'<th><input type="search" class="derived-col-filter" data-col="{i}" placeholder="Filter…" '
+        f'aria-label="{html.escape("Filter " + headers[i], quote=True)}"></th>'
+        for i in range(len(headers))
+    )
+    body: list[str] = []
+    for r in rows:
+        tds = []
+        for k in keys:
+            raw = r.get(k)
+            if k == "commentary" and raw and len(str(raw)) > 240:
+                raw = str(raw)[:240] + "…"
+            dv = html.escape(_derived_fmt(raw), quote=True)
+            if k in ("sport_event_id", "game_id") and raw:
+                inner = f'<code>{html.escape(str(raw), quote=False)}</code>'
+                tds.append(f'<td class="mono" data-val="{dv}">{inner}</td>')
+            else:
+                tds.append(f'<td data-val="{dv}">{_derived_esc(raw)}</td>')
+        body.append("<tr>" + "".join(tds) + "</tr>")
+    tbody = "\n".join(body) if body else '<tr><td colspan="' + str(len(headers)) + '">No rows.</td></tr>'
+    safe_id = html.escape(table_id, quote=True)
+    return f"""<div class="table-wrap">
+      <table id="{safe_id}" class="sortable-derived">
+        <thead>
+          <tr>{th_row}</tr>
+          <tr class="derived-col-filters">{filter_row}</tr>
+        </thead>
+        <tbody>{tbody}</tbody>
+      </table>
+    </div>"""
+
+
+def _derived_page_shell(
+    *,
+    title: str,
+    badge: str,
+    headline: str,
+    subtitle: str,
+    meta: str,
+    table_html: str,
+    nav_href: str,
+) -> str:
+    gen = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    nav = navigation_html(nav_href)
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{html.escape(title, quote=False)}</title>
+  <style>
+    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    html {{ font-size: 14px; }}
+    body {{
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f5f2ec;
+      color: #1a1a2a;
+      min-height: 100vh;
+      padding-bottom: 3rem;
+    }}
+    .header {{
+      background: linear-gradient(160deg, #1a0000 0%, #2e0000 45%, #1a0000 100%);
+      border-bottom: 3px solid #cc0000;
+      padding: 1.65rem 1.25rem 1.4rem;
+      text-align: center;
+    }}
+    .header-badge {{
+      display: inline-block;
+      background: #cc0000;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.45rem;
+    }}
+    h1 {{ font-size: 1.6rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }}
+    .subtitle {{ margin-top: 0.4rem; font-size: 0.9rem; color: #ccc; }}
+    .meta {{
+      max-width: 1100px;
+      margin: 0.85rem auto 0;
+      padding: 0 1rem;
+      color: #444;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }}
+    .table-section {{ padding: 1rem 1rem 0; max-width: 1480px; margin: 0 auto; }}
+    .table-wrap {{
+      overflow-x: auto;
+      border: 1px solid #d8d2c8;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }}
+    table {{ border-collapse: collapse; width: 100%; min-width: 640px; font-size: 0.82rem; }}
+    th, td {{ border-bottom: 1px solid #e8e4dc; padding: 0.38rem 0.5rem; text-align: left; vertical-align: top; }}
+    thead tr:first-child th {{
+      background: #2a1515;
+      color: #fff;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }}
+    thead tr:first-child th:hover {{ background: #3d2020; }}
+    thead tr:first-child th.sorted-asc::after  {{ content: " ▲"; font-size: 0.65rem; color: #ffaaaa; }}
+    thead tr:first-child th.sorted-desc::after {{ content: " ▼"; font-size: 0.65rem; color: #ffaaaa; }}
+    thead tr.derived-col-filters th {{
+      background: #352020;
+      cursor: default;
+      padding: 0.35rem 0.4rem;
+      border-bottom: 2px solid #cc0000;
+    }}
+    thead tr.derived-col-filters input {{
+      width: 100%;
+      min-width: 0;
+      font: inherit;
+      font-size: 0.72rem;
+      padding: 0.28rem 0.4rem;
+      border-radius: 5px;
+      border: 1px solid #8a6666;
+      box-sizing: border-box;
+    }}
+    .derived-row--hidden {{ display: none !important; }}
+    tr:nth-child(even) td {{ background: #faf8f4; }}
+    td.mono, td code {{ font-size: 0.76rem; }}
+    .table-toolbar-hint {{
+      font-size: 0.78rem;
+      color: #555;
+      margin: 0 0 0.65rem 0.15rem;
+      line-height: 1.35;
+    }}
+    .footer {{ text-align: center; margin-top: 2rem; font-size: 0.82rem; color: #666; }}
+    {NAV_CSS}
+  </style>
+</head>
+<body>
+  <div class="report-sticky-top">
+    <div class="header">
+      <div class="header-badge">{html.escape(badge, quote=False)}</div>
+      <h1>{html.escape(headline, quote=False)}</h1>
+      <div class="subtitle">{html.escape(subtitle, quote=False)}</div>
+    </div>
+{nav}
+  </div>
+  <p class="meta">{meta}</p>
+  <div class="table-section">
+    <p class="table-toolbar-hint">Click a column header to sort. Type in the filter boxes under each column to narrow rows (matches if the cell text contains your text, case-insensitive).</p>
+    {table_html}
+  </div>
+  <div class="footer">
+    <p>Data from Supabase (Sportradar timelines) · Generated {html.escape(gen, quote=False)}</p>
+  </div>
+{DERIVED_TABLE_SCRIPT}
+</body>
+</html>"""
+
+
+def _derived_stub_page(title: str, nav_href: str) -> str:
+    nav = navigation_html(nav_href)
+    return f"""<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>{html.escape(title)}</title>
+<style>body{{font-family:system-ui;padding:2rem;background:#f5f2ec;}}{NAV_CSS}</style></head>
+<body><div class="report-sticky-top">{nav}</div><p>Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or config_local) to build this report.</p></body></html>"""
+
+
+def write_derived_reports() -> None:
+    """Penalty shootouts, VAR events, VAR unpaired — Supabase or stubs."""
+    if not USE_SUPABASE:
+        print("USE_SUPABASE is False — writing stub HTML for derived reports.")
+        stubs = [
+            (REPORT_HTML_PENALTY_SHOOTOUTS, "Penalty shootouts", "report_penalty_shootouts.html"),
+            (REPORT_HTML_VAR_EVENTS, "VAR events", "report_var_events.html"),
+            (REPORT_HTML_VAR_UNPAIRED, "VAR unpaired", "report_var_unpaired.html"),
+        ]
+        for path, title, nav in stubs:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(_derived_stub_page(title, nav))
+            print(f"  Wrote stub: {path}")
+        return
+
+    import db
+
+    ps = db.fetch_penalty_shootout_match_rows()
+    ps_headers = [
+        "Match date",
+        "Home",
+        "Away",
+        "Attempts",
+        "Sudden death",
+        "Recorded",
+        "Competition",
+        "Status",
+        "Sport event ID",
+    ]
+    ps_keys = [
+        "match_date",
+        "home_team",
+        "away_team",
+        "shootout_attempts",
+        "sudden_death",
+        "recorded",
+        "competition_name",
+        "status",
+        "sport_event_id",
+    ]
+    ps_html = _derived_build_table(ps_headers, ps_keys, ps, "table-penalty-shootouts")
+    ps_doc = _derived_page_shell(
+        title=f"Penalty shootouts — {SEASON_LABEL}",
+        badge="Sportradar Soccer",
+        headline="Penalty shootout matches",
+        subtitle=SEASON_LABEL,
+        meta=f"<strong>{len(ps):,}</strong> matches with timeline <code>match_status = ap</code> (after penalties). "
+        "Attempts count <code>penalty_shootout</code> events with <code>period_type = penalties</code>. "
+        "<strong>Sudden death</strong> = more than 10 attempts in that feed.",
+        table_html=ps_html,
+        nav_href="report_penalty_shootouts.html",
+    )
+    with open(REPORT_HTML_PENALTY_SHOOTOUTS, "w", encoding="utf-8") as f:
+        f.write(ps_doc)
+    print(f"  Wrote {REPORT_HTML_PENALTY_SHOOTOUTS} ({len(ps)} rows)")
+
+    vr = db.fetch_var_timeline_event_rows()
+    vr_headers = [
+        "Date",
+        "Competition",
+        "Home",
+        "Away",
+        "Type",
+        "Description",
+        "Decision",
+        "Min",
+        "ST",
+        "Clock",
+        "Period",
+        "Side",
+        "Affected team",
+        "Event ID",
+        "Sport event ID",
+        "Commentary",
+    ]
+    vr_keys = [
+        "match_date",
+        "competition_name",
+        "home_team",
+        "away_team",
+        "var_event_type",
+        "description",
+        "decision",
+        "match_minute",
+        "stoppage_minute",
+        "match_clock",
+        "period_type",
+        "competitor_side",
+        "affected_team",
+        "timeline_event_id",
+        "sport_event_id",
+        "commentary",
+    ]
+    vr_html = _derived_build_table(vr_headers, vr_keys, vr, "table-var-events")
+    vr_doc = _derived_page_shell(
+        title=f"VAR events — {SEASON_LABEL}",
+        badge="Sportradar Soccer",
+        headline="VAR timeline events",
+        subtitle=SEASON_LABEL,
+        meta=f"<strong>{len(vr):,}</strong> rows from <code>video_assistant_referee</code> and "
+        "<code>video_assistant_referee_over</code> (completed matches). "
+        "<strong>Decision</strong> is often empty on standard timelines (see Extended API docs).",
+        table_html=vr_html,
+        nav_href="report_var_events.html",
+    )
+    with open(REPORT_HTML_VAR_EVENTS, "w", encoding="utf-8") as f:
+        f.write(vr_doc)
+    print(f"  Wrote {REPORT_HTML_VAR_EVENTS} ({len(vr)} rows)")
+
+    vu = db.fetch_var_unpaired_match_rows()
+    vu_headers = [
+        "Match date",
+        "Competition",
+        "Home",
+        "Away",
+        "VAR starts",
+        "VAR overs",
+        "Δ (starts − overs)",
+        "Sport event ID",
+    ]
+    vu_keys = [
+        "match_date",
+        "competition_name",
+        "home_team",
+        "away_team",
+        "video_assistant_referee",
+        "video_assistant_referee_over",
+        "unpaired_var_starts",
+        "sport_event_id",
+    ]
+    vu_html = _derived_build_table(vu_headers, vu_keys, vu, "table-var-unpaired")
+    vu_doc = _derived_page_shell(
+        title=f"VAR unpaired — {SEASON_LABEL}",
+        badge="Sportradar Soccer",
+        headline="Matches with unpaired VAR counts",
+        subtitle=SEASON_LABEL,
+        meta="<strong>Review queue:</strong> matches where counts of <code>video_assistant_referee</code> "
+        "and <code>video_assistant_referee_over</code> differ (feed may omit <code>_over</code> events). "
+        f"<strong>{len(vu):,}</strong> match(es) in this export.",
+        table_html=vu_html,
+        nav_href="report_var_unpaired.html",
+    )
+    with open(REPORT_HTML_VAR_UNPAIRED, "w", encoding="utf-8") as f:
+        f.write(vu_doc)
+    print(f"  Wrote {REPORT_HTML_VAR_UNPAIRED} ({len(vu)} rows)")
 
 
 def generate_html(
@@ -922,6 +1393,9 @@ def generate_html(
     .sort-hint {{
       font-size: 0.72rem;
       color: #999;
+      max-width: 36rem;
+      text-align: right;
+      line-height: 1.35;
     }}
     .table-wrap {{
       overflow-x: auto;
@@ -951,11 +1425,11 @@ def generate_html(
     col.c-ogmention  {{ width: 5%; }}
     col.c-commentary {{ width: 25%; }}
 
-    thead tr {{
+    thead tr:first-child {{
       background: #1a0000;
       border-bottom: 2px solid #cc0000;
     }}
-    thead th {{
+    thead tr:first-child th {{
       padding: 0.55rem 0.4rem;
       text-align: left;
       font-size: 0.68rem;
@@ -968,11 +1442,30 @@ def generate_html(
       cursor: pointer;
       user-select: none;
     }}
-    thead th:hover {{ background: #2e0000; color: #ffd0d0; }}
-    thead th.sorted-asc::after  {{ content: " ▲"; font-size: 0.6rem; color: #ff8888; }}
-    thead th.sorted-desc::after {{ content: " ▼"; font-size: 0.6rem; color: #ff8888; }}
-    thead th.num {{ text-align: center; cursor: default; }}
-    thead th.center {{ text-align: center; }}
+    thead tr:first-child th:hover {{ background: #2e0000; color: #ffd0d0; }}
+    thead tr:first-child th.sorted-asc::after  {{ content: " ▲"; font-size: 0.6rem; color: #ff8888; }}
+    thead tr:first-child th.sorted-desc::after {{ content: " ▼"; font-size: 0.6rem; color: #ff8888; }}
+    thead tr:first-child th.num {{ text-align: center; cursor: default; }}
+    thead tr:first-child th.center {{ text-align: center; }}
+    thead tr.og-col-filters th {{
+      background: #2a1515;
+      cursor: default;
+      padding: 0.3rem 0.35rem;
+      border-bottom: 2px solid #cc0000;
+      text-transform: none;
+      font-weight: 400;
+      letter-spacing: normal;
+    }}
+    thead tr.og-col-filters input {{
+      width: 100%;
+      min-width: 0;
+      font: inherit;
+      font-size: 0.65rem;
+      padding: 0.22rem 0.35rem;
+      border-radius: 4px;
+      border: 1px solid #666;
+      box-sizing: border-box;
+    }}
 
     tbody tr {{ background: #ffffff; transition: background 0.12s; }}
     tbody tr:nth-child(even) {{ background: #faf7f2; }}
@@ -1166,16 +1659,21 @@ def generate_html(
     @media (min-width: 600px) and (max-width: 899px) and (orientation: portrait) {{
       .id-cell {{ display: none; }}
     }}
+{NAV_CSS}
   </style>
 </head>
 <body>
 
+  <div class="report-sticky-top">
   <div class="header">
     <div class="header-badge">Sportradar Soccer</div>
     <h1><span>Own Goals</span> Tracker</h1>
     <div class="subtitle">
       <strong id="subtitle-og-total">{total}</strong> own goal<span id="subtitle-og-plural">{"s" if total != 1 else ""}</span> <span id="subtitle-scope">scored across {SEASON_LABEL}</span>
     </div>
+  </div>
+
+{navigation_html(REPORT_HTML)}
   </div>
 
   <div class="stats-section">
@@ -1185,7 +1683,7 @@ def generate_html(
   <div class="table-section">
     <div class="table-header-row">
       <div class="table-title" id="table-filter-title">All Own Goals &mdash; {SEASON_LABEL}</div>
-      <div class="sort-hint">Click any column header to sort</div>
+      <div class="sort-hint">Click a column header to sort. Use filter boxes under headers to narrow rows (contains match, case-insensitive).</div>
     </div>
     <div class="table-wrap">
       <table id="og-table">
@@ -1217,6 +1715,20 @@ def generate_html(
             <th class="center" data-col="9">Final Score</th>
             <th class="center" data-col="10">Mentions OG?</th>
             <th data-col="11">Commentary</th>
+          </tr>
+          <tr class="og-col-filters">
+            <th class="num"></th>
+            <th><input type="search" class="og-col-filter" data-col="1" placeholder="Filter…" aria-label="Filter competition"></th>
+            <th><input type="search" class="og-col-filter" data-col="2" placeholder="Filter…" aria-label="Filter match"></th>
+            <th><input type="search" class="og-col-filter" data-col="3" placeholder="Filter…" aria-label="Filter match ID"></th>
+            <th><input type="search" class="og-col-filter" data-col="4" placeholder="Filter…" aria-label="Filter scorer"></th>
+            <th><input type="search" class="og-col-filter" data-col="5" placeholder="Filter…" aria-label="Filter player ID"></th>
+            <th><input type="search" class="og-col-filter" data-col="6" placeholder="Filter…" aria-label="Filter minute"></th>
+            <th><input type="search" class="og-col-filter" data-col="7" placeholder="Filter…" aria-label="Filter benefiting team"></th>
+            <th><input type="search" class="og-col-filter" data-col="8" placeholder="Filter…" aria-label="Filter score at OG"></th>
+            <th><input type="search" class="og-col-filter" data-col="9" placeholder="Filter…" aria-label="Filter final score"></th>
+            <th><input type="search" class="og-col-filter" data-col="10" placeholder="Filter…" aria-label="Filter mentions OG"></th>
+            <th><input type="search" class="og-col-filter" data-col="11" placeholder="Filter…" aria-label="Filter commentary"></th>
           </tr>
         </thead>
         <tbody id="og-tbody">
@@ -1260,7 +1772,11 @@ def main():
     with open(REPORT_HTML, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"Report written to: {REPORT_HTML}")
-    print(f"Open it in your browser to view.")
+    write_legacy_report_redirect()
+    print(f"Legacy redirect written to: {REPORT_HTML_LEGACY_REDIRECT} → {REPORT_HTML}")
+    print("Generating companion reports (penalty shootouts, VAR, VAR unpaired)…")
+    write_derived_reports()
+    print(f"Open {REPORT_HTML} (and linked pages) in your browser to view.")
 
 
 if __name__ == "__main__":

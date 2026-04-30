@@ -1,6 +1,6 @@
 """
 One-off: fetch Sportradar summary + timeline for specific sport_event IDs,
-ensure public.competitions / seasons / games rows exist, then upsert sport_event_timelines.
+ensure public."Competitions" / "Seasons (current sr:season:ID)" / "All Games (sr:sport_events)" rows exist, then upsert timelines.
 
 Uses the same API + Supabase env as the rest of the project (config, db).
 """
@@ -14,6 +14,7 @@ import urllib.error
 import urllib.request
 
 from config import API_KEY, BASE_URL, REQUEST_DELAY_SECONDS, USE_SUPABASE
+from db import T_COMPETITIONS, T_GAMES, T_SEASONS
 
 MISSING_EVENT_IDS = [
     "sr:sport_event:68305676",
@@ -112,18 +113,18 @@ def ensure_competition_and_season(supabase, summary: dict) -> str:
     if isinstance(cc, str) and cc.strip():
         payload["country_code"] = cc.strip()
 
-    supabase.table("competitions").upsert(
+    supabase.table(T_COMPETITIONS).upsert(
         payload,
         on_conflict="sportradar_competition_id",
         ignore_duplicates=False,
     ).execute()
-    r = supabase.table("competitions").select("id").eq("sportradar_competition_id", comp_id).execute()
+    r = supabase.table(T_COMPETITIONS).select("id").eq("sportradar_competition_id", comp_id).execute()
     comp_uuid = r.data[0]["id"]
 
-    r2 = supabase.table("seasons").select("id").eq("sportradar_season_id", season_id).execute()
+    r2 = supabase.table(T_SEASONS).select("id").eq("sportradar_season_id", season_id).execute()
     if r2.data:
         return r2.data[0]["id"]
-    ins = supabase.table("seasons").insert({
+    ins = supabase.table(T_SEASONS).insert({
         "sportradar_season_id": season_id,
         "competition_id": comp_uuid,
         "name": season_name,
@@ -153,7 +154,7 @@ def main() -> int:
             season_uuid = ensure_competition_and_season(supabase, summary)
             game_row = summary_to_game_row(summary)
             db.upsert_games(season_uuid, [game_row])
-            r = supabase.table("games").select("id").eq("season_id", season_uuid).eq("sport_event_id", eid).execute()
+            r = supabase.table(T_GAMES).select("id").eq("season_id", season_uuid).eq("sport_event_id", eid).execute()
             if not r.data:
                 raise RuntimeError("games upsert did not produce a row")
             game_id = r.data[0]["id"]

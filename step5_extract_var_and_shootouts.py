@@ -5,7 +5,7 @@ Writes (replace mode):
   - public.penalty_shootout_matches
   - public.var_timeline_events
 
-Requires USE_SUPABASE=True and populated public.sport_event_timelines.
+Requires USE_SUPABASE=True and populated public."Completed Matches - full sport_event_timelines".
 """
 
 from __future__ import annotations

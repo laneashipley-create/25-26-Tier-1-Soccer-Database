@@ -11,13 +11,17 @@ Pulls data from the Sportradar Soccer API to identify own goals across one or mo
 ├── step2_get_schedule.py      # Fetch all configured schedules → data/schedule.csv
 ├── step3_fetch_timelines.py   # Fetch match timelines (cached) → data/timelines/
 ├── step4_extract_own_goals.py # Scan timelines, extract OG events → data/own_goals.csv
-├── generate_report.py         # Build HTML report → report.html
+├── generate_report.py         # All four HTML reports (own goals + penalty / VAR / VAR-unpaired)
+├── report_navigation.py      # Shared nav bar for all report pages
 ├── run_all.py                 # Orchestrate all steps in sequence
 ├── data/
 │   ├── schedule.csv           # Matches across configured competitions/seasons
 │   ├── own_goals.csv          # Extracted own goal records
 │   └── timelines/             # Cached raw JSON from Sportradar (one file per match)
-└── report.html                # Final output — open in browser
+├── report_own_goals.html       # Own goals (primary; nav links to the three below)
+├── report_penalty_shootouts.html
+├── report_var_events.html
+└── report_var_unpaired.html
 ```
 
 ---
@@ -27,7 +31,7 @@ Pulls data from the Sportradar Soccer API to identify own goals across one or mo
 - **API**: Sportradar Soccer v4 (trial)
 - **Configured in**: `config.py` → `COMPETITIONS` list
 - **Each entry includes**: `competition_id`, `competition_name`, `season_id`, `season_name`
-- **Supabase** (when enabled): `public.competitions`, `public.seasons`, `public.games`, `public.sport_event_timelines`, `public.own_goals` — see `supabase/migrations/`
+- **Supabase** (when enabled): `public."Competitions"`, `public."Seasons (current sr:season:ID)"`, `public."All Games (sr:sport_events)"`, `public."Completed Matches - full sport_event_timelines"`, `public.own_goals` — see `supabase/migrations/`
 - **Own goal detection**: `timeline.type == "score_change" && timeline.method == "own_goal"`
 
 ---
@@ -70,7 +74,14 @@ The trial API key allows **1 request/second**. `step3_fetch_timelines.py` enforc
 
 ## GitHub Pages & Weekly Email
 
-The report is hosted at **https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/report.html**.
+Reports on GitHub Pages (same folder on `main`):
+
+- [Own goals](https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/report_own_goals.html)
+- [Penalty shootouts](https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/report_penalty_shootouts.html)
+- [VAR events](https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/report_var_events.html)
+- [VAR unpaired review queue](https://laneashipley-create.github.io/25-26-Tier-1-Soccer-Database/report_var_unpaired.html)
+
+The weekly/daily workflows commit these HTML files next to `report_own_goals.html` so Pages serves them automatically.
 
 ### Enabling GitHub Pages
 

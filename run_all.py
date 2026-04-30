@@ -4,7 +4,7 @@ Master runner — executes all steps in order:
   Step 3: Fetch timelines → data/timelines/*.json
   Step 4: Extract own goals → data/own_goals.csv
   Step 5: Extract VAR/shootout event tables (Supabase mode)
-  Step 6: Generate report → report.html
+  Step 6: Generate HTML reports → report_own_goals.html + penalty / VAR / VAR-unpaired pages
 
 Safe to re-run: timelines are cached, so only new/missing ones are fetched.
 """
@@ -35,9 +35,9 @@ if __name__ == "__main__":
     section("STEP 5 — Extracting VAR + penalty shootout tables")
     step5_extract_var_and_shootouts.main()
 
-    section("STEP 6 — Generating HTML report")
+    section("STEP 6 — Generating HTML reports")
     generate_report.main()
 
     print(f"\n{DIVIDER}")
-    print("  All done! Open report.html in your browser.")
+    print("  All done! Open report_own_goals.html (nav links to penalty / VAR reports) in your browser.")
     print(DIVIDER)

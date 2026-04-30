@@ -77,7 +77,9 @@ def main():
     html = generate_report.generate_html(rows_og, completed, events)
     with open(generate_report.REPORT_HTML, "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"Report updated: {generate_report.REPORT_HTML}")
+    generate_report.write_legacy_report_redirect()
+    generate_report.write_derived_reports()
+    print(f"Report updated: {generate_report.REPORT_HTML} (+ companion HTML)")
 
 
 if __name__ == "__main__":

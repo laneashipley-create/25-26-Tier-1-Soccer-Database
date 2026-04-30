@@ -4,8 +4,8 @@
 -- "forfeit" flag in the current schema.
 --
 -- It surfaces matches when any of the following are true:
---   1) public.games.status is already abnormal (cancelled, postponed)
---   2) public.games.match_status is abnormal (if populated later)
+--   1) public."All Games (sr:sport_events)".status is already abnormal (cancelled, postponed)
+--   2) public."All Games (sr:sport_events)".match_status is abnormal (if populated later)
 --   3) timeline text/commentary contains keywords like abandoned / forfeit / walkover
 --   4) the final score is 3-0 or 0-3 AND the stored timeline is sparse / unusual
 --
@@ -30,7 +30,7 @@ with timeline_stats as (
       distinct nullif(e ->> 'type', ''),
       ', ' order by nullif(e ->> 'type', '')
     ) as timeline_event_types
-  from public.sport_event_timelines t
+  from public."Completed Matches - full sport_event_timelines" t
   cross join lateral jsonb_array_elements(coalesce(t.timeline_json -> 'timeline', '[]'::jsonb)) as e
   group by t.game_id
 ),
@@ -53,7 +53,7 @@ keyword_hits as (
         160
       )
     ) as keyword_examples
-  from public.sport_event_timelines t
+  from public."Completed Matches - full sport_event_timelines" t
   cross join lateral jsonb_array_elements(coalesce(t.timeline_json -> 'timeline', '[]'::jsonb)) as e
   where lower(e::text) similar to '%(abandon|forfeit|walkover|walk_over|cancel|postpon|suspend|awarded)%'
   group by t.game_id
@@ -89,10 +89,10 @@ select
       then '3-0 score with sparse/odd timeline'
     else 'review'
   end as suspected_reason
-from public.games g
-left join public.sport_event_timelines t on t.game_id = g.id
-left join public.seasons s on s.id = g.season_id
-left join public.competitions c on c.id = s.competition_id
+from public."All Games (sr:sport_events)" g
+left join public."Completed Matches - full sport_event_timelines" t on t.game_id = g.id
+left join public."Seasons (current sr:season:ID)" s on s.id = g.season_id
+left join public."Competitions" c on c.id = s.competition_id
 left join timeline_stats ts on ts.game_id = g.id
 left join keyword_hits kh on kh.game_id = g.id
 where
