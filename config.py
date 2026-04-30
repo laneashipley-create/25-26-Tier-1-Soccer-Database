@@ -264,6 +264,11 @@ REQUEST_DELAY_SECONDS = 1.1
 # Only fetch timelines for matches with these statuses
 COMPLETED_STATUSES = {"closed", "ended"}
 
+# --daily: only consider missing timelines for matches whose kickoff is within this many days.
+# Older backlog (e.g. first-time setup) is cleared by the weekly --full-backfill workflow, which
+# runs a full schedule sync and all missing timelines.
+PIPELINE_RECENT_TIMELINE_DAYS = int(os.environ.get("PIPELINE_RECENT_TIMELINE_DAYS", "14"))
+
 # Supabase — EPL Own Goals project (key from config_local or env)
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://yoesorfzvtbdmvrdtqoo.supabase.co")
 try:

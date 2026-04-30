@@ -55,14 +55,29 @@ def cache_path(sport_event_id: str) -> str:
     return os.path.join(TIMELINES_DIR, f"{safe_id}.json")
 
 
-def main():
+def main(recent_start_days: int | None = None):
+    """
+    Fetch timelines for completed matches missing storage.
+
+    When ``recent_start_days`` is set (Supabase daily mode), only matches whose kickoff is
+    within that many days are considered; older gaps are left for a full backfill run.
+    """
     os.makedirs(TIMELINES_DIR, exist_ok=True)
 
     if USE_SUPABASE:
         import db
         db.get_or_create_seasons()
-        matches = db.get_completed_matches_without_timeline_for_configured_seasons()
-        print(f"Completed matches without timeline (from Supabase): {len(matches)}")
+        if recent_start_days is not None and recent_start_days > 0:
+            matches = db.get_completed_matches_without_timeline_for_configured_seasons_recent(
+                recent_start_days=recent_start_days,
+            )
+            print(
+                f"Completed matches without timeline (Supabase, kickoff within last "
+                f"{recent_start_days} d): {len(matches)}"
+            )
+        else:
+            matches = db.get_completed_matches_without_timeline_for_configured_seasons()
+            print(f"Completed matches without timeline (from Supabase): {len(matches)}")
     else:
         matches = load_completed_matches(SCHEDULE_CSV)
         print(f"Completed matches to process: {len(matches)}")

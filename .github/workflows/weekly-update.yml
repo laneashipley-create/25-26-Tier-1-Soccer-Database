@@ -1,5 +1,7 @@
-# EPL Own Goals — Weekly email + full pipeline (daily conditional refresh is daily-update.yml).
-# Runs every Wednesday 05:00 UTC (~Tuesday 9 PM US Pacific in standard time). Only workflow that sends Brevo email.
+# EPL Own Goals — Weekly email + HTML only (fast). Brevo is the only email sender here.
+# Expects Supabase to already be updated by daily --daily runs and weekly-data-pipeline.yml
+# (Wed 04:00 UTC: full schedule + all missing timelines + steps 4–5).
+# Runs Wednesday 05:00 UTC (~Tuesday 9 PM US Pacific in standard time).
 name: Weekly EPL Own Goals Update
 
 on:
@@ -38,14 +40,21 @@ jobs:
             printf "sport_event_id,match_date,round,home_team,away_team,og_player,og_player_id,og_player_team,benefiting_team,minute,stoppage_time,home_score_after,away_score_after,final_home_score,final_away_score,commentary\n" > .tmp/previous_own_goals.csv
           fi
 
-      - name: Run update pipeline
+      - name: Regenerate HTML reports from Supabase
         env:
-          SPORTRADAR_API_KEY: ${{ secrets.SPORTRADAR_API_KEY }}
           SUPABASE_URL: https://yoesorfzvtbdmvrdtqoo.supabase.co
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           export PYTHONUTF8=1
-          python run_all.py
+          python run_all.py --reports-only
+
+      - name: Export own goals CSV for email diff + repo
+        env:
+          SUPABASE_URL: https://yoesorfzvtbdmvrdtqoo.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          export PYTHONUTF8=1
+          python export_own_goals_csv.py data/own_goals.csv
 
       - name: Build email summary for new own goals
         run: |

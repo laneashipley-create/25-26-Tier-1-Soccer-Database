@@ -1,8 +1,9 @@
-# EPL Own Goals — Daily schedule refresh; timelines + downstream only when needed (no email).
-# Uses: python run_all.py --conditional-daily
-#   → Always step 2 (schedule / games). Steps 3–6 run only if some completed match is still
-#   missing a timeline in Supabase (or missing local cache when USE_SUPABASE is false).
-# Weekly full pipeline + Brevo email: weekly-update.yml (Wed 05:00 UTC).
+# EPL Own Goals — Daily incremental refresh (no email, no full schedule pull).
+# Uses: python run_all.py --daily
+#   → Skips step 2. Step 3 only for completed matches missing a timeline whose kickoff is
+#   within PIPELINE_RECENT_TIMELINE_DAYS (default 14). If none pending, exits without 3–6.
+# Full Sportradar schedule + all missing timelines: weekly-data-pipeline.yml (Wed 04:00 UTC).
+# HTML + Brevo: weekly-update.yml (Wed 05:00 UTC).
 name: Daily EPL Own Goals Data Refresh
 
 on:
@@ -40,7 +41,7 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           export PYTHONUTF8=1
-          python run_all.py --conditional-daily
+          python run_all.py --daily
 
       - name: Convert logo SVG to PNG (for Outlook/Gmail compatibility)
         run: |

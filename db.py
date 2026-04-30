@@ -7,7 +7,7 @@ Use when USE_SUPABASE is True in config. Provides:
   - get_or_create_competition() — ensure public."Competitions" row exists
   - get_or_create_season() / get_or_create_seasons() — ensure public."Seasons (current sr:season:ID)" rows
   - upsert_games() — upsert rows in public."All Games (sr:sport_events)" (sport events per season)
-  - get_completed_matches_without_timeline* — for step 3
+  - get_completed_matches_without_timeline* — for step 3 (full or recent-kickoff-only for --daily)
   - upsert_timeline() / get_timeline_json() — public."Completed Matches - full sport_event_timelines"
   - upsert_own_goals() — write extracted own goals
 
@@ -17,9 +17,11 @@ Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_ANON_KEY)
 
 from __future__ import annotations
 
+import csv
 import json
 import os
 import time
+from datetime import datetime, timedelta, timezone
 import urllib.error
 import urllib.request
 
@@ -95,10 +97,40 @@ def _recording_id_for_event(sport_event_id: object, recorded: object) -> str:
     return _load_recording_id_by_event().get(str(sport_event_id), "")
 
 
+def _reset_postgrest_client() -> None:
+    """Drop cached SyncPostgREST client so the next call opens a fresh HTTP connection."""
+    global _client
+    _client = None
+
+
+def _is_retryable_transport_error(exc: BaseException) -> bool:
+    """True for HTTP/2 goaway, dropped connections, and timeouts from httpx/httpcore."""
+    try:
+        import httpx
+    except ImportError:  # pragma: no cover
+        return False
+    if isinstance(
+        exc,
+        (
+            httpx.RemoteProtocolError,
+            httpx.ConnectError,
+            httpx.ReadTimeout,
+            httpx.WriteTimeout,
+            httpx.PoolTimeout,
+        ),
+    ):
+        return True
+    cause = getattr(exc, "__cause__", None)
+    if cause is not None and cause is not exc:
+        return _is_retryable_transport_error(cause)
+    return False
+
+
 def _supabase_execute_with_retry(execute_fn, *, attempts: int = 6, base_delay: float = 1.5):
     """
     Run a PostgREST .execute() callable; retry on transient gateway / rate errors.
     Cloudflare sometimes returns HTML 502 — treated as retryable.
+    Long runs can exhaust HTTP/2 streams on a single connection; reset client and retry.
     """
     delay = base_delay
     last_exc: BaseException | None = None
@@ -111,7 +143,12 @@ def _supabase_execute_with_retry(execute_fn, *, attempts: int = 6, base_delay: f
             code = info.get("code")
             if code not in (429, 502, 503, 504, 520):
                 raise
+        except BaseException as e:
+            last_exc = e
+            if not _is_retryable_transport_error(e):
+                raise
         if i < attempts - 1:
+            _reset_postgrest_client()
             time.sleep(delay)
             delay = min(delay * 2, 45.0)
     assert last_exc is not None
@@ -339,6 +376,52 @@ def get_completed_matches_without_timeline_for_configured_seasons() -> list[dict
     return out
 
 
+def _parse_game_start_time(value: object) -> datetime | None:
+    """Parse games.start_time (timestamptz string or similar) to timezone-aware UTC."""
+    if value is None or value == "":
+        return None
+    s = str(value).strip()
+    if not s:
+        return None
+    if s.endswith("Z"):
+        s = s[:-1] + "+00:00"
+    try:
+        dt = datetime.fromisoformat(s)
+    except ValueError:
+        try:
+            dt = datetime.fromisoformat(s.replace(" ", "T"))
+        except ValueError:
+            return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    else:
+        dt = dt.astimezone(timezone.utc)
+    return dt
+
+
+def get_completed_matches_without_timeline_for_configured_seasons_recent(
+    *, recent_start_days: int
+) -> list[dict]:
+    """
+    Like get_completed_matches_without_timeline_for_configured_seasons(), but only matches
+    whose kickoff (start_time) is within the last ``recent_start_days`` days (UTC).
+
+    Used by the daily job so it does not walk a multi-year backlog of missing timelines.
+    Weekly ``--full-backfill`` should run with a full schedule sync to refresh statuses and
+    clear any older gaps.
+    """
+    if recent_start_days < 1:
+        return get_completed_matches_without_timeline_for_configured_seasons()
+    cutoff = datetime.now(timezone.utc) - timedelta(days=recent_start_days)
+    all_missing = get_completed_matches_without_timeline_for_configured_seasons()
+    out: list[dict] = []
+    for row in all_missing:
+        dt = _parse_game_start_time(row.get("start_time"))
+        if dt is None or dt >= cutoff:
+            out.append(row)
+    return out
+
+
 def upsert_timeline(game_id: str, timeline_json: dict | None = None) -> None:
     """Record that we have fetched the timeline for this game row. Optionally store timeline_json."""
     supabase = get_client()
@@ -510,6 +593,20 @@ def get_all_own_goals() -> list[dict]:
             "commentary": str(row.get("commentary") or ""),
         })
     return out
+
+
+def write_own_goals_csv_export(path: str) -> None:
+    """Write data/own_goals.csv from Supabase own_goals (+ joins), using the same columns as step4."""
+    from step4_extract_own_goals import OG_FIELDS
+
+    rows = get_all_own_goals()
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=OG_FIELDS, extrasaction="ignore")
+        w.writeheader()
+        for r in rows:
+            w.writerow({k: r.get(k, "") for k in OG_FIELDS})
+    print(f"Wrote {len(rows)} own goal row(s) to {path}")
 
 
 def get_completed_timelines_count() -> int:
@@ -685,13 +782,12 @@ def clear_penalty_shootout_matches() -> None:
 
 def upsert_penalty_shootout_matches(rows: list[dict], replace: bool = True) -> None:
     """Insert penalty shootout match rows derived from timelines."""
-    supabase = get_client()
     if replace:
         clear_penalty_shootout_matches()
     if not rows:
         return
-    for row in rows:
-        payload = {
+    payloads = [
+        {
             "game_id": row.get("game_id"),
             "sport_event_id": row.get("sport_event_id", ""),
             "match_date": row.get("match_date"),
@@ -704,11 +800,21 @@ def upsert_penalty_shootout_matches(rows: list[dict], replace: bool = True) -> N
             "shootout_attempts": _int_or_none(row.get("shootout_attempts")) or 0,
             "sudden_death": bool(row.get("sudden_death")),
         }
-        supabase.table("penalty_shootout_matches").upsert(
-            payload,
-            on_conflict="game_id",
-            ignore_duplicates=False,
-        ).execute()
+        for row in rows
+    ]
+    batch = 250
+    for i in range(0, len(payloads), batch):
+        chunk = payloads[i : i + batch]
+
+        def _run():
+            cli = get_client()
+            return (
+                cli.table("penalty_shootout_matches")
+                .upsert(chunk, on_conflict="game_id", ignore_duplicates=False)
+                .execute()
+            )
+
+        _supabase_execute_with_retry(_run)
 
 
 def clear_var_timeline_events() -> None:
@@ -718,13 +824,12 @@ def clear_var_timeline_events() -> None:
 
 def upsert_var_timeline_events(rows: list[dict], replace: bool = True) -> None:
     """Insert VAR timeline event rows derived from timeline_json."""
-    supabase = get_client()
     if replace:
         clear_var_timeline_events()
     if not rows:
         return
-    for row in rows:
-        payload = {
+    payloads = [
+        {
             "game_id": row.get("game_id"),
             "sport_event_id": row.get("sport_event_id", ""),
             "match_date": row.get("match_date"),
@@ -746,11 +851,26 @@ def upsert_var_timeline_events(rows: list[dict], replace: bool = True) -> None:
             "affected_team": row.get("affected_team"),
             "commentary": row.get("commentary"),
         }
-        supabase.table("var_timeline_events").upsert(
-            payload,
-            on_conflict="game_id,timeline_event_id,var_event_type",
-            ignore_duplicates=False,
-        ).execute()
+        for row in rows
+    ]
+    # One upsert per row exhausts HTTP/2 streams on a long-lived client (~20k streams).
+    batch = 250
+    for i in range(0, len(payloads), batch):
+        chunk = payloads[i : i + batch]
+
+        def _run():
+            cli = get_client()
+            return (
+                cli.table("var_timeline_events")
+                .upsert(
+                    chunk,
+                    on_conflict="game_id,timeline_event_id,var_event_type",
+                    ignore_duplicates=False,
+                )
+                .execute()
+            )
+
+        _supabase_execute_with_retry(_run)
 
 
 def _fetch_all_ordered(table: str, orders: list[tuple[str, bool]]) -> list[dict]:

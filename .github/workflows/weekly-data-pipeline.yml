@@ -1,0 +1,53 @@
+# Full schedule sync + all missing timelines + derived tables (no HTML, no email).
+# Runs before the weekly email job so games / timelines / own_goals / VAR / shootouts are
+# current in Supabase; the email workflow only regenerates HTML and sends Brevo.
+# Daily CI uses run_all.py --daily (no step 2; timelines only for recent kickoffs).
+name: Weekly data backfill
+
+on:
+  schedule:
+    # Wednesday 04:00 UTC — one hour before weekly email at 05:00 UTC.
+    - cron: "0 4 * * 3"
+  workflow_dispatch:
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Full backfill (steps 2–5)
+        env:
+          SPORTRADAR_API_KEY: ${{ secrets.SPORTRADAR_API_KEY }}
+          SUPABASE_URL: https://yoesorfzvtbdmvrdtqoo.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          export PYTHONUTF8=1
+          python run_all.py --full-backfill
+
+      - name: Commit and push data updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/schedule.csv data/own_goals.csv
+          if git diff --staged --quiet; then
+            echo "No CSV changes to commit"
+          else
+            git commit -m "chore: weekly data backfill (schedule + derived CSV) [skip ci]"
+            git push
+          fi
