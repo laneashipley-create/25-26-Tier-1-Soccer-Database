@@ -246,6 +246,35 @@ SEASON_ID = COMPETITIONS[0]["season_id"]
 SEASON_NAME = COMPETITIONS[0]["season_name"]
 SEASON_LABEL = ", ".join(c["season_name"] for c in COMPETITIONS)
 
+# Report hub + page header blurbs (keep in sync with report_hub.html)
+REPORT_BLURB_LIST_OF_ALL_GAMES = (
+    "Browse the complete schedule for all 24 competitions included in this report"
+)
+REPORT_BLURB_OWN_GOALS = (
+    "Report identifies all own goals that occurred in completed games "
+    "(score_change + method=own_goal)."
+)
+REPORT_BLURB_OWN_GOALS_NOTE = (
+    "Note: Commentary only available from 4/20/26 onward due to a database refresh + "
+    "commentary being removed from timelines after 14 days"
+)
+REPORT_BLURB_VAR_EVENTS = (
+    "Review all VAR events from completed matches with type, timing, affected side, etc. etc"
+)
+REPORT_BLURB_VAR_UNPAIRED = (
+    "Report identifies matches that have un-paired VAR events, meaning there was a "
+    '"video_assistant_referee" event but no corresponding "video_assistant_referee_over" event.'
+)
+REPORT_BLURB_PENALTY_SHOOTOUTS = (
+    "Report identifies all completed matches that ended in a penalty shootout (match_status=ap). "
+    "Also calculates total number of penalty shots and if that # is greater than 10, marks the "
+    "match as having ended in 'sudden death' penalty shootout"
+)
+REPORT_BLURB_RECORDINGS_LIBRARY = (
+    "See the full list of available soccer recordings with all relevant metadata (competition name, "
+    "season ID, match ID), as well as a clear breakdown of which API endpoints are included in the recording"
+)
+
 # Output files
 SCHEDULE_CSV = "data/schedule.csv"
 OWN_GOALS_CSV = "data/own_goals.csv"
@@ -257,6 +286,7 @@ REPORT_HTML_PENALTY_SHOOTOUTS = "report_penalty_shootouts.html"
 REPORT_HTML_VAR_EVENTS = "report_var_events.html"
 REPORT_HTML_VAR_UNPAIRED = "report_var_unpaired.html"
 REPORT_HTML_RECORDINGS_LIBRARY = "report_recordings_library.html"
+REPORT_HTML_MASTER_GAMES = "report_master_games.html"
 
 # Rate limiting: Sportradar trial keys are limited to 1 request/second
 REQUEST_DELAY_SECONDS = 1.1

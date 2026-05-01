@@ -1,12 +1,13 @@
 """
 STEP 6 — Generate HTML reports.
 
-Writes all five derived static pages in one place:
+Writes derived static pages:
 
 - report_own_goals.html — own goals (CSV or Supabase)
 - report_penalty_shootouts.html, report_var_events.html, report_var_unpaired.html,
   report_recordings_library.html — from Supabase when USE_SUPABASE is set;
   otherwise stub HTML for those four files.
+- report_master_games.html — full Supabase \"All Games\" schedule (master_games_report.py)
 
 Without Supabase, own goals are read from data/own_goals.csv.
 """
@@ -19,6 +20,12 @@ from datetime import datetime, timezone
 
 from config import (
     OWN_GOALS_CSV,
+    REPORT_BLURB_OWN_GOALS,
+    REPORT_BLURB_OWN_GOALS_NOTE,
+    REPORT_BLURB_PENALTY_SHOOTOUTS,
+    REPORT_BLURB_RECORDINGS_LIBRARY,
+    REPORT_BLURB_VAR_EVENTS,
+    REPORT_BLURB_VAR_UNPAIRED,
     REPORT_HTML,
     REPORT_HTML_LEGACY_REDIRECT,
     REPORT_HTML_PENALTY_SHOOTOUTS,
@@ -237,7 +244,6 @@ def _inline_report_script() -> str:
   const allNames = filterPayload.allSeasonNames || [];
   const pb = filterPayload.pipelineBySeason || {};
   const pg = filterPayload.pipelineGlobal || { matches: 0 };
-  const scopeDefault = filterPayload.scopeLabelDefault || '';
   const dataDateMin = filterPayload.dataDateMin || '';
   const dataDateMax = filterPayload.dataDateMax || '';
 
@@ -581,16 +587,16 @@ def _inline_report_script() -> str:
     if (pl) pl.textContent = ag.total === 1 ? '' : 's';
 
     var selArr = selected === null ? allNames : selected;
-    var scopeEl = document.getElementById('subtitle-scope');
+    var scopeEl = document.getElementById('subtitle-filter-scope');
     if (scopeEl) {
       if (!selArr.length) scopeEl.textContent = '— no competitions selected';
-      else if (selArr.length === allNames.length) scopeEl.textContent = 'scored across ' + scopeDefault;
-      else scopeEl.textContent = 'across ' + selArr.length + ' selected competition' + (selArr.length === 1 ? '' : 's');
+      else if (selArr.length === allNames.length) scopeEl.textContent = '· all competitions';
+      else scopeEl.textContent = '· filtered to ' + selArr.length + ' competition' + (selArr.length === 1 ? '' : 's');
     }
     var ttitle = document.getElementById('table-filter-title');
     if (ttitle) {
       if (!selArr.length) ttitle.textContent = 'All Own Goals — (none selected)';
-      else if (selArr.length === allNames.length) ttitle.textContent = 'All Own Goals — ' + scopeDefault;
+      else if (selArr.length === allNames.length) ttitle.textContent = 'All Own Goals';
       else ttitle.textContent = 'All Own Goals — ' + selArr.join(', ');
     }
     updateDateHint(dr);
@@ -1208,7 +1214,7 @@ def _derived_page_shell(
       margin-bottom: 0.45rem;
     }}
     h1 {{ font-size: 1.6rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }}
-    .subtitle {{ margin-top: 0.4rem; font-size: 0.9rem; color: #ccc; }}
+    .subtitle {{ margin-top: 0.4rem; font-size: 0.9rem; color: #ccc; max-width: 52rem; margin-left: auto; margin-right: auto; line-height: 1.45; }}
     .meta {{
       max-width: 1100px;
       margin: 0.85rem auto 0;
@@ -1352,7 +1358,7 @@ def write_derived_reports() -> None:
         title=f"Penalty shootouts — {SEASON_LABEL}",
         badge="Sportradar Soccer",
         headline="Penalty shootout matches",
-        subtitle=SEASON_LABEL,
+        subtitle=REPORT_BLURB_PENALTY_SHOOTOUTS,
         meta=f"<strong>{len(ps):,}</strong> matches with timeline <code>match_status = ap</code> (after penalties). "
         "Attempts count <code>penalty_shootout</code> events with <code>period_type = penalties</code>. "
         "<strong>Sudden death</strong> = more than 10 attempts in that feed.",
@@ -1407,7 +1413,7 @@ def write_derived_reports() -> None:
         title=f"VAR events — {SEASON_LABEL}",
         badge="Sportradar Soccer",
         headline="VAR timeline events",
-        subtitle=SEASON_LABEL,
+        subtitle=REPORT_BLURB_VAR_EVENTS,
         meta=f"<strong>{len(vr):,}</strong> rows from <code>video_assistant_referee</code> and "
         "<code>video_assistant_referee_over</code> (completed matches). "
         "<strong>Decision</strong> is often empty on standard timelines (see Extended API docs).",
@@ -1448,7 +1454,7 @@ def write_derived_reports() -> None:
         title=f"VAR unpaired — {SEASON_LABEL}",
         badge="Sportradar Soccer",
         headline="Matches with unpaired VAR counts",
-        subtitle=SEASON_LABEL,
+        subtitle=REPORT_BLURB_VAR_UNPAIRED,
         meta="<strong>Review queue:</strong> matches where counts of <code>video_assistant_referee</code> "
         "and <code>video_assistant_referee_over</code> differ (feed may omit <code>_over</code> events). "
         f"<strong>{len(vu):,}</strong> match(es) in this export.",
@@ -1508,8 +1514,8 @@ def write_derived_reports() -> None:
     rl_doc = _derived_page_shell(
         title=f"Recordings library — {SEASON_LABEL}",
         badge="Sportradar Soccer",
-        headline="Soccer // Recordings Library",
-        subtitle="Record / Replay export (Library Details layout)",
+        headline="Soccer Recording/Replay Library",
+        subtitle=REPORT_BLURB_RECORDINGS_LIBRARY,
         meta=f"<strong>{len(rl):,}</strong> recording row(s) from Supabase "
         "<code>recordings_library_report</code> (sync via <code>sync_recordings_library.py</code>). "
         "<strong>ID</strong> is row order in this report (1 = oldest <strong>Sport Event Start</strong>). "
@@ -1540,7 +1546,6 @@ def generate_html(
         "pipelineBySeason": pipeline_by_season,
         "pipelineGlobal": {"matches": completed_matches},
         "allSeasonNames": all_season_names,
-        "scopeLabelDefault": SEASON_LABEL,
         "dataDateMin": data_date_min,
         "dataDateMax": data_date_max,
     }
@@ -1681,6 +1686,17 @@ def generate_html(
       color: #ccc;
     }}
     .header .subtitle strong {{ color: #fff; }}
+    .header .header-lead {{ margin: 0; }}
+    .header .header-desc,
+    .header .header-note {{
+      margin: 0.55rem auto 0;
+      max-width: 44rem;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: #c8c8c8;
+    }}
+    .header .header-note {{ margin-top: 0.45rem; }}
+    .header .header-filter-hint {{ font-weight: 400; color: #aaa; }}
 
     .og-row--hidden {{ display: none !important; }}
 
@@ -2182,7 +2198,9 @@ def generate_html(
     <div class="header-badge">Sportradar Soccer</div>
     <h1><span>Own Goals</span> Tracker</h1>
     <div class="subtitle">
-      <strong id="subtitle-og-total">{total}</strong> own goal<span id="subtitle-og-plural">{"s" if total != 1 else ""}</span> <span id="subtitle-scope">scored across {SEASON_LABEL}</span>
+      <p class="header-lead"><strong id="subtitle-og-total">{total}</strong> own goal<span id="subtitle-og-plural">{"s" if total != 1 else ""}</span> <span id="subtitle-filter-scope" class="header-filter-hint">· all competitions</span></p>
+      <p class="header-desc">{html.escape(REPORT_BLURB_OWN_GOALS, quote=False)}</p>
+      <p class="header-note">{html.escape(REPORT_BLURB_OWN_GOALS_NOTE, quote=False)}</p>
     </div>
   </div>
 
@@ -2195,7 +2213,7 @@ def generate_html(
 
   <div class="table-section">
     <div class="table-header-row">
-      <div class="table-title" id="table-filter-title">All Own Goals &mdash; {SEASON_LABEL}</div>
+      <div class="table-title" id="table-filter-title">All Own Goals</div>
       <div class="sort-hint">Click a column header to sort. Use <strong>Values…</strong> for an Excel-style value checklist (search inside the list when needed).</div>
     </div>
     <div class="table-wrap">
@@ -2297,8 +2315,11 @@ def main():
     print(f"Report written to: {REPORT_HTML}")
     write_legacy_report_redirect()
     print(f"Legacy redirect written to: {REPORT_HTML_LEGACY_REDIRECT} -> {REPORT_HTML}")
-    print("Generating companion reports (penalty shootouts, VAR, VAR unpaired)…")
+    print("Generating companion reports (penalty shootouts, VAR, VAR unpaired, recordings, list of all games)…")
     write_derived_reports()
+    import master_games_report
+
+    master_games_report.write_master_games_report()
     print(f"Open {REPORT_HTML} (and linked pages) in your browser to view.")
 
 

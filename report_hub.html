@@ -125,6 +125,8 @@
   <div class="topbar">
     <span class="active">Home</span>
     <span aria-hidden="true">·</span>
+    <a href="report_master_games.html">List of All Games</a>
+    <span aria-hidden="true">·</span>
     <a href="report_own_goals.html">Own goals</a>
     <span aria-hidden="true">·</span>
     <a href="report_penalty_shootouts.html">Penalty shootouts</a>
@@ -146,29 +148,34 @@
       </p>
 
       <div class="grid">
+        <a class="tile" href="report_master_games.html">
+          <div class="tile-title">List of All Games</div>
+          <div class="tile-desc">Browse the complete schedule for all 24 competitions included in this report</div>
+          <span class="accent">Open report</span>
+        </a>
         <a class="tile" href="report_own_goals.html">
           <div class="tile-title">Own Goals</div>
-          <div class="tile-desc">Track own-goal events with match context, commentary checks, and recording flags.</div>
+          <div class="tile-desc">Report identifies all own goals that occurred in completed games (score_change + method=own_goal).<br><br><strong>Note:</strong> Commentary only available from 4/20/26 onward due to a database refresh + commentary being removed from timelines after 14 days</div>
           <span class="accent">Open report</span>
         </a>
         <a class="tile" href="report_var_events.html">
           <div class="tile-title">VAR Events</div>
-          <div class="tile-desc">Review all VAR timeline events with type, timing, affected side, and recording metadata.</div>
-          <span class="accent">Open report</span>
-        </a>
-        <a class="tile" href="report_penalty_shootouts.html">
-          <div class="tile-title">Penalty Shootouts</div>
-          <div class="tile-desc">Find matches decided via penalties, including attempts and sudden-death indicators.</div>
+          <div class="tile-desc">Review all VAR events from completed matches with type, timing, affected side, etc. etc</div>
           <span class="accent">Open report</span>
         </a>
         <a class="tile" href="report_var_unpaired.html">
           <div class="tile-title">VAR Unpaired</div>
-          <div class="tile-desc">Spot matches where VAR start/over counts do not reconcile cleanly for review.</div>
+          <div class="tile-desc">Report identifies matches that have un-paired VAR events, meaning there was a &quot;video_assistant_referee&quot; event but no corresponding &quot;video_assistant_referee_over&quot; event.</div>
+          <span class="accent">Open report</span>
+        </a>
+        <a class="tile" href="report_penalty_shootouts.html">
+          <div class="tile-title">Penalty Shootouts</div>
+          <div class="tile-desc">Report identifies all completed matches that ended in a penalty shootout (match_status=ap). Also calculates total number of penalty shots and if that # is greater than 10, marks the match as having ended in &apos;sudden death&apos; penalty shootout</div>
           <span class="accent">Open report</span>
         </a>
         <a class="tile" href="report_recordings_library.html">
-          <div class="tile-title">Soccer // Recordings Library</div>
-          <div class="tile-desc">Browse Record/Replay captures with Library Details columns: APIs captured, kickoff time, league label, and IDs.</div>
+          <div class="tile-title">Soccer Recording/Replay Library</div>
+          <div class="tile-desc">See the full list of available soccer recordings with all relevant metadata (competition name, season ID, match ID), as well as a clear breakdown of which API endpoints are included in the recording</div>
           <span class="accent">Open report</span>
         </a>
       </div>

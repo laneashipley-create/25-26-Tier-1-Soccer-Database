@@ -47,6 +47,17 @@
       color: #ccc;
     }
     .header .subtitle strong { color: #fff; }
+    .header .header-lead { margin: 0; }
+    .header .header-desc,
+    .header .header-note {
+      margin: 0.55rem auto 0;
+      max-width: 44rem;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: #c8c8c8;
+    }
+    .header .header-note { margin-top: 0.45rem; }
+    .header .header-filter-hint { font-weight: 400; color: #aaa; }
 
     .og-row--hidden { display: none !important; }
 
@@ -701,11 +712,15 @@
     <div class="header-badge">Sportradar Soccer</div>
     <h1><span>Own Goals</span> Tracker</h1>
     <div class="subtitle">
-      <strong id="subtitle-og-total">282</strong> own goal<span id="subtitle-og-plural">s</span> <span id="subtitle-scope">scored across UEFA Champions League 25/26, Brasileiro Serie A 2026, Bundesliga 25/26, Premier League 25/26, J1 League 2026, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Conference League 25/26, UEFA Nations League 26/27, World Cup 2026, UEFA Euro 2028, DFB Pokal 25/26, FA Cup 25/26, Copa del Rey 25/26, Coupe de France 25/26, Coppa Italia 25/26, Community Shield 2025, UEFA Super Cup 2025, CONMEBOL Libertadores 2026, Liga MX, Clausura 2026</span>
+      <p class="header-lead"><strong id="subtitle-og-total">282</strong> own goal<span id="subtitle-og-plural">s</span> <span id="subtitle-filter-scope" class="header-filter-hint">· all competitions</span></p>
+      <p class="header-desc">Report identifies all own goals that occurred in completed games (score_change + method=own_goal).</p>
+      <p class="header-note">Note: Commentary only available from 4/20/26 onward due to a database refresh + commentary being removed from timelines after 14 days</p>
     </div>
   </div>
 
   <nav class="report-nav" aria-label="Reports"><a href="report_hub.html">Home</a>
+      <span class="nav-sep" aria-hidden="true"> · </span>
+      <a href="report_master_games.html">List of All Games</a>
       <span class="nav-sep" aria-hidden="true"> · </span>
       <span class="nav-active">Own goals</span>
       <span class="nav-sep" aria-hidden="true"> · </span>
@@ -804,7 +819,7 @@
 
   <div class="table-section">
     <div class="table-header-row">
-      <div class="table-title" id="table-filter-title">All Own Goals &mdash; UEFA Champions League 25/26, Brasileiro Serie A 2026, Bundesliga 25/26, Premier League 25/26, J1 League 2026, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Conference League 25/26, UEFA Nations League 26/27, World Cup 2026, UEFA Euro 2028, DFB Pokal 25/26, FA Cup 25/26, Copa del Rey 25/26, Coupe de France 25/26, Coppa Italia 25/26, Community Shield 2025, UEFA Super Cup 2025, CONMEBOL Libertadores 2026, Liga MX, Clausura 2026</div>
+      <div class="table-title" id="table-filter-title">All Own Goals</div>
       <div class="sort-hint">Click a column header to sort. Use <strong>Values…</strong> for an Excel-style value checklist (search inside the list when needed).</div>
     </div>
     <div class="table-wrap">
@@ -8511,7 +8526,7 @@
   </div>
 
   <div class="footer">
-    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 30 April 2026, 23:26 UTC</p>
+    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 01 May 2026, 23:27 UTC</p>
   </div>
 
   <script>
@@ -8653,7 +8668,7 @@
   window.ReportExcelFilter = { open: open, close: close };
 })();
 </script>
-  <script type="application/json" id="report-filter-data">{"pipelineBySeason": {"UEFA Champions League 25/26": {"matches_reviewed": 278}, "Brasileiro Serie A 2026": {"matches_reviewed": 127}, "Bundesliga 25/26": {"matches_reviewed": 279}, "Premier League 25/26": {"matches_reviewed": 339}, "J1 League 2026": {"matches_reviewed": 129}, "LaLiga 25/26": {"matches_reviewed": 330}, "Ligue 1 25/26": {"matches_reviewed": 277}, "MLS 2026": {"matches_reviewed": 144}, "Serie A 25/26": {"matches_reviewed": 340}, "UEFA Europa League 25/26": {"matches_reviewed": 268}, "UEFA Conference League 25/26": {"matches_reviewed": 406}, "UEFA Nations League 26/27": {"matches_reviewed": 0}, "World Cup 2026": {"matches_reviewed": 0}, "UEFA Euro 2028": {"matches_reviewed": 0}, "DFB Pokal 25/26": {"matches_reviewed": 62}, "FA Cup 25/26": {"matches_reviewed": 122}, "Copa del Rey 25/26": {"matches_reviewed": 137}, "Coupe de France 25/26": {"matches_reviewed": 197}, "Coppa Italia 25/26": {"matches_reviewed": 44}, "Community Shield 2025": {"matches_reviewed": 1}, "UEFA Super Cup 2025": {"matches_reviewed": 1}, "CONMEBOL Libertadores 2026": {"matches_reviewed": 74}, "Liga MX, Clausura 2026": {"matches_reviewed": 153}}, "pipelineGlobal": {"matches": 3708}, "allSeasonNames": ["Brasileiro Serie A 2026", "Bundesliga 25/26", "CONMEBOL Libertadores 2026", "Copa del Rey 25/26", "Coppa Italia 25/26", "Coupe de France 25/26", "DFB Pokal 25/26", "FA Cup 25/26", "J1 League 2026", "LaLiga 25/26", "Liga MX, Clausura 2026", "Ligue 1 25/26", "MLS 2026", "Premier League 25/26", "Serie A 25/26", "UEFA Champions League 25/26", "UEFA Conference League 25/26", "UEFA Europa League 25/26"], "scopeLabelDefault": "UEFA Champions League 25/26, Brasileiro Serie A 2026, Bundesliga 25/26, Premier League 25/26, J1 League 2026, LaLiga 25/26, Ligue 1 25/26, MLS 2026, Serie A 25/26, UEFA Europa League 25/26, UEFA Conference League 25/26, UEFA Nations League 26/27, World Cup 2026, UEFA Euro 2028, DFB Pokal 25/26, FA Cup 25/26, Copa del Rey 25/26, Coupe de France 25/26, Coppa Italia 25/26, Community Shield 2025, UEFA Super Cup 2025, CONMEBOL Libertadores 2026, Liga MX, Clausura 2026", "dataDateMin": "2025-07-10", "dataDateMax": "2026-04-30"}</script>
+  <script type="application/json" id="report-filter-data">{"pipelineBySeason": {"UEFA Champions League 25/26": {"matches_reviewed": 278}, "Brasileiro Serie A 2026": {"matches_reviewed": 127}, "Bundesliga 25/26": {"matches_reviewed": 279}, "Premier League 25/26": {"matches_reviewed": 339}, "J1 League 2026": {"matches_reviewed": 129}, "LaLiga 25/26": {"matches_reviewed": 330}, "Ligue 1 25/26": {"matches_reviewed": 277}, "MLS 2026": {"matches_reviewed": 144}, "Serie A 25/26": {"matches_reviewed": 340}, "UEFA Europa League 25/26": {"matches_reviewed": 268}, "UEFA Conference League 25/26": {"matches_reviewed": 406}, "UEFA Nations League 26/27": {"matches_reviewed": 0}, "World Cup 2026": {"matches_reviewed": 0}, "UEFA Euro 2028": {"matches_reviewed": 0}, "DFB Pokal 25/26": {"matches_reviewed": 62}, "FA Cup 25/26": {"matches_reviewed": 122}, "Copa del Rey 25/26": {"matches_reviewed": 137}, "Coupe de France 25/26": {"matches_reviewed": 197}, "Coppa Italia 25/26": {"matches_reviewed": 44}, "Community Shield 2025": {"matches_reviewed": 1}, "UEFA Super Cup 2025": {"matches_reviewed": 1}, "CONMEBOL Libertadores 2026": {"matches_reviewed": 74}, "Liga MX, Clausura 2026": {"matches_reviewed": 153}}, "pipelineGlobal": {"matches": 3708}, "allSeasonNames": ["Brasileiro Serie A 2026", "Bundesliga 25/26", "CONMEBOL Libertadores 2026", "Copa del Rey 25/26", "Coppa Italia 25/26", "Coupe de France 25/26", "DFB Pokal 25/26", "FA Cup 25/26", "J1 League 2026", "LaLiga 25/26", "Liga MX, Clausura 2026", "Ligue 1 25/26", "MLS 2026", "Premier League 25/26", "Serie A 25/26", "UEFA Champions League 25/26", "UEFA Conference League 25/26", "UEFA Europa League 25/26"], "dataDateMin": "2025-07-10", "dataDateMax": "2026-04-30"}</script>
   <script>
 (function () {
   const tbody = document.getElementById('og-tbody');
@@ -8669,7 +8684,6 @@
   const allNames = filterPayload.allSeasonNames || [];
   const pb = filterPayload.pipelineBySeason || {};
   const pg = filterPayload.pipelineGlobal || { matches: 0 };
-  const scopeDefault = filterPayload.scopeLabelDefault || '';
   const dataDateMin = filterPayload.dataDateMin || '';
   const dataDateMax = filterPayload.dataDateMax || '';
 
@@ -9013,16 +9027,16 @@
     if (pl) pl.textContent = ag.total === 1 ? '' : 's';
 
     var selArr = selected === null ? allNames : selected;
-    var scopeEl = document.getElementById('subtitle-scope');
+    var scopeEl = document.getElementById('subtitle-filter-scope');
     if (scopeEl) {
       if (!selArr.length) scopeEl.textContent = '— no competitions selected';
-      else if (selArr.length === allNames.length) scopeEl.textContent = 'scored across ' + scopeDefault;
-      else scopeEl.textContent = 'across ' + selArr.length + ' selected competition' + (selArr.length === 1 ? '' : 's');
+      else if (selArr.length === allNames.length) scopeEl.textContent = '· all competitions';
+      else scopeEl.textContent = '· filtered to ' + selArr.length + ' competition' + (selArr.length === 1 ? '' : 's');
     }
     var ttitle = document.getElementById('table-filter-title');
     if (ttitle) {
       if (!selArr.length) ttitle.textContent = 'All Own Goals — (none selected)';
-      else if (selArr.length === allNames.length) ttitle.textContent = 'All Own Goals — ' + scopeDefault;
+      else if (selArr.length === allNames.length) ttitle.textContent = 'All Own Goals';
       else ttitle.textContent = 'All Own Goals — ' + selArr.join(', ');
     }
     updateDateHint(dr);

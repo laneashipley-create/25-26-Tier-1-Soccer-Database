@@ -609,6 +609,96 @@ def write_own_goals_csv_export(path: str) -> None:
     print(f"Wrote {len(rows)} own goal row(s) to {path}")
 
 
+def get_all_master_games_report_rows() -> list[dict]:
+    """
+    All rows from public."All Games (sr:sport_events)" with season + competition labels.
+
+    Used for the List of All Games HTML report (5000+ games). Keys are strings safe for CSV/HTML.
+    """
+    supabase = get_client()
+
+    season_rows: list[dict] = []
+    off = 0
+    page = 500
+    while True:
+        chunk = (
+            supabase.table(T_SEASONS)
+            .select("id,sportradar_season_id,name,competition_id")
+            .range(off, off + page - 1)
+            .execute()
+        )
+        part = chunk.data or []
+        season_rows.extend(part)
+        if len(part) < page:
+            break
+        off += page
+
+    season_by_uuid = {s["id"]: s for s in season_rows if s.get("id")}
+    comp_uuids = list({str(s.get("competition_id")) for s in season_rows if s.get("competition_id")})
+
+    comp_by_uuid: dict[str, dict] = {}
+    for i in range(0, len(comp_uuids), 200):
+        cu = comp_uuids[i : i + 200]
+        cr = (
+            supabase.table(T_COMPETITIONS)
+            .select("id,sportradar_competition_id,competition_name,gender,category_name,country_code")
+            .in_("id", cu)
+            .execute()
+        )
+        for crow in cr.data or []:
+            cid = crow.get("id")
+            if cid:
+                comp_by_uuid[str(cid)] = crow
+
+    games_out: list[dict] = []
+    off = 0
+    while True:
+        gr = (
+            supabase.table(T_GAMES)
+            .select("*")
+            .order("start_time")
+            .order("sport_event_id")
+            .range(off, off + page - 1)
+            .execute()
+        )
+        part = gr.data or []
+        for row in part:
+            su = row.get("season_id")
+            srow = season_by_uuid.get(su, {}) if su else {}
+            comp = comp_by_uuid.get(str(srow.get("competition_id")), {}) if srow else {}
+            start_raw = row.get("start_time")
+            start_s = str(start_raw or "").strip()
+            match_date = start_s[:10] if len(start_s) >= 10 else ""
+            sid_ev = row.get("sport_event_id") or ""
+            recorded = row.get("recorded")
+            hs = row.get("home_score")
+            away_s = row.get("away_score")
+            games_out.append({
+                "sport_event_id": str(sid_ev),
+                "season_name": str(srow.get("name") or ""),
+                "sportradar_season_id": str(srow.get("sportradar_season_id") or ""),
+                "sportradar_competition_id": str(comp.get("sportradar_competition_id") or ""),
+                "competition_display_name": str(comp.get("competition_name") or ""),
+                "category_name": str(comp.get("category_name") or ""),
+                "start_time": start_s,
+                "match_date": match_date,
+                "round": str(row.get("round") or ""),
+                "home_team": str(row.get("home_team") or ""),
+                "away_team": str(row.get("away_team") or ""),
+                "home_score": "" if hs is None else hs,
+                "away_score": "" if away_s is None else away_s,
+                "status": str(row.get("status") or ""),
+                "match_status": str(row.get("match_status") or ""),
+                "recorded": recorded,
+                "recording_id": _recording_id_for_event(sid_ev, recorded),
+            })
+        if len(part) < page:
+            break
+        off += page
+
+    return games_out
+
+
 def get_completed_timelines_count() -> int:
     """
     Number of stored timeline rows (= completed matches with a timeline row).

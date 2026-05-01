@@ -2,70 +2,6 @@
     "data": {
         "recordingsBySport": [
             {
-                "id": "d8eda6d0-16ae-11f1-a705-697fefd9719b",
-                "title": "Hull City AT Ipswich Town",
-                "meta": {
-                    "gameId": "sr:sport_event:68305676",
-                    "awayTeam": "96",
-                    "homeTeam": "32",
-                    "scheduled": "2026-03-03T19:45:00+00:00",
-                    "awayTeamName": "Hull City",
-                    "homeTeamName": "Ipswich Town"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-03T19:45:00.000Z",
-                "start": 1772567117553,
-                "end": 1772574297203,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
                 "id": "de7116f0-16ae-11f1-a705-697fefd9719b",
                 "title": "Bristol City AT Port Vale",
                 "meta": {
@@ -81,70 +17,6 @@
                 "scheduled": "2026-03-03T19:45:00.000Z",
                 "start": 1772567213391,
                 "end": 1772576754153,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "144b9f90-1757-11f1-9ae5-d7309ca88ad3",
-                "title": "Oxford United AT Preston North End",
-                "meta": {
-                    "gameId": "sr:sport_event:61491157",
-                    "awayTeam": "95",
-                    "homeTeam": "21",
-                    "scheduled": "2026-03-06T20:00:00+00:00",
-                    "awayTeamName": "Oxford United",
-                    "homeTeamName": "Preston North End"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-06T20:00:00.000Z",
-                "start": 0,
-                "end": 0,
                 "apis": [
                     {
                         "name": "lineups",
@@ -463,518 +335,6 @@
                 "league": "FA Cup",
                 "sport": "soccer",
                 "scheduled": "2026-03-07T12:15:00.000Z",
-                "start": 0,
-                "end": 0,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "865de370-1989-11f1-b7a2-fdfdce147871",
-                "title": "Millwall FC AT Hull City",
-                "meta": {
-                    "gameId": "sr:sport_event:61491153",
-                    "awayTeam": "25",
-                    "homeTeam": "96",
-                    "scheduled": "2026-03-07T12:30:00+00:00",
-                    "awayTeamName": "Millwall FC",
-                    "homeTeamName": "Hull City"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-07T12:30:00.000Z",
-                "start": 0,
-                "end": 0,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "6af7ba70-1989-11f1-b236-112be343cdb1",
-                "title": "Portsmouth FC AT Blackburn Rovers",
-                "meta": {
-                    "gameId": "sr:sport_event:61491145",
-                    "awayTeam": "2",
-                    "homeTeam": "46",
-                    "scheduled": "2026-03-07T12:30:00+00:00",
-                    "awayTeamName": "Portsmouth FC",
-                    "homeTeamName": "Blackburn Rovers"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-07T12:30:00.000Z",
-                "start": 0,
-                "end": 0,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "4ea5dc70-198a-11f1-b236-112be343cdb1",
-                "title": "Sheffield Wednesday AT Derby County",
-                "meta": {
-                    "gameId": "sr:sport_event:61491151",
-                    "awayTeam": "12",
-                    "homeTeam": "27",
-                    "scheduled": "2026-03-07T15:00:00+00:00",
-                    "awayTeamName": "Sheffield Wednesday",
-                    "homeTeamName": "Derby County"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-07T15:00:00.000Z",
-                "start": 0,
-                "end": 0,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "69a5c990-198a-11f1-b236-112be343cdb1",
-                "title": "West Bromwich Albion AT Sheffield United",
-                "meta": {
-                    "gameId": "sr:sport_event:61491161",
-                    "awayTeam": "8",
-                    "homeTeam": "15",
-                    "scheduled": "2026-03-07T15:00:00+00:00",
-                    "awayTeamName": "West Bromwich Albion",
-                    "homeTeamName": "Sheffield United"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-07T15:00:00.000Z",
-                "start": 0,
-                "end": 0,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "f2298fa0-1989-11f1-b236-112be343cdb1",
-                "title": "Coventry City AT Bristol City",
-                "meta": {
-                    "gameId": "sr:sport_event:61491147",
-                    "awayTeam": "11",
-                    "homeTeam": "58",
-                    "scheduled": "2026-03-07T15:00:00+00:00",
-                    "awayTeamName": "Coventry City",
-                    "homeTeamName": "Bristol City"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-07T15:00:00.000Z",
-                "start": 0,
-                "end": 0,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "548f8870-198a-11f1-b236-112be343cdb1",
-                "title": "Leicester City AT Ipswich Town",
-                "meta": {
-                    "gameId": "sr:sport_event:61491155",
-                    "awayTeam": "31",
-                    "homeTeam": "32",
-                    "scheduled": "2026-03-07T15:00:00+00:00",
-                    "awayTeamName": "Leicester City",
-                    "homeTeamName": "Ipswich Town"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-07T15:00:00.000Z",
-                "start": 0,
-                "end": 0,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "0915f050-198a-11f1-b236-112be343cdb1",
-                "title": "Birmingham City AT Charlton Athletic",
-                "meta": {
-                    "gameId": "sr:sport_event:61491149",
-                    "awayTeam": "9",
-                    "homeTeam": "47",
-                    "scheduled": "2026-03-07T15:00:00+00:00",
-                    "awayTeamName": "Birmingham City",
-                    "homeTeamName": "Charlton Athletic"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-07T15:00:00.000Z",
-                "start": 0,
-                "end": 0,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "9bd1b870-198a-11f1-b236-112be343cdb1",
-                "title": "Stoke City AT Swansea City",
-                "meta": {
-                    "gameId": "sr:sport_event:61491165",
-                    "awayTeam": "29",
-                    "homeTeam": "74",
-                    "scheduled": "2026-03-07T15:00:00+00:00",
-                    "awayTeamName": "Stoke City",
-                    "homeTeamName": "Swansea City"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-07T15:00:00.000Z",
                 "start": 0,
                 "end": 0,
                 "apis": [
@@ -1463,526 +823,6 @@
                         "formats": [
                             "json",
                             "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "96c6bd90-1993-11f1-8483-6f1c125f791c",
-                "title": "Middlesbrough FC AT Queens Park Rangers",
-                "meta": {
-                    "gameId": "sr:sport_event:61491159",
-                    "awayTeam": "36",
-                    "homeTeam": "1",
-                    "scheduled": "2026-03-08T16:30:00+00:00",
-                    "awayTeamName": "Middlesbrough FC",
-                    "homeTeamName": "Queens Park Rangers"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-08T16:30:00.000Z",
-                "start": 0,
-                "end": 0,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "792562d0-1f3f-11f1-ae9b-973bab953ed0",
-                "title": "Charlton Athletic AT Oxford United",
-                "meta": {
-                    "gameId": "sr:sport_event:61491205",
-                    "awayTeam": "47",
-                    "homeTeam": "95",
-                    "scheduled": "2026-03-14T12:30:00+00:00",
-                    "awayTeamName": "Charlton Athletic",
-                    "homeTeamName": "Oxford United",
-                    "competitionId": "sr:competition:18"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-14T12:30:00.000Z",
-                "start": 1773491379151,
-                "end": 1773498648388,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "standings",
-                        "description": "Season Standings",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "5c8e33e0-1f3f-11f1-8e67-137083890fc9",
-                "title": "Bristol City AT Middlesbrough FC",
-                "meta": {
-                    "gameId": "sr:sport_event:61491199",
-                    "awayTeam": "58",
-                    "homeTeam": "36",
-                    "scheduled": "2026-03-14T12:30:00+00:00",
-                    "awayTeamName": "Bristol City",
-                    "homeTeamName": "Middlesbrough FC",
-                    "competitionId": "sr:competition:18"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-14T12:30:00.000Z",
-                "start": 1773491383326,
-                "end": 1773498362352,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "standings",
-                        "description": "Season Standings",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "4f72a470-1f3f-11f1-ae9b-973bab953ed0",
-                "title": "Southampton FC AT Coventry City",
-                "meta": {
-                    "gameId": "sr:sport_event:61491195",
-                    "awayTeam": "45",
-                    "homeTeam": "11",
-                    "scheduled": "2026-03-14T12:30:00+00:00",
-                    "awayTeamName": "Southampton FC",
-                    "homeTeamName": "Coventry City",
-                    "competitionId": "sr:competition:18"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-14T12:30:00.000Z",
-                "start": 1773491393551,
-                "end": 1773498647743,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "standings",
-                        "description": "Season Standings",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "events",
-                        "description": "Events",
-                        "apiType": "push",
-                        "formats": [
-                            "json"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "statistics",
-                        "description": "",
-                        "apiType": "push",
-                        "formats": [
-                            "json"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "b5c9ad90-1f3f-11f1-ae9b-973bab953ed0",
-                "title": "Hull City AT West Bromwich Albion",
-                "meta": {
-                    "gameId": "sr:sport_event:61491213",
-                    "awayTeam": "96",
-                    "homeTeam": "8",
-                    "scheduled": "2026-03-14T15:00:00+00:00",
-                    "awayTeamName": "Hull City",
-                    "homeTeamName": "West Bromwich Albion",
-                    "competitionId": "sr:competition:18"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-14T15:00:00.000Z",
-                "start": 1773500471448,
-                "end": 1773507890697,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "standings",
-                        "description": "Season Standings",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "99a23060-1f3f-11f1-ae9b-973bab953ed0",
-                "title": "Ipswich Town AT Sheffield Wednesday",
-                "meta": {
-                    "gameId": "sr:sport_event:61491209",
-                    "awayTeam": "32",
-                    "homeTeam": "12",
-                    "scheduled": "2026-03-14T15:00:00+00:00",
-                    "awayTeamName": "Ipswich Town",
-                    "homeTeamName": "Sheffield Wednesday",
-                    "competitionId": "sr:competition:18"
-                },
-                "league": "Championship",
-                "sport": "soccer",
-                "scheduled": "2026-03-14T15:00:00.000Z",
-                "start": 1773500390099,
-                "end": 1773507289002,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "standings",
-                        "description": "Season Standings",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "events",
-                        "description": "Events",
-                        "apiType": "push",
-                        "formats": [
-                            "json"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "statistics",
-                        "description": "",
-                        "apiType": "push",
-                        "formats": [
-                            "json"
                         ],
                         "versions": [
                             "v4"
@@ -3610,22 +2450,22 @@
                 ]
             },
             {
-                "id": "aeecdb10-37c1-11f1-bf2e-d33ae72c2e56",
-                "title": "Sporting CP AT Arsenal FC",
+                "id": "9f57e730-37c1-11f1-8f04-3d6e4d71b43c",
+                "title": "Real Madrid AT Bayern Munich",
                 "meta": {
-                    "gameId": "sr:sport_event:69339428",
-                    "awayTeam": "3001",
-                    "homeTeam": "42",
+                    "gameId": "sr:sport_event:69339424",
+                    "awayTeam": "2829",
+                    "homeTeam": "2672",
                     "scheduled": "2026-04-15T19:00:00+00:00",
-                    "awayTeamName": "Sporting CP",
-                    "homeTeamName": "Arsenal FC",
+                    "awayTeamName": "Real Madrid",
+                    "homeTeamName": "Bayern Munich",
                     "competitionId": "sr:competition:7"
                 },
                 "league": "UEFA Champions League",
                 "sport": "soccer",
                 "scheduled": "2026-04-15T19:00:00.000Z",
-                "start": 1776279616588,
-                "end": 1776286787220,
+                "start": 1776279696185,
+                "end": 1776287095360,
                 "apis": [
                     {
                         "name": "lineups",
@@ -3750,22 +2590,22 @@
                 ]
             },
             {
-                "id": "9f57e730-37c1-11f1-8f04-3d6e4d71b43c",
-                "title": "Real Madrid AT Bayern Munich",
+                "id": "aeecdb10-37c1-11f1-bf2e-d33ae72c2e56",
+                "title": "Sporting CP AT Arsenal FC",
                 "meta": {
-                    "gameId": "sr:sport_event:69339424",
-                    "awayTeam": "2829",
-                    "homeTeam": "2672",
+                    "gameId": "sr:sport_event:69339428",
+                    "awayTeam": "3001",
+                    "homeTeam": "42",
                     "scheduled": "2026-04-15T19:00:00+00:00",
-                    "awayTeamName": "Real Madrid",
-                    "homeTeamName": "Bayern Munich",
+                    "awayTeamName": "Sporting CP",
+                    "homeTeamName": "Arsenal FC",
                     "competitionId": "sr:competition:7"
                 },
                 "league": "UEFA Champions League",
                 "sport": "soccer",
                 "scheduled": "2026-04-15T19:00:00.000Z",
-                "start": 1776279696185,
-                "end": 1776287095360,
+                "start": 1776279616588,
+                "end": 1776286787220,
                 "apis": [
                     {
                         "name": "lineups",
@@ -4220,6 +3060,116 @@
                 ]
             },
             {
+                "id": "3280d390-37c3-11f1-90e2-254df887b617",
+                "title": "Wolverhampton Wanderers AT Leeds United",
+                "meta": {
+                    "gameId": "sr:sport_event:61301171",
+                    "awayTeam": "3",
+                    "homeTeam": "34",
+                    "scheduled": "2026-04-18T14:00:00+00:00",
+                    "awayTeamName": "Wolverhampton Wanderers",
+                    "homeTeamName": "Leeds United",
+                    "competitionId": "sr:competition:17"
+                },
+                "league": "Premier League",
+                "sport": "soccer",
+                "scheduled": "2026-04-18T14:00:00.000Z",
+                "start": 1776520791614,
+                "end": 1776528440841,
+                "apis": [
+                    {
+                        "name": "lineups",
+                        "description": "Sport Event Lineups",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "summary",
+                        "description": "Sport Event Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "timeline",
+                        "description": "Sport Event Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-timeline",
+                        "description": "Sport Event Extended Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-summary",
+                        "description": "Sport Event Extended Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "summaries",
+                        "description": "Season Summaries",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    }
+                ]
+            },
+            {
                 "id": "444f15a0-37c3-11f1-ab0d-1b26a281d167",
                 "title": "AFC Bournemouth AT Newcastle United",
                 "meta": {
@@ -4285,116 +3235,6 @@
                     {
                         "name": "standings",
                         "description": "Season Standings",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "extended-timeline",
-                        "description": "Sport Event Extended Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "extended-summary",
-                        "description": "Sport Event Extended Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summaries",
-                        "description": "Season Summaries",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "3280d390-37c3-11f1-90e2-254df887b617",
-                "title": "Wolverhampton Wanderers AT Leeds United",
-                "meta": {
-                    "gameId": "sr:sport_event:61301171",
-                    "awayTeam": "3",
-                    "homeTeam": "34",
-                    "scheduled": "2026-04-18T14:00:00+00:00",
-                    "awayTeamName": "Wolverhampton Wanderers",
-                    "homeTeamName": "Leeds United",
-                    "competitionId": "sr:competition:17"
-                },
-                "league": "Premier League",
-                "sport": "soccer",
-                "scheduled": "2026-04-18T14:00:00.000Z",
-                "start": 1776520791614,
-                "end": 1776528440841,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
                         "apiType": "rest",
                         "formats": [
                             "json",
@@ -6731,6 +5571,351 @@
                 "scheduled": "2026-04-30T19:00:00.000Z",
                 "start": 0,
                 "end": 0,
+                "apis": [
+                    {
+                        "name": "lineups",
+                        "description": "Sport Event Lineups",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "summary",
+                        "description": "Sport Event Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "timeline",
+                        "description": "Sport Event Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "standings",
+                        "description": "Season Standings",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-timeline",
+                        "description": "Sport Event Extended Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-summary",
+                        "description": "Sport Event Extended Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "links",
+                        "description": "Season Links",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "summaries",
+                        "description": "Season Summaries",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "season-leaders",
+                        "description": "Season Leaders",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "season-missing-players",
+                        "description": "Season Missing Players",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "33fca810-444e-11f1-b838-2fa2ea171beb",
+                "title": "Fluminense FC RJ AT Club Bolivar",
+                "meta": {
+                    "gameId": "sr:sport_event:70075704",
+                    "awayTeam": "1961",
+                    "homeTeam": "7059",
+                    "scheduled": "2026-04-30T22:00:00+00:00",
+                    "awayTeamName": "Fluminense FC RJ",
+                    "homeTeamName": "Club Bolivar",
+                    "competitionId": "sr:competition:384"
+                },
+                "league": "CONMEBOL Libertadores",
+                "sport": "soccer",
+                "scheduled": "2026-04-30T22:00:00.000Z",
+                "start": 1777586437075,
+                "end": 1777593656124,
+                "apis": [
+                    {
+                        "name": "summary",
+                        "description": "Sport Event Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "timeline",
+                        "description": "Sport Event Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-timeline",
+                        "description": "Sport Event Extended Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-summary",
+                        "description": "Sport Event Extended Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "3f21beb0-444e-11f1-b838-2fa2ea171beb",
+                "title": "Deportivo La Guaira AT Independiente Rivadavia",
+                "meta": {
+                    "gameId": "sr:sport_event:70075706",
+                    "awayTeam": "36437",
+                    "homeTeam": "36842",
+                    "scheduled": "2026-04-30T22:00:00+00:00",
+                    "awayTeamName": "Deportivo La Guaira",
+                    "homeTeamName": "Independiente Rivadavia",
+                    "competitionId": "sr:competition:384"
+                },
+                "league": "CONMEBOL Libertadores",
+                "sport": "soccer",
+                "scheduled": "2026-04-30T22:00:00.000Z",
+                "start": 1777586378355,
+                "end": 1777593352299,
+                "apis": [
+                    {
+                        "name": "lineups",
+                        "description": "Sport Event Lineups",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "summary",
+                        "description": "Sport Event Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "timeline",
+                        "description": "Sport Event Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-timeline",
+                        "description": "Sport Event Extended Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-summary",
+                        "description": "Sport Event Extended Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "4f13e0f0-4291-11f1-b5ca-0f7ea2d3bf10",
+                "title": "Burnley FC AT Leeds United",
+                "meta": {
+                    "gameId": "sr:sport_event:61301213",
+                    "awayTeam": "6",
+                    "homeTeam": "34",
+                    "scheduled": "2026-05-01T19:00:00+00:00",
+                    "awayTeamName": "Burnley FC",
+                    "homeTeamName": "Leeds United",
+                    "competitionId": "sr:competition:17"
+                },
+                "league": "Premier League",
+                "sport": "soccer",
+                "scheduled": "2026-05-01T19:00:00.000Z",
+                "start": 1777662007247,
+                "end": 1777669196348,
                 "apis": [
                     {
                         "name": "lineups",

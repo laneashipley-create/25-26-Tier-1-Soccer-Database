@@ -9,6 +9,7 @@ from config import REPORT_HTML
 # (href relative to site root, short label)
 REPORT_NAV_ITEMS: list[tuple[str, str]] = [
     ("report_hub.html", "Home"),
+    ("report_master_games.html", "List of All Games"),
     (REPORT_HTML, "Own goals"),
     ("report_penalty_shootouts.html", "Penalty shootouts"),
     ("report_var_events.html", "VAR events"),

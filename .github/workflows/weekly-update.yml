@@ -73,7 +73,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add report.html report_hub.html report_own_goals.html report_penalty_shootouts.html report_var_events.html report_var_unpaired.html report_recordings_library.html data/schedule.csv data/own_goals.csv assets/lanes_sportsdata.png
+          git add report.html report_hub.html report_own_goals.html report_master_games.html report_penalty_shootouts.html report_var_events.html report_var_unpaired.html report_recordings_library.html data/schedule.csv data/own_goals.csv assets/lanes_sportsdata.png
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
