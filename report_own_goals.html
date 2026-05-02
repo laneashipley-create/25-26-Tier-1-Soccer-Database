@@ -64,6 +64,16 @@
     .stat-card--wide { grid-column: 1 / -1; }
     .stat-card--text-left { text-align: left; }
     .stat-card--filter-tile { padding: 1rem 1.1rem; }
+    .commentary-coverage-note {
+      padding: 0.65rem 1rem;
+      text-align: left;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: #555;
+      background: #faf8f4;
+      border-style: dashed;
+      border-color: #cfc8bc;
+    }
 
     .competition-slicer--tile {
       margin: 0;
@@ -712,7 +722,7 @@
     <div class="header-badge">Sportradar Soccer</div>
     <h1><span>Own Goals</span> Tracker</h1>
     <div class="subtitle">
-      <p class="header-lead"><strong id="subtitle-og-total">282</strong> own goal<span id="subtitle-og-plural">s</span> <span id="subtitle-filter-scope" class="header-filter-hint">· all competitions</span></p>
+      <p class="header-lead"><strong id="subtitle-og-total">284</strong> own goal<span id="subtitle-og-plural">s</span> <span id="subtitle-filter-scope" class="header-filter-hint">· all competitions</span></p>
       <p class="header-desc">Report identifies all own goals that occurred in completed games (score_change + method=own_goal).</p>
       <p class="header-note">Note: Commentary only available from 4/20/26 onward due to a database refresh + commentary being removed from timelines after 14 days</p>
     </div>
@@ -780,22 +790,22 @@
           <input type="date" id="og-date-from" min="1990-01-01" max="2099-12-31" value="2025-07-10" />
         </label>
         <label class="date-filter-label">To
-          <input type="date" id="og-date-to" min="1990-01-01" max="2099-12-31" value="2026-04-30" />
+          <input type="date" id="og-date-to" min="1990-01-01" max="2099-12-31" value="2026-05-02" />
         </label>
       </div>
       <p class="date-filter-hint" id="og-date-hint"></p>
     </div>
 
           <div class="stat-card">
-            <div class="stat-number" id="kpi-matches">3,708</div>
+            <div class="stat-number" id="kpi-matches">3,745</div>
             <div class="stat-label">Matches Reviewed</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number" id="kpi-total-og">282</div>
+            <div class="stat-number" id="kpi-total-og">284</div>
             <div class="stat-label">Total # of Own Goals</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number" id="kpi-games">271</div>
+            <div class="stat-number" id="kpi-games">273</div>
             <div class="stat-label"># of Games with an Own Goal</div>
           </div>
           <div class="stat-card">
@@ -807,12 +817,15 @@
             <div class="stat-label">Most by One Team<br><span class="stat-sub" id="kpi-most-team-names">Brighton & Hove Albion</span></div>
           </div>
           <div class="stat-card stat-card--correct">
-            <div class="stat-number stat-number--correct" id="kpi-commentary-yes">12</div>
-            <div class="stat-label">Commentary Correct<br><span class="stat-sub stat-sub--muted">Mentions "own goal"</span></div>
+            <div class="stat-number stat-number--correct" id="kpi-commentary-yes">14</div>
+            <div class="stat-label">Commentary Correct<br><span class="stat-sub stat-sub--muted">Mentions &quot;own goal&quot;</span></div>
           </div>
           <div class="stat-card stat-card--incorrect">
-            <div class="stat-number stat-number--incorrect" id="kpi-commentary-no">270</div>
-            <div class="stat-label">Commentary Incorrect<br><span class="stat-sub stat-sub--muted">No "own goal" mention</span></div>
+            <div class="stat-number stat-number--incorrect" id="kpi-commentary-no">0</div>
+            <div class="stat-label">Commentary Incorrect<br><span class="stat-sub stat-sub--muted">No &quot;own goal&quot; mention</span></div>
+          </div>
+          <div class="stat-card stat-card--wide commentary-coverage-note" role="note">
+            <span>Commentary KPIs count only own goals from matches on or after April 20, 2026 (Sportradar drops timeline commentary after about 14 days, so older reloads lack feed text).</span>
           </div>
 </div>
   </div>
@@ -3580,34 +3593,8 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr class="og-data-row" data-competition="DFB Pokal 25/26" data-match-date="2025-12-03" data-event-id="sr:sport_event:65216718" data-og-player="Ansah, Ilyas" data-og-team="Union Berlin">
-          <td class="num" data-val="105" data-label="#">105</td>
-          <td data-val="DFB Pokal 25/26" data-label="Competition">
-            <div class="match-name">DFB Pokal 25/26</div>
-            <div class="meta">sr:competition:217</div>
-          </td>
-          <td data-val="2025-12-03" data-label="Match">
-            <div class="match-name">Union Berlin vs Bayern Munich</div>
-            <div class="meta">2025-12-03 &bull; —</div>
-          </td>
-          <td class="id-cell match-id-cell" data-val="sr:sport_event:65216718" data-label="Match ID"><code title="sr:sport_event:65216718">sr:sport_event:65216718</code></td>
-          <td class="center recorded-false" data-val="false" data-label="Recorded">false</td>
-          <td class="id-cell" data-val="" data-label="Recording ID"><code title=""></code></td>
-          <td data-val="Ansah, Ilyas" data-label="Scorer">
-            <div class="player-name">Ilyas Ansah</div>
-            <div class="meta">Union Berlin</div>
-          </td>
-          <td class="id-cell" data-val="sr:player:2648411" data-label="Player ID"><code title="sr:player:2648411">sr:player:2648411</code></td>
-          <td class="minute" data-val="12" data-label="Min">12'</td>
-          <td data-val="Bayern Munich" data-label="Benefiting"><div class="team-badge">Bayern Munich</div></td>
-          <td class="score" data-val="0" data-label="At OG">0–1</td>
-          <td class="score final" data-val="2" data-label="Final">2–3</td>
-          <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
-          <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
-        </tr>
-
         <tr class="og-data-row" data-competition="DFB Pokal 25/26" data-match-date="2025-12-03" data-event-id="sr:sport_event:65216720" data-og-player="Strompf, Philipp" data-og-team="VfL Bochum">
-          <td class="num" data-val="106" data-label="#">106</td>
+          <td class="num" data-val="105" data-label="#">105</td>
           <td data-val="DFB Pokal 25/26" data-label="Competition">
             <div class="match-name">DFB Pokal 25/26</div>
             <div class="meta">sr:competition:217</div>
@@ -3628,6 +3615,32 @@
           <td data-val="VfB Stuttgart" data-label="Benefiting"><div class="team-badge">VfB Stuttgart</div></td>
           <td class="score" data-val="0" data-label="At OG">0–1</td>
           <td class="score final" data-val="0" data-label="Final">0–2</td>
+          <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
+          <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
+        </tr>
+
+        <tr class="og-data-row" data-competition="DFB Pokal 25/26" data-match-date="2025-12-03" data-event-id="sr:sport_event:65216718" data-og-player="Ansah, Ilyas" data-og-team="Union Berlin">
+          <td class="num" data-val="106" data-label="#">106</td>
+          <td data-val="DFB Pokal 25/26" data-label="Competition">
+            <div class="match-name">DFB Pokal 25/26</div>
+            <div class="meta">sr:competition:217</div>
+          </td>
+          <td data-val="2025-12-03" data-label="Match">
+            <div class="match-name">Union Berlin vs Bayern Munich</div>
+            <div class="meta">2025-12-03 &bull; —</div>
+          </td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:65216718" data-label="Match ID"><code title="sr:sport_event:65216718">sr:sport_event:65216718</code></td>
+          <td class="center recorded-false" data-val="false" data-label="Recorded">false</td>
+          <td class="id-cell" data-val="" data-label="Recording ID"><code title=""></code></td>
+          <td data-val="Ansah, Ilyas" data-label="Scorer">
+            <div class="player-name">Ilyas Ansah</div>
+            <div class="meta">Union Berlin</div>
+          </td>
+          <td class="id-cell" data-val="sr:player:2648411" data-label="Player ID"><code title="sr:player:2648411">sr:player:2648411</code></td>
+          <td class="minute" data-val="12" data-label="Min">12'</td>
+          <td data-val="Bayern Munich" data-label="Benefiting"><div class="team-badge">Bayern Munich</div></td>
+          <td class="score" data-val="0" data-label="At OG">0–1</td>
+          <td class="score final" data-val="2" data-label="Final">2–3</td>
           <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
@@ -7584,34 +7597,8 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2026-04-12" data-event-id="sr:sport_event:61526510" data-og-player="Nicolaisen, Rasmus" data-og-team="Toulouse FC">
-          <td class="num" data-val="259" data-label="#">259</td>
-          <td data-val="Ligue 1 25/26" data-label="Competition">
-            <div class="match-name">Ligue 1 25/26</div>
-            <div class="meta">sr:competition:34</div>
-          </td>
-          <td data-val="2026-04-12" data-label="Match">
-            <div class="match-name">Toulouse FC vs Lille OSC</div>
-            <div class="meta">2026-04-12 &bull; GW29</div>
-          </td>
-          <td class="id-cell match-id-cell" data-val="sr:sport_event:61526510" data-label="Match ID"><code title="sr:sport_event:61526510">sr:sport_event:61526510</code></td>
-          <td class="center recorded-false" data-val="false" data-label="Recorded">false</td>
-          <td class="id-cell" data-val="" data-label="Recording ID"><code title=""></code></td>
-          <td data-val="Nicolaisen, Rasmus" data-label="Scorer">
-            <div class="player-name">Rasmus Nicolaisen</div>
-            <div class="meta">Toulouse FC</div>
-          </td>
-          <td class="id-cell" data-val="sr:player:855438" data-label="Player ID"><code title="sr:player:855438">sr:player:855438</code></td>
-          <td class="minute" data-val="23" data-label="Min">23'</td>
-          <td data-val="Lille OSC" data-label="Benefiting"><div class="team-badge">Lille OSC</div></td>
-          <td class="score" data-val="0" data-label="At OG">0–1</td>
-          <td class="score final" data-val="0" data-label="Final">0–4</td>
-          <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
-          <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
-        </tr>
-
         <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-04-12" data-event-id="sr:sport_event:61301155" data-og-player="Murillo" data-og-team="Nottingham Forest">
-          <td class="num" data-val="260" data-label="#">260</td>
+          <td class="num" data-val="259" data-label="#">259</td>
           <td data-val="Premier League 25/26" data-label="Competition">
             <div class="match-name">Premier League 25/26</div>
             <div class="meta">sr:competition:17</div>
@@ -7632,6 +7619,32 @@
           <td data-val="Aston Villa" data-label="Benefiting"><div class="team-badge">Aston Villa</div></td>
           <td class="score" data-val="0" data-label="At OG">0–1</td>
           <td class="score final" data-val="1" data-label="Final">1–1</td>
+          <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
+          <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
+        </tr>
+
+        <tr class="og-data-row" data-competition="Ligue 1 25/26" data-match-date="2026-04-12" data-event-id="sr:sport_event:61526510" data-og-player="Nicolaisen, Rasmus" data-og-team="Toulouse FC">
+          <td class="num" data-val="260" data-label="#">260</td>
+          <td data-val="Ligue 1 25/26" data-label="Competition">
+            <div class="match-name">Ligue 1 25/26</div>
+            <div class="meta">sr:competition:34</div>
+          </td>
+          <td data-val="2026-04-12" data-label="Match">
+            <div class="match-name">Toulouse FC vs Lille OSC</div>
+            <div class="meta">2026-04-12 &bull; GW29</div>
+          </td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61526510" data-label="Match ID"><code title="sr:sport_event:61526510">sr:sport_event:61526510</code></td>
+          <td class="center recorded-false" data-val="false" data-label="Recorded">false</td>
+          <td class="id-cell" data-val="" data-label="Recording ID"><code title=""></code></td>
+          <td data-val="Nicolaisen, Rasmus" data-label="Scorer">
+            <div class="player-name">Rasmus Nicolaisen</div>
+            <div class="meta">Toulouse FC</div>
+          </td>
+          <td class="id-cell" data-val="sr:player:855438" data-label="Player ID"><code title="sr:player:855438">sr:player:855438</code></td>
+          <td class="minute" data-val="23" data-label="Min">23'</td>
+          <td data-val="Lille OSC" data-label="Benefiting"><div class="team-badge">Lille OSC</div></td>
+          <td class="score" data-val="0" data-label="At OG">0–1</td>
+          <td class="score final" data-val="0" data-label="Final">0–4</td>
           <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
@@ -8207,6 +8220,58 @@
           <td class="og-yes" data-val="1" data-label="Mentions OG?">Yes</td>
           <td class="commentary-cell" data-val="Own goal! Carlos Miguel has scored at the wrong end to make it 1 - 1." data-label="Commentary"><span class="commentary">Own goal! Carlos Miguel has scored at the wrong end to make it 1 - 1.</span></td>
         </tr>
+
+        <tr class="og-data-row" data-competition="Premier League 25/26" data-match-date="2026-05-02" data-event-id="sr:sport_event:61301207" data-og-player="Mavropanos, Konstantinos" data-og-team="West Ham United">
+          <td class="num" data-val="283" data-label="#">283</td>
+          <td data-val="Premier League 25/26" data-label="Competition">
+            <div class="match-name">Premier League 25/26</div>
+            <div class="meta">sr:competition:17</div>
+          </td>
+          <td data-val="2026-05-02" data-label="Match">
+            <div class="match-name">Brentford FC vs West Ham United</div>
+            <div class="meta">2026-05-02 &bull; GW35</div>
+          </td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61301207" data-label="Match ID"><code title="sr:sport_event:61301207">sr:sport_event:61301207</code></td>
+          <td class="center recorded-false" data-val="false" data-label="Recorded">false</td>
+          <td class="id-cell" data-val="" data-label="Recording ID"><code title=""></code></td>
+          <td data-val="Mavropanos, Konstantinos" data-label="Scorer">
+            <div class="player-name">Konstantinos Mavropanos</div>
+            <div class="meta">West Ham United</div>
+          </td>
+          <td class="id-cell" data-val="sr:player:950080" data-label="Player ID"><code title="sr:player:950080">sr:player:950080</code></td>
+          <td class="minute" data-val="15" data-label="Min">15'</td>
+          <td data-val="Brentford FC" data-label="Benefiting"><div class="team-badge">Brentford FC</div></td>
+          <td class="score" data-val="1" data-label="At OG">1–0</td>
+          <td class="score final" data-val="3" data-label="Final">3–0</td>
+          <td class="og-yes" data-val="1" data-label="Mentions OG?">Yes</td>
+          <td class="commentary-cell" data-val="Konstantinos Mavropanos has the misfortune to make it 1 - 0 through an own goal." data-label="Commentary"><span class="commentary">Konstantinos Mavropanos has the misfortune to make it 1 - 0 through an own goal.</span></td>
+        </tr>
+
+        <tr class="og-data-row" data-competition="Bundesliga 25/26" data-match-date="2026-05-02" data-event-id="sr:sport_event:61514166" data-og-player="Ramaj, Diant" data-og-team="1. FC Heidenheim">
+          <td class="num" data-val="284" data-label="#">284</td>
+          <td data-val="Bundesliga 25/26" data-label="Competition">
+            <div class="match-name">Bundesliga 25/26</div>
+            <div class="meta">sr:competition:35</div>
+          </td>
+          <td data-val="2026-05-02" data-label="Match">
+            <div class="match-name">Bayern Munich vs 1. FC Heidenheim</div>
+            <div class="meta">2026-05-02 &bull; GW32</div>
+          </td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:61514166" data-label="Match ID"><code title="sr:sport_event:61514166">sr:sport_event:61514166</code></td>
+          <td class="center recorded-false" data-val="false" data-label="Recorded">false</td>
+          <td class="id-cell" data-val="" data-label="Recording ID"><code title=""></code></td>
+          <td data-val="Ramaj, Diant" data-label="Scorer">
+            <div class="player-name">Diant Ramaj</div>
+            <div class="meta">1. FC Heidenheim</div>
+          </td>
+          <td class="id-cell" data-val="sr:player:1575778" data-label="Player ID"><code title="sr:player:1575778">sr:player:1575778</code></td>
+          <td class="minute" data-val="90" data-label="Min">90+11'</td>
+          <td data-val="Bayern Munich" data-label="Benefiting"><div class="team-badge">Bayern Munich</div></td>
+          <td class="score" data-val="3" data-label="At OG">3–3</td>
+          <td class="score final" data-val="3" data-label="Final">3–3</td>
+          <td class="og-yes" data-val="1" data-label="Mentions OG?">Yes</td>
+          <td class="commentary-cell" data-val="Own goal! Diant Ramaj scores in his own net to make it 3 - 3." data-label="Commentary"><span class="commentary">Own goal! Diant Ramaj scores in his own net to make it 3 - 3.</span></td>
+        </tr>
         </tbody>
       </table>
     </div>
@@ -8526,7 +8591,7 @@
   </div>
 
   <div class="footer">
-    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 01 May 2026, 23:27 UTC</p>
+    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 02 May 2026, 21:34 UTC</p>
   </div>
 
   <script>
@@ -8668,7 +8733,7 @@
   window.ReportExcelFilter = { open: open, close: close };
 })();
 </script>
-  <script type="application/json" id="report-filter-data">{"pipelineBySeason": {"UEFA Champions League 25/26": {"matches_reviewed": 278}, "Brasileiro Serie A 2026": {"matches_reviewed": 127}, "Bundesliga 25/26": {"matches_reviewed": 279}, "Premier League 25/26": {"matches_reviewed": 339}, "J1 League 2026": {"matches_reviewed": 129}, "LaLiga 25/26": {"matches_reviewed": 330}, "Ligue 1 25/26": {"matches_reviewed": 277}, "MLS 2026": {"matches_reviewed": 144}, "Serie A 25/26": {"matches_reviewed": 340}, "UEFA Europa League 25/26": {"matches_reviewed": 268}, "UEFA Conference League 25/26": {"matches_reviewed": 406}, "UEFA Nations League 26/27": {"matches_reviewed": 0}, "World Cup 2026": {"matches_reviewed": 0}, "UEFA Euro 2028": {"matches_reviewed": 0}, "DFB Pokal 25/26": {"matches_reviewed": 62}, "FA Cup 25/26": {"matches_reviewed": 122}, "Copa del Rey 25/26": {"matches_reviewed": 137}, "Coupe de France 25/26": {"matches_reviewed": 197}, "Coppa Italia 25/26": {"matches_reviewed": 44}, "Community Shield 2025": {"matches_reviewed": 1}, "UEFA Super Cup 2025": {"matches_reviewed": 1}, "CONMEBOL Libertadores 2026": {"matches_reviewed": 74}, "Liga MX, Clausura 2026": {"matches_reviewed": 153}}, "pipelineGlobal": {"matches": 3708}, "allSeasonNames": ["Brasileiro Serie A 2026", "Bundesliga 25/26", "CONMEBOL Libertadores 2026", "Copa del Rey 25/26", "Coppa Italia 25/26", "Coupe de France 25/26", "DFB Pokal 25/26", "FA Cup 25/26", "J1 League 2026", "LaLiga 25/26", "Liga MX, Clausura 2026", "Ligue 1 25/26", "MLS 2026", "Premier League 25/26", "Serie A 25/26", "UEFA Champions League 25/26", "UEFA Conference League 25/26", "UEFA Europa League 25/26"], "dataDateMin": "2025-07-10", "dataDateMax": "2026-04-30"}</script>
+  <script type="application/json" id="report-filter-data">{"pipelineBySeason": {"UEFA Champions League 25/26": {"matches_reviewed": 278}, "Brasileiro Serie A 2026": {"matches_reviewed": 128}, "Bundesliga 25/26": {"matches_reviewed": 285}, "Premier League 25/26": {"matches_reviewed": 344}, "J1 League 2026": {"matches_reviewed": 135}, "LaLiga 25/26": {"matches_reviewed": 335}, "Ligue 1 25/26": {"matches_reviewed": 281}, "MLS 2026": {"matches_reviewed": 146}, "Serie A 25/26": {"matches_reviewed": 344}, "UEFA Europa League 25/26": {"matches_reviewed": 268}, "UEFA Conference League 25/26": {"matches_reviewed": 406}, "UEFA Nations League 26/27": {"matches_reviewed": 0}, "World Cup 2026": {"matches_reviewed": 0}, "UEFA Euro 2028": {"matches_reviewed": 0}, "DFB Pokal 25/26": {"matches_reviewed": 62}, "FA Cup 25/26": {"matches_reviewed": 122}, "Copa del Rey 25/26": {"matches_reviewed": 137}, "Coupe de France 25/26": {"matches_reviewed": 197}, "Coppa Italia 25/26": {"matches_reviewed": 44}, "Community Shield 2025": {"matches_reviewed": 1}, "UEFA Super Cup 2025": {"matches_reviewed": 1}, "CONMEBOL Libertadores 2026": {"matches_reviewed": 78}, "Liga MX, Clausura 2026": {"matches_reviewed": 153}}, "pipelineGlobal": {"matches": 3745}, "allSeasonNames": ["Brasileiro Serie A 2026", "Bundesliga 25/26", "CONMEBOL Libertadores 2026", "Copa del Rey 25/26", "Coppa Italia 25/26", "Coupe de France 25/26", "DFB Pokal 25/26", "FA Cup 25/26", "J1 League 2026", "LaLiga 25/26", "Liga MX, Clausura 2026", "Ligue 1 25/26", "MLS 2026", "Premier League 25/26", "Serie A 25/26", "UEFA Champions League 25/26", "UEFA Conference League 25/26", "UEFA Europa League 25/26"], "dataDateMin": "2025-07-10", "dataDateMax": "2026-05-02", "commentaryAvailableFrom": "2026-04-20"}</script>
   <script>
 (function () {
   const tbody = document.getElementById('og-tbody');
@@ -8686,6 +8751,7 @@
   const pg = filterPayload.pipelineGlobal || { matches: 0 };
   const dataDateMin = filterPayload.dataDateMin || '';
   const dataDateMax = filterPayload.dataDateMax || '';
+  const commentaryAvailableFrom = filterPayload.commentaryAvailableFrom || '';
 
   const headers = document.querySelectorAll('thead tr:first-child th[data-col]');
   let sortCol = null;
@@ -8768,6 +8834,12 @@
     return { matches: m };
   }
 
+  function rowEligibleForCommentaryKpis(tr) {
+    if (!commentaryAvailableFrom) return true;
+    const md = tr.getAttribute('data-match-date') || '';
+    return md.length === 10 && md >= commentaryAvailableFrom;
+  }
+
   function aggVisibleStats() {
     const visible = Array.prototype.slice.call(tbody.querySelectorAll('tr.og-data-row')).filter(function (tr) {
       return !tr.classList.contains('og-row--hidden');
@@ -8777,6 +8849,7 @@
     const pc = {};
     const tc = {};
     let corr = 0;
+    let commentaryEligible = 0;
     visible.forEach(function (tr) {
       const evId = tr.getAttribute('data-event-id') || '';
       if (evId) eventsSeen[evId] = true;
@@ -8784,8 +8857,11 @@
       const tm = tr.getAttribute('data-og-team') || '';
       if (pl) pc[pl] = (pc[pl] || 0) + 1;
       if (tm) tc[tm] = (tc[tm] || 0) + 1;
-      const rowSays = tr.querySelector('td.og-yes, td.og-no');
-      if (rowSays && rowSays.classList.contains('og-yes')) corr += 1;
+      if (rowEligibleForCommentaryKpis(tr)) {
+        commentaryEligible += 1;
+        const rowSays = tr.querySelector('td.og-yes, td.og-no');
+        if (rowSays && rowSays.classList.contains('og-yes')) corr += 1;
+      }
     });
     const games = Object.keys(eventsSeen).length;
     let maxP = 0;
@@ -8810,7 +8886,7 @@
       maxT: maxT,
       namesT: namesT,
       corr: corr,
-      incorr: total - corr
+      incorr: commentaryEligible - corr
     };
   }
 
