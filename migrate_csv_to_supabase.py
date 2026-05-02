@@ -62,7 +62,12 @@ def migrate_timelines():
         filepath = os.path.join(TIMELINES_DIR, filename)
         with open(filepath, encoding="utf-8") as f:
             data = json.load(f)
-        db.upsert_timeline(row["id"], data)
+        db.upsert_timeline(
+            row["id"],
+            data,
+            sport_event_id=sport_event_id,
+            start_time=row.get("start_time"),
+        )
         count += 1
     print(f"  Migrated {count} timeline files")
     return count

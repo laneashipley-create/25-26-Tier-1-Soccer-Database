@@ -8,7 +8,7 @@ Use when USE_SUPABASE is True in config. Provides:
   - get_or_create_season() / get_or_create_seasons() — ensure public."Seasons (current sr:season:ID)" rows
   - upsert_games() — upsert rows in public."All Games (sr:sport_events)" (sport events per season)
   - get_completed_matches_without_timeline* — for step 3 (full or recent-kickoff-only for --daily)
-  - upsert_timeline() / get_timeline_json() — public."Completed Matches - full sport_event_timelines"
+  - upsert_timeline() / get_timeline_json() — public."Completed Matches - full sport_event_timelines" (sport_event_id, start_time, game_id)
   - upsert_own_goals() — write extracted own goals
 
 Install: pip install postgrest httpx
@@ -422,13 +422,40 @@ def get_completed_matches_without_timeline_for_configured_seasons_recent(
     return out
 
 
-def upsert_timeline(game_id: str, timeline_json: dict | None = None) -> None:
+def upsert_timeline(
+    game_id: str,
+    timeline_json: dict | None = None,
+    *,
+    sport_event_id: str | None = None,
+    start_time: object | None = None,
+) -> None:
     """Record that we have fetched the timeline for this game row. Optionally store timeline_json."""
     supabase = get_client()
-    supabase.table(T_TIMELINES).upsert({
-        "game_id": game_id,
-        "timeline_json": timeline_json,
-    }, on_conflict="game_id", ignore_duplicates=False).execute()
+    sid = (sport_event_id or "").strip() or None
+    st = start_time
+    if sid is None or st is None:
+
+        def _lookup():
+            return (
+                supabase.table(T_GAMES)
+                .select("sport_event_id, start_time")
+                .eq("id", game_id)
+                .limit(1)
+                .execute()
+            )
+
+        lr = _supabase_execute_with_retry(_lookup)
+        gr = (lr.data or [None])[0] or {}
+        if sid is None:
+            sid = (gr.get("sport_event_id") or "").strip() or None
+        if st is None:
+            st = gr.get("start_time")
+    row = {"game_id": game_id, "timeline_json": timeline_json}
+    if sid:
+        row["sport_event_id"] = sid
+    if st is not None and st != "":
+        row["start_time"] = st
+    supabase.table(T_TIMELINES).upsert(row, on_conflict="game_id", ignore_duplicates=False).execute()
 
 
 def get_timeline_json(game_id: str) -> dict | None:

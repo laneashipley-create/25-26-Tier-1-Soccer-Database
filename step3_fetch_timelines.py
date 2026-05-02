@@ -109,7 +109,12 @@ def main(recent_start_days: int | None = None):
         try:
             data = fetch_timeline(event_id)
             if USE_SUPABASE and game_id:
-                db.upsert_timeline(game_id, data)
+                db.upsert_timeline(
+                    game_id,
+                    data,
+                    sport_event_id=event_id,
+                    start_time=match.get("start_time"),
+                )
             if not USE_SUPABASE:
                 with open(out_path, "w", encoding="utf-8") as f:
                     json.dump(data, f, ensure_ascii=False)

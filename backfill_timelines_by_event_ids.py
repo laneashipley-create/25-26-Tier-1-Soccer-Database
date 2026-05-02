@@ -160,7 +160,12 @@ def main() -> int:
             game_id = r.data[0]["id"]
             tl = fetch_timeline(eid)
             time.sleep(REQUEST_DELAY_SECONDS)
-            db.upsert_timeline(str(game_id), tl)
+            db.upsert_timeline(
+                str(game_id),
+                tl,
+                sport_event_id=eid,
+                start_time=game_row.get("start_time"),
+            )
             print(f"  -> OK ({game_row.get('home_team')} vs {game_row.get('away_team')})")
             ok += 1
         except urllib.error.HTTPError as e:
