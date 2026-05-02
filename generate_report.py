@@ -41,6 +41,15 @@ from report_navigation import NAV_CSS, navigation_html
 
 ASSETS_DIR = os.path.join(os.path.dirname(__file__), "assets")
 
+# Timeline commentary from Sportradar is only retained ~14 days after kickoff; after a DB reload,
+# meaningful commentary text exists only from this match_date onward (YYYY-MM-DD).
+COMMENTARY_AVAILABLE_FROM_DATE = "2026-04-20"
+
+
+def row_in_commentary_coverage_window(row: dict) -> bool:
+    md = (row.get("match_date") or "")[:10]
+    return len(md) == 10 and md[4] == "-" and md[7] == "-" and md >= COMMENTARY_AVAILABLE_FROM_DATE
+
 
 def count_completed_matches() -> int:
     """Number of cached timeline files = completed matches reviewed."""
@@ -246,6 +255,7 @@ def _inline_report_script() -> str:
   const pg = filterPayload.pipelineGlobal || { matches: 0 };
   const dataDateMin = filterPayload.dataDateMin || '';
   const dataDateMax = filterPayload.dataDateMax || '';
+  const commentaryAvailableFrom = filterPayload.commentaryAvailableFrom || '';
 
   const headers = document.querySelectorAll('thead tr:first-child th[data-col]');
   let sortCol = null;
@@ -328,6 +338,12 @@ def _inline_report_script() -> str:
     return { matches: m };
   }
 
+  function rowEligibleForCommentaryKpis(tr) {
+    if (!commentaryAvailableFrom) return true;
+    const md = tr.getAttribute('data-match-date') || '';
+    return md.length === 10 && md >= commentaryAvailableFrom;
+  }
+
   function aggVisibleStats() {
     const visible = Array.prototype.slice.call(tbody.querySelectorAll('tr.og-data-row')).filter(function (tr) {
       return !tr.classList.contains('og-row--hidden');
@@ -337,6 +353,7 @@ def _inline_report_script() -> str:
     const pc = {};
     const tc = {};
     let corr = 0;
+    let commentaryEligible = 0;
     visible.forEach(function (tr) {
       const evId = tr.getAttribute('data-event-id') || '';
       if (evId) eventsSeen[evId] = true;
@@ -344,8 +361,11 @@ def _inline_report_script() -> str:
       const tm = tr.getAttribute('data-og-team') || '';
       if (pl) pc[pl] = (pc[pl] || 0) + 1;
       if (tm) tc[tm] = (tc[tm] || 0) + 1;
-      const rowSays = tr.querySelector('td.og-yes, td.og-no');
-      if (rowSays && rowSays.classList.contains('og-yes')) corr += 1;
+      if (rowEligibleForCommentaryKpis(tr)) {
+        commentaryEligible += 1;
+        const rowSays = tr.querySelector('td.og-yes, td.og-no');
+        if (rowSays && rowSays.classList.contains('og-yes')) corr += 1;
+      }
     });
     const games = Object.keys(eventsSeen).length;
     let maxP = 0;
@@ -370,7 +390,7 @@ def _inline_report_script() -> str:
       maxT: maxT,
       namesT: namesT,
       corr: corr,
-      incorr: total - corr
+      incorr: commentaryEligible - corr
     };
   }
 
@@ -1548,6 +1568,7 @@ def generate_html(
         "allSeasonNames": all_season_names,
         "dataDateMin": data_date_min,
         "dataDateMax": data_date_max,
+        "commentaryAvailableFrom": COMMENTARY_AVAILABLE_FROM_DATE,
     }
     filter_json = json.dumps(filter_payload, ensure_ascii=False)
 
@@ -1577,9 +1598,23 @@ def generate_html(
         player_sub = " &amp; ".join(top_players)
         team_sub = " &amp; ".join(top_teams)
 
-        commentary_correct = sum(1 for r in rows if "own goal" in r.get("commentary", "").lower())
-        commentary_incorrect = total - commentary_correct
+        commentary_rows = [r for r in rows if row_in_commentary_coverage_window(r)]
+        commentary_correct = sum(
+            1 for r in commentary_rows if "own goal" in (r.get("commentary") or "").lower()
+        )
+        commentary_eligible = len(commentary_rows)
+        commentary_incorrect = commentary_eligible - commentary_correct
         games_with_og = len(set(r["sport_event_id"] for r in rows))
+
+        commentary_cutoff_label = datetime.strptime(COMMENTARY_AVAILABLE_FROM_DATE, "%Y-%m-%d").strftime(
+            "%B %d, %Y"
+        )
+        commentary_note = (
+            f"Commentary KPIs count only own goals from matches on or after {commentary_cutoff_label} "
+            "(Sportradar drops timeline commentary after about 14 days, so older reloads lack "
+            "feed text)."
+        )
+        commentary_note_html = html.escape(commentary_note, quote=False)
 
         stats_cards_html = f"""
           <div class="stat-card">
@@ -1604,11 +1639,14 @@ def generate_html(
           </div>
           <div class="stat-card stat-card--correct">
             <div class="stat-number stat-number--correct" id="kpi-commentary-yes">{commentary_correct}</div>
-            <div class="stat-label">Commentary Correct<br><span class="stat-sub stat-sub--muted">Mentions "own goal"</span></div>
+            <div class="stat-label">Commentary Correct<br><span class="stat-sub stat-sub--muted">Mentions &quot;own goal&quot;</span></div>
           </div>
           <div class="stat-card stat-card--incorrect">
             <div class="stat-number stat-number--incorrect" id="kpi-commentary-no">{commentary_incorrect}</div>
-            <div class="stat-label">Commentary Incorrect<br><span class="stat-sub stat-sub--muted">No "own goal" mention</span></div>
+            <div class="stat-label">Commentary Incorrect<br><span class="stat-sub stat-sub--muted">No &quot;own goal&quot; mention</span></div>
+          </div>
+          <div class="stat-card stat-card--wide commentary-coverage-note" role="note">
+            <span>{commentary_note_html}</span>
           </div>"""
     else:
         stats_cards_html = f"""
@@ -1703,6 +1741,16 @@ def generate_html(
     .stat-card--wide {{ grid-column: 1 / -1; }}
     .stat-card--text-left {{ text-align: left; }}
     .stat-card--filter-tile {{ padding: 1rem 1.1rem; }}
+    .commentary-coverage-note {{
+      padding: 0.65rem 1rem;
+      text-align: left;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: #555;
+      background: #faf8f4;
+      border-style: dashed;
+      border-color: #cfc8bc;
+    }}
 
     .competition-slicer--tile {{
       margin: 0;

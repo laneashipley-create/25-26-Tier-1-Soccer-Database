@@ -17,13 +17,17 @@ Usage
       all missing timelines, then derived tables. Run before the fast weekly email job.
 
   python run_all.py --daily
-      Supabase only. Skips step 2 (no Sportradar schedule pull). Step 3 only considers
-      completed matches missing a timeline whose kickoff is within the last
-      PIPELINE_RECENT_TIMELINE_DAYS days (default 14; override with env). If nothing is
-      pending, skips steps 3–6. Intended for daily-update.yml.
+      Supabase only. Runs a lightweight step 2 first: full season schedule JSON per competition
+      is still fetched, but only matches whose kickoff (UTC date) falls within ±
+      PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS of today (default 5) are upserted to All Games —
+      enough to refresh statuses for recent/future fixtures without rewriting all rows. Does
+      not replace data/schedule.csv (weekly --full-backfill owns the full export).
 
-      Schedule / status refresh is done by --full-backfill once per week; without that,
-      new completions may not appear in games until the next full sync.
+      Step 3 only fetches timelines for completed matches missing storage whose kickoff is
+      within PIPELINE_RECENT_TIMELINE_DAYS (default 14). If nothing is pending after the
+      schedule window refresh, skips steps 3–6. Intended for daily-update.yml.
+
+      Weekly --full-backfill still runs a full schedule sync (all matches) and CSV export.
 
   python run_all.py --reports-only
       Step 6 only — regenerate HTML from current database (or CSV when not on Supabase).
@@ -43,7 +47,12 @@ import step2_get_schedule
 import step3_fetch_timelines
 import step4_extract_own_goals
 import step5_extract_var_and_shootouts
-from config import PIPELINE_RECENT_TIMELINE_DAYS, SCHEDULE_CSV, USE_SUPABASE
+from config import (
+    PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS,
+    PIPELINE_RECENT_TIMELINE_DAYS,
+    SCHEDULE_CSV,
+    USE_SUPABASE,
+)
 
 DIVIDER = "-" * 60
 
@@ -105,10 +114,16 @@ def run_main(*, mode: str) -> None:
         if not USE_SUPABASE:
             print("ERROR: --daily requires Supabase (SUPABASE_URL + service role key).", flush=True)
             raise SystemExit(1)
+        section(
+            "STEP 2 — Recent schedule refresh (± kickoff window, UTC "
+            f"{PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS} day(s))"
+        )
+        step2_get_schedule.main(recent_kickoff_window_days=PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS)
+
         pending = count_pending_timelines_recent(PIPELINE_RECENT_TIMELINE_DAYS)
         print(
-            f"\nDaily mode: skipping schedule fetch (step 2). "
-            f"Missing timelines (kickoff within last {PIPELINE_RECENT_TIMELINE_DAYS} d): {pending}",
+            f"\nDaily mode: after schedule window upsert — missing timelines "
+            f"(kickoff within last {PIPELINE_RECENT_TIMELINE_DAYS} d): {pending}",
             flush=True,
         )
         if pending == 0:

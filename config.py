@@ -299,6 +299,16 @@ COMPLETED_STATUSES = {"closed", "ended"}
 # runs a full schedule sync and all missing timelines.
 PIPELINE_RECENT_TIMELINE_DAYS = int(os.environ.get("PIPELINE_RECENT_TIMELINE_DAYS", "14"))
 
+# --daily: refresh Supabase games rows whose kickoff date (UTC) is within ± this many calendar
+# days of today (catches newly completed fixtures + imminent kickoff/time changes). Full season
+# JSON is still fetched per configured season (API shape); only matching rows are upserted.
+# Weekly --full-backfill still writes the canonical data/schedule.csv and upserts every match.
+PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS = int(os.environ.get("PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS", "5"))
+
+# GET …/seasons/{id}/schedules.json pagination (Soccer v4). ``limit`` max is 1000; trial keys
+# often cap responses smaller — use paginated requests until all rows are retrieved.
+PIPELINE_SCHEDULE_PAGE_SIZE = int(os.environ.get("PIPELINE_SCHEDULE_PAGE_SIZE", "100"))
+
 # Supabase — EPL Own Goals project (key from config_local or env)
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://yoesorfzvtbdmvrdtqoo.supabase.co")
 try:
