@@ -2,7 +2,7 @@
 # Runs before the weekly email job so games / timelines / own_goals / VAR / shootouts are
 # current in Supabase; the email workflow only regenerates HTML and sends Brevo.
 # Daily CI uses run_all.py --daily (no step 2; timelines only for recent kickoffs).
-name: Weekly data backfill
+name: Weekly Data Refresh (includes full schedule check)
 
 on:
   schedule:

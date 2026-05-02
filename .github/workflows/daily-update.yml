@@ -4,7 +4,7 @@
 #   within PIPELINE_RECENT_TIMELINE_DAYS (default 14). If none pending, exits without 3–6.
 # Full Sportradar schedule + all missing timelines: weekly-data-pipeline.yml (Wed 04:00 UTC).
 # HTML + Brevo: weekly-update.yml (Wed 05:00 UTC).
-name: Daily EPL Own Goals Data Refresh
+name: Daily Refresh - Adding Completed Games
 
 on:
   schedule:
