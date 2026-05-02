@@ -1,13 +1,18 @@
 """
-STEP 3 — Fetch sport_event_timeline for every completed match.
+STEP 3 — Fetch sport_event_timeline for completed matches.
 
+CSV mode:
 • Reads match IDs from data/schedule.csv
 • Only fetches matches with status in COMPLETED_STATUSES
 • Caches raw JSON responses in data/timelines/<sport_event_id>.json
-  so re-runs skip already-fetched matches (safe to interrupt and resume)
-• Respects the 1 req/sec trial-key rate limit
 
-Run independently to pull new timelines without touching earlier data.
+Supabase weekly (--full-backfill): completed games missing a timelines row.
+
+Supabase daily (--daily): ``main_daily_timeline_kickoff_window`` reads All Games whose kickoff
+UTC date is yesterday–tomorrow (configurable), fetches timeline.json per sport_event_id, and
+stores only when ``sport_event_status.status`` is closed/ended — no season schedule pagination.
+
+Respects the 1 req/sec trial-key rate limit.
 """
 
 import csv
@@ -23,6 +28,8 @@ from config import (
     SCHEDULE_CSV,
     TIMELINES_DIR,
     COMPLETED_STATUSES,
+    PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_AFTER,
+    PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_BEFORE,
     REQUEST_DELAY_SECONDS,
     USE_SUPABASE,
 )
@@ -53,6 +60,95 @@ def fetch_timeline(sport_event_id: str) -> dict:
 def cache_path(sport_event_id: str) -> str:
     safe_id = sport_event_id.replace(":", "_")
     return os.path.join(TIMELINES_DIR, f"{safe_id}.json")
+
+
+def timeline_feed_marked_completed(data: dict) -> bool:
+    """True when Sportradar timeline payload shows a finished fixture (closed / ended)."""
+    ses = data.get("sport_event_status") or {}
+    return (ses.get("status") or "") in COMPLETED_STATUSES
+
+
+def main_daily_timeline_kickoff_window(
+    *,
+    days_before: int | None = None,
+    days_after: int | None = None,
+) -> int:
+    """
+    Daily path: Supabase games in a UTC kickoff date window → timeline.json each → upsert only if completed.
+
+    Returns the number of timelines newly stored.
+    """
+    if not USE_SUPABASE:
+        raise RuntimeError("main_daily_timeline_kickoff_window requires USE_SUPABASE")
+
+    import db
+
+    b = PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_BEFORE if days_before is None else days_before
+    a = PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_AFTER if days_after is None else days_after
+
+    db.get_or_create_seasons()
+    candidates = db.get_games_kickoff_utc_calendar_window_for_configured_seasons(
+        days_before=b, days_after=a
+    )
+    game_ids = [str(r["id"]) for r in candidates if r.get("id")]
+    existing_tl = db.get_game_ids_with_timeline_among(game_ids)
+
+    print(
+        f"Daily timeline scan: {len(candidates)} game(s) with kickoff UTC date in "
+        f"[today-{b}, today+{a}] inclusive ({len(existing_tl)} already have a timeline row).",
+        flush=True,
+    )
+
+    stored = 0
+    skipped_have_timeline = 0
+    skipped_not_finished = 0
+    errors = 0
+
+    for i, match in enumerate(candidates, 1):
+        game_id = match.get("id")
+        event_id = match.get("sport_event_id") or ""
+        if not game_id or not event_id:
+            continue
+        gid_s = str(game_id)
+        if gid_s in existing_tl:
+            skipped_have_timeline += 1
+            continue
+
+        home = match.get("home_team", "")
+        away = match.get("away_team", "")
+        start_time = match.get("start_time", "")
+        date = str(start_time)[:10] if start_time else "?"
+        print(f"[{i}/{len(candidates)}] Timeline probe {date}  {home} vs {away}  ({event_id})")
+
+        try:
+            data = fetch_timeline(event_id)
+            if not timeline_feed_marked_completed(data):
+                skipped_not_finished += 1
+                continue
+            db.upsert_timeline(
+                gid_s,
+                data,
+                sport_event_id=event_id,
+                start_time=match.get("start_time"),
+            )
+            existing_tl.add(gid_s)
+            stored += 1
+        except urllib.error.HTTPError as e:
+            print(f"  HTTP {e.code} — skipping")
+            errors += 1
+        except Exception as e:
+            print(f"  Error: {e} — skipping")
+            errors += 1
+
+        time.sleep(REQUEST_DELAY_SECONDS)
+
+    print("\nDaily timeline window done.")
+    print(f"  Newly stored (completed) : {stored}")
+    print(f"  Already had timeline   : {skipped_have_timeline}")
+    print(f"  Not finished in feed   : {skipped_not_finished}")
+    print(f"  Errors                 : {errors}")
+    print('  Timelines in Supabase public."Completed Matches - full sport_event_timelines"')
+    return stored
 
 
 def main(recent_start_days: int | None = None):

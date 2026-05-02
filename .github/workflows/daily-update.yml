@@ -1,12 +1,12 @@
 # EPL Own Goals — Daily incremental refresh (no email).
 # Uses: python run_all.py --daily
-#   → Lightweight step 2: schedule JSON per season is fetched; only matches whose kickoff
-#   (UTC date) is within ± PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS (default 5) of today are
-#   upserted to Supabase (status/scores/time changes). Does not overwrite data/schedule.csv.
-#   Step 3–6 only when completed matches lack timelines (kickoff within last
-#   PIPELINE_RECENT_TIMELINE_DAYS, default 14).
-# Full season CSV + every-game upsert: weekly-data-pipeline.yml (Wed 04:00 UTC).
-# HTML + Brevo: weekly-update.yml (Wed 05:00 UTC).
+#   → Step 3: Supabase All Games rows whose kickoff UTC calendar date is within
+#   [today - PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_BEFORE,
+#    today + PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_AFTER] (defaults 1 / 1).
+#   For each row without a timeline yet: Sportradar timeline.json; store only when status is
+#   closed/ended. Steps 4–6 run only when at least one timeline was newly stored.
+# Full season sync + pagination + CSV: weekly-data-pipeline.yml (bi-weekly UTC — Sun eve PT / Thu AM PT approx).
+# HTML + Brevo: weekly-update.yml (still scheduled separately).
 name: Daily Refresh - Adding Completed Games
 
 on:

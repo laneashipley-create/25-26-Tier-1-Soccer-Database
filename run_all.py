@@ -17,17 +17,14 @@ Usage
       all missing timelines, then derived tables. Run before the fast weekly email job.
 
   python run_all.py --daily
-      Supabase only. Runs a lightweight step 2 first: full season schedule JSON per competition
-      is still fetched, but only matches whose kickoff (UTC date) falls within ±
-      PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS of today (default 5) are upserted to All Games —
-      enough to refresh statuses for recent/future fixtures without rewriting all rows. Does
-      not replace data/schedule.csv (weekly --full-backfill owns the full export).
+      Supabase only. Step 3 reads All Games whose kickoff UTC calendar date falls in
+      [today - PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_BEFORE, today +
+      PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_AFTER] (defaults: 1 day before / 1 day after).
+      For each game without a stored timeline yet, calls Sportradar timeline.json; only when
+      sport_event_status.status is closed/ended is the timeline written (no season schedule
+      fetch — weekly full sync refreshes fixtures).
 
-      Step 3 only fetches timelines for completed matches missing storage whose kickoff is
-      within PIPELINE_RECENT_TIMELINE_DAYS (default 14). If nothing is pending after the
-      schedule window refresh, skips steps 3–6. Intended for daily-update.yml.
-
-      Weekly --full-backfill still runs a full schedule sync (all matches) and CSV export.
+      If no timelines were newly stored, skips steps 4–6. Intended for daily-update.yml.
 
   python run_all.py --reports-only
       Step 6 only — regenerate HTML from current database (or CSV when not on Supabase).
@@ -47,12 +44,7 @@ import step2_get_schedule
 import step3_fetch_timelines
 import step4_extract_own_goals
 import step5_extract_var_and_shootouts
-from config import (
-    PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS,
-    PIPELINE_RECENT_TIMELINE_DAYS,
-    SCHEDULE_CSV,
-    USE_SUPABASE,
-)
+from config import SCHEDULE_CSV, USE_SUPABASE
 
 DIVIDER = "-" * 60
 
@@ -73,19 +65,6 @@ def count_pending_timelines() -> int:
 
     matches = load_completed_matches(SCHEDULE_CSV)
     return sum(1 for row in matches if not os.path.exists(cache_path(row["sport_event_id"])))
-
-
-def count_pending_timelines_recent(recent_start_days: int) -> int:
-    """Like count_pending_timelines(), but restricted to recent kickoffs (Supabase daily mode)."""
-    if not USE_SUPABASE:
-        return count_pending_timelines()
-    import db
-
-    return len(
-        db.get_completed_matches_without_timeline_for_configured_seasons_recent(
-            recent_start_days=recent_start_days,
-        )
-    )
 
 
 def _parse_mode() -> str:
@@ -114,30 +93,18 @@ def run_main(*, mode: str) -> None:
         if not USE_SUPABASE:
             print("ERROR: --daily requires Supabase (SUPABASE_URL + service role key).", flush=True)
             raise SystemExit(1)
-        section(
-            "STEP 2 — Recent schedule refresh (± kickoff window, UTC "
-            f"{PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS} day(s))"
-        )
-        step2_get_schedule.main(recent_kickoff_window_days=PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS)
-
-        pending = count_pending_timelines_recent(PIPELINE_RECENT_TIMELINE_DAYS)
-        print(
-            f"\nDaily mode: after schedule window upsert — missing timelines "
-            f"(kickoff within last {PIPELINE_RECENT_TIMELINE_DAYS} d): {pending}",
-            flush=True,
-        )
-        if pending == 0:
+        section("STEP 3 — Daily timelines (kickoff UTC window from Supabase)")
+        stored = step3_fetch_timelines.main_daily_timeline_kickoff_window()
+        if stored == 0:
             print(
-                "\nNo pending timelines in the recent window — skipping steps 3–6.\n"
-                "Run weekly --full-backfill if you need a full schedule sync or older backlog.",
+                "\nNo new completed timelines in the kickoff window — skipping steps 4–6.\n"
+                "Weekly --full-backfill picks up schedule changes and older backlog.",
                 flush=True,
             )
             print(f"\n{DIVIDER}")
-            print("  Daily run done (no work).")
+            print("  Daily run done (no new timelines).")
             print(DIVIDER)
             return
-        section("STEP 3 — Fetching timelines (recent window)")
-        step3_fetch_timelines.main(recent_start_days=PIPELINE_RECENT_TIMELINE_DAYS)
         section("STEP 4 — Extracting own goals")
         step4_extract_own_goals.main()
         section("STEP 5 — Extracting VAR + penalty shootout tables")

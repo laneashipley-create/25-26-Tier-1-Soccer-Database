@@ -248,7 +248,7 @@ SEASON_LABEL = ", ".join(c["season_name"] for c in COMPETITIONS)
 
 # Report hub + page header blurbs (keep in sync with report_hub.html)
 REPORT_BLURB_LIST_OF_ALL_GAMES = (
-    "Browse the complete schedule for all 24 competitions included in this report"
+    "Browse the full season schedule for all 23 tier 1 competitions included in this report"
 )
 REPORT_BLURB_OWN_GOALS = (
     "Report identifies all own goals that occurred in completed games "
@@ -294,16 +294,17 @@ REQUEST_DELAY_SECONDS = 1.1
 # Only fetch timelines for matches with these statuses
 COMPLETED_STATUSES = {"closed", "ended"}
 
-# --daily: only consider missing timelines for matches whose kickoff is within this many days.
-# Older backlog (e.g. first-time setup) is cleared by the weekly --full-backfill workflow, which
-# runs a full schedule sync and all missing timelines.
+# Legacy helper for scripts filtering missing timelines by kickoff age (days).
 PIPELINE_RECENT_TIMELINE_DAYS = int(os.environ.get("PIPELINE_RECENT_TIMELINE_DAYS", "14"))
 
-# --daily: refresh Supabase games rows whose kickoff date (UTC) is within ± this many calendar
-# days of today (catches newly completed fixtures + imminent kickoff/time changes). Full season
-# JSON is still fetched per configured season (API shape); only matching rows are upserted.
-# Weekly --full-backfill still writes the canonical data/schedule.csv and upserts every match.
-PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS = int(os.environ.get("PIPELINE_DAILY_SCHEDULE_WINDOW_DAYS", "5"))
+# --daily: read Supabase All Games rows whose kickoff UTC calendar date is within
+# [today - BEFORE, today + AFTER] inclusive; fetch Sportradar timelines for those IDs only.
+PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_BEFORE = int(
+    os.environ.get("PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_BEFORE", "1")
+)
+PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_AFTER = int(
+    os.environ.get("PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_AFTER", "1")
+)
 
 # GET …/seasons/{id}/schedules.json pagination (Soccer v4). ``limit`` max is 1000; trial keys
 # often cap responses smaller — use paginated requests until all rows are retrieved.

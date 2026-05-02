@@ -7,7 +7,8 @@ Use when USE_SUPABASE is True in config. Provides:
   - get_or_create_competition() — ensure public."Competitions" row exists
   - get_or_create_season() / get_or_create_seasons() — ensure public."Seasons (current sr:season:ID)" rows
   - upsert_games() — upsert rows in public."All Games (sr:sport_events)" (sport events per season)
-  - get_completed_matches_without_timeline* — for step 3 (full or recent-kickoff-only for --daily)
+  - get_completed_matches_without_timeline* — for step 3 (full weekly pull)
+  - get_games_kickoff_utc_calendar_window_for_configured_seasons — daily timeline candidates from All Games
   - upsert_timeline() / get_timeline_json() — public."Completed Matches - full sport_event_timelines" (sport_event_id, start_time, game_id)
   - upsert_own_goals() — write extracted own goals
 
@@ -419,6 +420,78 @@ def get_completed_matches_without_timeline_for_configured_seasons_recent(
         dt = _parse_game_start_time(row.get("start_time"))
         if dt is None or dt >= cutoff:
             out.append(row)
+    return out
+
+
+def _utc_kickoff_calendar_window_bounds(*, days_before: int, days_after: int) -> tuple[str, str]:
+    """Return [start_time >= lo_iso, start_time < hi_exclusive_iso) for UTC calendar inclusivity."""
+    if days_before < 0 or days_after < 0:
+        raise ValueError("days_before and days_after must be non-negative")
+    today = datetime.now(timezone.utc).date()
+    start_d = today - timedelta(days=days_before)
+    end_d = today + timedelta(days=days_after)
+    lo = datetime(start_d.year, start_d.month, start_d.day, tzinfo=timezone.utc)
+    hi_exclusive = datetime(end_d.year, end_d.month, end_d.day, tzinfo=timezone.utc) + timedelta(days=1)
+    return lo.isoformat(), hi_exclusive.isoformat()
+
+
+def get_game_ids_with_timeline_among(game_ids: list[str]) -> set[str]:
+    """Subset of ``game_ids`` that already have a timelines row."""
+    if not game_ids:
+        return set()
+    supabase = get_client()
+    found: set[str] = set()
+    chunk_size = 80
+    for i in range(0, len(game_ids), chunk_size):
+        part = game_ids[i : i + chunk_size]
+
+        def _run(ids=part):
+            return supabase.table(T_TIMELINES).select("game_id").in_("game_id", ids).execute()
+
+        r = _supabase_execute_with_retry(_run)
+        for row in r.data or []:
+            gid = row.get("game_id")
+            if gid:
+                found.add(str(gid))
+    return found
+
+
+def get_games_kickoff_utc_calendar_window_for_configured_seasons(
+    *, days_before: int = 1, days_after: int = 1
+) -> list[dict]:
+    """
+    Games in configured seasons whose ``start_time`` falls on a UTC calendar date between
+    ``today - days_before`` and ``today + days_after`` inclusive.
+    """
+    season_ids = get_or_create_seasons()
+    lo_iso, hi_iso = _utc_kickoff_calendar_window_bounds(
+        days_before=days_before, days_after=days_after
+    )
+    supabase = get_client()
+    out: list[dict] = []
+    page = 500
+    for season_uuid in season_ids.values():
+        offset = 0
+        while True:
+
+            def _run(sid=season_uuid, off=offset):
+                return (
+                    supabase.table(T_GAMES)
+                    .select("*")
+                    .eq("season_id", sid)
+                    .gte("start_time", lo_iso)
+                    .lt("start_time", hi_iso)
+                    .range(off, off + page - 1)
+                    .execute()
+                )
+
+            r = _supabase_execute_with_retry(_run)
+            chunk = r.data or []
+            out.extend(chunk)
+            if len(chunk) < page:
+                break
+            offset += page
+    out.sort(key=lambda row: str(row.get("start_time") or ""))
     return out
 
 

@@ -1,15 +1,18 @@
 # Full schedule sync + all missing timelines + derived tables (no HTML, no email).
 # step2_get_schedule: schedules.json is fetched with start/limit pagination until complete;
 # every match is upserted; data/schedule.csv is rewritten.
-# Runs before the weekly email job so games / timelines / own_goals / VAR / shootouts are
-# current in Supabase; the email workflow only regenerates HTML and sends Brevo.
-# Daily CI uses run_all.py --daily (recent kickoff window upsert only + recent timelines).
-name: Weekly Data Refresh (includes full schedule check)
+# Runs twice weekly so All Games stays fresh between runs; weekly email workflow still regenerates HTML separately.
+# Daily CI uses run_all.py --daily (Supabase kickoff-window timeline probes; no schedule fetch).
+#
+# Cron is UTC only — Pacific shifts with DST (~1h). Approximate targets:
+#   • Monday 01:00 UTC → Sunday ~5:00 PM Pacific (exact under PST).
+#   • Thursday 16:00 UTC → Thursday ~8:00 AM Pacific (exact under PST).
+name: Bi-weekly Data Refresh (includes full schedule check)
 
 on:
   schedule:
-    # Wednesday 04:00 UTC — one hour before weekly email at 05:00 UTC.
-    - cron: "0 4 * * 3"
+    - cron: "0 1 * * 1"
+    - cron: "0 16 * * 4"
   workflow_dispatch:
 
 jobs:
@@ -50,6 +53,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No CSV changes to commit"
           else
-            git commit -m "chore: weekly data backfill (schedule + derived CSV) [skip ci]"
+            git commit -m "chore: bi-weekly data backfill (schedule + derived CSV) [skip ci]"
             git push
           fi

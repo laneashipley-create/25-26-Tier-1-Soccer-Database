@@ -11,10 +11,10 @@ Full weekly pulls GET …/seasons/{season_id}/schedules.json with ``start`` / ``
 until every sport event is returned (Soccer v4; ``limit`` max 1000). Trial feeds often cap page
 size smaller — ``PIPELINE_SCHEDULE_PAGE_SIZE`` (default 100) controls ``limit``.
 
-When ``recent_kickoff_window_days`` is set (daily CI), each season schedule is still fetched in
-full from Sportradar (same pagination), but only matches whose kickoff falls within ±that many
-UTC calendar days from today are upserted to Supabase; ``data/schedule.csv`` is left unchanged
-so the weekly full sync remains the canonical export.
+When ``recent_kickoff_window_days`` is set (optional ad-hoc use), each season schedule is still
+fetched in full from Sportradar (same pagination), but only matches whose kickoff falls within
+±that many UTC calendar days from today are upserted to Supabase; ``data/schedule.csv`` is left
+unchanged. The scheduled daily job uses timeline probes from Supabase instead (see step 3).
 """
 
 import csv

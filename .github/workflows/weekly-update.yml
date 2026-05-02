@@ -1,6 +1,6 @@
 # EPL Own Goals — Weekly email + HTML only (fast). Brevo is the only email sender here.
 # Expects Supabase to already be updated by daily --daily runs and weekly-data-pipeline.yml
-# (Wed 04:00 UTC: full schedule + all missing timelines + steps 4–5).
+# (bi-weekly full schedule + timelines + steps 4–5; Mon 01:00 UTC / Thu 16:00 UTC approx PT).
 # Runs Wednesday 05:00 UTC (~Tuesday 9 PM US Pacific in standard time).
 name: Weekly Email + Own Goal Report update
 
