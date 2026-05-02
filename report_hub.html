@@ -119,6 +119,36 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
+    .refresh-note {
+      margin-top: 1.35rem;
+      padding: 1rem 1.1rem;
+      text-align: left;
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid #5a3030;
+      border-radius: 12px;
+    }
+    .refresh-note-title {
+      margin: 0 0 0.65rem 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .refresh-note-list {
+      margin: 0;
+      padding-left: 1.15rem;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+    .refresh-note-list li { margin-bottom: 0.35rem; }
+    .refresh-note-foot {
+      margin: 0.75rem 0 0 0;
+      font-size: 0.75rem;
+      color: #9a8585;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -179,6 +209,18 @@
           <span class="accent">Open report</span>
         </a>
       </div>
+
+      <aside class="refresh-note" aria-label="Automated refresh schedule">
+        <h2 class="refresh-note-title">Automated refresh schedule</h2>
+        <ul class="refresh-note-list">
+          <li>Daily refresh (pulling in recently completed games) runs at 10pm PST every day</li>
+          <li>A master schedule refresh runs bi-weekly (Sundays, 5pm PST + Thursdays, 8am PST)</li>
+          <li>A weekly email reminder / updated hyperlink is sent out every Tuesday night at 9pm PST</li>
+        </ul>
+        <p class="refresh-note-foot">
+          Automation uses fixed UTC schedules; during daylight saving (PDT), Pacific times are typically about one hour later than these PST references.
+        </p>
+      </aside>
     </section>
   </div>
 </body>
