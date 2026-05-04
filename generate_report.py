@@ -6,7 +6,10 @@ Writes derived static pages:
 - report_own_goals.html — own goals (CSV or Supabase)
 - report_penalty_shootouts.html, report_var_events.html, report_var_unpaired.html,
   report_recordings_library.html — from Supabase when USE_SUPABASE is set;
-  otherwise stub HTML for those four files.
+  otherwise stub HTML for those four files. When
+  `soccer record replay list of sr sport event ids.json` is present, the recordings
+  page is then overlaid by `gen_report_recordings_library_html.py` (one column per
+  `apis[].description`, compact layout).
 - report_master_games.html — full Supabase \"All Games\" schedule (master_games_report.py)
 
 Without Supabase, own goals are read from data/own_goals.csv.
@@ -40,6 +43,9 @@ from config import (
 from report_navigation import NAV_CSS, navigation_html
 
 ASSETS_DIR = os.path.join(os.path.dirname(__file__), "assets")
+_RECORDINGS_EXPORT_JSON = os.path.join(
+    os.path.dirname(__file__), "soccer record replay list of sr sport event ids.json"
+)
 
 # Timeline commentary from Sportradar is only retained ~14 days after kickoff; after a DB reload,
 # meaningful commentary text exists only from this match_date onward (YYYY-MM-DD).
@@ -1326,6 +1332,29 @@ def _derived_stub_page(title: str, nav_href: str) -> str:
 <body><div class="report-sticky-top">{nav}</div><p>Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or config_local) to build this report.</p></body></html>"""
 
 
+def _overlay_recordings_library_from_export_json() -> None:
+    """
+    After the Supabase-derived shell exists, replace the table + meta with the JSON export
+    layout (see gen_report_recordings_library_html.py). No-op if export file is missing.
+    """
+    if not os.path.isfile(_RECORDINGS_EXPORT_JSON):
+        return
+    try:
+        from gen_report_recordings_library_html import main as _gen_recordings_library_html
+    except ImportError as e:
+        print(f"  Recordings library: skipped JSON overlay — {e}")
+        return
+    try:
+        _gen_recordings_library_html()
+    except SystemExit as e:
+        print(f"  Recordings library: JSON overlay failed ({e})")
+        return
+    print(
+        "  Overlaid report_recordings_library.html from export JSON "
+        "(gen_report_recordings_library_html.py)."
+    )
+
+
 def _prepare_recordings_library_rows(rows: list[dict]) -> list[dict]:
     """Oldest kickoff first; renumber ID column 1..n for the HTML report (not DB identity)."""
 
@@ -1558,6 +1587,7 @@ def write_derived_reports() -> None:
     with open(REPORT_HTML_RECORDINGS_LIBRARY, "w", encoding="utf-8") as f:
         f.write(rl_doc)
     print(f"  Wrote {REPORT_HTML_RECORDINGS_LIBRARY} ({len(rl)} rows)")
+    _overlay_recordings_library_from_export_json()
 
 
 def generate_html(
