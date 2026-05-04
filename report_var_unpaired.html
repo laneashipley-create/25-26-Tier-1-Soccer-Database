@@ -72,6 +72,7 @@
     .derived-row--hidden { display: none !important; }
     tr:nth-child(even) td { background: #faf8f4; }
     td.mono, td code { font-size: 0.76rem; }
+    td.num { text-align: center; color: #bbb; font-size: 0.75rem; }
     .table-toolbar-hint {
       font-size: 0.78rem;
       color: #555;
@@ -375,12 +376,71 @@
     </div>
   </div>
   <div class="footer">
-    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-04 22:18 UTC</p>
+    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-04 22:38 UTC</p>
   </div>
 <script>
 (function () {
   if (window.ReportExcelFilter) return;
   var activeCtx = null;
+  var repositionHandler = null;
+  var scrollParents = [];
+
+  function clearScrollTargets() {
+    if (!repositionHandler) return;
+    scrollParents.forEach(function (t) {
+      t.removeEventListener("scroll", repositionHandler);
+    });
+    window.removeEventListener("scroll", repositionHandler);
+    window.removeEventListener("resize", repositionHandler);
+    scrollParents = [];
+    repositionHandler = null;
+  }
+
+  /**
+   * Popover is position:fixed — use viewport coords only (do not add scrollY/scrollX).
+   * Clamp to window; prefer below anchor, else above, else pin inside viewport.
+   */
+  function repositionPopover() {
+    if (!activeCtx || !activeCtx.anchor) return;
+    var pop = document.getElementById("excel-filter-popover");
+    if (!pop || pop.hasAttribute("hidden")) return;
+    var anchor = activeCtx.anchor;
+    var r = anchor.getBoundingClientRect();
+    var m = 8;
+    var g = 4;
+    var pw = pop.offsetWidth || 300;
+    var ph = pop.offsetHeight || 320;
+    var left = r.left;
+    if (left + pw > window.innerWidth - m) left = window.innerWidth - pw - m;
+    if (left < m) left = m;
+    var topBelow = r.bottom + g;
+    var topAbove = r.top - g - ph;
+    var top;
+    if (topBelow + ph <= window.innerHeight - m) {
+      top = topBelow;
+    } else if (topAbove >= m) {
+      top = topAbove;
+    } else {
+      top = Math.max(m, Math.min(topBelow, window.innerHeight - ph - m));
+    }
+    pop.style.left = left + "px";
+    pop.style.top = top + "px";
+    pop.style.right = "auto";
+    pop.style.bottom = "auto";
+  }
+
+  function bindScrollTargets(anchor) {
+    clearScrollTargets();
+    repositionHandler = repositionPopover;
+    var el = anchor;
+    while (el) {
+      el.addEventListener("scroll", repositionHandler, { passive: true });
+      scrollParents.push(el);
+      el = el.parentElement;
+    }
+    window.addEventListener("scroll", repositionHandler, { passive: true });
+    window.addEventListener("resize", repositionHandler);
+  }
 
   function installPopover() {
     if (document.getElementById("excel-filter-popover")) return;
@@ -434,6 +494,7 @@
   }
 
   function close() {
+    clearScrollTargets();
     var pop = document.getElementById("excel-filter-popover");
     if (pop) pop.setAttribute("hidden", "");
     activeCtx = null;
@@ -496,6 +557,7 @@
 
   function open(opts) {
     installPopover();
+    clearScrollTargets();
     var pop = document.getElementById("excel-filter-popover");
     document.getElementById("excel-filter-title").textContent = opts.title || "Filter";
     document.getElementById("excel-filter-search").value = "";
@@ -504,13 +566,17 @@
       distinctSnapshot: snap.slice(),
       selectedSet: opts.selectedSet == null ? null : new Set(opts.selectedSet),
       onApply: opts.onApply,
-      forceAll: false
+      forceAll: false,
+      anchor: opts.anchor
     };
     renderList(activeCtx);
-    var r = opts.anchor.getBoundingClientRect();
-    pop.style.left = Math.max(8, r.left + window.scrollX) + "px";
-    pop.style.top = (r.bottom + window.scrollY + 4) + "px";
     pop.removeAttribute("hidden");
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        repositionPopover();
+        bindScrollTargets(opts.anchor);
+      });
+    });
   }
 
   window.ReportExcelFilter = { open: open, close: close };

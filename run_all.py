@@ -3,6 +3,7 @@ Master runner — pipeline steps for schedule, timelines, derived tables, and HT
 
 Steps
   2 — Fetch Sportradar schedules → data/schedule.csv (+ Supabase games when enabled)
+  2b — When USE_SUPABASE: sync games.recorded from soccer record replay export JSON (replay list ↔ DB flags)
   3 — Fetch timelines for completed matches missing a stored timeline
   4 — Extract own goals → data/own_goals.csv (+ Supabase own_goals)
   5 — VAR + penalty shootout derived tables (Supabase)
@@ -122,6 +123,12 @@ def run_main(*, mode: str) -> None:
     # full / full_backfill
     section("STEP 2 — Fetching schedule")
     step2_get_schedule.main()
+
+    if USE_SUPABASE:
+        section("STEP 2b — Sync games.recorded from recordings export JSON")
+        import sync_games_recorded_from_export
+
+        sync_games_recorded_from_export.main()
 
     pending = count_pending_timelines()
     print(f"\nCompleted matches without timeline (pending fetch): {pending}")

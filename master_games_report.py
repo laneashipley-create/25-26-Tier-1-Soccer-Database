@@ -14,14 +14,6 @@ from config import REPORT_BLURB_LIST_OF_ALL_GAMES, REPORT_HTML_MASTER_GAMES, USE
 from report_navigation import NAV_CSS, navigation_html
 
 
-def _master_recorded_attrs(raw) -> tuple[str, str, str]:
-    if raw is True:
-        return "true", "true", "recorded-true"
-    if raw is False:
-        return "false", "false", "recorded-false"
-    return "", "—", "recorded-unknown"
-
-
 def build_competition_slicer_mg(names: list[str]) -> str:
     if not names:
         return ""
@@ -118,8 +110,8 @@ def build_master_table_rows(rows: list[dict]) -> str:
 
     out: list[str] = []
     for i, r in enumerate(rows, 1):
-        comp = (r.get("season_name") or "").strip()
-        comp_attr = html.escape(comp, quote=True)
+        sn = (r.get("season_name") or "").strip()
+        comp_attr = html.escape(sn, quote=True)
         date_raw = (r.get("match_date") or "")[:10]
         date_attr = html.escape(date_raw if len(date_raw) == 10 else "", quote=True)
         ev_id = str(r.get("sport_event_id") or "")
@@ -129,25 +121,26 @@ def build_master_table_rows(rows: list[dict]) -> str:
         hs = r.get("home_score")
         aws = r.get("away_score")
         score_txt = format_score(str(hs) if hs != "" else "", str(aws) if aws != "" else "")
-        rec_val, rec_txt, rec_cls = _master_recorded_attrs(r.get("recorded"))
         rid = str(r.get("recording_id") or "")
+        title_raw = (r.get("title") or "").strip()
+        title_disp = title_raw if title_raw else "—"
+        comp_nm = (r.get("competition_name") or "").strip() or "—"
+        st = str(r.get("status") or "")
+        mst = str(r.get("match_status") or "")
         out.append(f"""
         <tr class="mg-data-row" data-competition="{comp_attr}" data-match-date="{date_attr}" data-event-id="{ev_attr}">
           <td class="num" data-val="{i}" data-label="#">{i}</td>
-          <td data-val="{html.escape(comp, quote=True)}" data-label="Competition">
-            <div class="match-name">{html.escape(comp or '—', quote=False)}</div>
-            <div class="meta">{html.escape(str(r.get('sportradar_competition_id') or ''), quote=False)}</div>
-          </td>
-          <td class="mono" data-val="{html.escape(kick, quote=True)}" data-label="Kickoff (UTC)"><code>{html.escape(kick or '—', quote=False)}</code></td>
+          <td class="id-cell match-id-cell" data-val="{ev_attr}" data-label="sr_sport_event_id"><code title="{ev_attr}">{html.escape(ev_id, quote=False)}</code></td>
+          <td class="id-cell" data-val="{html.escape(rid, quote=True)}" data-label="recording_id"><code>{html.escape(rid or '—', quote=False)}</code></td>
+          <td data-val="{html.escape(title_disp, quote=True)}" data-label="Title">{html.escape(title_disp, quote=False)}</td>
+          <td data-val="{html.escape(comp_nm, quote=True)}" data-label="Competition Name">{html.escape(comp_nm, quote=False)}</td>
+          <td class="mono" data-val="{html.escape(kick, quote=True)}" data-label="Sport Event Start"><code>{html.escape(kick or '—', quote=False)}</code></td>
           <td data-val="{html.escape(rnd, quote=True)}" data-label="Round">{html.escape(rnd or '—', quote=False)}</td>
           <td data-val="{html.escape(str(r.get('home_team') or ''), quote=True)}" data-label="Home">{html.escape(str(r.get('home_team') or ''), quote=False)}</td>
           <td data-val="{html.escape(str(r.get('away_team') or ''), quote=True)}" data-label="Away">{html.escape(str(r.get('away_team') or ''), quote=False)}</td>
-          <td class="score" data-val="{html.escape(score_txt, quote=True)}" data-label="Score">{html.escape(score_txt, quote=False)}</td>
-          <td data-val="{html.escape(str(r.get('status') or ''), quote=True)}" data-label="Status">{html.escape(str(r.get('status') or ''), quote=False)}</td>
-          <td data-val="{html.escape(str(r.get('match_status') or ''), quote=True)}" data-label="Match st.">{html.escape(str(r.get('match_status') or ''), quote=False)}</td>
-          <td class="center {rec_cls}" data-val="{html.escape(rec_val, quote=True)}" data-label="Recorded">{html.escape(rec_txt, quote=False)}</td>
-          <td class="id-cell" data-val="{html.escape(rid, quote=True)}" data-label="Recording ID"><code>{html.escape(rid or '—', quote=False)}</code></td>
-          <td class="id-cell match-id-cell" data-val="{ev_attr}" data-label="Sport event ID"><code title="{ev_attr}">{html.escape(ev_id, quote=False)}</code></td>
+          <td class="score" data-val="{html.escape(score_txt, quote=True)}" data-label="Final Score">{html.escape(score_txt, quote=False)}</td>
+          <td data-val="{html.escape(st, quote=True)}" data-label="Sport Event Status">{html.escape(st or '—', quote=False)}</td>
+          <td data-val="{html.escape(mst, quote=True)}" data-label="Match Status">{html.escape(mst or '—', quote=False)}</td>
         </tr>""")
     return "\n".join(out)
 
@@ -230,13 +223,13 @@ def _inline_master_games_script() -> str:
     const leagues = {};
     let completed = 0;
     visible.forEach(function (tr) {
-      const hc = cellVal(tr, 4);
-      const ac = cellVal(tr, 5);
+      const hc = cellVal(tr, 7);
+      const ac = cellVal(tr, 8);
       if (hc) teams[hc] = true;
       if (ac) teams[ac] = true;
-      const comp = cellVal(tr, 1);
+      const comp = cellVal(tr, 4);
       if (comp) leagues[comp] = true;
-      const st = (cellVal(tr, 7) || '').toLowerCase();
+      const st = (cellVal(tr, 10) || '').toLowerCase();
       if (st === 'closed' || st === 'ended') completed += 1;
     });
     return {
@@ -753,17 +746,17 @@ def generate_master_games_html(rows: list[dict]) -> str:
         <thead>
           <tr>
             <th class="num">#</th>
-            <th data-col="1">Competition</th>
-            <th data-col="2">Kickoff (UTC)</th>
-            <th data-col="3">Round</th>
-            <th data-col="4">Home</th>
-            <th data-col="5">Away</th>
-            <th data-col="6">Score</th>
-            <th data-col="7">Status</th>
-            <th data-col="8">Match st.</th>
-            <th data-col="9">Recorded</th>
-            <th data-col="10">Recording ID</th>
-            <th data-col="11">Sport event ID</th>
+            <th data-col="1">sr_sport_event_id</th>
+            <th data-col="2">recording_id</th>
+            <th data-col="3">Title</th>
+            <th data-col="4">Competition Name</th>
+            <th data-col="5">Sport Event Start</th>
+            <th data-col="6">Round</th>
+            <th data-col="7">Home</th>
+            <th data-col="8">Away</th>
+            <th data-col="9">Final Score</th>
+            <th data-col="10">Sport Event Status</th>
+            <th data-col="11">Match Status</th>
           </tr>
           <tr class="og-col-filters">
             {filter_row}

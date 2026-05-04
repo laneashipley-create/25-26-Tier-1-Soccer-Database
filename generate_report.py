@@ -834,6 +834,65 @@ EXCEL_FILTER_CORE_SCRIPT = r"""<script>
 (function () {
   if (window.ReportExcelFilter) return;
   var activeCtx = null;
+  var repositionHandler = null;
+  var scrollParents = [];
+
+  function clearScrollTargets() {
+    if (!repositionHandler) return;
+    scrollParents.forEach(function (t) {
+      t.removeEventListener("scroll", repositionHandler);
+    });
+    window.removeEventListener("scroll", repositionHandler);
+    window.removeEventListener("resize", repositionHandler);
+    scrollParents = [];
+    repositionHandler = null;
+  }
+
+  /**
+   * Popover is position:fixed — use viewport coords only (do not add scrollY/scrollX).
+   * Clamp to window; prefer below anchor, else above, else pin inside viewport.
+   */
+  function repositionPopover() {
+    if (!activeCtx || !activeCtx.anchor) return;
+    var pop = document.getElementById("excel-filter-popover");
+    if (!pop || pop.hasAttribute("hidden")) return;
+    var anchor = activeCtx.anchor;
+    var r = anchor.getBoundingClientRect();
+    var m = 8;
+    var g = 4;
+    var pw = pop.offsetWidth || 300;
+    var ph = pop.offsetHeight || 320;
+    var left = r.left;
+    if (left + pw > window.innerWidth - m) left = window.innerWidth - pw - m;
+    if (left < m) left = m;
+    var topBelow = r.bottom + g;
+    var topAbove = r.top - g - ph;
+    var top;
+    if (topBelow + ph <= window.innerHeight - m) {
+      top = topBelow;
+    } else if (topAbove >= m) {
+      top = topAbove;
+    } else {
+      top = Math.max(m, Math.min(topBelow, window.innerHeight - ph - m));
+    }
+    pop.style.left = left + "px";
+    pop.style.top = top + "px";
+    pop.style.right = "auto";
+    pop.style.bottom = "auto";
+  }
+
+  function bindScrollTargets(anchor) {
+    clearScrollTargets();
+    repositionHandler = repositionPopover;
+    var el = anchor;
+    while (el) {
+      el.addEventListener("scroll", repositionHandler, { passive: true });
+      scrollParents.push(el);
+      el = el.parentElement;
+    }
+    window.addEventListener("scroll", repositionHandler, { passive: true });
+    window.addEventListener("resize", repositionHandler);
+  }
 
   function installPopover() {
     if (document.getElementById("excel-filter-popover")) return;
@@ -887,6 +946,7 @@ EXCEL_FILTER_CORE_SCRIPT = r"""<script>
   }
 
   function close() {
+    clearScrollTargets();
     var pop = document.getElementById("excel-filter-popover");
     if (pop) pop.setAttribute("hidden", "");
     activeCtx = null;
@@ -949,6 +1009,7 @@ EXCEL_FILTER_CORE_SCRIPT = r"""<script>
 
   function open(opts) {
     installPopover();
+    clearScrollTargets();
     var pop = document.getElementById("excel-filter-popover");
     document.getElementById("excel-filter-title").textContent = opts.title || "Filter";
     document.getElementById("excel-filter-search").value = "";
@@ -957,13 +1018,17 @@ EXCEL_FILTER_CORE_SCRIPT = r"""<script>
       distinctSnapshot: snap.slice(),
       selectedSet: opts.selectedSet == null ? null : new Set(opts.selectedSet),
       onApply: opts.onApply,
-      forceAll: false
+      forceAll: false,
+      anchor: opts.anchor
     };
     renderList(activeCtx);
-    var r = opts.anchor.getBoundingClientRect();
-    pop.style.left = Math.max(8, r.left + window.scrollX) + "px";
-    pop.style.top = (r.bottom + window.scrollY + 4) + "px";
     pop.removeAttribute("hidden");
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        repositionPopover();
+        bindScrollTargets(opts.anchor);
+      });
+    });
   }
 
   window.ReportExcelFilter = { open: open, close: close };
@@ -1176,6 +1241,11 @@ def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], 
         tds = []
         for k in keys:
             raw = r.get(k)
+            if k == "row_num":
+                iv = raw if raw is not None else ""
+                dv = html.escape(str(iv), quote=True)
+                tds.append(f'<td class="num" data-val="{dv}">{html.escape(str(iv), quote=False)}</td>')
+                continue
             if k == "commentary" and raw and len(str(raw)) > 240:
                 raw = str(raw)[:240] + "…"
             if k == "recorded":
@@ -1290,6 +1360,7 @@ def _derived_page_shell(
     .derived-row--hidden {{ display: none !important; }}
     tr:nth-child(even) td {{ background: #faf8f4; }}
     td.mono, td code {{ font-size: 0.76rem; }}
+    td.num {{ text-align: center; color: #bbb; font-size: 0.75rem; }}
     .table-toolbar-hint {{
       font-size: 0.78rem;
       color: #555;
@@ -1389,29 +1460,31 @@ def write_derived_reports() -> None:
     import db
 
     ps = db.fetch_penalty_shootout_match_rows()
+    for i, row in enumerate(ps, 1):
+        row["row_num"] = i
     ps_headers = [
-        "Match date",
+        "#",
+        "sr_sport_event_id",
+        "recording_id",
+        "Competition Name",
+        "Sport Event Start",
+        "Round",
         "Home",
         "Away",
         "Attempts",
-        "Sudden death",
-        "Recorded",
-        "Recording ID",
-        "Competition",
-        "Status",
-        "Sport event ID",
+        "Sudden Death",
     ]
     ps_keys = [
-        "match_date",
+        "row_num",
+        "sport_event_id",
+        "recording_id",
+        "competition_name",
+        "sport_event_start",
+        "round",
         "home_team",
         "away_team",
         "shootout_attempts",
         "sudden_death",
-        "recorded",
-        "recording_id",
-        "competition_name",
-        "status",
-        "sport_event_id",
     ]
     ps_html = _derived_build_table(ps_headers, ps_keys, ps, "table-penalty-shootouts")
     ps_doc = _derived_page_shell(

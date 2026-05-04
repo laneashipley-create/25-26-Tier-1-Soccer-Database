@@ -1,4 +1,5 @@
 # Full schedule sync + all missing timelines + derived tables (no HTML, no email).
+# After step 2, run_all syncs games.recorded from soccer record replay export JSON (step 2b).
 # step2_get_schedule: schedules.json is fetched with start/limit pagination until complete;
 # every match is upserted; data/schedule.csv is rewritten.
 # Runs twice weekly so All Games stays fresh between runs; weekly email workflow still regenerates HTML separately.

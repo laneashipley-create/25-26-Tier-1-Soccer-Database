@@ -89,6 +89,12 @@ def _load_recording_id_by_event() -> dict[str, str]:
     return out
 
 
+def invalidate_recording_id_export_cache() -> None:
+    """Clear map loaded from soccer record replay JSON (call after DB recorded flags change)."""
+    global _recording_id_by_event_cache
+    _recording_id_by_event_cache = None
+
+
 def _recording_id_for_event(sport_event_id: object, recorded: object) -> str:
     """Return recording UUID only for recorded=true rows; else blank."""
     if recorded is not True:
@@ -709,6 +715,17 @@ def write_own_goals_csv_export(path: str) -> None:
     print(f"Wrote {len(rows)} own goal row(s) to {path}")
 
 
+def _master_games_match_title(home: str, away: str) -> str:
+    """Display title for schedule rows (no sport_event title stored); mirrors recordings export style."""
+    h = (home or "").strip()
+    a = (away or "").strip()
+    if h and a:
+        return f"{a} AT {h}"
+    if h or a:
+        return h or a
+    return ""
+
+
 def get_all_master_games_report_rows() -> list[dict]:
     """
     All rows from public."All Games (sr:sport_events)" with season + competition labels.
@@ -773,18 +790,26 @@ def get_all_master_games_report_rows() -> list[dict]:
             recorded = row.get("recorded")
             hs = row.get("home_score")
             away_s = row.get("away_score")
+            ht = str(row.get("home_team") or "")
+            at = str(row.get("away_team") or "")
+            comp_name = str(comp.get("competition_name") or "").strip()
+            season_nm = str(srow.get("name") or "").strip()
+            competition_label = comp_name if comp_name else season_nm
+            title = _master_games_match_title(ht, at)
             games_out.append({
                 "sport_event_id": str(sid_ev),
-                "season_name": str(srow.get("name") or ""),
+                "season_name": season_nm,
                 "sportradar_season_id": str(srow.get("sportradar_season_id") or ""),
                 "sportradar_competition_id": str(comp.get("sportradar_competition_id") or ""),
                 "competition_display_name": str(comp.get("competition_name") or ""),
+                "competition_name": competition_label,
                 "category_name": str(comp.get("category_name") or ""),
+                "title": title,
                 "start_time": start_s,
                 "match_date": match_date,
                 "round": str(row.get("round") or ""),
-                "home_team": str(row.get("home_team") or ""),
-                "away_team": str(row.get("away_team") or ""),
+                "home_team": ht,
+                "away_team": at,
                 "home_score": "" if hs is None else hs,
                 "away_score": "" if away_s is None else away_s,
                 "status": str(row.get("status") or ""),
@@ -1087,13 +1112,52 @@ def _fetch_all_ordered(table: str, orders: list[tuple[str, bool]]) -> list[dict]
 
 
 def fetch_penalty_shootout_match_rows() -> list[dict]:
-    """All rows from public.penalty_shootout_matches (newest match dates first)."""
+    """
+    All rows from public.penalty_shootout_matches (newest match dates first).
+
+    Adds recording_id, plus sport_event_start and round from public.\"All Games (sr:sport_events)\"
+    for report columns (not stored on penalty_shootout_matches).
+    """
     rows = _fetch_all_ordered(
         "penalty_shootout_matches",
         [("match_date", True), ("id", False)],
     )
+    if not rows:
+        return []
+
+    supabase = get_client()
+    game_ids = list({r.get("game_id") for r in rows if r.get("game_id")})
+    games_by_id: dict[str, dict] = {}
+    chunk_size = 200
+    for i in range(0, len(game_ids), chunk_size):
+        chunk = game_ids[i : i + chunk_size]
+
+        def _run(ids=chunk):
+            return (
+                supabase.table(T_GAMES)
+                .select("id,start_time,round")
+                .in_("id", ids)
+                .execute()
+            )
+
+        gr = _supabase_execute_with_retry(_run)
+        for g in gr.data or []:
+            gid = g.get("id")
+            if gid:
+                games_by_id[str(gid)] = g
+
     for r in rows:
         r["recording_id"] = _recording_id_for_event(r.get("sport_event_id"), r.get("recorded"))
+        gid = r.get("game_id")
+        g = games_by_id.get(str(gid)) if gid else None
+        if g:
+            st = g.get("start_time")
+            r["sport_event_start"] = str(st).strip() if st is not None and str(st).strip() else ""
+            rd = g.get("round")
+            r["round"] = str(rd) if rd is not None and str(rd) != "" else ""
+        else:
+            r["sport_event_start"] = ""
+            r["round"] = ""
     return rows
 
 
