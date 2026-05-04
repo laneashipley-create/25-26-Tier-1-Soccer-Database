@@ -323,7 +323,7 @@
     </div>
   </div>
   <div class="footer">
-    <p>Data from Supabase (Record/Replay library table Soccer // Recordings Library) · Generated 2026-05-02 21:34 UTC</p>
+    <p>Data from Supabase (Record/Replay library table Soccer // Recordings Library) · Generated 2026-05-04 22:09 UTC</p>
   </div>
 <script>
 (function () {
@@ -603,7 +603,18 @@
       });
     });
 
+    function applyDefaultSort() {
+      if (table.id !== "table-recordings-library") return;
+      sortCol = 0;
+      sortAsc = false;
+      headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
+      var th = table.querySelector('thead tr:first-child th[data-col="0"]');
+      if (th) th.classList.add("sorted-desc");
+      sortTable(0, false);
+    }
+
     applyFilters();
+    applyDefaultSort();
   });
 })();
 </script>

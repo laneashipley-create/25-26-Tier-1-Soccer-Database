@@ -1106,7 +1106,18 @@ DERIVED_TABLE_SCRIPT = r"""<script>
       });
     });
 
+    function applyDefaultSort() {
+      if (table.id !== "table-recordings-library") return;
+      sortCol = 0;
+      sortAsc = false;
+      headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
+      var th = table.querySelector('thead tr:first-child th[data-col="0"]');
+      if (th) th.classList.add("sorted-desc");
+      sortTable(0, false);
+    }
+
     applyFilters();
+    applyDefaultSort();
   });
 })();
 </script>"""
