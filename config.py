@@ -57,6 +57,12 @@ COMPETITIONS = [
         "season_name": "Brasileiro Serie A 2026",
     },
     {
+        "competition_id": "sr:competition:390",
+        "competition_name": "Brasileiro Serie B",
+        "season_id": "sr:season:137806",
+        "season_name": "Brasileiro Serie B 2026",
+    },
+    {
         "competition_id": "sr:competition:35",
         "competition_name": "1. Bundesliga",
         "gender": "male",
@@ -230,6 +236,12 @@ COMPETITIONS = [
         "season_name": "CONMEBOL Libertadores 2026",
     },
     {
+        "competition_id": "sr:competition:480",
+        "competition_name": "CONMEBOL Sudamericana",
+        "season_id": "sr:season:138028",
+        "season_name": "CONMEBOL Sudamericana 2026",
+    },
+    {
         "competition_id": "sr:competition:27466",
         "competition_name": "Liga MX (Apertura + Clausura)",
         "gender": "male",
@@ -237,6 +249,12 @@ COMPETITIONS = [
         "country_code": "MX",
         "season_id": "sr:season:137954",
         "season_name": "Liga MX, Clausura 2026",
+    },
+    {
+        "competition_id": "sr:competition:372",
+        "competition_name": "Paulista, Serie A1",
+        "season_id": "sr:season:137406",
+        "season_name": "Paulista, Serie A1 2026",
     },
 ]
 
@@ -248,7 +266,7 @@ SEASON_LABEL = ", ".join(c["season_name"] for c in COMPETITIONS)
 
 # Report hub + page header blurbs (keep in sync with report_hub.html)
 REPORT_BLURB_LIST_OF_ALL_GAMES = (
-    "Browse the full season schedule for all 23 tier 1 competitions included in this report"
+    "Browse the full season schedule for all 26 tier 1 competitions included in this report"
 )
 REPORT_BLURB_OWN_GOALS = (
     "Report identifies all own goals that occurred in completed games "
