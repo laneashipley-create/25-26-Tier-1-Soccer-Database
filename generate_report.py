@@ -1259,8 +1259,6 @@ def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], 
                 "game_id",
                 "recording_id",
                 "sr_sport_event_id",
-                "var_events_row_id",
-                "var_unpaired_row_id",
             ) and raw:
                 inner = f'<code>{html.escape(str(raw), quote=False)}</code>'
                 tds.append(f'<td class="mono" data-val="{dv}">{inner}</td>')
@@ -1515,11 +1513,10 @@ def write_derived_reports() -> None:
     vr_headers = [
         "#",
         "ID",
-        "Sport Event Start",
+        "Date",
         "recording_id",
         "title",
         "Competition Name",
-        "Date",
         "Competition",
         "Home",
         "Away",
@@ -1534,12 +1531,11 @@ def write_derived_reports() -> None:
     ]
     vr_keys = [
         "row_num",
-        "var_events_row_id",
-        "sport_event_start",
+        "sport_event_id",
+        "match_date",
         "recording_id",
         "title",
         "competition_name",
-        "match_date",
         "sportradar_competition_id",
         "home_team",
         "away_team",
@@ -1574,11 +1570,10 @@ def write_derived_reports() -> None:
     vu_headers = [
         "#",
         "ID",
-        "Sport Event Start",
+        "Date",
         "recording_id",
         "title",
         "Competition Name",
-        "Date",
         "Competition",
         "Home",
         "Away",
@@ -1588,12 +1583,11 @@ def write_derived_reports() -> None:
     ]
     vu_keys = [
         "row_num",
-        "var_unpaired_row_id",
-        "sport_event_start",
+        "sport_event_id",
+        "match_date",
         "recording_id",
         "title",
         "competition_name",
-        "match_date",
         "sportradar_competition_id",
         "home_team",
         "away_team",

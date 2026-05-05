@@ -1165,53 +1165,20 @@ def fetch_var_timeline_event_rows() -> list[dict]:
     """
     All rows from public.var_timeline_events.
 
-    Adds recording_id, sport_event_start and title (from All Games), plus var_events_row_id
-    for HTML report column \"ID\" (same value as row primary key).
+    Adds recording_id and title (derived from home/away team names).
     """
     rows = _fetch_all_ordered(
         "var_timeline_events",
         [("match_date", True), ("id", False)],
     )
-    if not rows:
-        return []
-
-    supabase = get_client()
-    game_ids = list({r.get("game_id") for r in rows if r.get("game_id")})
-    games_by_id: dict[str, dict] = {}
-    chunk_size = 200
-    for i in range(0, len(game_ids), chunk_size):
-        chunk = game_ids[i : i + chunk_size]
-
-        def _run(ids=chunk):
-            return (
-                supabase.table(T_GAMES)
-                .select("id,start_time")
-                .in_("id", ids)
-                .execute()
-            )
-
-        gr = _supabase_execute_with_retry(_run)
-        for g in gr.data or []:
-            gid = g.get("id")
-            if gid:
-                games_by_id[str(gid)] = g
-
     for r in rows:
         r["recording_id"] = _recording_id_for_event(r.get("sport_event_id"), r.get("recorded"))
-        r["var_events_row_id"] = r.get("id")
         ht = r.get("home_team")
         at = r.get("away_team")
         r["title"] = _master_games_match_title(
             str(ht) if ht is not None else "",
             str(at) if at is not None else "",
         )
-        gid = r.get("game_id")
-        g = games_by_id.get(str(gid)) if gid else None
-        if g:
-            st = g.get("start_time")
-            r["sport_event_start"] = str(st).strip() if st is not None and str(st).strip() else ""
-        else:
-            r["sport_event_start"] = ""
     return rows
 
 
@@ -1227,8 +1194,8 @@ def fetch_var_unpaired_match_rows() -> list[dict]:
     """
     Rows from public.var_unpaired_event_matches view.
 
-    Adds recording_id (from games.recorded), sport_event_start, title, sportradar_competition_id
-    (via season → competition), and var_unpaired_row_id (same as game_id) for the HTML report.
+    Adds recording_id (from games.recorded), title, sportradar_competition_id
+    (via season → competition).
     """
     rows = _fetch_all_ordered(
         "var_unpaired_event_matches",
@@ -1264,7 +1231,7 @@ def fetch_var_unpaired_match_rows() -> list[dict]:
         def _run_g(ids=chunk):
             return (
                 supabase.table(T_GAMES)
-                .select("id,start_time,season_id")
+                .select("id,season_id")
                 .in_("id", ids)
                 .execute()
             )
@@ -1319,7 +1286,6 @@ def fetch_var_unpaired_match_rows() -> list[dict]:
         eid = r.get("sport_event_id")
         r["recorded"] = recorded_by_event.get(str(eid)) if eid else None
         r["recording_id"] = _recording_id_for_event(eid, r.get("recorded"))
-        r["var_unpaired_row_id"] = r.get("game_id")
         ht = r.get("home_team")
         at = r.get("away_team")
         r["title"] = _master_games_match_title(
@@ -1329,14 +1295,11 @@ def fetch_var_unpaired_match_rows() -> list[dict]:
         gid = r.get("game_id")
         g = games_by_id.get(str(gid)) if gid else None
         if g:
-            st = g.get("start_time")
-            r["sport_event_start"] = str(st).strip() if st is not None and str(st).strip() else ""
             sid = g.get("season_id")
             cu = sid_to_comp_uuid.get(str(sid)) if sid else None
             srid = comp_srid_by_uuid.get(str(cu)) if cu else None
             r["sportradar_competition_id"] = srid if srid else ""
         else:
-            r["sport_event_start"] = ""
             r["sportradar_competition_id"] = ""
     return rows
 
