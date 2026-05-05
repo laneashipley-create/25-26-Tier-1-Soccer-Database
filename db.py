@@ -1111,6 +1111,18 @@ def _fetch_all_ordered(table: str, orders: list[tuple[str, bool]]) -> list[dict]
     return out
 
 
+def _sport_event_start_iso_utc(st: object) -> str:
+    """Normalize games.start_time to full ISO-8601 UTC-offset string for reports (sort + display)."""
+    if st is None:
+        return ""
+    s = str(st).strip()
+    if not s:
+        return ""
+    if len(s) == 10 and s[4] == "-" and s[7] == "-" and s.replace("-", "").isdigit():
+        return f"{s}T00:00:00+00:00"
+    return s
+
+
 def fetch_penalty_shootout_match_rows() -> list[dict]:
     """
     All rows from public.penalty_shootout_matches (newest match dates first).
@@ -1165,12 +1177,36 @@ def fetch_var_timeline_event_rows() -> list[dict]:
     """
     All rows from public.var_timeline_events.
 
-    Adds recording_id and title (derived from home/away team names).
+    Adds recording_id, title (from home/away), and sport_event_start (kickoff UTC from All Games).
     """
     rows = _fetch_all_ordered(
         "var_timeline_events",
         [("match_date", True), ("id", False)],
     )
+    if not rows:
+        return []
+
+    supabase = get_client()
+    game_ids = list({r.get("game_id") for r in rows if r.get("game_id")})
+    games_by_id: dict[str, dict] = {}
+    chunk_size = 200
+    for i in range(0, len(game_ids), chunk_size):
+        chunk = game_ids[i : i + chunk_size]
+
+        def _run(ids=chunk):
+            return (
+                supabase.table(T_GAMES)
+                .select("id,start_time")
+                .in_("id", ids)
+                .execute()
+            )
+
+        gr = _supabase_execute_with_retry(_run)
+        for g in gr.data or []:
+            gid = g.get("id")
+            if gid:
+                games_by_id[str(gid)] = g
+
     for r in rows:
         r["recording_id"] = _recording_id_for_event(r.get("sport_event_id"), r.get("recorded"))
         ht = r.get("home_team")
@@ -1179,6 +1215,16 @@ def fetch_var_timeline_event_rows() -> list[dict]:
             str(ht) if ht is not None else "",
             str(at) if at is not None else "",
         )
+        gid = r.get("game_id")
+        g = games_by_id.get(str(gid)) if gid else None
+        if g:
+            r["sport_event_start"] = _sport_event_start_iso_utc(g.get("start_time"))
+        else:
+            r["sport_event_start"] = ""
+        if not r.get("sport_event_start"):
+            md = str(r.get("match_date") or "")[:10]
+            if len(md) == 10:
+                r["sport_event_start"] = f"{md}T00:00:00+00:00"
     return rows
 
 
@@ -1194,8 +1240,8 @@ def fetch_var_unpaired_match_rows() -> list[dict]:
     """
     Rows from public.var_unpaired_event_matches view.
 
-    Adds recording_id (from games.recorded), title, sportradar_competition_id
-    (via season → competition).
+    Adds recording_id (from games.recorded), title, sport_event_start (kickoff UTC),
+    and sportradar_competition_id (via season → competition).
     """
     rows = _fetch_all_ordered(
         "var_unpaired_event_matches",
@@ -1231,7 +1277,7 @@ def fetch_var_unpaired_match_rows() -> list[dict]:
         def _run_g(ids=chunk):
             return (
                 supabase.table(T_GAMES)
-                .select("id,season_id")
+                .select("id,season_id,start_time")
                 .in_("id", ids)
                 .execute()
             )
@@ -1295,12 +1341,18 @@ def fetch_var_unpaired_match_rows() -> list[dict]:
         gid = r.get("game_id")
         g = games_by_id.get(str(gid)) if gid else None
         if g:
+            r["sport_event_start"] = _sport_event_start_iso_utc(g.get("start_time"))
             sid = g.get("season_id")
             cu = sid_to_comp_uuid.get(str(sid)) if sid else None
             srid = comp_srid_by_uuid.get(str(cu)) if cu else None
             r["sportradar_competition_id"] = srid if srid else ""
         else:
+            r["sport_event_start"] = ""
             r["sportradar_competition_id"] = ""
+        if not r.get("sport_event_start"):
+            md = str(r.get("match_date") or "")[:10]
+            if len(md) == 10:
+                r["sport_event_start"] = f"{md}T00:00:00+00:00"
     return rows
 
 

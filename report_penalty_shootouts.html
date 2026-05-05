@@ -383,7 +383,7 @@
     </div>
   </div>
   <div class="footer">
-    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-05 03:06 UTC</p>
+    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-05 03:24 UTC</p>
   </div>
 <script>
 (function () {
@@ -682,11 +682,18 @@
       vis.sort(function (a, b) {
         var aVal = cellVal(a, col);
         var bVal = cellVal(b, col);
-        var aNum = parseFloat(aVal);
-        var bNum = parseFloat(bVal);
+        var as = String(aVal);
+        var bs = String(bVal);
+        var isoLike = /^\\d{4}-\\d{2}-\\d{2}/;
         var cmp;
-        if (!isNaN(aNum) && !isNaN(bNum) && aVal !== "" && bVal !== "") cmp = aNum - bNum;
-        else cmp = String(aVal).localeCompare(String(bVal), undefined, { numeric: true, sensitivity: "base" });
+        if (isoLike.test(as) && isoLike.test(bs)) {
+          cmp = as.localeCompare(bs);
+        } else {
+          var aNum = parseFloat(aVal);
+          var bNum = parseFloat(bVal);
+          if (!isNaN(aNum) && !isNaN(bNum) && aVal !== "" && bVal !== "") cmp = aNum - bNum;
+          else cmp = as.localeCompare(bs, undefined, { numeric: true, sensitivity: "base" });
+        }
         return asc ? cmp : -cmp;
       });
       vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
@@ -729,13 +736,21 @@
     });
 
     function applyDefaultSort() {
-      if (table.id !== "table-recordings-library") return;
-      sortCol = 0;
-      sortAsc = false;
-      headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
-      var th = table.querySelector('thead tr:first-child th[data-col="0"]');
-      if (th) th.classList.add("sorted-desc");
-      sortTable(0, false);
+      if (table.id === "table-recordings-library") {
+        sortCol = 0;
+        sortAsc = false;
+        headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
+        var th0 = table.querySelector('thead tr:first-child th[data-col="0"]');
+        if (th0) th0.classList.add("sorted-desc");
+        sortTable(0, false);
+      } else if (table.id === "table-var-events" || table.id === "table-var-unpaired") {
+        sortCol = 2;
+        sortAsc = false;
+        headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
+        var th2 = table.querySelector('thead tr:first-child th[data-col="2"]');
+        if (th2) th2.classList.add("sorted-desc");
+        sortTable(2, false);
+      }
     }
 
     applyFilters();

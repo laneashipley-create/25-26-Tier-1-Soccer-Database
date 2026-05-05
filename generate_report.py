@@ -176,15 +176,14 @@ def _og_recorded_attrs(raw) -> tuple[str, str, str]:
 
 def build_table_rows(rows: list[dict]) -> str:
     if not rows:
-        return '<tr><td colspan="14" style="text-align:center;padding:2rem;color:#666;">No own goals found yet.</td></tr>'
+        return '<tr><td colspan="15" style="text-align:center;padding:2rem;color:#666;">No own goals found yet.</td></tr>'
 
     html_rows = []
     for i, r in enumerate(rows, 1):
         minute_display = format_minute(r["minute"], r["stoppage_time"])
         score_at_og = format_score(r["home_score_after"], r["away_score_after"])
         final_score = format_score(r["final_home_score"], r["final_away_score"])
-        match_label = f"{r['home_team']} vs {r['away_team']}"
-        round_label = f"GW{r['round']}" if r.get("round") else "—"
+        match_title = f"{r['home_team']} / {r['away_team']}"
         commentary = r.get("commentary", "")
 
         # Flip "Last, First" → "First Last"
@@ -212,6 +211,8 @@ def build_table_rows(rows: list[dict]) -> str:
         tm_attr = html.escape(str(r.get("og_player_team", "")), quote=True)
         match_date_raw = (r.get("match_date") or "")[:10]
         date_attr = html.escape(match_date_raw if len(match_date_raw) == 10 else "", quote=True)
+        date_display = match_date_raw if len(match_date_raw) == 10 else "—"
+        date_sort_val = match_date_raw if len(match_date_raw) == 10 else ""
         html_rows.append(f"""
         <tr class="og-data-row" data-competition="{comp_attr}" data-match-date="{date_attr}" data-event-id="{ev_attr}" data-og-player="{pl_attr}" data-og-team="{tm_attr}">
           <td class="num" data-val="{i}" data-label="#">{i}</td>
@@ -219,10 +220,10 @@ def build_table_rows(rows: list[dict]) -> str:
             <div class="match-name">{r.get('season_name','—')}</div>
             <div class="meta">{r.get('competition_id','')}</div>
           </td>
-          <td data-val="{r['match_date']}" data-label="Match">
-            <div class="match-name">{match_label}</div>
-            <div class="meta">{r['match_date']} &bull; {round_label}</div>
+          <td data-val="{html.escape(match_title, quote=True)}" data-label="Title">
+            <div class="match-name">{html.escape(match_title, quote=False)}</div>
           </td>
+          <td data-val="{html.escape(date_sort_val, quote=True)}" data-label="Date">{html.escape(date_display, quote=False)}</td>
           <td class="id-cell match-id-cell" data-val="{r['sport_event_id']}" data-label="Match ID"><code title="{r['sport_event_id']}">{r['sport_event_id']}</code></td>
           <td class="center {rec_cls}" data-val="{html.escape(rec_val, quote=True)}" data-label="Recorded">{html.escape(rec_txt, quote=False)}</td>
           <td class="id-cell" data-val="{html.escape(str(r.get('recording_id', '') or ''), quote=True)}" data-label="Recording ID"><code title="{html.escape(str(r.get('recording_id', '') or ''), quote=True)}">{html.escape(str(r.get('recording_id', '') or ''), quote=False)}</code></td>
@@ -279,13 +280,18 @@ def _inline_report_script() -> str:
     visible.sort(function (a, b) {
       const aVal = cellVal(a, colIndex);
       const bVal = cellVal(b, colIndex);
-      const aNum = parseFloat(aVal);
-      const bNum = parseFloat(bVal);
       let cmp;
-      if (!isNaN(aNum) && !isNaN(bNum) && aVal !== '' && bVal !== '') {
-        cmp = aNum - bNum;
+      const isoDate = /^\\d{4}-\\d{2}-\\d{2}$/;
+      if (isoDate.test(aVal) && isoDate.test(bVal)) {
+        cmp = aVal.localeCompare(bVal);
       } else {
-        cmp = aVal.localeCompare(bVal, undefined, { numeric: true, sensitivity: 'base' });
+        const aNum = parseFloat(aVal);
+        const bNum = parseFloat(bVal);
+        if (!isNaN(aNum) && !isNaN(bNum) && aVal !== '' && bVal !== '') {
+          cmp = aNum - bNum;
+        } else {
+          cmp = aVal.localeCompare(bVal, undefined, { numeric: true, sensitivity: 'base' });
+        }
       }
       return asc ? cmp : -cmp;
     });
@@ -674,6 +680,13 @@ def _inline_report_script() -> str:
   }
   wireDateFilter();
   applyFilter();
+  sortCol = 3;
+  sortAsc = false;
+  headers.forEach(function (h) { h.classList.remove('sorted-asc', 'sorted-desc'); });
+  var dateSortTh = document.querySelector('#og-table thead tr:first-child th[data-col="3"]');
+  if (dateSortTh) dateSortTh.classList.add('sorted-desc');
+  sortTable(3, false);
+  renumberRows();
 })();
 </script>"""
 
@@ -1131,11 +1144,18 @@ DERIVED_TABLE_SCRIPT = r"""<script>
       vis.sort(function (a, b) {
         var aVal = cellVal(a, col);
         var bVal = cellVal(b, col);
-        var aNum = parseFloat(aVal);
-        var bNum = parseFloat(bVal);
+        var as = String(aVal);
+        var bs = String(bVal);
+        var isoLike = /^\\d{4}-\\d{2}-\\d{2}/;
         var cmp;
-        if (!isNaN(aNum) && !isNaN(bNum) && aVal !== "" && bVal !== "") cmp = aNum - bNum;
-        else cmp = String(aVal).localeCompare(String(bVal), undefined, { numeric: true, sensitivity: "base" });
+        if (isoLike.test(as) && isoLike.test(bs)) {
+          cmp = as.localeCompare(bs);
+        } else {
+          var aNum = parseFloat(aVal);
+          var bNum = parseFloat(bVal);
+          if (!isNaN(aNum) && !isNaN(bNum) && aVal !== "" && bVal !== "") cmp = aNum - bNum;
+          else cmp = as.localeCompare(bs, undefined, { numeric: true, sensitivity: "base" });
+        }
         return asc ? cmp : -cmp;
       });
       vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
@@ -1178,13 +1198,21 @@ DERIVED_TABLE_SCRIPT = r"""<script>
     });
 
     function applyDefaultSort() {
-      if (table.id !== "table-recordings-library") return;
-      sortCol = 0;
-      sortAsc = false;
-      headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
-      var th = table.querySelector('thead tr:first-child th[data-col="0"]');
-      if (th) th.classList.add("sorted-desc");
-      sortTable(0, false);
+      if (table.id === "table-recordings-library") {
+        sortCol = 0;
+        sortAsc = false;
+        headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
+        var th0 = table.querySelector('thead tr:first-child th[data-col="0"]');
+        if (th0) th0.classList.add("sorted-desc");
+        sortTable(0, false);
+      } else if (table.id === "table-var-events" || table.id === "table-var-unpaired") {
+        sortCol = 2;
+        sortAsc = false;
+        headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
+        var th2 = table.querySelector('thead tr:first-child th[data-col="2"]');
+        if (th2) th2.classList.add("sorted-desc");
+        sortTable(2, false);
+      }
     }
 
     applyFilters();
@@ -1532,7 +1560,7 @@ def write_derived_reports() -> None:
     vr_keys = [
         "row_num",
         "sport_event_id",
-        "match_date",
+        "sport_event_start",
         "recording_id",
         "title",
         "competition_name",
@@ -1584,7 +1612,7 @@ def write_derived_reports() -> None:
     vu_keys = [
         "row_num",
         "sport_event_id",
-        "match_date",
+        "sport_event_start",
         "recording_id",
         "title",
         "competition_name",
@@ -2101,9 +2129,10 @@ def generate_html(
       table-layout: fixed;
     }}
     col.c-num        {{ width: 2%; }}
-    col.c-comp       {{ width: 12%; }}
-    col.c-match      {{ width: 12%; }}
-    col.c-matchid    {{ width: 11%; }}
+    col.c-comp       {{ width: 11%; }}
+    col.c-title      {{ width: 13%; }}
+    col.c-matchdate  {{ width: 7%; }}
+    col.c-matchid    {{ width: 10%; }}
     col.c-recorded   {{ width: 5%; }}
     col.c-recordingid {{ width: 9%; }}
     col.c-scorer     {{ width: 10%; }}
@@ -2396,7 +2425,8 @@ def generate_html(
         <colgroup>
           <col class="c-num">
           <col class="c-comp">
-          <col class="c-match">
+          <col class="c-title">
+          <col class="c-matchdate">
           <col class="c-matchid">
           <col class="c-recorded">
           <col class="c-recordingid">
@@ -2413,18 +2443,19 @@ def generate_html(
           <tr>
             <th class="num">#</th>
             <th data-col="1">Competition</th>
-            <th data-col="2">Match</th>
-            <th data-col="3">Match ID</th>
-            <th class="center" data-col="4">Recorded</th>
-            <th data-col="5">Recording ID</th>
-            <th data-col="6">Own Goal Scorer</th>
-            <th data-col="7">Player ID</th>
-            <th class="center" data-col="8">Min</th>
-            <th data-col="9">Benefiting Team</th>
-            <th class="center" data-col="10">Score at OG</th>
-            <th class="center" data-col="11">Final Score</th>
-            <th class="center" data-col="12">Mentions OG?</th>
-            <th data-col="13">Commentary</th>
+            <th data-col="2">Title</th>
+            <th data-col="3">Date</th>
+            <th data-col="4">Match ID</th>
+            <th class="center" data-col="5">Recorded</th>
+            <th data-col="6">Recording ID</th>
+            <th data-col="7">Own Goal Scorer</th>
+            <th data-col="8">Player ID</th>
+            <th class="center" data-col="9">Min</th>
+            <th data-col="10">Benefiting Team</th>
+            <th class="center" data-col="11">Score at OG</th>
+            <th class="center" data-col="12">Final Score</th>
+            <th class="center" data-col="13">Mentions OG?</th>
+            <th data-col="14">Commentary</th>
           </tr>
           <tr class="og-col-filters">
             <th class="num"></th>
@@ -2441,6 +2472,7 @@ def generate_html(
             <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="11" title="Pick values like Excel">Values…</button></th>
             <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="12" title="Pick values like Excel">Values…</button></th>
             <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="13" title="Pick values like Excel">Values…</button></th>
+            <th><button type="button" class="excel-filter-btn" data-table="og-table" data-col="14" title="Pick values like Excel">Values…</button></th>
           </tr>
         </thead>
         <tbody id="og-tbody">
@@ -2475,12 +2507,24 @@ def main():
         completed_matches = db.get_completed_timelines_count()
         print("  Pipeline match counts by season…", flush=True)
         pipeline_by_season = db.get_pipeline_stats_by_season_name()
-        rows.sort(key=lambda r: (r["match_date"], int(r["minute"]) if str(r["minute"]).isdigit() else 0))
+        rows.sort(
+            key=lambda r: (
+                str(r.get("match_date") or "")[:10],
+                int(r["minute"]) if str(r.get("minute") or "").isdigit() else 0,
+            )
+        )
+        rows.reverse()
         print(f"Loaded {len(rows)} own goal records from Supabase")
     else:
         print(f"  Reading {OWN_GOALS_CSV} and cached timelines…", flush=True)
         rows = load_own_goals(OWN_GOALS_CSV)
-        rows.sort(key=lambda r: (r["match_date"], int(r["minute"]) if str(r["minute"]).isdigit() else 0))
+        rows.sort(
+            key=lambda r: (
+                str(r.get("match_date") or "")[:10],
+                int(r["minute"]) if str(r.get("minute") or "").isdigit() else 0,
+            )
+        )
+        rows.reverse()
         completed_matches = count_completed_matches()
         print(f"Loaded {len(rows)} own goal records from {OWN_GOALS_CSV}")
     print(f"Matches with stored timeline : {completed_matches:,}")
