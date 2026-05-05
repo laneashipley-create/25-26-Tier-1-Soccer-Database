@@ -1254,7 +1254,14 @@ def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], 
                 tds.append(f'<td class="center" data-val="{dv}">{html.escape(lit, quote=False)}</td>')
                 continue
             dv = html.escape(_derived_fmt(raw), quote=True)
-            if k in ("sport_event_id", "game_id", "recording_id", "sr_sport_event_id") and raw:
+            if k in (
+                "sport_event_id",
+                "game_id",
+                "recording_id",
+                "sr_sport_event_id",
+                "var_events_row_id",
+                "var_unpaired_row_id",
+            ) and raw:
                 inner = f'<code>{html.escape(str(raw), quote=False)}</code>'
                 tds.append(f'<td class="mono" data-val="{dv}">{inner}</td>')
             else:
@@ -1503,7 +1510,15 @@ def write_derived_reports() -> None:
     print(f"  Wrote {REPORT_HTML_PENALTY_SHOOTOUTS} ({len(ps)} rows)")
 
     vr = db.fetch_var_timeline_event_rows()
+    for i, row in enumerate(vr, 1):
+        row["row_num"] = i
     vr_headers = [
+        "#",
+        "ID",
+        "Sport Event Start",
+        "recording_id",
+        "title",
+        "Competition Name",
         "Date",
         "Competition",
         "Home",
@@ -1515,16 +1530,17 @@ def write_derived_reports() -> None:
         "ST",
         "Clock",
         "Period",
-        "Side",
-        "Affected team",
         "Event ID",
-        "Sport event ID",
-        "Recorded",
-        "Recording ID",
     ]
     vr_keys = [
-        "match_date",
+        "row_num",
+        "var_events_row_id",
+        "sport_event_start",
+        "recording_id",
+        "title",
         "competition_name",
+        "match_date",
+        "sportradar_competition_id",
         "home_team",
         "away_team",
         "var_event_type",
@@ -1534,12 +1550,7 @@ def write_derived_reports() -> None:
         "stoppage_minute",
         "match_clock",
         "period_type",
-        "competitor_side",
-        "affected_team",
         "timeline_event_id",
-        "sport_event_id",
-        "recorded",
-        "recording_id",
     ]
     vr_html = _derived_build_table(vr_headers, vr_keys, vr, "table-var-events")
     vr_doc = _derived_page_shell(
@@ -1558,29 +1569,37 @@ def write_derived_reports() -> None:
     print(f"  Wrote {REPORT_HTML_VAR_EVENTS} ({len(vr)} rows)")
 
     vu = db.fetch_var_unpaired_match_rows()
+    for i, row in enumerate(vu, 1):
+        row["row_num"] = i
     vu_headers = [
-        "Match date",
+        "#",
+        "ID",
+        "Sport Event Start",
+        "recording_id",
+        "title",
+        "Competition Name",
+        "Date",
         "Competition",
         "Home",
         "Away",
         "VAR starts",
         "VAR overs",
         "Δ (starts − overs)",
-        "Recorded",
-        "Recording ID",
-        "Sport event ID",
     ]
     vu_keys = [
-        "match_date",
+        "row_num",
+        "var_unpaired_row_id",
+        "sport_event_start",
+        "recording_id",
+        "title",
         "competition_name",
+        "match_date",
+        "sportradar_competition_id",
         "home_team",
         "away_team",
         "video_assistant_referee",
         "video_assistant_referee_over",
         "unpaired_var_starts",
-        "recorded",
-        "recording_id",
-        "sport_event_id",
     ]
     vu_html = _derived_build_table(vu_headers, vu_keys, vu, "table-var-unpaired")
     vu_doc = _derived_page_shell(

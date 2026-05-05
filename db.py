@@ -1162,13 +1162,56 @@ def fetch_penalty_shootout_match_rows() -> list[dict]:
 
 
 def fetch_var_timeline_event_rows() -> list[dict]:
-    """All rows from public.var_timeline_events."""
+    """
+    All rows from public.var_timeline_events.
+
+    Adds recording_id, sport_event_start and title (from All Games), plus var_events_row_id
+    for HTML report column \"ID\" (same value as row primary key).
+    """
     rows = _fetch_all_ordered(
         "var_timeline_events",
         [("match_date", True), ("id", False)],
     )
+    if not rows:
+        return []
+
+    supabase = get_client()
+    game_ids = list({r.get("game_id") for r in rows if r.get("game_id")})
+    games_by_id: dict[str, dict] = {}
+    chunk_size = 200
+    for i in range(0, len(game_ids), chunk_size):
+        chunk = game_ids[i : i + chunk_size]
+
+        def _run(ids=chunk):
+            return (
+                supabase.table(T_GAMES)
+                .select("id,start_time")
+                .in_("id", ids)
+                .execute()
+            )
+
+        gr = _supabase_execute_with_retry(_run)
+        for g in gr.data or []:
+            gid = g.get("id")
+            if gid:
+                games_by_id[str(gid)] = g
+
     for r in rows:
         r["recording_id"] = _recording_id_for_event(r.get("sport_event_id"), r.get("recorded"))
+        r["var_events_row_id"] = r.get("id")
+        ht = r.get("home_team")
+        at = r.get("away_team")
+        r["title"] = _master_games_match_title(
+            str(ht) if ht is not None else "",
+            str(at) if at is not None else "",
+        )
+        gid = r.get("game_id")
+        g = games_by_id.get(str(gid)) if gid else None
+        if g:
+            st = g.get("start_time")
+            r["sport_event_start"] = str(st).strip() if st is not None and str(st).strip() else ""
+        else:
+            r["sport_event_start"] = ""
     return rows
 
 
@@ -1181,15 +1224,23 @@ def fetch_recordings_library_rows() -> list[dict]:
 
 
 def fetch_var_unpaired_match_rows() -> list[dict]:
-    """Rows from public.var_unpaired_event_matches view, with recorded from games (T_GAMES)."""
+    """
+    Rows from public.var_unpaired_event_matches view.
+
+    Adds recording_id (from games.recorded), sport_event_start, title, sportradar_competition_id
+    (via season → competition), and var_unpaired_row_id (same as game_id) for the HTML report.
+    """
     rows = _fetch_all_ordered(
         "var_unpaired_event_matches",
         [("unpaired_var_starts", True), ("sport_event_id", False)],
     )
+    if not rows:
+        return []
+
+    supabase = get_client()
     event_ids = list({r.get("sport_event_id") for r in rows if r.get("sport_event_id")})
     recorded_by_event: dict[str, object] = {}
     if event_ids:
-        supabase = get_client()
         chunk_size = 200
         for i in range(0, len(event_ids), chunk_size):
             chunk = event_ids[i : i + chunk_size]
@@ -1203,10 +1254,90 @@ def fetch_var_unpaired_match_rows() -> list[dict]:
                 eid = srow.get("sport_event_id")
                 if eid:
                     recorded_by_event[str(eid)] = srow.get("recorded")
+
+    game_ids = list({r.get("game_id") for r in rows if r.get("game_id")})
+    games_by_id: dict[str, dict] = {}
+    chunk_size = 200
+    for i in range(0, len(game_ids), chunk_size):
+        chunk = game_ids[i : i + chunk_size]
+
+        def _run_g(ids=chunk):
+            return (
+                supabase.table(T_GAMES)
+                .select("id,start_time,season_id")
+                .in_("id", ids)
+                .execute()
+            )
+
+        gr = _supabase_execute_with_retry(_run_g)
+        for g in gr.data or []:
+            gid = g.get("id")
+            if gid:
+                games_by_id[str(gid)] = g
+
+    season_ids = list({str(g["season_id"]) for g in games_by_id.values() if g.get("season_id")})
+    sid_to_comp_uuid: dict[str, object] = {}
+    if season_ids:
+        for i in range(0, len(season_ids), chunk_size):
+            chunk = season_ids[i : i + chunk_size]
+
+            def _run_s(ids=chunk):
+                return (
+                    supabase.table(T_SEASONS)
+                    .select("id,competition_id")
+                    .in_("id", ids)
+                    .execute()
+                )
+
+            sr = _supabase_execute_with_retry(_run_s)
+            for s in sr.data or []:
+                sid = s.get("id")
+                if sid:
+                    sid_to_comp_uuid[str(sid)] = s.get("competition_id")
+
+    comp_uuids = list({str(u) for u in sid_to_comp_uuid.values() if u})
+    comp_srid_by_uuid: dict[str, str] = {}
+    if comp_uuids:
+        for i in range(0, len(comp_uuids), chunk_size):
+            chunk = comp_uuids[i : i + chunk_size]
+
+            def _run_c(ids=chunk):
+                return (
+                    supabase.table(T_COMPETITIONS)
+                    .select("id,sportradar_competition_id")
+                    .in_("id", ids)
+                    .execute()
+                )
+
+            cr = _supabase_execute_with_retry(_run_c)
+            for c in cr.data or []:
+                cid = c.get("id")
+                if cid:
+                    comp_srid_by_uuid[str(cid)] = str(c.get("sportradar_competition_id") or "")
+
     for r in rows:
         eid = r.get("sport_event_id")
         r["recorded"] = recorded_by_event.get(str(eid)) if eid else None
         r["recording_id"] = _recording_id_for_event(eid, r.get("recorded"))
+        r["var_unpaired_row_id"] = r.get("game_id")
+        ht = r.get("home_team")
+        at = r.get("away_team")
+        r["title"] = _master_games_match_title(
+            str(ht) if ht is not None else "",
+            str(at) if at is not None else "",
+        )
+        gid = r.get("game_id")
+        g = games_by_id.get(str(gid)) if gid else None
+        if g:
+            st = g.get("start_time")
+            r["sport_event_start"] = str(st).strip() if st is not None and str(st).strip() else ""
+            sid = g.get("season_id")
+            cu = sid_to_comp_uuid.get(str(sid)) if sid else None
+            srid = comp_srid_by_uuid.get(str(cu)) if cu else None
+            r["sportradar_competition_id"] = srid if srid else ""
+        else:
+            r["sport_event_start"] = ""
+            r["sportradar_competition_id"] = ""
     return rows
 
 
