@@ -864,6 +864,39 @@ def get_completed_timelines_count() -> int:
     return total
 
 
+def get_configured_competitions_count() -> int:
+    """
+    Count distinct competitions represented by configured seasons in Supabase.
+
+    Falls back to len(config.COMPETITIONS) if Supabase is unavailable or returns no rows.
+    """
+    fallback = len(COMPETITIONS)
+    if not USE_SUPABASE:
+        return fallback
+
+    season_ids = [str(c.get("season_id") or "").strip() for c in COMPETITIONS if c.get("season_id")]
+    season_ids = [s for s in season_ids if s]
+    if not season_ids:
+        return fallback
+
+    try:
+        supabase = get_client()
+        rows = (
+            _supabase_execute_with_retry(
+                lambda: supabase.table(T_SEASONS)
+                .select("competition_id")
+                .in_("sportradar_season_id", season_ids)
+                .execute()
+            )
+            .data
+            or []
+        )
+        comp_ids = {str(r.get("competition_id")) for r in rows if r.get("competition_id")}
+        return len(comp_ids) if comp_ids else fallback
+    except Exception:
+        return fallback
+
+
 def get_pipeline_stats_by_season_name() -> dict[str, dict[str, int]]:
     """
     Map season display name (same as config season_name / report rows) to pipeline totals

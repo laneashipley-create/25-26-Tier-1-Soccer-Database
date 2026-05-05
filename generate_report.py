@@ -19,9 +19,11 @@ import csv
 import html
 import json
 import os
+import re
 from datetime import datetime, timezone
 
 from config import (
+    COMPETITIONS,
     OWN_GOALS_CSV,
     REPORT_BLURB_OWN_GOALS,
     REPORT_BLURB_OWN_GOALS_NOTE,
@@ -709,6 +711,48 @@ def write_legacy_report_redirect() -> None:
 </html>"""
     with open(REPORT_HTML_LEGACY_REDIRECT, "w", encoding="utf-8") as f:
         f.write(doc)
+
+
+def sync_report_hub_competition_blurb() -> None:
+    """
+    Keep report_hub tile text aligned with current competition count.
+
+    Source of truth:
+      - Supabase configured seasons -> distinct competitions (when available)
+      - fallback to len(config.COMPETITIONS)
+    """
+    count = len(COMPETITIONS)
+    if USE_SUPABASE:
+        try:
+            import db
+
+            db_count = int(db.get_configured_competitions_count() or 0)
+            if db_count > 0:
+                count = db_count
+        except Exception:
+            pass
+
+    target = f"Browse the full season schedule for all {count} tier 1 competitions included in this report"
+    hub_path = os.path.join(os.path.dirname(__file__), "report_hub.html")
+    if not os.path.exists(hub_path):
+        print("  report_hub.html not found — skipped hub blurb sync.")
+        return
+
+    with open(hub_path, encoding="utf-8") as f:
+        src = f.read()
+
+    pattern = r"Browse the full season schedule for all \d+ tier 1 competitions included in this report"
+    updated = re.sub(pattern, target, src, count=1)
+    if updated == src:
+        if target in src:
+            print(f"  report_hub.html already reflects {count} competitions.")
+            return
+        print("  report_hub.html tile blurb pattern not found — skipped auto-update.")
+        return
+
+    with open(hub_path, "w", encoding="utf-8") as f:
+        f.write(updated)
+    print(f"  Updated report_hub.html tile blurb to {count} competitions.")
 
 
 # --- Excel-style column filter (checkbox popover; own goals + derived tables) --------
@@ -2557,6 +2601,7 @@ def main():
     import master_games_report
 
     master_games_report.write_master_games_report()
+    sync_report_hub_competition_blurb()
     print(f"Open {REPORT_HTML} (and linked pages) in your browser to view.")
 
 
