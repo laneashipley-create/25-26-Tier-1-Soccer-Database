@@ -265,7 +265,7 @@
     <div class="table-wrap">
       <table id="table-penalty-shootouts" class="sortable-derived">
         <thead>
-          <tr><th data-col="0" title="Click to sort">#</th><th data-col="1" title="Click to sort">sr_sport_event_id</th><th data-col="2" title="Click to sort">recording_id</th><th data-col="3" title="Click to sort">Competition Name</th><th data-col="4" title="Click to sort">Sport Event Start</th><th data-col="5" title="Click to sort">Round</th><th data-col="6" title="Click to sort">Home</th><th data-col="7" title="Click to sort">Away</th><th data-col="8" title="Click to sort">Attempts</th><th data-col="9" title="Click to sort">Sudden Death</th></tr>
+          <tr><th data-col="0" title="Click to sort">#</th><th data-col="1" title="Click to sort">sr_sport_event_id</th><th data-col="2" title="Click to sort">recording_id</th><th data-col="3" title="Click to sort">Competition Name</th><th data-col="4" data-sort-first="desc" title="Click to sort">Sport Event Start</th><th data-col="5" title="Click to sort">Round</th><th data-col="6" title="Click to sort">Home</th><th data-col="7" title="Click to sort">Away</th><th data-col="8" title="Click to sort">Attempts</th><th data-col="9" title="Click to sort">Sudden Death</th></tr>
           <tr class="derived-col-filters"><th><button type="button" class="excel-filter-btn" data-col="0" data-table="table-penalty-shootouts" title="Pick values like Excel">Values…</button></th><th><button type="button" class="excel-filter-btn" data-col="1" data-table="table-penalty-shootouts" title="Pick values like Excel">Values…</button></th><th><button type="button" class="excel-filter-btn" data-col="2" data-table="table-penalty-shootouts" title="Pick values like Excel">Values…</button></th><th><button type="button" class="excel-filter-btn" data-col="3" data-table="table-penalty-shootouts" title="Pick values like Excel">Values…</button></th><th><button type="button" class="excel-filter-btn" data-col="4" data-table="table-penalty-shootouts" title="Pick values like Excel">Values…</button></th><th><button type="button" class="excel-filter-btn" data-col="5" data-table="table-penalty-shootouts" title="Pick values like Excel">Values…</button></th><th><button type="button" class="excel-filter-btn" data-col="6" data-table="table-penalty-shootouts" title="Pick values like Excel">Values…</button></th><th><button type="button" class="excel-filter-btn" data-col="7" data-table="table-penalty-shootouts" title="Pick values like Excel">Values…</button></th><th><button type="button" class="excel-filter-btn" data-col="8" data-table="table-penalty-shootouts" title="Pick values like Excel">Values…</button></th><th><button type="button" class="excel-filter-btn" data-col="9" data-table="table-penalty-shootouts" title="Pick values like Excel">Values…</button></th></tr>
         </thead>
         <tbody><tr><td class="num" data-val="1">1</td><td class="mono" data-val="sr:sport_event:68910656"><code>sr:sport_event:68910656</code></td><td data-val="—">—</td><td data-val="Coppa Italia">Coppa Italia</td><td data-val="2026-04-22T19:00:00+00:00">2026-04-22T19:00:00+00:00</td><td data-val="—">—</td><td data-val="Atalanta BC">Atalanta BC</td><td data-val="Lazio Rome">Lazio Rome</td><td data-val="9">9</td><td data-val="No">No</td></tr>
@@ -383,7 +383,7 @@
     </div>
   </div>
   <div class="footer">
-    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-05 03:24 UTC</p>
+    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-05 03:41 UTC</p>
   </div>
 <script>
 (function () {
@@ -684,10 +684,13 @@
         var bVal = cellVal(b, col);
         var as = String(aVal);
         var bs = String(bVal);
-        var isoLike = /^\\d{4}-\\d{2}-\\d{2}/;
+        var isoLike = /^\d{4}-\d{2}-\d{2}/;
         var cmp;
         if (isoLike.test(as) && isoLike.test(bs)) {
-          cmp = as.localeCompare(bs);
+          var ad = Date.parse(as);
+          var bd = Date.parse(bs);
+          if (!isNaN(ad) && !isNaN(bd)) cmp = ad - bd;
+          else cmp = as.localeCompare(bs);
         } else {
           var aNum = parseFloat(aVal);
           var bNum = parseFloat(bVal);
@@ -699,11 +702,20 @@
       vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
     }
 
+    function applyCurrentSort() {
+      if (sortCol !== null) sortTable(sortCol, sortAsc);
+      else if (table.id === "table-var-events" || table.id === "table-var-unpaired") sortTable(2, false);
+      else if (table.id === "table-recordings-library") sortTable(0, false);
+    }
+
     headers.forEach(function (th) {
       th.addEventListener("click", function () {
         var col = parseInt(th.getAttribute("data-col"), 10);
         if (sortCol === col) sortAsc = !sortAsc;
-        else { sortCol = col; sortAsc = true; }
+        else {
+          sortCol = col;
+          sortAsc = th.getAttribute("data-sort-first") === "desc" ? false : true;
+        }
         headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
         th.classList.add(sortAsc ? "sorted-asc" : "sorted-desc");
         sortTable(col, sortAsc);
@@ -729,7 +741,7 @@
             else if (set.size === 0) table._excelColSelections[key] = new Set();
             else table._excelColSelections[key] = set;
             applyFilters();
-            if (sortCol !== null) sortTable(sortCol, sortAsc);
+            applyCurrentSort();
           }
         });
       });
@@ -737,19 +749,17 @@
 
     function applyDefaultSort() {
       if (table.id === "table-recordings-library") {
-        sortCol = 0;
-        sortAsc = false;
         headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
         var th0 = table.querySelector('thead tr:first-child th[data-col="0"]');
         if (th0) th0.classList.add("sorted-desc");
         sortTable(0, false);
+        sortCol = null;
       } else if (table.id === "table-var-events" || table.id === "table-var-unpaired") {
-        sortCol = 2;
-        sortAsc = false;
         headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
         var th2 = table.querySelector('thead tr:first-child th[data-col="2"]');
         if (th2) th2.classList.add("sorted-desc");
         sortTable(2, false);
+        sortCol = null;
       }
     }
 

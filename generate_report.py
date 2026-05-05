@@ -281,7 +281,7 @@ def _inline_report_script() -> str:
       const aVal = cellVal(a, colIndex);
       const bVal = cellVal(b, colIndex);
       let cmp;
-      const isoDate = /^\\d{4}-\\d{2}-\\d{2}$/;
+      const isoDate = /^\d{4}-\d{2}-\d{2}$/;
       if (isoDate.test(aVal) && isoDate.test(bVal)) {
         cmp = aVal.localeCompare(bVal);
       } else {
@@ -1146,10 +1146,13 @@ DERIVED_TABLE_SCRIPT = r"""<script>
         var bVal = cellVal(b, col);
         var as = String(aVal);
         var bs = String(bVal);
-        var isoLike = /^\\d{4}-\\d{2}-\\d{2}/;
+        var isoLike = /^\d{4}-\d{2}-\d{2}/;
         var cmp;
         if (isoLike.test(as) && isoLike.test(bs)) {
-          cmp = as.localeCompare(bs);
+          var ad = Date.parse(as);
+          var bd = Date.parse(bs);
+          if (!isNaN(ad) && !isNaN(bd)) cmp = ad - bd;
+          else cmp = as.localeCompare(bs);
         } else {
           var aNum = parseFloat(aVal);
           var bNum = parseFloat(bVal);
@@ -1161,11 +1164,20 @@ DERIVED_TABLE_SCRIPT = r"""<script>
       vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
     }
 
+    function applyCurrentSort() {
+      if (sortCol !== null) sortTable(sortCol, sortAsc);
+      else if (table.id === "table-var-events" || table.id === "table-var-unpaired") sortTable(2, false);
+      else if (table.id === "table-recordings-library") sortTable(0, false);
+    }
+
     headers.forEach(function (th) {
       th.addEventListener("click", function () {
         var col = parseInt(th.getAttribute("data-col"), 10);
         if (sortCol === col) sortAsc = !sortAsc;
-        else { sortCol = col; sortAsc = true; }
+        else {
+          sortCol = col;
+          sortAsc = th.getAttribute("data-sort-first") === "desc" ? false : true;
+        }
         headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
         th.classList.add(sortAsc ? "sorted-asc" : "sorted-desc");
         sortTable(col, sortAsc);
@@ -1191,7 +1203,7 @@ DERIVED_TABLE_SCRIPT = r"""<script>
             else if (set.size === 0) table._excelColSelections[key] = new Set();
             else table._excelColSelections[key] = set;
             applyFilters();
-            if (sortCol !== null) sortTable(sortCol, sortAsc);
+            applyCurrentSort();
           }
         });
       });
@@ -1199,19 +1211,17 @@ DERIVED_TABLE_SCRIPT = r"""<script>
 
     function applyDefaultSort() {
       if (table.id === "table-recordings-library") {
-        sortCol = 0;
-        sortAsc = false;
         headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
         var th0 = table.querySelector('thead tr:first-child th[data-col="0"]');
         if (th0) th0.classList.add("sorted-desc");
         sortTable(0, false);
+        sortCol = null;
       } else if (table.id === "table-var-events" || table.id === "table-var-unpaired") {
-        sortCol = 2;
-        sortAsc = false;
         headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
         var th2 = table.querySelector('thead tr:first-child th[data-col="2"]');
         if (th2) th2.classList.add("sorted-desc");
         sortTable(2, false);
+        sortCol = null;
       }
     }
 
@@ -1253,10 +1263,18 @@ def _derived_esc(v) -> str:
     return html.escape(_derived_fmt(v), quote=False)
 
 
+def _derived_sort_first_attr(header: str) -> str:
+    """First click sort direction for chronological columns (newest-first)."""
+    n = (header or "").strip().lower()
+    if n in ("date", "sport event start"):
+        return ' data-sort-first="desc"'
+    return ""
+
+
 def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], table_id: str) -> str:
     safe_id = html.escape(table_id, quote=True)
     th_row = "".join(
-        f'<th data-col="{i}" title="Click to sort">{html.escape(h, quote=False)}</th>'
+        f'<th data-col="{i}"{_derived_sort_first_attr(h)} title="Click to sort">{html.escape(h, quote=False)}</th>'
         for i, h in enumerate(headers)
     )
     filter_row = "".join(

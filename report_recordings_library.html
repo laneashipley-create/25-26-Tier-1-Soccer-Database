@@ -347,7 +347,7 @@
     </div>
   </div>
   <div class="footer">
-    <p>Data from Supabase (Record/Replay library table Soccer // Recordings Library) · Generated 2026-05-05 03:24 UTC</p>
+    <p>Data from Supabase (Record/Replay library table Soccer // Recordings Library) · Generated 2026-05-05 03:41 UTC</p>
   </div>
 <script>
 (function () {
@@ -648,10 +648,13 @@
         var bVal = cellVal(b, col);
         var as = String(aVal);
         var bs = String(bVal);
-        var isoLike = /^\\d{4}-\\d{2}-\\d{2}/;
+        var isoLike = /^\d{4}-\d{2}-\d{2}/;
         var cmp;
         if (isoLike.test(as) && isoLike.test(bs)) {
-          cmp = as.localeCompare(bs);
+          var ad = Date.parse(as);
+          var bd = Date.parse(bs);
+          if (!isNaN(ad) && !isNaN(bd)) cmp = ad - bd;
+          else cmp = as.localeCompare(bs);
         } else {
           var aNum = parseFloat(aVal);
           var bNum = parseFloat(bVal);
@@ -663,11 +666,20 @@
       vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
     }
 
+    function applyCurrentSort() {
+      if (sortCol !== null) sortTable(sortCol, sortAsc);
+      else if (table.id === "table-var-events" || table.id === "table-var-unpaired") sortTable(2, false);
+      else if (table.id === "table-recordings-library") sortTable(0, false);
+    }
+
     headers.forEach(function (th) {
       th.addEventListener("click", function () {
         var col = parseInt(th.getAttribute("data-col"), 10);
         if (sortCol === col) sortAsc = !sortAsc;
-        else { sortCol = col; sortAsc = true; }
+        else {
+          sortCol = col;
+          sortAsc = th.getAttribute("data-sort-first") === "desc" ? false : true;
+        }
         headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
         th.classList.add(sortAsc ? "sorted-asc" : "sorted-desc");
         sortTable(col, sortAsc);
@@ -693,7 +705,7 @@
             else if (set.size === 0) table._excelColSelections[key] = new Set();
             else table._excelColSelections[key] = set;
             applyFilters();
-            if (sortCol !== null) sortTable(sortCol, sortAsc);
+            applyCurrentSort();
           }
         });
       });
@@ -701,19 +713,17 @@
 
     function applyDefaultSort() {
       if (table.id === "table-recordings-library") {
-        sortCol = 0;
-        sortAsc = false;
         headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
         var th0 = table.querySelector('thead tr:first-child th[data-col="0"]');
         if (th0) th0.classList.add("sorted-desc");
         sortTable(0, false);
+        sortCol = null;
       } else if (table.id === "table-var-events" || table.id === "table-var-unpaired") {
-        sortCol = 2;
-        sortAsc = false;
         headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
         var th2 = table.querySelector('thead tr:first-child th[data-col="2"]');
         if (th2) th2.classList.add("sorted-desc");
         sortTable(2, false);
+        sortCol = null;
       }
     }
 
