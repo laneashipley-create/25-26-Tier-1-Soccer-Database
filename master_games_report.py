@@ -12,32 +12,16 @@ from datetime import datetime, timezone
 
 from config import REPORT_BLURB_LIST_OF_ALL_GAMES, REPORT_HTML_MASTER_GAMES, USE_SUPABASE
 from report_navigation import NAV_CSS, navigation_html
+from report_filter_slicers import build_date_migration_tile, build_numbered_competition_slicer
 
 
 def build_competition_slicer_mg(names: list[str]) -> str:
-    if not names:
-        return ""
-    chips = []
-    for name in names:
-        ev = html.escape(name, quote=True)
-        disp = html.escape(name, quote=False)
-        chips.append(
-            f'<label class="slicer-chip"><input type="checkbox" name="mg-comp" value="{ev}" checked />'
-            f"<span>{disp}</span></label>"
-        )
-    chips_html = "\n".join(chips)
-    return f"""    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left" role="region" aria-label="Filter by competition">
-      <div class="competition-slicer competition-slicer--tile" role="group">
-        <div class="slicer-head">
-          <span class="slicer-title">Competitions</span>
-          <span class="slicer-actions">
-            <button type="button" class="slicer-btn" id="mg-slicer-all">All</button>
-            <button type="button" class="slicer-btn" id="mg-slicer-none">None</button>
-          </span>
-        </div>
-        <div class="slicer-chips">{chips_html}</div>
-      </div>
-    </div>"""
+    return build_numbered_competition_slicer(
+        names,
+        checkbox_name="mg-comp",
+        all_btn_id="mg-slicer-all",
+        none_btn_id="mg-slicer-none",
+    )
 
 
 def date_bounds_master(rows: list[dict]) -> tuple[str, str]:
@@ -57,28 +41,13 @@ def build_date_filter_tile_mg(date_min: str, date_max: str) -> str:
       <div class="date-filter-title">Kickoff date range (UTC)</div>
       <p class="date-filter-muted">No kickoff dates in this export yet.</p>
     </div>"""
-    dmin = html.escape(date_min, quote=True)
-    dmax = html.escape(date_max, quote=True)
-    return f"""    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Kickoff date filter">
-      <div class="date-filter-head">
-        <span class="date-filter-title">Kickoff date range (UTC)</span>
-        <span class="date-filter-presets">
-          <button type="button" class="date-preset-btn is-active" data-preset="all">All time</button>
-          <button type="button" class="date-preset-btn" data-preset="today">Today</button>
-          <button type="button" class="date-preset-btn" data-preset="week">This week</button>
-          <button type="button" class="date-preset-btn" data-preset="month">This month</button>
-        </span>
-      </div>
-      <div class="date-filter-custom">
-        <label class="date-filter-label">From
-          <input type="date" id="mg-date-from" min="1990-01-01" max="2099-12-31" value="{dmin}" />
-        </label>
-        <label class="date-filter-label">To
-          <input type="date" id="mg-date-to" min="1990-01-01" max="2099-12-31" value="{dmax}" />
-        </label>
-      </div>
-      <p class="date-filter-hint" id="mg-date-hint"></p>
-    </div>"""
+    return build_date_migration_tile(
+        date_min,
+        date_max,
+        from_id="mg-date-from",
+        to_id="mg-date-to",
+        hint_id="mg-date-hint",
+    )
 
 
 def master_dataset_stats(rows: list[dict]) -> tuple[int, int, int, int]:
@@ -161,6 +130,8 @@ def _inline_master_games_script() -> str:
   const allNames = filterPayload.allSeasonNames || [];
   const dataDateMin = filterPayload.dataDateMin || '';
   const dataDateMax = filterPayload.dataDateMax || '';
+  const MIGRATION_CUTOFF = '2026-04-27';
+  const MIGRATION_PRE_END = '2026-04-26';
 
   const headers = document.querySelectorAll('#mg-table thead tr:first-child th[data-col]');
   let sortCol = null;
@@ -325,21 +296,25 @@ def _inline_master_games_script() -> str:
   }
 
   function clearPresetActive() {
-    document.querySelectorAll('.date-filter-tile .date-preset-btn').forEach(function (b) { b.classList.remove('is-active'); });
+    document.querySelectorAll('.date-filter-tile [data-preset]').forEach(function (b) { b.classList.remove('is-active'); });
+  }
+  function clearMigrationActive() {
+    document.querySelectorAll('.date-filter-tile [data-migration-scope]').forEach(function (b) { b.classList.remove('is-active'); });
   }
 
   function wireDateFilter() {
     var fromEl = document.getElementById('mg-date-from');
     var toEl = document.getElementById('mg-date-to');
     if (!fromEl || !toEl || !dataDateMin || !dataDateMax) return;
-    fromEl.addEventListener('change', function () { clearPresetActive(); applyFilter(); });
-    toEl.addEventListener('change', function () { clearPresetActive(); applyFilter(); });
-    document.querySelectorAll('.date-filter-tile .date-preset-btn').forEach(function (btn) {
+    fromEl.addEventListener('change', function () { clearPresetActive(); clearMigrationActive(); applyFilter(); });
+    toEl.addEventListener('change', function () { clearPresetActive(); clearMigrationActive(); applyFilter(); });
+    document.querySelectorAll('.date-filter-tile [data-preset]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var preset = btn.getAttribute('data-preset');
         var lo = dataDateMin;
         var hi = dataDateMax;
         clearPresetActive();
+        clearMigrationActive();
         btn.classList.add('is-active');
         var today = new Date();
         if (preset === 'all') {
@@ -361,6 +336,24 @@ def _inline_master_games_script() -> str:
           toEl.value = toYMD(last);
         }
         normalizeFromTo(fromEl, toEl, lo, hi);
+        applyFilter();
+      });
+    });
+    document.querySelectorAll('.date-filter-tile [data-migration-scope]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var scope = btn.getAttribute('data-migration-scope') || 'pre';
+        clearPresetActive();
+        if (scope === 'pre') {
+          fromEl.value = dataDateMin;
+          toEl.value = MIGRATION_PRE_END;
+        } else if (scope === 'post') {
+          fromEl.value = MIGRATION_CUTOFF;
+          toEl.value = dataDateMax;
+        }
+        normalizeFromTo(fromEl, toEl, dataDateMin, dataDateMax);
+        document.querySelectorAll('.date-filter-tile [data-migration-scope]').forEach(function (b) {
+          b.classList.toggle('is-active', b.getAttribute('data-migration-scope') === scope);
+        });
         applyFilter();
       });
     });
@@ -637,9 +630,10 @@ def generate_master_games_html(rows: list[dict]) -> str:
       background: #faf8f5; color: #333;
     }}
     .stat-card--filter-tile .slicer-btn:hover {{ border-color: #cc0000; background: #fff0f0; color: #990000; }}
-    .stat-card--filter-tile .slicer-chips {{ display: flex; flex-wrap: wrap; gap: 0.45rem 0.65rem; justify-content: flex-start; }}
-    .stat-card--filter-tile .slicer-chip {{ display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.78rem; color: #333; cursor: pointer; user-select: none; }}
-    .stat-card--filter-tile .slicer-chip input {{ accent-color: #cc0000; width: 1rem; height: 1rem; }}
+    .stat-card--filter-tile .slicer-chips {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px 12px; }}
+    .stat-card--filter-tile .slicer-chip {{ display: flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 0.72rem; color: #333; cursor: pointer; user-select: none; }}
+    .stat-card--filter-tile .slicer-chip input {{ accent-color: #cc0000; width: 0.85rem; height: 0.85rem; }}
+    .stat-card--filter-tile .slicer-chip .comp-idx {{ color: #999; min-width: 1.35em; text-align: right; }}
     .date-filter-tile {{ text-align: left; }}
     .date-filter-head {{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 0.65rem; }}
     .date-filter-title {{ font-size: 0.72rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.08em; }}
@@ -647,6 +641,8 @@ def generate_master_games_html(rows: list[dict]) -> str:
     .date-preset-btn {{ font: inherit; cursor: pointer; font-size: 0.72rem; font-weight: 600; padding: 0.35rem 0.6rem; border-radius: 6px; border: 1px solid #ddd8d0; background: #faf8f5; color: #333; }}
     .date-preset-btn:hover {{ border-color: #cc0000; color: #cc0000; }}
     .date-preset-btn.is-active {{ border-color: #cc0000; background: #fff0f0; color: #990000; }}
+    .migration-filter-head {{ margin-top: 0.4rem; margin-bottom: 0.25rem; }}
+    .migration-filter-presets {{ display: flex; flex-wrap: wrap; gap: 0.35rem; }}
     .date-filter-custom {{ display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1rem; }}
     .date-filter-label {{ display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.72rem; font-weight: 600; color: #555; }}
     .date-filter-label input[type="date"] {{ font: inherit; padding: 0.35rem 0.5rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; color: #111; }}

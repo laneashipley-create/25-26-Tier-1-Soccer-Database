@@ -43,6 +43,16 @@ from config import (
     USE_SUPABASE,
 )
 from report_navigation import NAV_CSS, navigation_html
+from report_filter_slicers import (
+    DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER,
+    REPORT_TILE_FILTER_CSS,
+    build_date_migration_tile,
+    build_derived_controls_html,
+    build_numbered_competition_slicer,
+    filter_payload_script_tag,
+    slicer_meta_from_rows,
+    ymd_from_start_time,
+)
 
 ASSETS_DIR = os.path.join(os.path.dirname(__file__), "assets")
 _RECORDINGS_EXPORT_JSON = os.path.join(
@@ -97,29 +107,12 @@ def format_score(home: str, away: str) -> str:
 
 def build_competition_slicer(names: list[str]) -> str:
     """Full-width KPI-grid tile: multi-select by season_name (matches Competition column)."""
-    if not names:
-        return ""
-    chips = []
-    for name in names:
-        ev = html.escape(name, quote=True)
-        disp = html.escape(name, quote=False)
-        chips.append(
-            f'<label class="slicer-chip"><input type="checkbox" name="og-comp" value="{ev}" checked />'
-            f"<span>{disp}</span></label>"
-        )
-    chips_html = "\n".join(chips)
-    return f"""    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left" role="region" aria-label="Filter by competition">
-      <div class="competition-slicer competition-slicer--tile" role="group">
-        <div class="slicer-head">
-          <span class="slicer-title">Competitions</span>
-          <span class="slicer-actions">
-            <button type="button" class="slicer-btn" id="slicer-all">All</button>
-            <button type="button" class="slicer-btn" id="slicer-none">None</button>
-          </span>
-        </div>
-        <div class="slicer-chips">{chips_html}</div>
-      </div>
-    </div>"""
+    return build_numbered_competition_slicer(
+        names,
+        checkbox_name="og-comp",
+        all_btn_id="slicer-all",
+        none_btn_id="slicer-none",
+    )
 
 
 def date_bounds_from_rows(rows: list[dict]) -> tuple[str, str]:
@@ -135,36 +128,15 @@ def date_bounds_from_rows(rows: list[dict]) -> tuple[str, str]:
 
 
 def build_date_filter_tile(date_min: str, date_max: str) -> str:
-    """Card-style match-date filter (client-side); presets + custom from/to."""
+    """Card-style match-date filter (client-side); presets + custom from/to + migration."""
     if not date_min or not date_max:
         return """    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Match date filter">
       <div class="date-filter-title">Match date range</div>
       <p class="date-filter-muted">No match dates in this report yet.</p>
     </div>"""
-    dmin = html.escape(date_min, quote=True)
-    dmax = html.escape(date_max, quote=True)
-    # Wide min/max so presets use the viewer's real calendar (today / this week / this month)
-    # even when that range extends past the last match in the export.
-    return f"""    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Match date filter">
-      <div class="date-filter-head">
-        <span class="date-filter-title">Match date range</span>
-        <span class="date-filter-presets">
-          <button type="button" class="date-preset-btn is-active" data-preset="all">All time</button>
-          <button type="button" class="date-preset-btn" data-preset="today">Today</button>
-          <button type="button" class="date-preset-btn" data-preset="week">This week</button>
-          <button type="button" class="date-preset-btn" data-preset="month">This month</button>
-        </span>
-      </div>
-      <div class="date-filter-custom">
-        <label class="date-filter-label">From
-          <input type="date" id="og-date-from" min="1990-01-01" max="2099-12-31" value="{dmin}" />
-        </label>
-        <label class="date-filter-label">To
-          <input type="date" id="og-date-to" min="1990-01-01" max="2099-12-31" value="{dmax}" />
-        </label>
-      </div>
-      <p class="date-filter-hint" id="og-date-hint"></p>
-    </div>"""
+    return build_date_migration_tile(
+        date_min, date_max, from_id="og-date-from", to_id="og-date-to", hint_id="og-date-hint"
+    )
 
 
 def _og_recorded_attrs(raw) -> tuple[str, str, str]:
@@ -449,19 +421,21 @@ def _inline_report_script() -> str:
     e.setDate(e.getDate() + 6);
     return e;
   }
-  /** Ensure from <= to only; do not clamp to dataset (presets use real calendar). */
-  function normalizeFromTo(fromEl, toEl, fallbackFrom, fallbackTo) {
-    var from = fromEl.value || fallbackFrom;
-    var to = toEl.value || fallbackTo;
-    if (from > to) {
+  /** Ensure from <= to when both set. */
+  function normalizeFromTo(fromEl, toEl) {
+    var from = fromEl.value || '';
+    var to = toEl.value || '';
+    if (from && to && from > to) {
       var x = from;
       from = to;
       to = x;
       fromEl.value = from;
       toEl.value = to;
     }
-    return { from: from, to: to };
   }
+
+  var MIGRATION_CUTOFF_DATE = '2026-04-27';
+  var MIGRATION_PRE_END_DATE = '2026-04-26';
 
   function getDateRange() {
     const lo = dataDateMin;
@@ -471,15 +445,19 @@ def _inline_report_script() -> str:
     if (!fromEl || !toEl || !lo || !hi) {
       return { from: lo, to: hi, lo: lo, hi: hi, hasInputs: false };
     }
-    var c = normalizeFromTo(fromEl, toEl, lo, hi);
-    return { from: c.from, to: c.to, lo: lo, hi: hi, hasInputs: true };
+    normalizeFromTo(fromEl, toEl);
+    var from = fromEl.value || null;
+    var to = toEl.value || null;
+    return { from: from, to: to, lo: lo, hi: hi, hasInputs: true };
   }
 
   function dateMatches(tr, dr) {
     var d = tr.getAttribute('data-match-date') || '';
     if (!d || d.length < 10) return false;
     if (!dr.hasInputs || !dr.lo || !dr.hi) return true;
-    return d >= dr.from && d <= dr.to;
+    if (dr.from && d < dr.from) return false;
+    if (dr.to && d > dr.to) return false;
+    return true;
   }
 
   function updateDateHint(dr) {
@@ -488,27 +466,65 @@ def _inline_report_script() -> str:
     if (!dr.hasInputs || !dr.lo || !dr.hi) { el.textContent = ''; return; }
     if (dr.from === dr.lo && dr.to === dr.hi) {
       el.textContent = 'Showing all match dates in this report (' + dr.lo + ' to ' + dr.hi + ').';
+    } else if (dr.from && !dr.to) {
+      el.textContent = 'Showing goals from matches on or after ' + dr.from + '.';
+    } else if (!dr.from && dr.to) {
+      el.textContent = 'Showing goals from matches on or before ' + dr.to + '.';
+    } else if (!dr.from && !dr.to) {
+      el.textContent = '';
     } else {
       el.textContent = 'Showing goals from matches on ' + dr.from + ' through ' + dr.to + ' (inclusive).';
     }
   }
 
   function clearPresetActive() {
-    document.querySelectorAll('.date-preset-btn').forEach(function (b) { b.classList.remove('is-active'); });
+    document.querySelectorAll('.date-filter-tile [data-preset]').forEach(function (b) { b.classList.remove('is-active'); });
+  }
+
+  function clearMigrationActive() {
+    document.querySelectorAll('.date-filter-tile [data-migration-scope]').forEach(function (b) { b.classList.remove('is-active'); });
+  }
+
+  function setMigrationScope(scope) {
+    clearPresetActive();
+    var fromEl = document.getElementById('og-date-from');
+    var toEl = document.getElementById('og-date-to');
+    if (!fromEl || !toEl || !dataDateMin || !dataDateMax) return;
+    if (scope === 'pre') {
+      fromEl.value = dataDateMin;
+      toEl.value = MIGRATION_PRE_END_DATE;
+    } else if (scope === 'post') {
+      fromEl.value = MIGRATION_CUTOFF_DATE;
+      toEl.value = dataDateMax;
+    }
+    document.querySelectorAll('[data-migration-scope]').forEach(function (btn) {
+      btn.classList.toggle('is-active', btn.getAttribute('data-migration-scope') === scope);
+    });
+  }
+
+  function wireMigrationFilter() {
+    document.querySelectorAll('[data-migration-scope]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var scope = btn.getAttribute('data-migration-scope') || 'pre';
+        setMigrationScope(scope);
+        applyFilter();
+      });
+    });
   }
 
   function wireDateFilter() {
     var fromEl = document.getElementById('og-date-from');
     var toEl = document.getElementById('og-date-to');
     if (!fromEl || !toEl || !dataDateMin || !dataDateMax) return;
-    fromEl.addEventListener('change', function () { clearPresetActive(); applyFilter(); });
-    toEl.addEventListener('change', function () { clearPresetActive(); applyFilter(); });
-    document.querySelectorAll('.date-preset-btn').forEach(function (btn) {
+    fromEl.addEventListener('change', function () { clearPresetActive(); clearMigrationActive(); applyFilter(); });
+    toEl.addEventListener('change', function () { clearPresetActive(); clearMigrationActive(); applyFilter(); });
+    document.querySelectorAll('.date-filter-tile [data-preset]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var preset = btn.getAttribute('data-preset');
         var lo = dataDateMin;
         var hi = dataDateMax;
         clearPresetActive();
+        clearMigrationActive();
         btn.classList.add('is-active');
         var today = new Date();
         if (preset === 'all') {
@@ -529,7 +545,7 @@ def _inline_report_script() -> str:
           fromEl.value = toYMD(first);
           toEl.value = toYMD(last);
         }
-        normalizeFromTo(fromEl, toEl, lo, hi);
+        normalizeFromTo(fromEl, toEl);
         applyFilter();
       });
     });
@@ -680,6 +696,7 @@ def _inline_report_script() -> str:
     });
     updateOgFilterButtons();
   }
+  wireMigrationFilter();
   wireDateFilter();
   applyFilter();
   sortCol = 3;
@@ -1095,185 +1112,7 @@ EXCEL_FILTER_CORE_SCRIPT = r"""<script>
 
 # --- Supabase-derived reports (penalty shootouts, VAR, VAR unpaired) -----------------
 
-DERIVED_TABLE_SCRIPT = r"""<script>
-(function () {
-  document.querySelectorAll("table.sortable-derived").forEach(function (table) {
-    var tbody = table.querySelector("tbody");
-    if (!tbody) return;
-    table._excelColSelections = table._excelColSelections || {};
-    var headers = table.querySelectorAll("thead tr:first-child th[data-col]");
-    var sortCol = null;
-    var sortAsc = true;
-
-    function cellVal(tr, idx) {
-      var c = tr.children[idx];
-      if (!c) return "";
-      var dv = c.getAttribute("data-val");
-      if (dv !== null && dv !== "") return dv;
-      return (c.textContent || "").trim();
-    }
-
-    function rowPassesColSelections(tr) {
-      if (tr.querySelector("td[colspan]")) return true;
-      var sel = table._excelColSelections;
-      for (var k in sel) {
-        if (!Object.prototype.hasOwnProperty.call(sel, k)) continue;
-        var sset = sel[k];
-        if (sset == null) continue;
-        var col = parseInt(k, 10);
-        var v = cellVal(tr, col) || "";
-        if (!sset.has(v)) return false;
-      }
-      return true;
-    }
-
-    function applyFilters() {
-      tbody.querySelectorAll("tr").forEach(function (tr) {
-        if (tr.querySelector("td[colspan]")) return;
-        if (rowPassesColSelections(tr)) tr.classList.remove("derived-row--hidden");
-        else tr.classList.add("derived-row--hidden");
-      });
-      updateFilterButtons();
-    }
-
-    function distinctForColumn(col, excludeCol) {
-      var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr")).filter(function (tr) {
-        return !tr.querySelector("td[colspan]");
-      });
-      function passesOther(tr) {
-        var sel = table._excelColSelections;
-        for (var k in sel) {
-          if (!Object.prototype.hasOwnProperty.call(sel, k)) continue;
-          if (parseInt(k, 10) === excludeCol) continue;
-          var sset = sel[k];
-          if (sset == null) continue;
-          var v = cellVal(tr, parseInt(k, 10)) || "";
-          if (!sset.has(v)) return false;
-        }
-        return true;
-      }
-      var s = new Set();
-      rows.forEach(function (tr) {
-        if (!passesOther(tr)) return;
-        s.add(cellVal(tr, col) || "");
-      });
-      return Array.from(s).sort(function (a, b) {
-        return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: "base" });
-      });
-    }
-
-    function updateFilterButtons() {
-      table.querySelectorAll(".excel-filter-btn").forEach(function (btn) {
-        var c = String(btn.getAttribute("data-col"));
-        var sel = table._excelColSelections[c];
-        if (sel == null) {
-          btn.textContent = "Values…";
-          btn.classList.remove("is-filtered");
-        } else if (sel.size === 0) {
-          btn.textContent = "None";
-          btn.classList.add("is-filtered");
-        } else {
-          btn.textContent = sel.size + " picked";
-          btn.classList.add("is-filtered");
-        }
-      });
-    }
-
-    function sortTable(col, asc) {
-      var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr")).filter(function (tr) {
-        return !tr.querySelector("td[colspan]");
-      });
-      var vis = rows.filter(function (tr) { return !tr.classList.contains("derived-row--hidden"); });
-      var hid = rows.filter(function (tr) { return tr.classList.contains("derived-row--hidden"); });
-      vis.sort(function (a, b) {
-        var aVal = cellVal(a, col);
-        var bVal = cellVal(b, col);
-        var as = String(aVal);
-        var bs = String(bVal);
-        var isoLike = /^\d{4}-\d{2}-\d{2}/;
-        var cmp;
-        if (isoLike.test(as) && isoLike.test(bs)) {
-          var ad = Date.parse(as);
-          var bd = Date.parse(bs);
-          if (!isNaN(ad) && !isNaN(bd)) cmp = ad - bd;
-          else cmp = as.localeCompare(bs);
-        } else {
-          var aNum = parseFloat(aVal);
-          var bNum = parseFloat(bVal);
-          if (!isNaN(aNum) && !isNaN(bNum) && aVal !== "" && bVal !== "") cmp = aNum - bNum;
-          else cmp = as.localeCompare(bs, undefined, { numeric: true, sensitivity: "base" });
-        }
-        return asc ? cmp : -cmp;
-      });
-      vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
-    }
-
-    function applyCurrentSort() {
-      if (sortCol !== null) sortTable(sortCol, sortAsc);
-      else if (table.id === "table-var-events" || table.id === "table-var-unpaired") sortTable(2, false);
-      else if (table.id === "table-recordings-library") sortTable(0, false);
-    }
-
-    headers.forEach(function (th) {
-      th.addEventListener("click", function () {
-        var col = parseInt(th.getAttribute("data-col"), 10);
-        if (sortCol === col) sortAsc = !sortAsc;
-        else {
-          sortCol = col;
-          sortAsc = th.getAttribute("data-sort-first") === "desc" ? false : true;
-        }
-        headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
-        th.classList.add(sortAsc ? "sorted-asc" : "sorted-desc");
-        sortTable(col, sortAsc);
-      });
-    });
-
-    table.querySelectorAll(".excel-filter-btn").forEach(function (btn) {
-      btn.addEventListener("click", function (ev) {
-        ev.stopPropagation();
-        var col = parseInt(btn.getAttribute("data-col"), 10);
-        var dist = distinctForColumn(col, col);
-        var key = String(col);
-        var cur = table._excelColSelections[key];
-        var initial = cur == null ? null : new Set(cur);
-        if (!window.ReportExcelFilter) return;
-        window.ReportExcelFilter.open({
-          anchor: btn,
-          title: "Filter column",
-          distinctSnapshot: dist,
-          selectedSet: initial,
-          onApply: function (set) {
-            if (set == null) delete table._excelColSelections[key];
-            else if (set.size === 0) table._excelColSelections[key] = new Set();
-            else table._excelColSelections[key] = set;
-            applyFilters();
-            applyCurrentSort();
-          }
-        });
-      });
-    });
-
-    function applyDefaultSort() {
-      if (table.id === "table-recordings-library") {
-        headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
-        var th0 = table.querySelector('thead tr:first-child th[data-col="0"]');
-        if (th0) th0.classList.add("sorted-desc");
-        sortTable(0, false);
-        sortCol = null;
-      } else if (table.id === "table-var-events" || table.id === "table-var-unpaired") {
-        headers.forEach(function (h) { h.classList.remove("sorted-asc", "sorted-desc"); });
-        var th2 = table.querySelector('thead tr:first-child th[data-col="2"]');
-        if (th2) th2.classList.add("sorted-desc");
-        sortTable(2, false);
-        sortCol = null;
-      }
-    }
-
-    applyFilters();
-    applyDefaultSort();
-  });
-})();
-</script>"""
+# Table + Excel filters + top slicer: report_filter_slicers.DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER
 
 
 def _derived_fmt(v) -> str:
@@ -1315,7 +1154,15 @@ def _derived_sort_first_attr(header: str) -> str:
     return ""
 
 
-def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], table_id: str) -> str:
+def _derived_build_table(
+    headers: list[str],
+    keys: list[str],
+    rows: list[dict],
+    table_id: str,
+    *,
+    slicer_comp_key: str | None = None,
+    slicer_date_key: str | None = None,
+) -> str:
     safe_id = html.escape(table_id, quote=True)
     th_row = "".join(
         f'<th data-col="{i}"{_derived_sort_first_attr(h)} title="Click to sort">{html.escape(h, quote=False)}</th>'
@@ -1328,6 +1175,14 @@ def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], 
     )
     body: list[str] = []
     for r in rows:
+        attrs = ['class="derived-data-row"']
+        if slicer_comp_key is not None:
+            ca = html.escape(str(r.get(slicer_comp_key) or "").strip(), quote=True)
+            attrs.append(f'data-competition="{ca}"')
+        if slicer_date_key is not None:
+            da = html.escape(ymd_from_start_time(r.get(slicer_date_key)), quote=True)
+            attrs.append(f'data-match-date="{da}"')
+        tr_open = "<tr " + " ".join(attrs) + ">"
         tds = []
         for k in keys:
             raw = r.get(k)
@@ -1354,7 +1209,7 @@ def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], 
                 tds.append(f'<td class="mono" data-val="{dv}">{inner}</td>')
             else:
                 tds.append(f'<td data-val="{dv}">{_derived_esc(raw)}</td>')
-        body.append("<tr>" + "".join(tds) + "</tr>")
+        body.append(tr_open + "".join(tds) + "</tr>")
     tbody = "\n".join(body) if body else '<tr><td colspan="' + str(len(headers)) + '">No rows.</td></tr>'
     return f"""<div class="table-wrap">
       <table id="{safe_id}" class="sortable-derived">
@@ -1367,6 +1222,12 @@ def _derived_build_table(headers: list[str], keys: list[str], rows: list[dict], 
     </div>"""
 
 
+def _derived_filter_bundle(rows: list[dict], *, comp_key: str, date_key: str) -> tuple[str, str]:
+    names, dmin, dmax = slicer_meta_from_rows(rows, comp_key=comp_key, date_key=date_key)
+    payload = {"allSeasonNames": names, "dataDateMin": dmin, "dataDateMax": dmax}
+    return filter_payload_script_tag(payload), build_derived_controls_html(names, dmin, dmax)
+
+
 def _derived_page_shell(
     *,
     title: str,
@@ -1377,11 +1238,14 @@ def _derived_page_shell(
     table_html: str,
     nav_href: str,
     footer_mid: str | None = None,
+    filter_payload_html: str = "",
+    filter_controls_html: str = "",
 ) -> str:
     gen = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nav = navigation_html(nav_href)
     footer_note = footer_mid if footer_mid is not None else "(Sportradar timelines)"
-    return f"""<!DOCTYPE html>
+    return (
+        f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1464,6 +1328,7 @@ def _derived_page_shell(
     }}
     .footer {{ text-align: center; margin-top: 2rem; font-size: 0.82rem; color: #666; }}
     {EXCEL_FILTER_CSS}
+    {REPORT_TILE_FILTER_CSS}
     {NAV_CSS}
   </style>
 </head>
@@ -1477,6 +1342,7 @@ def _derived_page_shell(
 {nav}
   </div>
   <p class="meta">{meta}</p>
+{filter_payload_html}{filter_controls_html}
   <div class="table-section">
     <p class="table-toolbar-hint">Click a column header to sort. Use <strong>Values…</strong> under each column for an Excel-style checklist (search within the list when there are many values).</p>
     {table_html}
@@ -1485,9 +1351,12 @@ def _derived_page_shell(
     <p>Data from Supabase {html.escape(footer_note, quote=False)} · Generated {html.escape(gen, quote=False)}</p>
   </div>
 {EXCEL_FILTER_CORE_SCRIPT}
-{DERIVED_TABLE_SCRIPT}
+"""
+        + DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER
+        + """
 </body>
 </html>"""
+    )
 
 
 def _derived_stub_page(title: str, nav_href: str) -> str:
@@ -1581,7 +1450,17 @@ def write_derived_reports() -> None:
         "shootout_attempts",
         "sudden_death",
     ]
-    ps_html = _derived_build_table(ps_headers, ps_keys, ps, "table-penalty-shootouts")
+    ps_payload_html, ps_controls_html = _derived_filter_bundle(
+        ps, comp_key="competition_name", date_key="sport_event_start"
+    )
+    ps_html = _derived_build_table(
+        ps_headers,
+        ps_keys,
+        ps,
+        "table-penalty-shootouts",
+        slicer_comp_key="competition_name",
+        slicer_date_key="sport_event_start",
+    )
     ps_doc = _derived_page_shell(
         title=f"Penalty shootouts — {SEASON_LABEL}",
         badge="Sportradar Soccer",
@@ -1592,6 +1471,8 @@ def write_derived_reports() -> None:
         "<strong>Sudden death</strong> = more than 10 attempts in that feed.",
         table_html=ps_html,
         nav_href="report_penalty_shootouts.html",
+        filter_payload_html=ps_payload_html,
+        filter_controls_html=ps_controls_html,
     )
     with open(REPORT_HTML_PENALTY_SHOOTOUTS, "w", encoding="utf-8") as f:
         f.write(ps_doc)
@@ -1638,7 +1519,17 @@ def write_derived_reports() -> None:
         "period_type",
         "timeline_event_id",
     ]
-    vr_html = _derived_build_table(vr_headers, vr_keys, vr, "table-var-events")
+    vr_payload_html, vr_controls_html = _derived_filter_bundle(
+        vr, comp_key="competition_name", date_key="sport_event_start"
+    )
+    vr_html = _derived_build_table(
+        vr_headers,
+        vr_keys,
+        vr,
+        "table-var-events",
+        slicer_comp_key="competition_name",
+        slicer_date_key="sport_event_start",
+    )
     vr_doc = _derived_page_shell(
         title=f"VAR events — {SEASON_LABEL}",
         badge="Sportradar Soccer",
@@ -1649,6 +1540,8 @@ def write_derived_reports() -> None:
         "<strong>Decision</strong> is often empty on standard timelines (see Extended API docs).",
         table_html=vr_html,
         nav_href="report_var_events.html",
+        filter_payload_html=vr_payload_html,
+        filter_controls_html=vr_controls_html,
     )
     with open(REPORT_HTML_VAR_EVENTS, "w", encoding="utf-8") as f:
         f.write(vr_doc)
@@ -1685,7 +1578,17 @@ def write_derived_reports() -> None:
         "video_assistant_referee_over",
         "unpaired_var_starts",
     ]
-    vu_html = _derived_build_table(vu_headers, vu_keys, vu, "table-var-unpaired")
+    vu_payload_html, vu_controls_html = _derived_filter_bundle(
+        vu, comp_key="competition_name", date_key="sport_event_start"
+    )
+    vu_html = _derived_build_table(
+        vu_headers,
+        vu_keys,
+        vu,
+        "table-var-unpaired",
+        slicer_comp_key="competition_name",
+        slicer_date_key="sport_event_start",
+    )
     vu_doc = _derived_page_shell(
         title=f"VAR unpaired — {SEASON_LABEL}",
         badge="Sportradar Soccer",
@@ -1696,6 +1599,8 @@ def write_derived_reports() -> None:
         f"<strong>{len(vu):,}</strong> match(es) in this export.",
         table_html=vu_html,
         nav_href="report_var_unpaired.html",
+        filter_payload_html=vu_payload_html,
+        filter_controls_html=vu_controls_html,
     )
     with open(REPORT_HTML_VAR_UNPAIRED, "w", encoding="utf-8") as f:
         f.write(vu_doc)
@@ -1746,7 +1651,17 @@ def write_derived_reports() -> None:
         "event_win_prob",
         "status",
     ]
-    rl_html = _derived_build_table(rl_headers, rl_keys, rl, "table-recordings-library")
+    rl_payload_html, rl_controls_html = _derived_filter_bundle(
+        rl, comp_key="competition_name", date_key="sport_event_start"
+    )
+    rl_html = _derived_build_table(
+        rl_headers,
+        rl_keys,
+        rl,
+        "table-recordings-library",
+        slicer_comp_key="competition_name",
+        slicer_date_key="sport_event_start",
+    )
     rl_doc = _derived_page_shell(
         title=f"Recordings library — {SEASON_LABEL}",
         badge="Sportradar Soccer",
@@ -1759,6 +1674,8 @@ def write_derived_reports() -> None:
         table_html=rl_html,
         nav_href="report_recordings_library.html",
         footer_mid="(Record/Replay library table Soccer // Recordings Library)",
+        filter_payload_html=rl_payload_html,
+        filter_controls_html=rl_controls_html,
     )
     with open(REPORT_HTML_RECORDINGS_LIBRARY, "w", encoding="utf-8") as f:
         f.write(rl_doc)
@@ -2012,22 +1929,22 @@ def generate_html(
       color: #990000;
     }}
     .stat-card--filter-tile .slicer-chips {{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem 0.65rem;
-      justify-content: flex-start;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px 12px;
     }}
     .stat-card--filter-tile .slicer-chip {{
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 0.35rem;
-      font-size: 0.78rem;
+      gap: 6px;
+      white-space: nowrap;
+      font-size: 0.72rem;
       color: #333;
       cursor: pointer;
       user-select: none;
     }}
-    .stat-card--filter-tile .slicer-chip input {{ accent-color: #cc0000; width: 1rem; height: 1rem; }}
-    .stat-card--filter-tile .slicer-chip span {{ line-height: 1.25; }}
+    .stat-card--filter-tile .slicer-chip input {{ accent-color: #cc0000; width: 0.85rem; height: 0.85rem; }}
+    .stat-card--filter-tile .slicer-chip .comp-idx {{ color: #999; min-width: 1.35em; text-align: right; }}
 
     .date-filter-tile {{
       text-align: left;
@@ -2037,9 +1954,11 @@ def generate_html(
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 0.6rem;
-      margin-bottom: 0.65rem;
+      gap: 0.45rem;
+      margin-bottom: 0.4rem;
     }}
+    .migration-filter-head {{ margin-top: 0.4rem; margin-bottom: 0.25rem; }}
+    .migration-filter-presets {{ display: flex; flex-wrap: wrap; gap: 0.35rem; }}
     .date-filter-title {{
       font-size: 0.72rem;
       font-weight: 700;
@@ -2087,13 +2006,14 @@ def generate_html(
       background: #fff;
       color: #111;
     }}
-    .date-filter-hint {{
-      margin-top: 0.55rem;
-      font-size: 0.78rem;
-      color: #666;
-      line-height: 1.35;
-    }}
+    .date-filter-hint {{ display: none; }}
     .date-filter-muted {{ font-size: 0.82rem; color: #888; margin-top: 0.35rem; }}
+    @media (max-width: 900px) {{
+      .stat-card--filter-tile .slicer-chips {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }}
+    }}
+    @media (max-width: 599px) {{
+      .stat-card--filter-tile .slicer-chips {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+    }}
 
     /* ── Stats ────────────────────────────────────────── */
     .stats-section {{

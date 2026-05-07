@@ -12,6 +12,8 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
+from report_filter_slicers import filter_payload_script_tag, recordings_json_payload_from_overlay_rows, ymd_from_start_time
+
 _DT_MIN = datetime.min.replace(tzinfo=timezone.utc)
 
 RECORDINGS_JSON = "soccer record replay list of sr sport event ids.json"
@@ -198,6 +200,11 @@ def tbody_rows(data_rows: list[dict], description_cols: list[str]) -> str:
         sch_esc = html.escape(sch)
         sch_dv = html.escape(sch, quote=True)
 
+        comp_raw = (r.get("league") or "").strip()
+        comp_attr = html.escape(comp_raw, quote=True)
+        sched_src = sch if sch != EM else ""
+        md_attr = html.escape(ymd_from_start_time(sched_src), quote=True)
+
         parts: list[str] = [
             f'<td data-val="{i}">{i}</td>',
             td_mono_code(r["game_id"]),
@@ -213,7 +220,11 @@ def tbody_rows(data_rows: list[dict], description_cols: list[str]) -> str:
             css = "cell-api-yes" if yn == "Yes" else "cell-api-no"
             parts.append(f'<td class="{css}" data-val="{yn}">{yn}</td>')
 
-        lines.append("<tr>" + "".join(parts) + "</tr>")
+        lines.append(
+            f'<tr class="derived-data-row" data-competition="{comp_attr}" data-match-date="{md_attr}">'
+            + "".join(parts)
+            + "</tr>"
+        )
 
     return "\n".join(lines)
 
@@ -279,6 +290,23 @@ def main() -> None:
     report = report_path.read_text(encoding="utf-8")
     report = inject_css(report)
     report = inject_api_cell_colors(report)
+
+    overlay_payload_script = filter_payload_script_tag(recordings_json_payload_from_overlay_rows(data_rows))
+    if 'id="report-filter-data-derived"' in report:
+        report = re.sub(
+            r'<script type="application/json" id="report-filter-data-derived">.*?</script>\s*',
+            overlay_payload_script,
+            report,
+            count=1,
+            flags=re.DOTALL,
+        )
+    else:
+        needle = '</p>\n  <div class="stats-section">'
+        alt = overlay_payload_script + needle
+        if needle in report:
+            report = report.replace(needle, alt, 1)
+        elif "</p>" in report:
+            report = report.replace("</p>", "</p>\n" + overlay_payload_script.rstrip("\n"), 1)
 
     n = len(data_rows)
     nd = len(description_cols)

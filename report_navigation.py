@@ -10,6 +10,7 @@ from config import REPORT_HTML
 REPORT_NAV_ITEMS: list[tuple[str, str]] = [
     ("report_hub.html", "Home"),
     ("report_master_games.html", "List of All Games"),
+    ("wc2026_schedule.html", "WC 2026 schedule"),
     (REPORT_HTML, "Own goals"),
     ("report_penalty_shootouts.html", "Penalty shootouts"),
     ("report_var_events.html", "VAR events"),

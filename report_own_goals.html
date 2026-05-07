@@ -118,22 +118,22 @@
       color: #990000;
     }
     .stat-card--filter-tile .slicer-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem 0.65rem;
-      justify-content: flex-start;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px 12px;
     }
     .stat-card--filter-tile .slicer-chip {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 0.35rem;
-      font-size: 0.78rem;
+      gap: 6px;
+      white-space: nowrap;
+      font-size: 0.72rem;
       color: #333;
       cursor: pointer;
       user-select: none;
     }
-    .stat-card--filter-tile .slicer-chip input { accent-color: #cc0000; width: 1rem; height: 1rem; }
-    .stat-card--filter-tile .slicer-chip span { line-height: 1.25; }
+    .stat-card--filter-tile .slicer-chip input { accent-color: #cc0000; width: 0.85rem; height: 0.85rem; }
+    .stat-card--filter-tile .slicer-chip .comp-idx { color: #999; min-width: 1.35em; text-align: right; }
 
     .date-filter-tile {
       text-align: left;
@@ -143,9 +143,11 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 0.6rem;
-      margin-bottom: 0.65rem;
+      gap: 0.45rem;
+      margin-bottom: 0.4rem;
     }
+    .migration-filter-head { margin-top: 0.4rem; margin-bottom: 0.25rem; }
+    .migration-filter-presets { display: flex; flex-wrap: wrap; gap: 0.35rem; }
     .date-filter-title {
       font-size: 0.72rem;
       font-weight: 700;
@@ -193,13 +195,14 @@
       background: #fff;
       color: #111;
     }
-    .date-filter-hint {
-      margin-top: 0.55rem;
-      font-size: 0.78rem;
-      color: #666;
-      line-height: 1.35;
-    }
+    .date-filter-hint { display: none; }
     .date-filter-muted { font-size: 0.82rem; color: #888; margin-top: 0.35rem; }
+    @media (max-width: 900px) {
+      .stat-card--filter-tile .slicer-chips { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 599px) {
+      .stat-card--filter-tile .slicer-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
 
     /* ── Stats ────────────────────────────────────────── */
     .stats-section {
@@ -733,6 +736,8 @@
       <span class="nav-sep" aria-hidden="true"> · </span>
       <a href="report_master_games.html">List of All Games</a>
       <span class="nav-sep" aria-hidden="true"> · </span>
+      <a href="wc2026_schedule.html">WC 2026 schedule</a>
+      <span class="nav-sep" aria-hidden="true"> · </span>
       <span class="nav-active">Own goals</span>
       <span class="nav-sep" aria-hidden="true"> · </span>
       <a href="report_penalty_shootouts.html">Penalty shootouts</a>
@@ -756,32 +761,32 @@
             <button type="button" class="slicer-btn" id="slicer-none">None</button>
           </span>
         </div>
-        <div class="slicer-chips"><label class="slicer-chip"><input type="checkbox" name="og-comp" value="Brasileiro Serie A 2026" checked /><span>Brasileiro Serie A 2026</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Brasileiro Serie B 2026" checked /><span>Brasileiro Serie B 2026</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Bundesliga 25/26" checked /><span>Bundesliga 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="CONMEBOL Libertadores 2026" checked /><span>CONMEBOL Libertadores 2026</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="CONMEBOL Sudamericana 2026" checked /><span>CONMEBOL Sudamericana 2026</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Copa del Rey 25/26" checked /><span>Copa del Rey 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Coppa Italia 25/26" checked /><span>Coppa Italia 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Coupe de France 25/26" checked /><span>Coupe de France 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="DFB Pokal 25/26" checked /><span>DFB Pokal 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="FA Cup 25/26" checked /><span>FA Cup 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="J1 League 2026" checked /><span>J1 League 2026</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="LaLiga 25/26" checked /><span>LaLiga 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Liga MX, Clausura 2026" checked /><span>Liga MX, Clausura 2026</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Ligue 1 25/26" checked /><span>Ligue 1 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="MLS 2026" checked /><span>MLS 2026</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Paulista, Serie A1 2026" checked /><span>Paulista, Serie A1 2026</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Premier League 25/26" checked /><span>Premier League 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Serie A 25/26" checked /><span>Serie A 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="UEFA Champions League 25/26" checked /><span>UEFA Champions League 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="UEFA Conference League 25/26" checked /><span>UEFA Conference League 25/26</span></label>
-<label class="slicer-chip"><input type="checkbox" name="og-comp" value="UEFA Europa League 25/26" checked /><span>UEFA Europa League 25/26</span></label></div>
+        <div class="slicer-chips"><label class="slicer-chip"><input type="checkbox" name="og-comp" value="Brasileiro Serie A 2026" checked /><span class="comp-idx">1.</span><span>Brasileiro Serie A 2026</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Brasileiro Serie B 2026" checked /><span class="comp-idx">2.</span><span>Brasileiro Serie B 2026</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Bundesliga 25/26" checked /><span class="comp-idx">3.</span><span>Bundesliga 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="CONMEBOL Libertadores 2026" checked /><span class="comp-idx">4.</span><span>CONMEBOL Libertadores 2026</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="CONMEBOL Sudamericana 2026" checked /><span class="comp-idx">5.</span><span>CONMEBOL Sudamericana 2026</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Copa del Rey 25/26" checked /><span class="comp-idx">6.</span><span>Copa del Rey 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Coppa Italia 25/26" checked /><span class="comp-idx">7.</span><span>Coppa Italia 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Coupe de France 25/26" checked /><span class="comp-idx">8.</span><span>Coupe de France 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="DFB Pokal 25/26" checked /><span class="comp-idx">9.</span><span>DFB Pokal 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="FA Cup 25/26" checked /><span class="comp-idx">10.</span><span>FA Cup 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="J1 League 2026" checked /><span class="comp-idx">11.</span><span>J1 League 2026</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="LaLiga 25/26" checked /><span class="comp-idx">12.</span><span>LaLiga 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Liga MX, Clausura 2026" checked /><span class="comp-idx">13.</span><span>Liga MX, Clausura 2026</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Ligue 1 25/26" checked /><span class="comp-idx">14.</span><span>Ligue 1 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="MLS 2026" checked /><span class="comp-idx">15.</span><span>MLS 2026</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Paulista, Serie A1 2026" checked /><span class="comp-idx">16.</span><span>Paulista, Serie A1 2026</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Premier League 25/26" checked /><span class="comp-idx">17.</span><span>Premier League 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="Serie A 25/26" checked /><span class="comp-idx">18.</span><span>Serie A 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="UEFA Champions League 25/26" checked /><span class="comp-idx">19.</span><span>UEFA Champions League 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="UEFA Conference League 25/26" checked /><span class="comp-idx">20.</span><span>UEFA Conference League 25/26</span></label>
+<label class="slicer-chip"><input type="checkbox" name="og-comp" value="UEFA Europa League 25/26" checked /><span class="comp-idx">21.</span><span>UEFA Europa League 25/26</span></label></div>
       </div>
     </div>
-    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Match date filter">
+    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Kickoff date filter">
       <div class="date-filter-head">
-        <span class="date-filter-title">Match date range</span>
+        <span class="date-filter-title">Kickoff date range (UTC)</span>
         <span class="date-filter-presets">
           <button type="button" class="date-preset-btn is-active" data-preset="all">All time</button>
           <button type="button" class="date-preset-btn" data-preset="today">Today</button>
@@ -796,6 +801,13 @@
         <label class="date-filter-label">To
           <input type="date" id="og-date-to" min="1990-01-01" max="2099-12-31" value="2026-05-07" />
         </label>
+      </div>
+      <div class="date-filter-head migration-filter-head">
+        <span class="date-filter-title">Migration period (UTC start time)</span>
+        <span class="migration-filter-presets">
+          <button type="button" class="date-preset-btn" data-migration-scope="pre">Pre-Migration<br />Before 4/27/26</button>
+          <button type="button" class="date-preset-btn" data-migration-scope="post">Post-Migration<br />On or after 4/27/26</button>
+        </span>
       </div>
       <p class="date-filter-hint" id="og-date-hint"></p>
     </div>
@@ -5940,34 +5952,8 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr class="og-data-row" data-competition="DFB Pokal 25/26" data-match-date="2025-12-03" data-event-id="sr:sport_event:65216718" data-og-player="Ansah, Ilyas" data-og-team="Union Berlin">
-          <td class="num" data-val="195" data-label="#">195</td>
-          <td data-val="DFB Pokal 25/26" data-label="Competition">
-            <div class="match-name">DFB Pokal 25/26</div>
-            <div class="meta">sr:competition:217</div>
-          </td>
-          <td data-val="Union Berlin / Bayern Munich" data-label="Title">
-            <div class="match-name">Union Berlin / Bayern Munich</div>
-          </td>
-          <td data-val="2025-12-03" data-label="Date">2025-12-03</td>
-          <td class="id-cell match-id-cell" data-val="sr:sport_event:65216718" data-label="Match ID"><code title="sr:sport_event:65216718">sr:sport_event:65216718</code></td>
-          <td class="center recorded-false" data-val="false" data-label="Recorded">false</td>
-          <td class="id-cell" data-val="" data-label="Recording ID"><code title=""></code></td>
-          <td data-val="Ansah, Ilyas" data-label="Scorer">
-            <div class="player-name">Ilyas Ansah</div>
-            <div class="meta">Union Berlin</div>
-          </td>
-          <td class="id-cell" data-val="sr:player:2648411" data-label="Player ID"><code title="sr:player:2648411">sr:player:2648411</code></td>
-          <td class="minute" data-val="12" data-label="Min">12'</td>
-          <td data-val="Bayern Munich" data-label="Benefiting"><div class="team-badge">Bayern Munich</div></td>
-          <td class="score" data-val="0" data-label="At OG">0–1</td>
-          <td class="score final" data-val="2" data-label="Final">2–3</td>
-          <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
-          <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
-        </tr>
-
         <tr class="og-data-row" data-competition="DFB Pokal 25/26" data-match-date="2025-12-03" data-event-id="sr:sport_event:65216720" data-og-player="Strompf, Philipp" data-og-team="VfL Bochum">
-          <td class="num" data-val="196" data-label="#">196</td>
+          <td class="num" data-val="195" data-label="#">195</td>
           <td data-val="DFB Pokal 25/26" data-label="Competition">
             <div class="match-name">DFB Pokal 25/26</div>
             <div class="meta">sr:competition:217</div>
@@ -5988,6 +5974,32 @@
           <td data-val="VfB Stuttgart" data-label="Benefiting"><div class="team-badge">VfB Stuttgart</div></td>
           <td class="score" data-val="0" data-label="At OG">0–1</td>
           <td class="score final" data-val="0" data-label="Final">0–2</td>
+          <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
+          <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
+        </tr>
+
+        <tr class="og-data-row" data-competition="DFB Pokal 25/26" data-match-date="2025-12-03" data-event-id="sr:sport_event:65216718" data-og-player="Ansah, Ilyas" data-og-team="Union Berlin">
+          <td class="num" data-val="196" data-label="#">196</td>
+          <td data-val="DFB Pokal 25/26" data-label="Competition">
+            <div class="match-name">DFB Pokal 25/26</div>
+            <div class="meta">sr:competition:217</div>
+          </td>
+          <td data-val="Union Berlin / Bayern Munich" data-label="Title">
+            <div class="match-name">Union Berlin / Bayern Munich</div>
+          </td>
+          <td data-val="2025-12-03" data-label="Date">2025-12-03</td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:65216718" data-label="Match ID"><code title="sr:sport_event:65216718">sr:sport_event:65216718</code></td>
+          <td class="center recorded-false" data-val="false" data-label="Recorded">false</td>
+          <td class="id-cell" data-val="" data-label="Recording ID"><code title=""></code></td>
+          <td data-val="Ansah, Ilyas" data-label="Scorer">
+            <div class="player-name">Ilyas Ansah</div>
+            <div class="meta">Union Berlin</div>
+          </td>
+          <td class="id-cell" data-val="sr:player:2648411" data-label="Player ID"><code title="sr:player:2648411">sr:player:2648411</code></td>
+          <td class="minute" data-val="12" data-label="Min">12'</td>
+          <td data-val="Bayern Munich" data-label="Benefiting"><div class="team-badge">Bayern Munich</div></td>
+          <td class="score" data-val="0" data-label="At OG">0–1</td>
+          <td class="score final" data-val="2" data-label="Final">2–3</td>
           <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
@@ -8124,34 +8136,8 @@
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
 
-        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-08-14" data-event-id="sr:sport_event:62247636" data-og-player="Olsen, Ari" data-og-team="Vikingur Gota">
-          <td class="num" data-val="279" data-label="#">279</td>
-          <td data-val="UEFA Conference League 25/26" data-label="Competition">
-            <div class="match-name">UEFA Conference League 25/26</div>
-            <div class="meta">sr:competition:34480</div>
-          </td>
-          <td data-val="Linfield FC / Vikingur Gota" data-label="Title">
-            <div class="match-name">Linfield FC / Vikingur Gota</div>
-          </td>
-          <td data-val="2025-08-14" data-label="Date">2025-08-14</td>
-          <td class="id-cell match-id-cell" data-val="sr:sport_event:62247636" data-label="Match ID"><code title="sr:sport_event:62247636">sr:sport_event:62247636</code></td>
-          <td class="center recorded-false" data-val="false" data-label="Recorded">false</td>
-          <td class="id-cell" data-val="" data-label="Recording ID"><code title=""></code></td>
-          <td data-val="Olsen, Ari" data-label="Scorer">
-            <div class="player-name">Ari Olsen</div>
-            <div class="meta">Vikingur Gota</div>
-          </td>
-          <td class="id-cell" data-val="sr:player:608322" data-label="Player ID"><code title="sr:player:608322">sr:player:608322</code></td>
-          <td class="minute" data-val="38" data-label="Min">38'</td>
-          <td data-val="Linfield FC" data-label="Benefiting"><div class="team-badge">Linfield FC</div></td>
-          <td class="score" data-val="2" data-label="At OG">2–0</td>
-          <td class="score final" data-val="2" data-label="Final">2–0</td>
-          <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
-          <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
-        </tr>
-
         <tr class="og-data-row" data-competition="UEFA Europa League 25/26" data-match-date="2025-08-14" data-event-id="sr:sport_event:62201970" data-og-player="De Roeve, Denzel" data-og-team="SK Brann">
-          <td class="num" data-val="280" data-label="#">280</td>
+          <td class="num" data-val="279" data-label="#">279</td>
           <td data-val="UEFA Europa League 25/26" data-label="Competition">
             <div class="match-name">UEFA Europa League 25/26</div>
             <div class="meta">sr:competition:679</div>
@@ -8172,6 +8158,32 @@
           <td data-val="BK Hacken" data-label="Benefiting"><div class="team-badge">BK Hacken</div></td>
           <td class="score" data-val="0" data-label="At OG">0–1</td>
           <td class="score final" data-val="0" data-label="Final">0–1</td>
+          <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
+          <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
+        </tr>
+
+        <tr class="og-data-row" data-competition="UEFA Conference League 25/26" data-match-date="2025-08-14" data-event-id="sr:sport_event:62247636" data-og-player="Olsen, Ari" data-og-team="Vikingur Gota">
+          <td class="num" data-val="280" data-label="#">280</td>
+          <td data-val="UEFA Conference League 25/26" data-label="Competition">
+            <div class="match-name">UEFA Conference League 25/26</div>
+            <div class="meta">sr:competition:34480</div>
+          </td>
+          <td data-val="Linfield FC / Vikingur Gota" data-label="Title">
+            <div class="match-name">Linfield FC / Vikingur Gota</div>
+          </td>
+          <td data-val="2025-08-14" data-label="Date">2025-08-14</td>
+          <td class="id-cell match-id-cell" data-val="sr:sport_event:62247636" data-label="Match ID"><code title="sr:sport_event:62247636">sr:sport_event:62247636</code></td>
+          <td class="center recorded-false" data-val="false" data-label="Recorded">false</td>
+          <td class="id-cell" data-val="" data-label="Recording ID"><code title=""></code></td>
+          <td data-val="Olsen, Ari" data-label="Scorer">
+            <div class="player-name">Ari Olsen</div>
+            <div class="meta">Vikingur Gota</div>
+          </td>
+          <td class="id-cell" data-val="sr:player:608322" data-label="Player ID"><code title="sr:player:608322">sr:player:608322</code></td>
+          <td class="minute" data-val="38" data-label="Min">38'</td>
+          <td data-val="Linfield FC" data-label="Benefiting"><div class="team-badge">Linfield FC</div></td>
+          <td class="score" data-val="2" data-label="At OG">2–0</td>
+          <td class="score final" data-val="2" data-label="Final">2–0</td>
           <td class="og-no" data-val="0" data-label="Mentions OG?">No</td>
           <td class="commentary-cell" data-val="" data-label="Commentary"><span class="commentary"></span></td>
         </tr>
@@ -9014,7 +9026,7 @@
   </div>
 
   <div class="footer">
-    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 07 May 2026, 07:22 UTC</p>
+    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 07 May 2026, 22:49 UTC</p>
   </div>
 
   <script>
@@ -9424,19 +9436,21 @@
     e.setDate(e.getDate() + 6);
     return e;
   }
-  /** Ensure from <= to only; do not clamp to dataset (presets use real calendar). */
-  function normalizeFromTo(fromEl, toEl, fallbackFrom, fallbackTo) {
-    var from = fromEl.value || fallbackFrom;
-    var to = toEl.value || fallbackTo;
-    if (from > to) {
+  /** Ensure from <= to when both set. */
+  function normalizeFromTo(fromEl, toEl) {
+    var from = fromEl.value || '';
+    var to = toEl.value || '';
+    if (from && to && from > to) {
       var x = from;
       from = to;
       to = x;
       fromEl.value = from;
       toEl.value = to;
     }
-    return { from: from, to: to };
   }
+
+  var MIGRATION_CUTOFF_DATE = '2026-04-27';
+  var MIGRATION_PRE_END_DATE = '2026-04-26';
 
   function getDateRange() {
     const lo = dataDateMin;
@@ -9446,15 +9460,19 @@
     if (!fromEl || !toEl || !lo || !hi) {
       return { from: lo, to: hi, lo: lo, hi: hi, hasInputs: false };
     }
-    var c = normalizeFromTo(fromEl, toEl, lo, hi);
-    return { from: c.from, to: c.to, lo: lo, hi: hi, hasInputs: true };
+    normalizeFromTo(fromEl, toEl);
+    var from = fromEl.value || null;
+    var to = toEl.value || null;
+    return { from: from, to: to, lo: lo, hi: hi, hasInputs: true };
   }
 
   function dateMatches(tr, dr) {
     var d = tr.getAttribute('data-match-date') || '';
     if (!d || d.length < 10) return false;
     if (!dr.hasInputs || !dr.lo || !dr.hi) return true;
-    return d >= dr.from && d <= dr.to;
+    if (dr.from && d < dr.from) return false;
+    if (dr.to && d > dr.to) return false;
+    return true;
   }
 
   function updateDateHint(dr) {
@@ -9463,27 +9481,65 @@
     if (!dr.hasInputs || !dr.lo || !dr.hi) { el.textContent = ''; return; }
     if (dr.from === dr.lo && dr.to === dr.hi) {
       el.textContent = 'Showing all match dates in this report (' + dr.lo + ' to ' + dr.hi + ').';
+    } else if (dr.from && !dr.to) {
+      el.textContent = 'Showing goals from matches on or after ' + dr.from + '.';
+    } else if (!dr.from && dr.to) {
+      el.textContent = 'Showing goals from matches on or before ' + dr.to + '.';
+    } else if (!dr.from && !dr.to) {
+      el.textContent = '';
     } else {
       el.textContent = 'Showing goals from matches on ' + dr.from + ' through ' + dr.to + ' (inclusive).';
     }
   }
 
   function clearPresetActive() {
-    document.querySelectorAll('.date-preset-btn').forEach(function (b) { b.classList.remove('is-active'); });
+    document.querySelectorAll('.date-filter-tile [data-preset]').forEach(function (b) { b.classList.remove('is-active'); });
+  }
+
+  function clearMigrationActive() {
+    document.querySelectorAll('.date-filter-tile [data-migration-scope]').forEach(function (b) { b.classList.remove('is-active'); });
+  }
+
+  function setMigrationScope(scope) {
+    clearPresetActive();
+    var fromEl = document.getElementById('og-date-from');
+    var toEl = document.getElementById('og-date-to');
+    if (!fromEl || !toEl || !dataDateMin || !dataDateMax) return;
+    if (scope === 'pre') {
+      fromEl.value = dataDateMin;
+      toEl.value = MIGRATION_PRE_END_DATE;
+    } else if (scope === 'post') {
+      fromEl.value = MIGRATION_CUTOFF_DATE;
+      toEl.value = dataDateMax;
+    }
+    document.querySelectorAll('[data-migration-scope]').forEach(function (btn) {
+      btn.classList.toggle('is-active', btn.getAttribute('data-migration-scope') === scope);
+    });
+  }
+
+  function wireMigrationFilter() {
+    document.querySelectorAll('[data-migration-scope]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var scope = btn.getAttribute('data-migration-scope') || 'pre';
+        setMigrationScope(scope);
+        applyFilter();
+      });
+    });
   }
 
   function wireDateFilter() {
     var fromEl = document.getElementById('og-date-from');
     var toEl = document.getElementById('og-date-to');
     if (!fromEl || !toEl || !dataDateMin || !dataDateMax) return;
-    fromEl.addEventListener('change', function () { clearPresetActive(); applyFilter(); });
-    toEl.addEventListener('change', function () { clearPresetActive(); applyFilter(); });
-    document.querySelectorAll('.date-preset-btn').forEach(function (btn) {
+    fromEl.addEventListener('change', function () { clearPresetActive(); clearMigrationActive(); applyFilter(); });
+    toEl.addEventListener('change', function () { clearPresetActive(); clearMigrationActive(); applyFilter(); });
+    document.querySelectorAll('.date-filter-tile [data-preset]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var preset = btn.getAttribute('data-preset');
         var lo = dataDateMin;
         var hi = dataDateMax;
         clearPresetActive();
+        clearMigrationActive();
         btn.classList.add('is-active');
         var today = new Date();
         if (preset === 'all') {
@@ -9504,7 +9560,7 @@
           fromEl.value = toYMD(first);
           toEl.value = toYMD(last);
         }
-        normalizeFromTo(fromEl, toEl, lo, hi);
+        normalizeFromTo(fromEl, toEl);
         applyFilter();
       });
     });
@@ -9655,6 +9711,7 @@
     });
     updateOgFilterButtons();
   }
+  wireMigrationFilter();
   wireDateFilter();
   applyFilter();
   sortCol = 3;
