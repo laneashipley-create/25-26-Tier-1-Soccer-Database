@@ -1,0 +1,3558 @@
+[
+  {
+    "asset_id": "df65e7df-40ab-46b7-8ea1-92e0217c15a0",
+    "country_name": "AFGHANISTAN",
+    "iso_country_code": "AFG",
+    "directory": "assets/sportradar-country-flags/afghanistan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/afghanistan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/afghanistan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/df65e7df-40ab-46b7-8ea1-92e0217c15a0/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "fb93fc0a-f331-4cfd-8ca8-548728db42b9",
+    "country_name": "ALBANIA",
+    "iso_country_code": "ALB",
+    "directory": "assets/sportradar-country-flags/albania",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/albania/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/albania/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/fb93fc0a-f331-4cfd-8ca8-548728db42b9/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "33c9f362-2c99-4314-ab3e-503c7210bd97",
+    "country_name": "ALGERIA",
+    "iso_country_code": "DZA",
+    "directory": "assets/sportradar-country-flags/algeria",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/algeria/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/algeria/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/33c9f362-2c99-4314-ab3e-503c7210bd97/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "801bd0fb-a0ba-4dd5-85d9-5f991e029d81",
+    "country_name": "AMERICAN SAMOA",
+    "iso_country_code": "ASM",
+    "directory": "assets/sportradar-country-flags/american-samoa",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/american-samoa/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/american-samoa/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/801bd0fb-a0ba-4dd5-85d9-5f991e029d81/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "7cea62e8-0319-4400-b44a-80eb7e3fa5ae",
+    "country_name": "ANDORRA",
+    "iso_country_code": "AND",
+    "directory": "assets/sportradar-country-flags/andorra",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/andorra/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/andorra/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/7cea62e8-0319-4400-b44a-80eb7e3fa5ae/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "df861b60-2007-4689-a8a8-6c4726c8c02f",
+    "country_name": "ANGOLA",
+    "iso_country_code": "AGO",
+    "directory": "assets/sportradar-country-flags/angola",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/angola/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/angola/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/df861b60-2007-4689-a8a8-6c4726c8c02f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "edcd3b44-ec0d-4ac4-b7ba-88c29876f5d2",
+    "country_name": "ANGUILLA",
+    "iso_country_code": "AIA",
+    "directory": "assets/sportradar-country-flags/anguilla",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/anguilla/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/anguilla/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/edcd3b44-ec0d-4ac4-b7ba-88c29876f5d2/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "83264cd6-48a8-4a41-9568-2cd74a9bc64e",
+    "country_name": "ANTIGUA AND BARBUDA",
+    "iso_country_code": "ATG",
+    "directory": "assets/sportradar-country-flags/antigua-and-barbuda",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/antigua-and-barbuda/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/antigua-and-barbuda/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/83264cd6-48a8-4a41-9568-2cd74a9bc64e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "11bb55b5-1fc5-412f-a058-3f8853993686",
+    "country_name": "ARGENTINA",
+    "iso_country_code": "ARG",
+    "directory": "assets/sportradar-country-flags/argentina",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/argentina/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/argentina/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/11bb55b5-1fc5-412f-a058-3f8853993686/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "cd0ee930-22f1-4cae-bcf6-2960259f81c1",
+    "country_name": "ARMENIA",
+    "iso_country_code": "ARM",
+    "directory": "assets/sportradar-country-flags/armenia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/armenia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/armenia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/cd0ee930-22f1-4cae-bcf6-2960259f81c1/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "4e21c87c-d724-45fb-a32c-f475b45109ed",
+    "country_name": "ARUBA",
+    "iso_country_code": "ABW",
+    "directory": "assets/sportradar-country-flags/aruba",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/aruba/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/aruba/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/4e21c87c-d724-45fb-a32c-f475b45109ed/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "db8ab4a1-2c2f-4419-98c4-9b6190864849",
+    "country_name": "AUSTRALIA",
+    "iso_country_code": "AUS",
+    "directory": "assets/sportradar-country-flags/australia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/australia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/australia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/db8ab4a1-2c2f-4419-98c4-9b6190864849/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "c397150d-8fb3-43a2-ab12-0cf3036128bc",
+    "country_name": "AUSTRIA",
+    "iso_country_code": "AUT",
+    "directory": "assets/sportradar-country-flags/austria",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/austria/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/austria/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/c397150d-8fb3-43a2-ab12-0cf3036128bc/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "3d8208a8-1b76-4491-8f63-2283f65b1a6f",
+    "country_name": "AZERBAIJAN",
+    "iso_country_code": "AZE",
+    "directory": "assets/sportradar-country-flags/azerbaijan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/azerbaijan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/azerbaijan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/3d8208a8-1b76-4491-8f63-2283f65b1a6f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "4d7e66a8-3739-4650-8e3c-419546c35d3f",
+    "country_name": "BAHAMAS",
+    "iso_country_code": "BHS",
+    "directory": "assets/sportradar-country-flags/bahamas",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/bahamas/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/bahamas/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/4d7e66a8-3739-4650-8e3c-419546c35d3f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "01d30c8a-1545-46fa-b4b6-b17255e0d55f",
+    "country_name": "BAHRAIN",
+    "iso_country_code": "BHR",
+    "directory": "assets/sportradar-country-flags/bahrain",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/bahrain/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/bahrain/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/01d30c8a-1545-46fa-b4b6-b17255e0d55f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ec4daaf4-b5e7-446d-9eb4-1a95940eba65",
+    "country_name": "BANGLADESH",
+    "iso_country_code": "BGD",
+    "directory": "assets/sportradar-country-flags/bangladesh",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/bangladesh/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/bangladesh/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ec4daaf4-b5e7-446d-9eb4-1a95940eba65/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "672b66f1-f1d7-42c3-bd03-d1d36de2b514",
+    "country_name": "BARBADOS",
+    "iso_country_code": "BRB",
+    "directory": "assets/sportradar-country-flags/barbados",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/barbados/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/barbados/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/672b66f1-f1d7-42c3-bd03-d1d36de2b514/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "c9cff033-c629-4e53-b160-3f88b9ce0a07",
+    "country_name": "BELARUS",
+    "iso_country_code": "BLR",
+    "directory": "assets/sportradar-country-flags/belarus",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/belarus/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/belarus/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/c9cff033-c629-4e53-b160-3f88b9ce0a07/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "8d477648-47a0-4962-a70e-2731d4a3bd5c",
+    "country_name": "BELGIUM",
+    "iso_country_code": "BEL",
+    "directory": "assets/sportradar-country-flags/belgium",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/belgium/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/belgium/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/8d477648-47a0-4962-a70e-2731d4a3bd5c/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "a88a9c93-0e56-48e9-ad90-76e82f9f568c",
+    "country_name": "BELIZE",
+    "iso_country_code": "BLZ",
+    "directory": "assets/sportradar-country-flags/belize",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/belize/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/belize/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/a88a9c93-0e56-48e9-ad90-76e82f9f568c/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "a53c2445-e526-4608-8eeb-8892d78e3fc5",
+    "country_name": "BENIN",
+    "iso_country_code": "BEN",
+    "directory": "assets/sportradar-country-flags/benin",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/benin/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/benin/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/a53c2445-e526-4608-8eeb-8892d78e3fc5/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "08def528-cdeb-437d-8c6e-c13cadb4c859",
+    "country_name": "BERMUDA",
+    "iso_country_code": "BMU",
+    "directory": "assets/sportradar-country-flags/bermuda",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/bermuda/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/bermuda/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/08def528-cdeb-437d-8c6e-c13cadb4c859/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "f8182d0f-11a7-4f2d-8b0e-9e1d94233948",
+    "country_name": "BHUTAN",
+    "iso_country_code": "BTN",
+    "directory": "assets/sportradar-country-flags/bhutan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/bhutan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/bhutan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/f8182d0f-11a7-4f2d-8b0e-9e1d94233948/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "6acc5ff0-4d7e-43d3-916d-c8a89fd172a2",
+    "country_name": "BOLIVIA",
+    "iso_country_code": "BOL",
+    "directory": "assets/sportradar-country-flags/bolivia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/bolivia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/bolivia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/6acc5ff0-4d7e-43d3-916d-c8a89fd172a2/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "2974fda3-2df7-417b-b9bd-183febf80205",
+    "country_name": "BONAIRE SINT EUSTATIUS AND SABA",
+    "iso_country_code": "BES",
+    "directory": "assets/sportradar-country-flags/bonaire-sint-eustatius-and-saba",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/bonaire-sint-eustatius-and-saba/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/bonaire-sint-eustatius-and-saba/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/2974fda3-2df7-417b-b9bd-183febf80205/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "d2cbdb4f-9ff7-43fd-9e82-639eabb2e491",
+    "country_name": "BOSNIA AND HERZEGOVINA",
+    "iso_country_code": "BIH",
+    "directory": "assets/sportradar-country-flags/bosnia-and-herzegovina",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/bosnia-and-herzegovina/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/bosnia-and-herzegovina/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/d2cbdb4f-9ff7-43fd-9e82-639eabb2e491/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "6e1dc3a8-93de-43b6-85cd-0ac0b8cc80dc",
+    "country_name": "BOTSWANA",
+    "iso_country_code": "BWA",
+    "directory": "assets/sportradar-country-flags/botswana",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/botswana/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/botswana/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/6e1dc3a8-93de-43b6-85cd-0ac0b8cc80dc/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "97cff6dc-9034-4643-9101-5795c5a33441",
+    "country_name": "BRAZIL",
+    "iso_country_code": "BRA",
+    "directory": "assets/sportradar-country-flags/brazil",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/brazil/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/brazil/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/97cff6dc-9034-4643-9101-5795c5a33441/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "9ab215f8-9874-445a-b706-821d6013055a",
+    "country_name": "BRITISH INDIAN OCEAN TERRITORY",
+    "iso_country_code": "IOT",
+    "directory": "assets/sportradar-country-flags/british-indian-ocean-territory",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/british-indian-ocean-territory/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/british-indian-ocean-territory/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/9ab215f8-9874-445a-b706-821d6013055a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "5c769783-21a5-475c-817f-a1cec6170236",
+    "country_name": "BRUNEI DARUSSALAM",
+    "iso_country_code": "BRN",
+    "directory": "assets/sportradar-country-flags/brunei-darussalam",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/brunei-darussalam/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/brunei-darussalam/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/5c769783-21a5-475c-817f-a1cec6170236/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "1510b7e7-c585-4d83-a064-a9d74fb491d0",
+    "country_name": "BULGARIA",
+    "iso_country_code": "BGR",
+    "directory": "assets/sportradar-country-flags/bulgaria",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/bulgaria/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/bulgaria/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/1510b7e7-c585-4d83-a064-a9d74fb491d0/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "a32d7601-06e6-4521-afd5-b8d401d0f8c7",
+    "country_name": "BURKINA FASO",
+    "iso_country_code": "BFA",
+    "directory": "assets/sportradar-country-flags/burkina-faso",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/burkina-faso/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/burkina-faso/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/a32d7601-06e6-4521-afd5-b8d401d0f8c7/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "0eb3dabe-2320-4f8b-aacc-2a702e7a5b43",
+    "country_name": "BURUNDI",
+    "iso_country_code": "BDI",
+    "directory": "assets/sportradar-country-flags/burundi",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/burundi/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/burundi/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/0eb3dabe-2320-4f8b-aacc-2a702e7a5b43/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "1168c0f6-2ec4-4f33-9375-4b3151dc8af8",
+    "country_name": "CAMBODIA",
+    "iso_country_code": "KHM",
+    "directory": "assets/sportradar-country-flags/cambodia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/cambodia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/cambodia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/1168c0f6-2ec4-4f33-9375-4b3151dc8af8/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "11ff02bb-230c-4e12-bc7c-abf7f11935e6",
+    "country_name": "CAMEROON",
+    "iso_country_code": "CMR",
+    "directory": "assets/sportradar-country-flags/cameroon",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/cameroon/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/cameroon/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/11ff02bb-230c-4e12-bc7c-abf7f11935e6/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "b9e25373-ed5d-4195-ac64-1bc19d27d605",
+    "country_name": "CANADA",
+    "iso_country_code": "CAN",
+    "directory": "assets/sportradar-country-flags/canada",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/canada/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/canada/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/b9e25373-ed5d-4195-ac64-1bc19d27d605/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ae138bad-9ffa-4216-a24e-251661621848",
+    "country_name": "CAPE VERDE",
+    "iso_country_code": "CPV",
+    "directory": "assets/sportradar-country-flags/cape-verde",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/cape-verde/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/cape-verde/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ae138bad-9ffa-4216-a24e-251661621848/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "e9f85239-3917-4804-8db9-9192c55484fc",
+    "country_name": "CAYMAN ISLANDS",
+    "iso_country_code": "CYM",
+    "directory": "assets/sportradar-country-flags/cayman-islands",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/cayman-islands/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/cayman-islands/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/e9f85239-3917-4804-8db9-9192c55484fc/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "e5786fe8-2138-4824-9438-8584c8d257a6",
+    "country_name": "CENTRAL AFRICAN REPUBLIC",
+    "iso_country_code": "CAF",
+    "directory": "assets/sportradar-country-flags/central-african-republic",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/central-african-republic/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/central-african-republic/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/e5786fe8-2138-4824-9438-8584c8d257a6/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "3ab914e1-87c4-4975-8256-c736eb5243dc",
+    "country_name": "CHAD",
+    "iso_country_code": "TCD",
+    "directory": "assets/sportradar-country-flags/chad",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/chad/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/chad/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/3ab914e1-87c4-4975-8256-c736eb5243dc/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "803fce1b-c5e0-4b75-8cb2-f3e46834dcd3",
+    "country_name": "CHILE",
+    "iso_country_code": "CHL",
+    "directory": "assets/sportradar-country-flags/chile",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/chile/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/chile/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/803fce1b-c5e0-4b75-8cb2-f3e46834dcd3/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ae3ebce2-e098-4391-8eab-0ce95496a4e1",
+    "country_name": "CHINA",
+    "iso_country_code": "CHN",
+    "directory": "assets/sportradar-country-flags/china",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/china/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/china/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ae3ebce2-e098-4391-8eab-0ce95496a4e1/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "c7c909a0-664a-43e0-8be2-1407380f19a9",
+    "country_name": "CHRISTMAS ISLAND",
+    "iso_country_code": "CXR",
+    "directory": "assets/sportradar-country-flags/christmas-island",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/christmas-island/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/christmas-island/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/c7c909a0-664a-43e0-8be2-1407380f19a9/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "8b8c36fc-0f99-4348-97c7-3fe88120ba70",
+    "country_name": "COCOS KEELING ISLANDS",
+    "iso_country_code": "CCK",
+    "directory": "assets/sportradar-country-flags/cocos-keeling-islands",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/cocos-keeling-islands/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/cocos-keeling-islands/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/8b8c36fc-0f99-4348-97c7-3fe88120ba70/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "c09efb63-dad3-4404-8a23-e26a0e35ccc5",
+    "country_name": "COLOMBIA",
+    "iso_country_code": "COL",
+    "directory": "assets/sportradar-country-flags/colombia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/colombia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/colombia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/c09efb63-dad3-4404-8a23-e26a0e35ccc5/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ffbe5ca8-cb63-4109-a96b-7034b02f7b9a",
+    "country_name": "COMOROS",
+    "iso_country_code": "COM",
+    "directory": "assets/sportradar-country-flags/comoros",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/comoros/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/comoros/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ffbe5ca8-cb63-4109-a96b-7034b02f7b9a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "74f7b45f-fe81-4983-a32b-47bea0a596c4",
+    "country_name": "CONGO DEMOCRATIC REPUBLIC",
+    "iso_country_code": "COD",
+    "directory": "assets/sportradar-country-flags/congo-democratic-republic",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/congo-democratic-republic/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/congo-democratic-republic/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/74f7b45f-fe81-4983-a32b-47bea0a596c4/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "32eb2667-fa94-476d-8ad3-9fff60206bad",
+    "country_name": "COOK ISLANDS",
+    "iso_country_code": "COK",
+    "directory": "assets/sportradar-country-flags/cook-islands",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/cook-islands/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/cook-islands/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/32eb2667-fa94-476d-8ad3-9fff60206bad/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "211400b5-9e5a-4f1f-bcec-20aa401709bc",
+    "country_name": "COSTA RICA",
+    "iso_country_code": "CRI",
+    "directory": "assets/sportradar-country-flags/costa-rica",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/costa-rica/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/costa-rica/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/211400b5-9e5a-4f1f-bcec-20aa401709bc/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "cde6604e-048c-4b18-acc9-dfd6ce657ac4",
+    "country_name": "COTE D IVOIRE",
+    "iso_country_code": "CIV",
+    "directory": "assets/sportradar-country-flags/cote-d-ivoire",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/cote-d-ivoire/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/cote-d-ivoire/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/cde6604e-048c-4b18-acc9-dfd6ce657ac4/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "482eb48d-bcdb-492f-a0d9-fd7de442acf5",
+    "country_name": "CROATIA",
+    "iso_country_code": "HRV",
+    "directory": "assets/sportradar-country-flags/croatia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/croatia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/croatia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/482eb48d-bcdb-492f-a0d9-fd7de442acf5/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "d90b639c-8ab8-41e4-854c-aaa642dc0fd2",
+    "country_name": "CUBA",
+    "iso_country_code": "CUB",
+    "directory": "assets/sportradar-country-flags/cuba",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/cuba/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/cuba/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/d90b639c-8ab8-41e4-854c-aaa642dc0fd2/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "bd5dea80-9ad2-415d-976d-11636297e07c",
+    "country_name": "CURACAO",
+    "iso_country_code": "CUW",
+    "directory": "assets/sportradar-country-flags/curacao",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/curacao/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/curacao/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/bd5dea80-9ad2-415d-976d-11636297e07c/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "6e656308-c122-42ae-abf2-919bee393b61",
+    "country_name": "CYPRUS",
+    "iso_country_code": "CYP",
+    "directory": "assets/sportradar-country-flags/cyprus",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/cyprus/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/cyprus/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/6e656308-c122-42ae-abf2-919bee393b61/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "04313866-e444-422c-9e0d-6eaf07f022aa",
+    "country_name": "CZECH REPUBLIC",
+    "iso_country_code": "CZE",
+    "directory": "assets/sportradar-country-flags/czech-republic",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/czech-republic/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/czech-republic/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/04313866-e444-422c-9e0d-6eaf07f022aa/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ea4b8342-97f9-4e1d-8abd-2e54b1119175",
+    "country_name": "DENMARK",
+    "iso_country_code": "DNK",
+    "directory": "assets/sportradar-country-flags/denmark",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/denmark/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/denmark/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ea4b8342-97f9-4e1d-8abd-2e54b1119175/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "e7a5a783-6108-4c7c-8524-34b161756c38",
+    "country_name": "DJIBOUTI",
+    "iso_country_code": "DJI",
+    "directory": "assets/sportradar-country-flags/djibouti",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/djibouti/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/djibouti/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/e7a5a783-6108-4c7c-8524-34b161756c38/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "5255f4fc-ea4d-4792-a5be-576fcad545b1",
+    "country_name": "DOMINICA",
+    "iso_country_code": "DMA",
+    "directory": "assets/sportradar-country-flags/dominica",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/dominica/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/dominica/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/5255f4fc-ea4d-4792-a5be-576fcad545b1/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "a7d99eb5-0967-4ed1-ab76-cd28acf64ec9",
+    "country_name": "DOMINICAN REPUBLIC",
+    "iso_country_code": "DOM",
+    "directory": "assets/sportradar-country-flags/dominican-republic",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/dominican-republic/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/dominican-republic/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/a7d99eb5-0967-4ed1-ab76-cd28acf64ec9/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ace32999-1064-4cac-8806-30bc41fe977a",
+    "country_name": "ECUADOR",
+    "iso_country_code": "ECU",
+    "directory": "assets/sportradar-country-flags/ecuador",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/ecuador/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/ecuador/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ace32999-1064-4cac-8806-30bc41fe977a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "472d4859-ebfb-4f26-8522-f100d343b7e4",
+    "country_name": "EGYPT",
+    "iso_country_code": "EGY",
+    "directory": "assets/sportradar-country-flags/egypt",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/egypt/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/egypt/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/472d4859-ebfb-4f26-8522-f100d343b7e4/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "df9fa6ab-42ba-4d61-9da5-f4ea713c5aca",
+    "country_name": "EL SALVADOR",
+    "iso_country_code": "SLV",
+    "directory": "assets/sportradar-country-flags/el-salvador",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/el-salvador/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/el-salvador/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/df9fa6ab-42ba-4d61-9da5-f4ea713c5aca/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "05ebf5e1-20cf-4352-bfd3-e1d4a69b2579",
+    "country_name": "ENGLAND",
+    "iso_country_code": "ENG",
+    "directory": "assets/sportradar-country-flags/england",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/england/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/england/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/05ebf5e1-20cf-4352-bfd3-e1d4a69b2579/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "cf75d498-32c1-43c9-abcb-6b6458a55f39",
+    "country_name": "EQUATORIAL GUINEA",
+    "iso_country_code": "GNQ",
+    "directory": "assets/sportradar-country-flags/equatorial-guinea",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/equatorial-guinea/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/equatorial-guinea/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/cf75d498-32c1-43c9-abcb-6b6458a55f39/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "2193732d-5fb4-4b06-bdea-b4fbd02ee037",
+    "country_name": "ERITREA",
+    "iso_country_code": "ERI",
+    "directory": "assets/sportradar-country-flags/eritrea",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/eritrea/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/eritrea/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/2193732d-5fb4-4b06-bdea-b4fbd02ee037/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "3b8c317b-d1ce-4fdf-b16f-3bc677df5b10",
+    "country_name": "ESTONIA",
+    "iso_country_code": "EST",
+    "directory": "assets/sportradar-country-flags/estonia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/estonia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/estonia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/3b8c317b-d1ce-4fdf-b16f-3bc677df5b10/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "f616617d-6878-4125-aab3-fc5a0ba3a19a",
+    "country_name": "ESWATINI",
+    "iso_country_code": "",
+    "directory": "assets/sportradar-country-flags/eswatini",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/eswatini/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/eswatini/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/f616617d-6878-4125-aab3-fc5a0ba3a19a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "7ef7d543-0f46-4006-bcd0-76715fc84227",
+    "country_name": "ETHIOPIA",
+    "iso_country_code": "ETH",
+    "directory": "assets/sportradar-country-flags/ethiopia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/ethiopia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/ethiopia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/7ef7d543-0f46-4006-bcd0-76715fc84227/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "0feb9bdb-3366-4f07-9c58-3f9acbca2038",
+    "country_name": "FALKLAND ISLANDS MALVINAS",
+    "iso_country_code": "FLK",
+    "directory": "assets/sportradar-country-flags/falkland-islands-malvinas",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/falkland-islands-malvinas/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/falkland-islands-malvinas/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/0feb9bdb-3366-4f07-9c58-3f9acbca2038/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "38c69d3b-81e7-4b22-bcaa-ac68aee7270f",
+    "country_name": "FAROE ISLANDS",
+    "iso_country_code": "",
+    "directory": "assets/sportradar-country-flags/faroe-islands",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/faroe-islands/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/faroe-islands/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/38c69d3b-81e7-4b22-bcaa-ac68aee7270f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ef103975-88b2-47ad-9993-7bc23910441d",
+    "country_name": "FIJI",
+    "iso_country_code": "FJI",
+    "directory": "assets/sportradar-country-flags/fiji",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/fiji/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/fiji/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ef103975-88b2-47ad-9993-7bc23910441d/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "1bc136a2-746b-499c-9884-6b72587f4463",
+    "country_name": "FINLAND",
+    "iso_country_code": "FIN",
+    "directory": "assets/sportradar-country-flags/finland",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/finland/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/finland/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/1bc136a2-746b-499c-9884-6b72587f4463/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "da96e7e8-c8e6-443a-a74d-fe3fff0e1dc3",
+    "country_name": "FRANCE",
+    "iso_country_code": "FRA",
+    "directory": "assets/sportradar-country-flags/france",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/france/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/france/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/da96e7e8-c8e6-443a-a74d-fe3fff0e1dc3/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "80ff5577-c9e0-434f-87f9-fb110906c180",
+    "country_name": "FRENCH GUIANA",
+    "iso_country_code": "GUF",
+    "directory": "assets/sportradar-country-flags/french-guiana",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/french-guiana/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/french-guiana/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/80ff5577-c9e0-434f-87f9-fb110906c180/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "223ef212-8dce-4365-8fb7-d68e52fc3803",
+    "country_name": "FRENCH POLYNESIA",
+    "iso_country_code": "PYF",
+    "directory": "assets/sportradar-country-flags/french-polynesia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/french-polynesia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/french-polynesia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/223ef212-8dce-4365-8fb7-d68e52fc3803/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "58769f79-a5aa-4527-99b8-82d5dacc838a",
+    "country_name": "FRENCH SOUTHERN TERRITORIES",
+    "iso_country_code": "ATF",
+    "directory": "assets/sportradar-country-flags/french-southern-territories",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/french-southern-territories/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/french-southern-territories/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/58769f79-a5aa-4527-99b8-82d5dacc838a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "e0c44e1c-1e5b-4401-94fb-742619f7b7f4",
+    "country_name": "GABON",
+    "iso_country_code": "GAB",
+    "directory": "assets/sportradar-country-flags/gabon",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/gabon/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/gabon/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/e0c44e1c-1e5b-4401-94fb-742619f7b7f4/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "16f8aeaa-9af2-44f1-bbbe-716d1ad81779",
+    "country_name": "GAMBIA",
+    "iso_country_code": "GMB",
+    "directory": "assets/sportradar-country-flags/gambia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/gambia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/gambia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/16f8aeaa-9af2-44f1-bbbe-716d1ad81779/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "1ec784fd-439d-44e7-81ad-4c37e681719e",
+    "country_name": "GEORGIA",
+    "iso_country_code": "GEO",
+    "directory": "assets/sportradar-country-flags/georgia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/georgia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/georgia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/1ec784fd-439d-44e7-81ad-4c37e681719e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "7dbef215-2b29-4f40-8748-779fef2fb666",
+    "country_name": "GERMANY",
+    "iso_country_code": "DEU",
+    "directory": "assets/sportradar-country-flags/germany",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/germany/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/germany/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/7dbef215-2b29-4f40-8748-779fef2fb666/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "4dd0700a-374d-4a2c-a662-7aa1ba962f3d",
+    "country_name": "GHANA",
+    "iso_country_code": "GHA",
+    "directory": "assets/sportradar-country-flags/ghana",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/ghana/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/ghana/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/4dd0700a-374d-4a2c-a662-7aa1ba962f3d/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "699d33d3-1f4f-451f-a9a1-6c91a34b61c1",
+    "country_name": "GIBRALTAR",
+    "iso_country_code": "GIB",
+    "directory": "assets/sportradar-country-flags/gibraltar",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/gibraltar/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/gibraltar/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/699d33d3-1f4f-451f-a9a1-6c91a34b61c1/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "1242c42a-504b-4956-a0b2-6c8de8ed308d",
+    "country_name": "GREAT BRITAIN",
+    "iso_country_code": "GBR",
+    "directory": "assets/sportradar-country-flags/great-britain",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/great-britain/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/great-britain/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/1242c42a-504b-4956-a0b2-6c8de8ed308d/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "7b6284e0-8920-4892-8787-2917b9682d97",
+    "country_name": "GREECE",
+    "iso_country_code": "GRC",
+    "directory": "assets/sportradar-country-flags/greece",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/greece/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/greece/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/7b6284e0-8920-4892-8787-2917b9682d97/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ca68ec33-500f-4192-93b4-b4fc0ecfb9d7",
+    "country_name": "GREENLAND",
+    "iso_country_code": "GRL",
+    "directory": "assets/sportradar-country-flags/greenland",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/greenland/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/greenland/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ca68ec33-500f-4192-93b4-b4fc0ecfb9d7/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "a1d4e76e-1c66-4e2b-a1ac-38ba2db94514",
+    "country_name": "GRENADA",
+    "iso_country_code": "GRD",
+    "directory": "assets/sportradar-country-flags/grenada",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/grenada/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/grenada/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/a1d4e76e-1c66-4e2b-a1ac-38ba2db94514/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ecf85b80-5c43-4faa-abb3-847a56a8009b",
+    "country_name": "GUADELOUPE",
+    "iso_country_code": "",
+    "directory": "assets/sportradar-country-flags/guadeloupe",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/guadeloupe/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/guadeloupe/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ecf85b80-5c43-4faa-abb3-847a56a8009b/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ef1383e9-bb53-42b9-abaf-0f3cd3c84805",
+    "country_name": "GUAM",
+    "iso_country_code": "GUM",
+    "directory": "assets/sportradar-country-flags/guam",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/guam/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/guam/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ef1383e9-bb53-42b9-abaf-0f3cd3c84805/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "956b79f9-99c7-47ff-afdb-3780a6b362c5",
+    "country_name": "GUATEMALA",
+    "iso_country_code": "GTM",
+    "directory": "assets/sportradar-country-flags/guatemala",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/guatemala/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/guatemala/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/956b79f9-99c7-47ff-afdb-3780a6b362c5/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "0b035e4c-ff65-4c40-9248-9c10aa6004c4",
+    "country_name": "GUERNSEY",
+    "iso_country_code": "GGY",
+    "directory": "assets/sportradar-country-flags/guernsey",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/guernsey/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/guernsey/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/0b035e4c-ff65-4c40-9248-9c10aa6004c4/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "28f69625-ddcf-4539-8186-d401c4d0832d",
+    "country_name": "GUINEA",
+    "iso_country_code": "GIN",
+    "directory": "assets/sportradar-country-flags/guinea",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/guinea/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/guinea/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/28f69625-ddcf-4539-8186-d401c4d0832d/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "060fff88-be4b-499f-bdd8-9b22c92c3f7b",
+    "country_name": "GUINEA BISSAU",
+    "iso_country_code": "GNB",
+    "directory": "assets/sportradar-country-flags/guinea-bissau",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/guinea-bissau/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/guinea-bissau/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/060fff88-be4b-499f-bdd8-9b22c92c3f7b/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "572aaa76-299b-439c-8c00-f56dc182a1db",
+    "country_name": "GUYANA",
+    "iso_country_code": "GUY",
+    "directory": "assets/sportradar-country-flags/guyana",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/guyana/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/guyana/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/572aaa76-299b-439c-8c00-f56dc182a1db/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "951e66ac-34c7-4033-bbac-b792b4016d2f",
+    "country_name": "HAITI",
+    "iso_country_code": "HTI",
+    "directory": "assets/sportradar-country-flags/haiti",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/haiti/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/haiti/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/951e66ac-34c7-4033-bbac-b792b4016d2f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "5acf6823-2c94-49e9-a3a9-ef4544e4177a",
+    "country_name": "HOLY SEE VATICAN CITY STATE",
+    "iso_country_code": "VAT",
+    "directory": "assets/sportradar-country-flags/holy-see-vatican-city-state",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/holy-see-vatican-city-state/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/holy-see-vatican-city-state/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/5acf6823-2c94-49e9-a3a9-ef4544e4177a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "7c48ab25-84a9-40e3-a8c5-cd38bf6e09f4",
+    "country_name": "HONDURAS",
+    "iso_country_code": "HND",
+    "directory": "assets/sportradar-country-flags/honduras",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/honduras/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/honduras/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/7c48ab25-84a9-40e3-a8c5-cd38bf6e09f4/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "64aaeecd-92f5-4f9c-9fb8-67d60a0e31a1",
+    "country_name": "HONG KONG",
+    "iso_country_code": "HKG",
+    "directory": "assets/sportradar-country-flags/hong-kong",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/hong-kong/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/hong-kong/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/64aaeecd-92f5-4f9c-9fb8-67d60a0e31a1/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "e6aac39b-9aa4-4195-be8c-2f30eb70808e",
+    "country_name": "HUNGARY",
+    "iso_country_code": "HUN",
+    "directory": "assets/sportradar-country-flags/hungary",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/hungary/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/hungary/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/e6aac39b-9aa4-4195-be8c-2f30eb70808e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "89da7217-2c3c-4103-8024-8302fd389f45",
+    "country_name": "ICELAND",
+    "iso_country_code": "ISL",
+    "directory": "assets/sportradar-country-flags/iceland",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/iceland/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/iceland/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/89da7217-2c3c-4103-8024-8302fd389f45/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "e4f36302-f3b2-40ff-a2c4-60440034e2f6",
+    "country_name": "INDIA",
+    "iso_country_code": "IND",
+    "directory": "assets/sportradar-country-flags/india",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/india/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/india/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/e4f36302-f3b2-40ff-a2c4-60440034e2f6/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "3bcb0c97-bc58-4342-88ce-e9a221dcc004",
+    "country_name": "INDONESIA",
+    "iso_country_code": "IDN",
+    "directory": "assets/sportradar-country-flags/indonesia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/indonesia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/indonesia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/3bcb0c97-bc58-4342-88ce-e9a221dcc004/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "9d39f52a-1251-4e0a-ae1b-d3df8f90781f",
+    "country_name": "IRAN ISLAMIC REPUBLIC OF",
+    "iso_country_code": "IRN",
+    "directory": "assets/sportradar-country-flags/iran-islamic-republic-of",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/iran-islamic-republic-of/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/iran-islamic-republic-of/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/9d39f52a-1251-4e0a-ae1b-d3df8f90781f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "633ade9c-ab0a-4a7e-ab0e-b87489f808d7",
+    "country_name": "IRAQ",
+    "iso_country_code": "IRQ",
+    "directory": "assets/sportradar-country-flags/iraq",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/iraq/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/iraq/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/633ade9c-ab0a-4a7e-ab0e-b87489f808d7/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "a2428eb4-63b9-44ff-9079-f4e080b47f5e",
+    "country_name": "IRELAND",
+    "iso_country_code": "IRL",
+    "directory": "assets/sportradar-country-flags/ireland",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/ireland/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/ireland/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/a2428eb4-63b9-44ff-9079-f4e080b47f5e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "aa16be71-c8a8-44bc-af01-864263245576",
+    "country_name": "ISLE OF MAN",
+    "iso_country_code": "IMN",
+    "directory": "assets/sportradar-country-flags/isle-of-man",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/isle-of-man/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/isle-of-man/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/aa16be71-c8a8-44bc-af01-864263245576/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "63c038a0-e452-40bc-ae4b-2b6d760b6955",
+    "country_name": "ISRAEL",
+    "iso_country_code": "ISR",
+    "directory": "assets/sportradar-country-flags/israel",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/israel/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/israel/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/63c038a0-e452-40bc-ae4b-2b6d760b6955/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "838cf2dc-0ca7-400e-9d8f-a93b70cc6028",
+    "country_name": "ITALY",
+    "iso_country_code": "ITA",
+    "directory": "assets/sportradar-country-flags/italy",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/italy/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/italy/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/838cf2dc-0ca7-400e-9d8f-a93b70cc6028/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "70699849-f734-4e78-b8f0-dbea246e99e7",
+    "country_name": "JAMAICA",
+    "iso_country_code": "JAM",
+    "directory": "assets/sportradar-country-flags/jamaica",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/jamaica/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/jamaica/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/70699849-f734-4e78-b8f0-dbea246e99e7/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "5ee7db4b-cb47-4523-8ef1-bd79b15b2865",
+    "country_name": "JAPAN",
+    "iso_country_code": "JPN",
+    "directory": "assets/sportradar-country-flags/japan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/japan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/japan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/5ee7db4b-cb47-4523-8ef1-bd79b15b2865/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "8c45af37-d1e1-4673-9045-5fc52b35c8cf",
+    "country_name": "JERSEY",
+    "iso_country_code": "JEY",
+    "directory": "assets/sportradar-country-flags/jersey",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/jersey/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/jersey/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/8c45af37-d1e1-4673-9045-5fc52b35c8cf/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "414bc0ed-4aef-4f4a-bd68-acc52e3dc1d9",
+    "country_name": "JORDAN",
+    "iso_country_code": "JOR",
+    "directory": "assets/sportradar-country-flags/jordan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/jordan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/jordan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/414bc0ed-4aef-4f4a-bd68-acc52e3dc1d9/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "dbccd701-75f9-414d-a051-df4830a3c000",
+    "country_name": "KAZAKHSTAN",
+    "iso_country_code": "KAZ",
+    "directory": "assets/sportradar-country-flags/kazakhstan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/kazakhstan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/kazakhstan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/dbccd701-75f9-414d-a051-df4830a3c000/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "85ef2091-da00-4d36-a4eb-32aa43b7b8b6",
+    "country_name": "KENYA",
+    "iso_country_code": "KEN",
+    "directory": "assets/sportradar-country-flags/kenya",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/kenya/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/kenya/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/85ef2091-da00-4d36-a4eb-32aa43b7b8b6/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ada17931-896f-4bb0-b507-399b12bb278a",
+    "country_name": "KIRIBATI",
+    "iso_country_code": "KIR",
+    "directory": "assets/sportradar-country-flags/kiribati",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/kiribati/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/kiribati/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ada17931-896f-4bb0-b507-399b12bb278a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "4eb94539-ebb4-46ac-8109-af4985918172",
+    "country_name": "KOREA DEMOCRATIC PEOPLES REPUBLIC OF",
+    "iso_country_code": "PRK",
+    "directory": "assets/sportradar-country-flags/korea-democratic-peoples-republic-of",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/korea-democratic-peoples-republic-of/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/korea-democratic-peoples-republic-of/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/4eb94539-ebb4-46ac-8109-af4985918172/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "2526aba9-ee41-40b9-b904-06c4d5b8d915",
+    "country_name": "KOREA REPUBLIC OF",
+    "iso_country_code": "KOR",
+    "directory": "assets/sportradar-country-flags/korea-republic-of",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/korea-republic-of/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/korea-republic-of/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/2526aba9-ee41-40b9-b904-06c4d5b8d915/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "dbddf995-c11e-48fe-bb22-ff99462c6b3b",
+    "country_name": "KOSOVO",
+    "iso_country_code": "KOS",
+    "directory": "assets/sportradar-country-flags/kosovo",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/kosovo/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/kosovo/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/dbddf995-c11e-48fe-bb22-ff99462c6b3b/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "16de867f-ee19-4471-b6cf-c665190ef311",
+    "country_name": "KUWAIT",
+    "iso_country_code": "KWT",
+    "directory": "assets/sportradar-country-flags/kuwait",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/kuwait/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/kuwait/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/16de867f-ee19-4471-b6cf-c665190ef311/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "17ad2652-aea9-475e-ac33-9c661abee1d8",
+    "country_name": "KYRGYZSTAN",
+    "iso_country_code": "KGZ",
+    "directory": "assets/sportradar-country-flags/kyrgyzstan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/kyrgyzstan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/kyrgyzstan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/17ad2652-aea9-475e-ac33-9c661abee1d8/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "4586df1c-54e5-481a-b255-ec382d95aa5e",
+    "country_name": "LAO PEOPLES DEMOCRATIC REPUBLIC",
+    "iso_country_code": "LAO",
+    "directory": "assets/sportradar-country-flags/lao-peoples-democratic-republic",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/lao-peoples-democratic-republic/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/lao-peoples-democratic-republic/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/4586df1c-54e5-481a-b255-ec382d95aa5e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "d4f8376c-7c20-4c63-bcab-c21903a9d5f0",
+    "country_name": "LATVIA",
+    "iso_country_code": "LVA",
+    "directory": "assets/sportradar-country-flags/latvia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/latvia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/latvia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/d4f8376c-7c20-4c63-bcab-c21903a9d5f0/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "e0589a69-f11f-4f34-b882-4ab860c96070",
+    "country_name": "LEBANON",
+    "iso_country_code": "LBN",
+    "directory": "assets/sportradar-country-flags/lebanon",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/lebanon/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/lebanon/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/e0589a69-f11f-4f34-b882-4ab860c96070/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "22cdddcd-4be3-4d97-9689-977ce7668f3e",
+    "country_name": "LESOTHO",
+    "iso_country_code": "LSO",
+    "directory": "assets/sportradar-country-flags/lesotho",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/lesotho/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/lesotho/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/22cdddcd-4be3-4d97-9689-977ce7668f3e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "2e1aed61-a651-4c05-b0cf-80fac1139ad4",
+    "country_name": "LIBERIA",
+    "iso_country_code": "LBR",
+    "directory": "assets/sportradar-country-flags/liberia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/liberia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/liberia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/2e1aed61-a651-4c05-b0cf-80fac1139ad4/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "32203f47-ad15-4397-a38c-4b197b967ea0",
+    "country_name": "LIBYA",
+    "iso_country_code": "LBY",
+    "directory": "assets/sportradar-country-flags/libya",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/libya/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/libya/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/32203f47-ad15-4397-a38c-4b197b967ea0/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "fd9a1ace-7b41-472a-a2b6-f751a9c9b16c",
+    "country_name": "LIECHTENSTEIN",
+    "iso_country_code": "LIE",
+    "directory": "assets/sportradar-country-flags/liechtenstein",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/liechtenstein/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/liechtenstein/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/fd9a1ace-7b41-472a-a2b6-f751a9c9b16c/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "2fcf3590-6e13-4205-9832-ee237b35e6f0",
+    "country_name": "LITHUANIA",
+    "iso_country_code": "LTU",
+    "directory": "assets/sportradar-country-flags/lithuania",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/lithuania/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/lithuania/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/2fcf3590-6e13-4205-9832-ee237b35e6f0/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "4f5026a5-5b0a-4f44-9fbe-65a97360389e",
+    "country_name": "LUXEMBOURG",
+    "iso_country_code": "LUX",
+    "directory": "assets/sportradar-country-flags/luxembourg",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/luxembourg/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/luxembourg/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/4f5026a5-5b0a-4f44-9fbe-65a97360389e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "5e0b0738-7595-4234-9ec7-49cc3548fcdb",
+    "country_name": "MACAU",
+    "iso_country_code": "MAC",
+    "directory": "assets/sportradar-country-flags/macau",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/macau/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/macau/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/5e0b0738-7595-4234-9ec7-49cc3548fcdb/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "3604477a-e7a6-4197-a5f0-71e4ddc45763",
+    "country_name": "MACEDONIA THE FORMER YUGOSLAV REPUBLIC OF",
+    "iso_country_code": "MKD",
+    "directory": "assets/sportradar-country-flags/macedonia-the-former-yugoslav-republic-of",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/macedonia-the-former-yugoslav-republic-of/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/macedonia-the-former-yugoslav-republic-of/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/3604477a-e7a6-4197-a5f0-71e4ddc45763/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "9133af1d-7e15-4dfd-bb59-cd1efbc81b1f",
+    "country_name": "MADAGASCAR",
+    "iso_country_code": "MDG",
+    "directory": "assets/sportradar-country-flags/madagascar",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/madagascar/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/madagascar/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/9133af1d-7e15-4dfd-bb59-cd1efbc81b1f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "d15f13b6-0e8a-4eb0-b73d-0f7b9ec6adb2",
+    "country_name": "MALAWI",
+    "iso_country_code": "MWI",
+    "directory": "assets/sportradar-country-flags/malawi",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/malawi/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/malawi/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/d15f13b6-0e8a-4eb0-b73d-0f7b9ec6adb2/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "10346828-e8f5-49c2-8c76-3e453bc233f0",
+    "country_name": "MALAYSIA",
+    "iso_country_code": "MYS",
+    "directory": "assets/sportradar-country-flags/malaysia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/malaysia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/malaysia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/10346828-e8f5-49c2-8c76-3e453bc233f0/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "af6dca27-5559-419e-b033-6f58b7b30087",
+    "country_name": "MALDIVES",
+    "iso_country_code": "MDV",
+    "directory": "assets/sportradar-country-flags/maldives",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/maldives/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/maldives/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/af6dca27-5559-419e-b033-6f58b7b30087/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "bda42073-bce3-4cbc-8a02-9bf7cf2c7fb3",
+    "country_name": "MALI",
+    "iso_country_code": "MLI",
+    "directory": "assets/sportradar-country-flags/mali",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/mali/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/mali/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/bda42073-bce3-4cbc-8a02-9bf7cf2c7fb3/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "99d71186-5c4d-4462-8f1e-155e7d5b8980",
+    "country_name": "MALTA",
+    "iso_country_code": "MLT",
+    "directory": "assets/sportradar-country-flags/malta",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/malta/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/malta/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/99d71186-5c4d-4462-8f1e-155e7d5b8980/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "11d3cb2f-e23d-4868-a12a-55dafa6bc3c1",
+    "country_name": "MARSHALL ISLANDS",
+    "iso_country_code": "MHL",
+    "directory": "assets/sportradar-country-flags/marshall-islands",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/marshall-islands/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/marshall-islands/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/11d3cb2f-e23d-4868-a12a-55dafa6bc3c1/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "25e81285-531f-43e2-81f3-3e6fe2cbb756",
+    "country_name": "MARTINIQUE",
+    "iso_country_code": "MTQ",
+    "directory": "assets/sportradar-country-flags/martinique",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/martinique/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/martinique/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/25e81285-531f-43e2-81f3-3e6fe2cbb756/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "3c3b4673-171f-4070-9b26-bac0626ac58e",
+    "country_name": "MAURITANIA",
+    "iso_country_code": "MRT",
+    "directory": "assets/sportradar-country-flags/mauritania",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/mauritania/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/mauritania/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/3c3b4673-171f-4070-9b26-bac0626ac58e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "27e019c8-afce-4272-adf7-f9a63d1e78e5",
+    "country_name": "MAURITIUS",
+    "iso_country_code": "MUS",
+    "directory": "assets/sportradar-country-flags/mauritius",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/mauritius/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/mauritius/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/27e019c8-afce-4272-adf7-f9a63d1e78e5/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "8a851744-5831-4759-b95c-9f4e7debc21c",
+    "country_name": "MAYOTTE",
+    "iso_country_code": "MYT",
+    "directory": "assets/sportradar-country-flags/mayotte",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/mayotte/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/mayotte/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/8a851744-5831-4759-b95c-9f4e7debc21c/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ead9d9a4-7772-43d1-a33f-5917974a3128",
+    "country_name": "MEXICO",
+    "iso_country_code": "MEX",
+    "directory": "assets/sportradar-country-flags/mexico",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/mexico/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/mexico/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ead9d9a4-7772-43d1-a33f-5917974a3128/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "68066627-8099-42bd-8da4-9e2e78e5446f",
+    "country_name": "MICRONESIA FEDERATED STATES OF",
+    "iso_country_code": "FSM",
+    "directory": "assets/sportradar-country-flags/micronesia-federated-states-of",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/micronesia-federated-states-of/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/micronesia-federated-states-of/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/68066627-8099-42bd-8da4-9e2e78e5446f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "7a55ffee-82d2-41fe-969d-61980caf8e10",
+    "country_name": "MOLDOVA REPUBLIC OF",
+    "iso_country_code": "MDA",
+    "directory": "assets/sportradar-country-flags/moldova-republic-of",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/moldova-republic-of/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/moldova-republic-of/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/7a55ffee-82d2-41fe-969d-61980caf8e10/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "8d96781e-e68f-4daf-ae4b-be9539d910de",
+    "country_name": "MONACO",
+    "iso_country_code": "MCO",
+    "directory": "assets/sportradar-country-flags/monaco",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/monaco/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/monaco/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/8d96781e-e68f-4daf-ae4b-be9539d910de/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "66c11e48-1e77-4852-a7ea-3c2293d0508e",
+    "country_name": "MONGOLIA",
+    "iso_country_code": "MNG",
+    "directory": "assets/sportradar-country-flags/mongolia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/mongolia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/mongolia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/66c11e48-1e77-4852-a7ea-3c2293d0508e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "e15431d6-0918-4c76-9e1a-5ce8b6d0e0db",
+    "country_name": "MONTENEGRO",
+    "iso_country_code": "MNE",
+    "directory": "assets/sportradar-country-flags/montenegro",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/montenegro/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/montenegro/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/e15431d6-0918-4c76-9e1a-5ce8b6d0e0db/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "c3e3ee4d-7ff3-4fed-920f-814fe2e01958",
+    "country_name": "MONTSERRAT",
+    "iso_country_code": "MSR",
+    "directory": "assets/sportradar-country-flags/montserrat",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/montserrat/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/montserrat/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/c3e3ee4d-7ff3-4fed-920f-814fe2e01958/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "d8b8945c-dfc9-47a9-986c-a81e5ebe5982",
+    "country_name": "MOROCCO",
+    "iso_country_code": "MAR",
+    "directory": "assets/sportradar-country-flags/morocco",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/morocco/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/morocco/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/d8b8945c-dfc9-47a9-986c-a81e5ebe5982/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "192c5b9e-bce9-4102-b779-25951996d450",
+    "country_name": "MOZAMBIQUE",
+    "iso_country_code": "MOZ",
+    "directory": "assets/sportradar-country-flags/mozambique",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/mozambique/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/mozambique/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/192c5b9e-bce9-4102-b779-25951996d450/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "e78a9acc-53be-417b-a10e-fdeebee5ab3f",
+    "country_name": "MYANMAR",
+    "iso_country_code": "MMR",
+    "directory": "assets/sportradar-country-flags/myanmar",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/myanmar/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/myanmar/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/e78a9acc-53be-417b-a10e-fdeebee5ab3f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "02397b56-4e15-4bef-9be6-1bbf0a34fe70",
+    "country_name": "NAMIBIA",
+    "iso_country_code": "NAM",
+    "directory": "assets/sportradar-country-flags/namibia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/namibia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/namibia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/02397b56-4e15-4bef-9be6-1bbf0a34fe70/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "94cdc632-2f48-4dec-8dbb-72a95b1571aa",
+    "country_name": "NAURU",
+    "iso_country_code": "NRU",
+    "directory": "assets/sportradar-country-flags/nauru",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/nauru/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/nauru/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/94cdc632-2f48-4dec-8dbb-72a95b1571aa/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ce658c7c-8a5a-471b-b4af-705fe4b03654",
+    "country_name": "NEPAL",
+    "iso_country_code": "NPL",
+    "directory": "assets/sportradar-country-flags/nepal",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/nepal/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/nepal/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ce658c7c-8a5a-471b-b4af-705fe4b03654/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "fe79a1c2-fca1-4812-988a-c2f4fc98106a",
+    "country_name": "NETHERLANDS",
+    "iso_country_code": "NLD",
+    "directory": "assets/sportradar-country-flags/netherlands",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/netherlands/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/netherlands/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/fe79a1c2-fca1-4812-988a-c2f4fc98106a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "3080c827-03c6-4254-af6f-d9828eb499e9",
+    "country_name": "NETHERLANDS ANTILLES",
+    "iso_country_code": "ANT",
+    "directory": "assets/sportradar-country-flags/netherlands-antilles",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/netherlands-antilles/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/netherlands-antilles/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/3080c827-03c6-4254-af6f-d9828eb499e9/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "21126e1c-6be6-4694-9b16-6da820d3b100",
+    "country_name": "NEW CALEDONIA",
+    "iso_country_code": "NCL",
+    "directory": "assets/sportradar-country-flags/new-caledonia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/new-caledonia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/new-caledonia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/21126e1c-6be6-4694-9b16-6da820d3b100/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "3dfba113-2956-4d6a-b53a-8ae3b7a151d9",
+    "country_name": "NEW CALEDONIA ALT",
+    "iso_country_code": "NCL",
+    "directory": "assets/sportradar-country-flags/new-caledonia-alt",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/new-caledonia-alt/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/new-caledonia-alt/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/3dfba113-2956-4d6a-b53a-8ae3b7a151d9/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "7ae19fbf-29d6-4b6e-8b11-ca0270a31800",
+    "country_name": "NEW ZEALAND",
+    "iso_country_code": "NZL",
+    "directory": "assets/sportradar-country-flags/new-zealand",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/new-zealand/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/new-zealand/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/7ae19fbf-29d6-4b6e-8b11-ca0270a31800/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "71c73511-154b-48d5-a02d-2eb883cd19f8",
+    "country_name": "NICARAGUA",
+    "iso_country_code": "NIC",
+    "directory": "assets/sportradar-country-flags/nicaragua",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/nicaragua/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/nicaragua/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/71c73511-154b-48d5-a02d-2eb883cd19f8/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "563d645a-8793-4e1d-87d2-bca033984786",
+    "country_name": "NIGER",
+    "iso_country_code": "NER",
+    "directory": "assets/sportradar-country-flags/niger",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/niger/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/niger/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/563d645a-8793-4e1d-87d2-bca033984786/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "4e5e812d-3569-49c8-8253-b93b7d700863",
+    "country_name": "NIGERIA",
+    "iso_country_code": "NGA",
+    "directory": "assets/sportradar-country-flags/nigeria",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/nigeria/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/nigeria/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/4e5e812d-3569-49c8-8253-b93b7d700863/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "3d6004ca-2804-430b-b403-581aa3f8104f",
+    "country_name": "NIUE",
+    "iso_country_code": "NIU",
+    "directory": "assets/sportradar-country-flags/niue",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/niue/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/niue/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/3d6004ca-2804-430b-b403-581aa3f8104f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "8a4e5d4d-f87b-4ae9-a2aa-cd4886ff556f",
+    "country_name": "NORFOLK ISLAND",
+    "iso_country_code": "NFK",
+    "directory": "assets/sportradar-country-flags/norfolk-island",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/norfolk-island/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/norfolk-island/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/8a4e5d4d-f87b-4ae9-a2aa-cd4886ff556f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "05574a82-a169-4041-ac8d-f4653e388bf1",
+    "country_name": "NORTHERN IRELAND",
+    "iso_country_code": "NIR",
+    "directory": "assets/sportradar-country-flags/northern-ireland",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/northern-ireland/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/northern-ireland/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/05574a82-a169-4041-ac8d-f4653e388bf1/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "8fed3e5c-6468-4ede-a172-0b470eccf671",
+    "country_name": "NORTHERN MARIANA ISLANDS",
+    "iso_country_code": "MNP",
+    "directory": "assets/sportradar-country-flags/northern-mariana-islands",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/northern-mariana-islands/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/northern-mariana-islands/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/8fed3e5c-6468-4ede-a172-0b470eccf671/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "508ee6e8-c11a-4bf7-8b90-300e75293a75",
+    "country_name": "NORWAY",
+    "iso_country_code": "NOR",
+    "directory": "assets/sportradar-country-flags/norway",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/norway/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/norway/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/508ee6e8-c11a-4bf7-8b90-300e75293a75/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "52817966-4907-4d53-8a23-d6786518f235",
+    "country_name": "OMAN",
+    "iso_country_code": "OMN",
+    "directory": "assets/sportradar-country-flags/oman",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/oman/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/oman/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/52817966-4907-4d53-8a23-d6786518f235/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "709523a9-ffa7-487a-ab3e-8730a407b03a",
+    "country_name": "PACIFIC OCEANIA",
+    "iso_country_code": "POC",
+    "directory": "assets/sportradar-country-flags/pacific-oceania",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/pacific-oceania/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/pacific-oceania/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/709523a9-ffa7-487a-ab3e-8730a407b03a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "3baf0544-395b-4a88-a062-ed341397f436",
+    "country_name": "PAKISTAN",
+    "iso_country_code": "PAK",
+    "directory": "assets/sportradar-country-flags/pakistan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/pakistan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/pakistan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/3baf0544-395b-4a88-a062-ed341397f436/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "381c6417-e3c0-4871-a8ca-5ea6ca313585",
+    "country_name": "PALAU",
+    "iso_country_code": "PLW",
+    "directory": "assets/sportradar-country-flags/palau",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/palau/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/palau/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/381c6417-e3c0-4871-a8ca-5ea6ca313585/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "b6ca35fa-c5c0-4eb4-9bfa-60ad7038c984",
+    "country_name": "PALESTINIAN TERRITORY OCCUPIED",
+    "iso_country_code": "PSE",
+    "directory": "assets/sportradar-country-flags/palestinian-territory-occupied",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/palestinian-territory-occupied/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/palestinian-territory-occupied/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/b6ca35fa-c5c0-4eb4-9bfa-60ad7038c984/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "75349da5-d03a-4968-b81c-acba1d9ffc42",
+    "country_name": "PANAMA",
+    "iso_country_code": "PAN",
+    "directory": "assets/sportradar-country-flags/panama",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/panama/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/panama/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/75349da5-d03a-4968-b81c-acba1d9ffc42/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "c4df0409-829c-4952-9702-50360dc8fd02",
+    "country_name": "PAPUA NEW GUINEA",
+    "iso_country_code": "PNG",
+    "directory": "assets/sportradar-country-flags/papua-new-guinea",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/papua-new-guinea/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/papua-new-guinea/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/c4df0409-829c-4952-9702-50360dc8fd02/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "44d63dfe-19c0-46eb-815b-023d8b6b5f70",
+    "country_name": "PARAGUAY",
+    "iso_country_code": "PRY",
+    "directory": "assets/sportradar-country-flags/paraguay",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/paraguay/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/paraguay/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/44d63dfe-19c0-46eb-815b-023d8b6b5f70/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "5e4270d0-83b4-4786-a23f-c9e6394dcb9c",
+    "country_name": "PERU",
+    "iso_country_code": "PER",
+    "directory": "assets/sportradar-country-flags/peru",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/peru/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/peru/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/5e4270d0-83b4-4786-a23f-c9e6394dcb9c/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "86f4ae6f-2226-4bd9-a7f5-c351beb41000",
+    "country_name": "PHILIPPINES",
+    "iso_country_code": "PHL",
+    "directory": "assets/sportradar-country-flags/philippines",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/philippines/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/philippines/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/86f4ae6f-2226-4bd9-a7f5-c351beb41000/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "afee811f-b4df-464d-98e4-eb3b1160bec2",
+    "country_name": "PITCAIRN",
+    "iso_country_code": "PCN",
+    "directory": "assets/sportradar-country-flags/pitcairn",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/pitcairn/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/pitcairn/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/afee811f-b4df-464d-98e4-eb3b1160bec2/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "cab08776-3d7c-4c02-8bf5-80ddba12b4d8",
+    "country_name": "POLAND",
+    "iso_country_code": "POL",
+    "directory": "assets/sportradar-country-flags/poland",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/poland/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/poland/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/cab08776-3d7c-4c02-8bf5-80ddba12b4d8/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "678c6ddb-9935-4885-ab57-57b4a092aedf",
+    "country_name": "PORTUGAL",
+    "iso_country_code": "PRT",
+    "directory": "assets/sportradar-country-flags/portugal",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/portugal/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/portugal/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/678c6ddb-9935-4885-ab57-57b4a092aedf/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "ec07fc8c-60e0-4922-83dc-8f36a57c7577",
+    "country_name": "PUERTO RICO",
+    "iso_country_code": "PRI",
+    "directory": "assets/sportradar-country-flags/puerto-rico",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/puerto-rico/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/puerto-rico/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/ec07fc8c-60e0-4922-83dc-8f36a57c7577/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "bafbe518-6b50-47f6-be17-f130377c4df4",
+    "country_name": "QATAR",
+    "iso_country_code": "QAT",
+    "directory": "assets/sportradar-country-flags/qatar",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/qatar/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/qatar/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/bafbe518-6b50-47f6-be17-f130377c4df4/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "feb31db8-c32e-48f3-afa4-3253d05e17eb",
+    "country_name": "REPUBLIC CONGO",
+    "iso_country_code": "COG",
+    "directory": "assets/sportradar-country-flags/republic-congo",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/republic-congo/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/republic-congo/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/feb31db8-c32e-48f3-afa4-3253d05e17eb/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "2a03efaf-26c2-4a3f-9588-48286f93c43a",
+    "country_name": "REUNION",
+    "iso_country_code": "REU",
+    "directory": "assets/sportradar-country-flags/reunion",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/reunion/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/reunion/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/2a03efaf-26c2-4a3f-9588-48286f93c43a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "83d3150a-c896-41e8-93b7-7a2e3106e3c1",
+    "country_name": "ROMANIA",
+    "iso_country_code": "ROU",
+    "directory": "assets/sportradar-country-flags/romania",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/romania/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/romania/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/83d3150a-c896-41e8-93b7-7a2e3106e3c1/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "0779f42c-f235-4b58-a387-c8302dc804f1",
+    "country_name": "RUSSIAN FEDERATION",
+    "iso_country_code": "RUS",
+    "directory": "assets/sportradar-country-flags/russian-federation",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/russian-federation/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/russian-federation/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/0779f42c-f235-4b58-a387-c8302dc804f1/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "c5d8176a-8e57-4c03-b770-4f03f564b86b",
+    "country_name": "RWANDA",
+    "iso_country_code": "RWA",
+    "directory": "assets/sportradar-country-flags/rwanda",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/rwanda/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/rwanda/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/c5d8176a-8e57-4c03-b770-4f03f564b86b/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "a7e7132f-1f74-4da9-80a7-8e0b9671a235",
+    "country_name": "SAINT BARTHELEMY",
+    "iso_country_code": "BLM",
+    "directory": "assets/sportradar-country-flags/saint-barthelemy",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/saint-barthelemy/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/saint-barthelemy/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/a7e7132f-1f74-4da9-80a7-8e0b9671a235/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "151f37f5-a5e4-4162-b276-5c4238830efa",
+    "country_name": "SAINT HELENA",
+    "iso_country_code": "SHN",
+    "directory": "assets/sportradar-country-flags/saint-helena",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/saint-helena/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/saint-helena/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/151f37f5-a5e4-4162-b276-5c4238830efa/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "0aa27f5d-b0ba-4175-b041-c22ce29d326e",
+    "country_name": "SAINT KITTS AND NEVIS",
+    "iso_country_code": "KNA",
+    "directory": "assets/sportradar-country-flags/saint-kitts-and-nevis",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/saint-kitts-and-nevis/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/saint-kitts-and-nevis/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/0aa27f5d-b0ba-4175-b041-c22ce29d326e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "b5d46fed-91ab-4424-900d-c6f815a8eb75",
+    "country_name": "SAINT LUCIA",
+    "iso_country_code": "LCA",
+    "directory": "assets/sportradar-country-flags/saint-lucia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/saint-lucia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/saint-lucia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/b5d46fed-91ab-4424-900d-c6f815a8eb75/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "22ca5a92-3779-4d0d-a5cd-0b0d303965bd",
+    "country_name": "SAINT VINCENT AND THE GRENADINES",
+    "iso_country_code": "VCT",
+    "directory": "assets/sportradar-country-flags/saint-vincent-and-the-grenadines",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/saint-vincent-and-the-grenadines/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/saint-vincent-and-the-grenadines/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/22ca5a92-3779-4d0d-a5cd-0b0d303965bd/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "d474e713-a13b-450f-b4a4-23ea5373f6e5",
+    "country_name": "SAMOA",
+    "iso_country_code": "WSM",
+    "directory": "assets/sportradar-country-flags/samoa",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/samoa/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/samoa/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/d474e713-a13b-450f-b4a4-23ea5373f6e5/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "36f30677-7aac-4e9d-91b7-561bde7d5753",
+    "country_name": "SAN MARINO",
+    "iso_country_code": "SMR",
+    "directory": "assets/sportradar-country-flags/san-marino",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/san-marino/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/san-marino/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/36f30677-7aac-4e9d-91b7-561bde7d5753/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "1293c82d-1ddc-4e48-b70c-6f4e60bb36c2",
+    "country_name": "SAO TOME AND PRINCIPE",
+    "iso_country_code": "STP",
+    "directory": "assets/sportradar-country-flags/sao-tome-and-principe",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/sao-tome-and-principe/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/sao-tome-and-principe/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/1293c82d-1ddc-4e48-b70c-6f4e60bb36c2/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "563835b5-e60d-4789-afb3-2cf71a27989b",
+    "country_name": "SAUDI ARABIA",
+    "iso_country_code": "SAU",
+    "directory": "assets/sportradar-country-flags/saudi-arabia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/saudi-arabia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/saudi-arabia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/563835b5-e60d-4789-afb3-2cf71a27989b/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "9e5d8918-35bd-470a-8bed-95575db32da3",
+    "country_name": "SCOTLAND",
+    "iso_country_code": "SCO",
+    "directory": "assets/sportradar-country-flags/scotland",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/scotland/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/scotland/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/9e5d8918-35bd-470a-8bed-95575db32da3/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "47ab0f49-c0ee-4f8e-a7fb-8ad94642c054",
+    "country_name": "SENEGAL",
+    "iso_country_code": "SEN",
+    "directory": "assets/sportradar-country-flags/senegal",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/senegal/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/senegal/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/47ab0f49-c0ee-4f8e-a7fb-8ad94642c054/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "87c0a819-3fe8-46c8-b7cf-84092261a1d8",
+    "country_name": "SERBIA",
+    "iso_country_code": "SRB",
+    "directory": "assets/sportradar-country-flags/serbia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/serbia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/serbia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/87c0a819-3fe8-46c8-b7cf-84092261a1d8/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "1f44515d-b5a7-4e25-95ac-2ca454ba0d40",
+    "country_name": "SERBIA AND MONTENEGRO",
+    "iso_country_code": "SCG",
+    "directory": "assets/sportradar-country-flags/serbia-and-montenegro",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/serbia-and-montenegro/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/serbia-and-montenegro/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/1f44515d-b5a7-4e25-95ac-2ca454ba0d40/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "f233f9b3-0061-40ef-b06a-9b3178960c50",
+    "country_name": "SEYCHELLES",
+    "iso_country_code": "SYC",
+    "directory": "assets/sportradar-country-flags/seychelles",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/seychelles/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/seychelles/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/f233f9b3-0061-40ef-b06a-9b3178960c50/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "5849375a-83ea-4804-a8dc-fd40132828bf",
+    "country_name": "SIERRA LEONE",
+    "iso_country_code": "SLE",
+    "directory": "assets/sportradar-country-flags/sierra-leone",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/sierra-leone/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/sierra-leone/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/5849375a-83ea-4804-a8dc-fd40132828bf/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "0a7b2dfa-bd83-4ded-8169-b6aec623e530",
+    "country_name": "SINGAPORE",
+    "iso_country_code": "SGP",
+    "directory": "assets/sportradar-country-flags/singapore",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/singapore/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/singapore/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/0a7b2dfa-bd83-4ded-8169-b6aec623e530/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "33a96267-a54c-4c8b-a3af-f8ee64a693c2",
+    "country_name": "SINT MAARTEN",
+    "iso_country_code": "SXM",
+    "directory": "assets/sportradar-country-flags/sint-maarten",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/sint-maarten/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/sint-maarten/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/33a96267-a54c-4c8b-a3af-f8ee64a693c2/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "d2760b16-81ed-443f-a0b2-8e397a71616a",
+    "country_name": "SLOVAKIA",
+    "iso_country_code": "SVK",
+    "directory": "assets/sportradar-country-flags/slovakia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/slovakia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/slovakia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/d2760b16-81ed-443f-a0b2-8e397a71616a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "a5faeb25-b445-4fcc-a820-1936944f0c16",
+    "country_name": "SLOVENIA",
+    "iso_country_code": "SVN",
+    "directory": "assets/sportradar-country-flags/slovenia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/slovenia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/slovenia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/a5faeb25-b445-4fcc-a820-1936944f0c16/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "9913fb94-8429-4587-88ee-06491df797f8",
+    "country_name": "SOLOMON ISLANDS",
+    "iso_country_code": "",
+    "directory": "assets/sportradar-country-flags/solomon-islands",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/solomon-islands/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/solomon-islands/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/9913fb94-8429-4587-88ee-06491df797f8/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "c693183f-81b7-420c-9a05-296dbd095023",
+    "country_name": "SOMALIA",
+    "iso_country_code": "SOM",
+    "directory": "assets/sportradar-country-flags/somalia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/somalia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/somalia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/c693183f-81b7-420c-9a05-296dbd095023/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "41e33351-8bf4-4f50-9d6a-9e01f62fdcf5",
+    "country_name": "SOUTH AFRICA",
+    "iso_country_code": "ZAF",
+    "directory": "assets/sportradar-country-flags/south-africa",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/south-africa/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/south-africa/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/41e33351-8bf4-4f50-9d6a-9e01f62fdcf5/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "6109bed3-0061-4644-bb72-88c7400c3936",
+    "country_name": "SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS",
+    "iso_country_code": "SGS",
+    "directory": "assets/sportradar-country-flags/south-georgia-and-the-south-sandwich-islands",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/south-georgia-and-the-south-sandwich-islands/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/south-georgia-and-the-south-sandwich-islands/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/6109bed3-0061-4644-bb72-88c7400c3936/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "526b1b15-1f04-4e4a-a90a-4325686f62da",
+    "country_name": "SOUTH SUDAN",
+    "iso_country_code": "SSD",
+    "directory": "assets/sportradar-country-flags/south-sudan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/south-sudan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/south-sudan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/526b1b15-1f04-4e4a-a90a-4325686f62da/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "f89e21c8-1d59-4bea-ba2b-ef49736cafbb",
+    "country_name": "SPAIN",
+    "iso_country_code": "ESP",
+    "directory": "assets/sportradar-country-flags/spain",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/spain/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/spain/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/f89e21c8-1d59-4bea-ba2b-ef49736cafbb/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "58978886-b4e3-4f23-b649-44b99adbdf27",
+    "country_name": "SRI LANKA",
+    "iso_country_code": "LKA",
+    "directory": "assets/sportradar-country-flags/sri-lanka",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/sri-lanka/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/sri-lanka/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/58978886-b4e3-4f23-b649-44b99adbdf27/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "5259c17f-2276-4fe2-9102-d4ccdcd70746",
+    "country_name": "SUDAN",
+    "iso_country_code": "SDN",
+    "directory": "assets/sportradar-country-flags/sudan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/sudan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/sudan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/5259c17f-2276-4fe2-9102-d4ccdcd70746/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "127ab9a4-3dfb-4caa-887b-8b43a86b65a8",
+    "country_name": "SURINAME",
+    "iso_country_code": "SUR",
+    "directory": "assets/sportradar-country-flags/suriname",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/suriname/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/suriname/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/127ab9a4-3dfb-4caa-887b-8b43a86b65a8/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "39fc74cd-d258-46b0-87cc-fba9ac3cc4a6",
+    "country_name": "SWAZILAND",
+    "iso_country_code": "SWZ",
+    "directory": "assets/sportradar-country-flags/swaziland",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/swaziland/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/swaziland/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/39fc74cd-d258-46b0-87cc-fba9ac3cc4a6/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "7be83df7-5970-4814-b1b0-a4dd558ab29e",
+    "country_name": "SWEDEN",
+    "iso_country_code": "SWE",
+    "directory": "assets/sportradar-country-flags/sweden",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/sweden/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/sweden/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/7be83df7-5970-4814-b1b0-a4dd558ab29e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "c69f5df0-f107-4182-b399-ab8057b40539",
+    "country_name": "SWITZERLAND",
+    "iso_country_code": "CHE",
+    "directory": "assets/sportradar-country-flags/switzerland",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/switzerland/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/switzerland/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/c69f5df0-f107-4182-b399-ab8057b40539/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "4ae2de8a-cf4d-43eb-b27c-2b44e83f55c7",
+    "country_name": "SYRIAN ARAB REPUBLIC",
+    "iso_country_code": "SYR",
+    "directory": "assets/sportradar-country-flags/syrian-arab-republic",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/syrian-arab-republic/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/syrian-arab-republic/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/4ae2de8a-cf4d-43eb-b27c-2b44e83f55c7/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "a314008d-2c1e-45a4-95e5-975067cb272b",
+    "country_name": "TAHITI",
+    "iso_country_code": "PYF",
+    "directory": "assets/sportradar-country-flags/tahiti",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/tahiti/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/tahiti/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/a314008d-2c1e-45a4-95e5-975067cb272b/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "dff0668d-7497-43c9-9a99-00954002fa84",
+    "country_name": "TAIWAN PROVINCE OF CHINA",
+    "iso_country_code": "TWN",
+    "directory": "assets/sportradar-country-flags/taiwan-province-of-china",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/taiwan-province-of-china/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/taiwan-province-of-china/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/dff0668d-7497-43c9-9a99-00954002fa84/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "72cba0bd-8777-4cab-bdc5-36af585ea58d",
+    "country_name": "TAJIKISTAN",
+    "iso_country_code": "TJK",
+    "directory": "assets/sportradar-country-flags/tajikistan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/tajikistan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/tajikistan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/72cba0bd-8777-4cab-bdc5-36af585ea58d/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "1d23f4a2-c105-4f21-b20d-7da1d2bad23e",
+    "country_name": "TANZANIA UNITED REPUBLIC OF",
+    "iso_country_code": "TZA",
+    "directory": "assets/sportradar-country-flags/tanzania-united-republic-of",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/tanzania-united-republic-of/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/tanzania-united-republic-of/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/1d23f4a2-c105-4f21-b20d-7da1d2bad23e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "2c163a13-6314-4b4d-a01c-0571bcb45e52",
+    "country_name": "THAILAND",
+    "iso_country_code": "THA",
+    "directory": "assets/sportradar-country-flags/thailand",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/thailand/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/thailand/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/2c163a13-6314-4b4d-a01c-0571bcb45e52/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "e6813797-9be6-46f6-802b-6a98302e44af",
+    "country_name": "TIMOR LESTE",
+    "iso_country_code": "TLS",
+    "directory": "assets/sportradar-country-flags/timor-leste",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/timor-leste/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/timor-leste/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/e6813797-9be6-46f6-802b-6a98302e44af/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "78c57819-a617-499e-bf9d-c8d3928e65e3",
+    "country_name": "TOGO",
+    "iso_country_code": "TGO",
+    "directory": "assets/sportradar-country-flags/togo",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/togo/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/togo/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/78c57819-a617-499e-bf9d-c8d3928e65e3/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "c7deed02-cd8c-4fde-959d-b1e9c735b6e4",
+    "country_name": "TOKELAU",
+    "iso_country_code": "TKL",
+    "directory": "assets/sportradar-country-flags/tokelau",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/tokelau/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/tokelau/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/c7deed02-cd8c-4fde-959d-b1e9c735b6e4/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "42edb9c6-4152-42cc-9533-5bfef6f685df",
+    "country_name": "TONGA",
+    "iso_country_code": "TON",
+    "directory": "assets/sportradar-country-flags/tonga",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/tonga/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/tonga/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/42edb9c6-4152-42cc-9533-5bfef6f685df/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "8b4ff8cb-605e-4fb4-9c3e-6307a1359fd6",
+    "country_name": "TRINIDAD AND TOBAGO",
+    "iso_country_code": "TTO",
+    "directory": "assets/sportradar-country-flags/trinidad-and-tobago",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/trinidad-and-tobago/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/trinidad-and-tobago/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/8b4ff8cb-605e-4fb4-9c3e-6307a1359fd6/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "7973e01e-52e1-4b68-83ce-dbc0ad5e0224",
+    "country_name": "TUNISIA",
+    "iso_country_code": "TUN",
+    "directory": "assets/sportradar-country-flags/tunisia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/tunisia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/tunisia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/7973e01e-52e1-4b68-83ce-dbc0ad5e0224/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "61665fc7-73fc-4535-b18c-0e9c3e82eec4",
+    "country_name": "TURKEY",
+    "iso_country_code": "TUR",
+    "directory": "assets/sportradar-country-flags/turkey",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/turkey/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/turkey/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/61665fc7-73fc-4535-b18c-0e9c3e82eec4/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "690a3385-ff83-4b6b-a65a-383060e41cdc",
+    "country_name": "TURKMENISTAN",
+    "iso_country_code": "TKM",
+    "directory": "assets/sportradar-country-flags/turkmenistan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/turkmenistan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/turkmenistan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/690a3385-ff83-4b6b-a65a-383060e41cdc/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "5c65b40c-8ad9-44bc-b5b0-3263396b3274",
+    "country_name": "TURKS AND CAICOS ISLANDS",
+    "iso_country_code": "TCA",
+    "directory": "assets/sportradar-country-flags/turks-and-caicos-islands",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/turks-and-caicos-islands/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/turks-and-caicos-islands/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/5c65b40c-8ad9-44bc-b5b0-3263396b3274/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "73ad7473-989f-47e0-83a4-e7a8659216a8",
+    "country_name": "TUVALU",
+    "iso_country_code": "TUV",
+    "directory": "assets/sportradar-country-flags/tuvalu",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/tuvalu/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/tuvalu/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/73ad7473-989f-47e0-83a4-e7a8659216a8/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "1f4a1a54-9680-4052-8340-a587d180d575",
+    "country_name": "UGANDA",
+    "iso_country_code": "UGA",
+    "directory": "assets/sportradar-country-flags/uganda",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/uganda/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/uganda/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/1f4a1a54-9680-4052-8340-a587d180d575/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "42059dba-8fcf-4ff5-af18-ffb0cefd9fd3",
+    "country_name": "UKRAINE",
+    "iso_country_code": "UKR",
+    "directory": "assets/sportradar-country-flags/ukraine",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/ukraine/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/ukraine/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/42059dba-8fcf-4ff5-af18-ffb0cefd9fd3/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "f89eebbf-1cd1-41f2-986a-9fc43ae95c69",
+    "country_name": "UNITED ARAB EMIRATES",
+    "iso_country_code": "ARE",
+    "directory": "assets/sportradar-country-flags/united-arab-emirates",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/united-arab-emirates/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/united-arab-emirates/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/f89eebbf-1cd1-41f2-986a-9fc43ae95c69/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "b4b0a07b-1cdd-459e-a696-253dc4e0aa60",
+    "country_name": "UNITED STATES",
+    "iso_country_code": "USA",
+    "directory": "assets/sportradar-country-flags/united-states",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/united-states/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/united-states/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/b4b0a07b-1cdd-459e-a696-253dc4e0aa60/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "1cc31fc2-388b-472e-8865-2b50b37144a0",
+    "country_name": "URUGUAY",
+    "iso_country_code": "URY",
+    "directory": "assets/sportradar-country-flags/uruguay",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/uruguay/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/uruguay/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/1cc31fc2-388b-472e-8865-2b50b37144a0/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "dc0916dd-026f-4a82-a88c-ebd11939acc2",
+    "country_name": "UZBEKISTAN",
+    "iso_country_code": "",
+    "directory": "assets/sportradar-country-flags/uzbekistan",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/uzbekistan/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/uzbekistan/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/dc0916dd-026f-4a82-a88c-ebd11939acc2/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "b1fa8d04-12f0-49e4-a11e-eb79df570f5d",
+    "country_name": "VANUATU",
+    "iso_country_code": "VUT",
+    "directory": "assets/sportradar-country-flags/vanuatu",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/vanuatu/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/vanuatu/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/b1fa8d04-12f0-49e4-a11e-eb79df570f5d/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "efdfa728-f2d7-4c02-a29b-6f7eeaf9c94a",
+    "country_name": "VENEZUELA",
+    "iso_country_code": "VEN",
+    "directory": "assets/sportradar-country-flags/venezuela",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/venezuela/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/venezuela/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/efdfa728-f2d7-4c02-a29b-6f7eeaf9c94a/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "a867339d-a948-44ba-9eaf-d8be66085868",
+    "country_name": "VIETNAM",
+    "iso_country_code": "VNM",
+    "directory": "assets/sportradar-country-flags/vietnam",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/vietnam/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/vietnam/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/a867339d-a948-44ba-9eaf-d8be66085868/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "026f088f-bd3c-4416-bce6-dd32970fc81f",
+    "country_name": "VIRGIN ISLANDS BRITISH",
+    "iso_country_code": "VGB",
+    "directory": "assets/sportradar-country-flags/virgin-islands-british",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/virgin-islands-british/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/virgin-islands-british/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/026f088f-bd3c-4416-bce6-dd32970fc81f/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "71b7bd98-9eda-45a7-a91a-67dbd1b67b5b",
+    "country_name": "VIRGIN ISLANDS US",
+    "iso_country_code": "VIR",
+    "directory": "assets/sportradar-country-flags/virgin-islands-us",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/virgin-islands-us/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/virgin-islands-us/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/71b7bd98-9eda-45a7-a91a-67dbd1b67b5b/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "4424ff24-a166-40b1-997e-4eed95dcf731",
+    "country_name": "WALES",
+    "iso_country_code": "WAL",
+    "directory": "assets/sportradar-country-flags/wales",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/wales/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/wales/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/4424ff24-a166-40b1-997e-4eed95dcf731/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "28dbaa8f-5bb6-40c4-9051-abe7b8dc30dd",
+    "country_name": "WALLIS AND FUTUNA",
+    "iso_country_code": "WLF",
+    "directory": "assets/sportradar-country-flags/wallis-and-futuna",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/wallis-and-futuna/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/wallis-and-futuna/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/28dbaa8f-5bb6-40c4-9051-abe7b8dc30dd/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "b7f1c116-0432-4d91-82ce-7dd98e72e8a5",
+    "country_name": "WESTERN SAHARA",
+    "iso_country_code": "ESH",
+    "directory": "assets/sportradar-country-flags/western-sahara",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/western-sahara/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/western-sahara/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/b7f1c116-0432-4d91-82ce-7dd98e72e8a5/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "2bd483d5-e0f6-4e4c-9289-3facbccca5c4",
+    "country_name": "YEMEN",
+    "iso_country_code": "YEM",
+    "directory": "assets/sportradar-country-flags/yemen",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/yemen/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/yemen/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/2bd483d5-e0f6-4e4c-9289-3facbccca5c4/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "493e4b5a-be95-4c79-800b-54fd04a9457e",
+    "country_name": "YUGOSLAVIA",
+    "iso_country_code": "YUG",
+    "directory": "assets/sportradar-country-flags/yugoslavia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/yugoslavia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/yugoslavia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/493e4b5a-be95-4c79-800b-54fd04a9457e/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "6b7c8b19-c5ee-484f-a7ca-c847927137f5",
+    "country_name": "ZAMBIA",
+    "iso_country_code": "ZMB",
+    "directory": "assets/sportradar-country-flags/zambia",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/zambia/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/zambia/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/6b7c8b19-c5ee-484f-a7ca-c847927137f5/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "8e025ef5-bd97-4d32-901c-104858bb64ad",
+    "country_name": "ZIMBABWE",
+    "iso_country_code": "ZWE",
+    "directory": "assets/sportradar-country-flags/zimbabwe",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/zimbabwe/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/zimbabwe/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/8e025ef5-bd97-4d32-901c-104858bb64ad/h500-max-resize.png"
+    }
+  },
+  {
+    "asset_id": "5bffde67-cc22-480e-842c-615de6cba4e8",
+    "country_name": "\u00c5LAND ISLANDS",
+    "iso_country_code": "",
+    "directory": "assets/sportradar-country-flags/\u00e5land-islands",
+    "file": {
+      "filename": "h500-max-resize.png",
+      "path": "assets/sportradar-country-flags/\u00e5land-islands/h500-max-resize.png",
+      "relative_to_repo": "assets/sportradar-country-flags/\u00e5land-islands/h500-max-resize.png",
+      "width": 500,
+      "height": 333,
+      "source_href": "/country-flags/flags/5bffde67-cc22-480e-842c-615de6cba4e8/h500-max-resize.png"
+    }
+  }
+]

@@ -255,8 +255,30 @@
     .stage { color: #888; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
     .kickoff { font-weight: 700; color: #1a1a2a; }
     .venue-time { color: #666; font-size: 0.76rem; margin-top: 3px; }
-    .center { display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; }
-    .team { font-size: 1rem; font-weight: 800; color: #1a1a2a; }
+    .center { display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center; flex-wrap: wrap; }
+    .team {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #1a1a2a;
+      min-width: 0;
+    }
+    .team-home { flex: 1 1 120px; justify-content: flex-end; }
+    .team-away { flex: 1 1 120px; justify-content: flex-start; }
+    .team-flag-wrap { flex-shrink: 0; line-height: 0; }
+    .team-flag {
+      display: block;
+      width: 28px;
+      height: auto;
+      max-height: 19px;
+      object-fit: contain;
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+      vertical-align: middle;
+    }
+    .team-name { min-width: 0; }
     .score, .sep { min-width: 56px; font-weight: 800; color: #cc0000; }
     .right { text-align: right; color: #666; font-size: 0.78rem; align-self: center; }
     .knockout {
@@ -372,6 +394,7 @@
     <main id="timeline" class="timeline"></main>
   </div>
 
+  <script src="assets/wc2026_competitor_flags.embed.js"></script>
   <script>
     const RAW_CSV = `competition_id,season_id,season_name,sport_event_id,start_time,round,home_team,home_team_id,away_team,away_team_id,status,match_status,home_score,away_score,group,stage
 sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456904,2026-06-11T19:00:00+00:00,1,Mexico,sr:competitor:4781,South Africa,sr:competitor:4736,not_started,not_started,,,A,league
@@ -486,6 +509,28 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
     const selectedGroups = new Set();
     let selectedStage = "";
     let selectedKnockoutRound = "";
+
+    const WC2026_FLAG_MAP =
+      typeof WC2026_FLAG_BY_COMPETITOR_ID !== "undefined" && WC2026_FLAG_BY_COMPETITOR_ID
+        ? WC2026_FLAG_BY_COMPETITOR_ID
+        : {};
+
+    function escapeHtml(s) {
+      return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+    }
+
+    function competitorFlagHtml(compId) {
+      const src = WC2026_FLAG_MAP[compId];
+      if (!src) return "";
+      return (
+        `<span class="team-flag-wrap"><img class="team-flag" src="${escapeHtml(src)}" alt="" width="28" height="19" loading="lazy" /></span>`
+      );
+    }
+
+    function teamLineHtml(compId, teamName) {
+      const flag = competitorFlagHtml(compId);
+      return `${flag}<span class="team-name">${escapeHtml(teamName)}</span>`;
+    }
 
     function pageScrollY() {
       return window.scrollY || document.documentElement.scrollTop || 0;
@@ -834,9 +879,9 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
               <div class="venue-time">${kind}</div>
             </div>
             <div class="center">
-              <div class="team">${m.home_team}</div>
+              <div class="team team-home">${teamLineHtml(m.home_team_id, m.home_team)}</div>
               ${center}
-              <div class="team">${m.away_team}</div>
+              <div class="team team-away">${teamLineHtml(m.away_team_id, m.away_team)}</div>
             </div>
             <div class="right">Match ${m.match_number} of ${matches.length}</div>
           `;
