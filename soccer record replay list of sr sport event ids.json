@@ -3060,116 +3060,6 @@
                 ]
             },
             {
-                "id": "3280d390-37c3-11f1-90e2-254df887b617",
-                "title": "Wolverhampton Wanderers AT Leeds United",
-                "meta": {
-                    "gameId": "sr:sport_event:61301171",
-                    "awayTeam": "3",
-                    "homeTeam": "34",
-                    "scheduled": "2026-04-18T14:00:00+00:00",
-                    "awayTeamName": "Wolverhampton Wanderers",
-                    "homeTeamName": "Leeds United",
-                    "competitionId": "sr:competition:17"
-                },
-                "league": "Premier League",
-                "sport": "soccer",
-                "scheduled": "2026-04-18T14:00:00.000Z",
-                "start": 1776520791614,
-                "end": 1776528440841,
-                "apis": [
-                    {
-                        "name": "lineups",
-                        "description": "Sport Event Lineups",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summary",
-                        "description": "Sport Event Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "timeline",
-                        "description": "Sport Event Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "extended-timeline",
-                        "description": "Sport Event Extended Timeline",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "extended-summary",
-                        "description": "Sport Event Extended Summary",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    },
-                    {
-                        "name": "summaries",
-                        "description": "Season Summaries",
-                        "apiType": "rest",
-                        "formats": [
-                            "json",
-                            "xml"
-                        ],
-                        "versions": [
-                            "v4"
-                        ],
-                        "languages": [
-                            "en"
-                        ]
-                    }
-                ]
-            },
-            {
                 "id": "444f15a0-37c3-11f1-ab0d-1b26a281d167",
                 "title": "AFC Bournemouth AT Newcastle United",
                 "meta": {
@@ -3235,6 +3125,116 @@
                     {
                         "name": "standings",
                         "description": "Season Standings",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-timeline",
+                        "description": "Sport Event Extended Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-summary",
+                        "description": "Sport Event Extended Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "summaries",
+                        "description": "Season Summaries",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "3280d390-37c3-11f1-90e2-254df887b617",
+                "title": "Wolverhampton Wanderers AT Leeds United",
+                "meta": {
+                    "gameId": "sr:sport_event:61301171",
+                    "awayTeam": "3",
+                    "homeTeam": "34",
+                    "scheduled": "2026-04-18T14:00:00+00:00",
+                    "awayTeamName": "Wolverhampton Wanderers",
+                    "homeTeamName": "Leeds United",
+                    "competitionId": "sr:competition:17"
+                },
+                "league": "Premier League",
+                "sport": "soccer",
+                "scheduled": "2026-04-18T14:00:00.000Z",
+                "start": 1776520791614,
+                "end": 1776528440841,
+                "apis": [
+                    {
+                        "name": "lineups",
+                        "description": "Sport Event Lineups",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "summary",
+                        "description": "Sport Event Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "timeline",
+                        "description": "Sport Event Timeline",
                         "apiType": "rest",
                         "formats": [
                             "json",
@@ -6055,6 +6055,406 @@
                     {
                         "name": "season-missing-players",
                         "description": "Season Missing Players",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "7a2d3f80-4326-11f1-a67c-4f0dcca55a51",
+                "title": "Atletico Madrid AT Arsenal FC",
+                "meta": {
+                    "gameId": "sr:sport_event:69339436",
+                    "awayTeam": "2836",
+                    "homeTeam": "42",
+                    "scheduled": "2026-05-05T19:00:00+00:00",
+                    "awayTeamName": "Atletico Madrid",
+                    "homeTeamName": "Arsenal FC",
+                    "competitionId": "sr:competition:7"
+                },
+                "league": "UEFA Champions League",
+                "sport": "soccer",
+                "scheduled": "2026-05-05T19:00:00.000Z",
+                "start": 0,
+                "end": 0,
+                "apis": [
+                    {
+                        "name": "lineups",
+                        "description": "Sport Event Lineups",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "summary",
+                        "description": "Sport Event Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "timeline",
+                        "description": "Sport Event Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "standings",
+                        "description": "Season Standings",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-timeline",
+                        "description": "Sport Event Extended Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-summary",
+                        "description": "Sport Event Extended Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "links",
+                        "description": "Season Links",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "summaries",
+                        "description": "Season Summaries",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "season-leaders",
+                        "description": "Season Leaders",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "season-info",
+                        "description": "Season Info",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "season-missing-players",
+                        "description": "Season Missing Players",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "season-competitors",
+                        "description": "Season Competitors",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "97cbcc50-4326-11f1-a67c-4f0dcca55a51",
+                "title": "Paris Saint-Germain AT Bayern Munich",
+                "meta": {
+                    "gameId": "sr:sport_event:69339434",
+                    "awayTeam": "1644",
+                    "homeTeam": "2672",
+                    "scheduled": "2026-05-06T19:00:00+00:00",
+                    "awayTeamName": "Paris Saint-Germain",
+                    "homeTeamName": "Bayern Munich",
+                    "competitionId": "sr:competition:7"
+                },
+                "league": "UEFA Champions League",
+                "sport": "soccer",
+                "scheduled": "2026-05-06T19:00:00.000Z",
+                "start": 0,
+                "end": 0,
+                "apis": [
+                    {
+                        "name": "lineups",
+                        "description": "Sport Event Lineups",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "summary",
+                        "description": "Sport Event Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "timeline",
+                        "description": "Sport Event Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "standings",
+                        "description": "Season Standings",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-timeline",
+                        "description": "Sport Event Extended Timeline",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "extended-summary",
+                        "description": "Sport Event Extended Summary",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "links",
+                        "description": "Season Links",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "summaries",
+                        "description": "Season Summaries",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "season-leaders",
+                        "description": "Season Leaders",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "season-missing-players",
+                        "description": "Season Missing Players",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "season-info",
+                        "description": "Season Info",
+                        "apiType": "rest",
+                        "formats": [
+                            "json",
+                            "xml"
+                        ],
+                        "versions": [
+                            "v4"
+                        ],
+                        "languages": [
+                            "en"
+                        ]
+                    },
+                    {
+                        "name": "season-competitors",
+                        "description": "Season Competitors",
                         "apiType": "rest",
                         "formats": [
                             "json",
