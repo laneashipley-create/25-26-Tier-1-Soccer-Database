@@ -8,12 +8,17 @@ Pulls data from the Sportradar Soccer API to identify own goals across one or mo
 
 ```
 ├── config.py                  # API key, competition/season list, file paths
-├── step2_get_schedule.py      # Fetch all configured schedules → data/schedule.csv
-├── step3_fetch_timelines.py   # Fetch match timelines (cached) → data/timelines/
-├── step4_extract_own_goals.py # Scan timelines, extract OG events → data/own_goals.csv
-├── generate_report.py         # All four HTML reports (own goals + penalty / VAR / VAR-unpaired)
-├── report_navigation.py      # Shared nav bar for all report pages
-├── run_all.py                 # Orchestrate all steps in sequence
+├── step1_fetch_all_games.py      # Step 1: fetch all games via season summaries
+├── step2_sync_recorded_flag.py   # Step 2: sync games.recorded from recordings JSON (Supabase)
+├── step3_fetch_regular_timelines.py # Step 3: fetch regular timelines for completed matches
+├── step4_fetch_extended_timelines.py # Step 4: fetch extended timelines for completed matches
+├── step5_extract_own_goals.py # Step 5: extract own goals from regular timelines
+├── step6_extract_var_and_shootouts.py # Step 6: build VAR + shootout derived tables
+├── step7_generate_reports.py   # Step 7: generate all report HTML files
+├── gen_report_recordings_library_html.py # recordings-only report regeneration from export JSON
+├── report_navigation.py       # Shared nav bar for all report pages
+├── run_all.py                 # Orchestrate Steps 1–7
+├── run_extended_timeline_pipeline.py # Extended-only runner (full-backfill/daily)
 ├── data/
 │   ├── schedule.csv           # Matches across configured competitions/seasons
 │   ├── own_goals.csv          # Extracted own goal records
@@ -47,32 +52,44 @@ $env:PYTHONUTF8="1"
 python run_all.py
 ```
 
+### `run_all.py` step order
+1. Fetch all games via season summaries (`step1_fetch_all_games.py`)
+2. Add/refresh `recorded` flag in All Games (Supabase only; `step2_sync_recorded_flag.py`)
+3. Fetch regular timelines for completed matches (`step3_fetch_regular_timelines.py`)
+4. Fetch extended timelines for completed matches (`step4_fetch_extended_timelines.py`)
+5. Extract own goals from regular timelines (`step5_extract_own_goals.py`)
+6. Build derived tables (VAR + penalty shootouts; `step6_extract_var_and_shootouts.py`)
+7. Generate all HTML reports (`step7_generate_reports.py`)
+
 ### Individual steps (useful for refreshing data)
 ```powershell
-# Refresh schedule only
-python step2_get_schedule.py
+# Step 1 - Refresh all games only
+python step1_fetch_all_games.py
 
-# Fetch any new/missing timelines (safe to re-run — already-cached files are skipped)
-python step3_fetch_timelines.py
+# Step 3 - Fetch any new/missing regular timelines
+python step3_fetch_regular_timelines.py
 
-# Extended timeline dataset (new table):
-# one-time full backfill for all completed games without extended timeline rows
+# Step 4 - Extended timelines only (separate runner)
+# one-time full backfill for completed games missing extended timeline rows
 python run_extended_timeline_pipeline.py --full-backfill
 # daily kickoff-window probe for newly completed games
 python run_extended_timeline_pipeline.py --daily
 
-# Re-extract own goals from cached timelines
-python step4_extract_own_goals.py
+# Step 5 - Re-extract own goals from regular timelines
+python step5_extract_own_goals.py
 
-# Rebuild HTML report
-python generate_report.py
+# Step 7 - Rebuild report HTML files
+python step7_generate_reports.py
+
+# Recordings page only (after updating recordings export JSON)
+python gen_report_recordings_library_html.py
 ```
 
 ---
 
 ## Rate Limiting
 
-The trial API key allows **1 request/second**. `step3_fetch_timelines.py` enforces a 1.1 second delay between requests. With 261 completed matches, the first run takes ~5 minutes. Subsequent runs only fetch new matches.
+The trial API key allows **1 request/second**. `step3_fetch_regular_timelines.py` enforces a 1.1 second delay between requests. With 261 completed matches, the first run takes ~5 minutes. Subsequent runs only fetch new matches.
 
 ---
 

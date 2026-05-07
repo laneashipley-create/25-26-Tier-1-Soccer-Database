@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import sys
 
-import step3_fetch_extended_timelines
+import step4_fetch_extended_timelines
 from config import USE_SUPABASE
 
 
@@ -34,9 +34,9 @@ def main() -> None:
 
     mode = _parse_mode()
     if mode == "daily":
-        step3_fetch_extended_timelines.main_daily_extended_timeline_kickoff_window()
+        step4_fetch_extended_timelines.main_daily_extended_timeline_kickoff_window()
         return
-    step3_fetch_extended_timelines.main()
+    step4_fetch_extended_timelines.main()
 
 
 if __name__ == "__main__":

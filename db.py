@@ -764,7 +764,7 @@ def get_all_own_goals() -> list[dict]:
 
 def write_own_goals_csv_export(path: str) -> None:
     """Write data/own_goals.csv from Supabase own_goals (+ joins), using the same columns as step4."""
-    from step4_extract_own_goals import OG_FIELDS
+    from step5_extract_own_goals import OG_FIELDS
 
     rows = get_all_own_goals()
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)

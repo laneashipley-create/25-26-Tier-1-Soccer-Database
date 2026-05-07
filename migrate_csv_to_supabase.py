@@ -92,9 +92,9 @@ def migrate_own_goals():
 
 def migrate_var_and_shootouts():
     """Build derived VAR + shootout tables from stored timeline_json."""
-    import step5_extract_var_and_shootouts
+    import step6_extract_var_and_shootouts
 
-    step5_extract_var_and_shootouts.main()
+    step6_extract_var_and_shootouts.main()
 
 
 def main():

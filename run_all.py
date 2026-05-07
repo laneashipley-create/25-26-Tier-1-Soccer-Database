@@ -1,20 +1,21 @@
 """
-Master runner — pipeline steps for schedule, timelines, derived tables, and HTML.
+Master runner — pipeline steps for games, timelines, derived tables, and HTML.
 
 Steps
-  2 — Fetch Sportradar schedules → data/schedule.csv (+ Supabase games when enabled)
-  2b — When USE_SUPABASE: sync games.recorded from soccer record replay export JSON (replay list ↔ DB flags)
-  3 — Fetch timelines for completed matches missing a stored timeline
-  4 — Extract own goals → data/own_goals.csv (+ Supabase own_goals)
-  5 — VAR + penalty shootout derived tables (Supabase)
-  6 — Generate HTML reports (from Supabase or CSV)
+  1 — Fetch all games via season summaries (step1_fetch_all_games.py)
+  2 — Add recorded flag to All Games (Supabase only; step2_sync_recorded_flag.py)
+  3 — Fetch regular timelines for completed matches (step3_fetch_regular_timelines.py)
+  4 — Fetch extended timelines for completed matches (step4_fetch_extended_timelines.py)
+  5 — Extract own goals from completed regular timelines (step5_extract_own_goals.py)
+  6 — Build derived tables: VAR + penalty shootouts (step6_extract_var_and_shootouts.py)
+  7 — Generate HTML reports (step7_generate_reports.py)
 
 Usage
   python run_all.py
-      Full pipeline (steps 2–6). For local full refresh.
+      Full pipeline (steps 1–7). For local full refresh.
 
   python run_all.py --full-backfill
-      Steps 2–5 only (no HTML). Use the weekly data workflow: full schedule sync,
+      Steps 1–6 only (no HTML). Use the weekly data workflow: full schedule sync,
       all missing timelines, then derived tables. Run before the fast weekly email job.
 
   python run_all.py --daily
@@ -25,10 +26,10 @@ Usage
       sport_event_status.status is closed/ended is the timeline written (no season schedule
       fetch — weekly full sync refreshes fixtures).
 
-      If no timelines were newly stored, skips steps 4–6. Intended for daily-update.yml.
+      If no regular timelines were newly stored, skips steps 5–7. Intended for daily-update.yml.
 
   python run_all.py --reports-only
-      Step 6 only — regenerate HTML from current database (or CSV when not on Supabase).
+      Step 7 only — regenerate HTML from current database (or CSV when not on Supabase).
       Weekly email workflow: pair with export_own_goals_csv.py for data/own_goals.csv.
 
   python run_all.py --conditional-daily
@@ -40,11 +41,12 @@ from __future__ import annotations
 import os
 import sys
 
-import generate_report
-import step2_get_schedule
-import step3_fetch_timelines
-import step4_extract_own_goals
-import step5_extract_var_and_shootouts
+import step1_fetch_all_games
+import step3_fetch_regular_timelines
+import step4_fetch_extended_timelines
+import step5_extract_own_goals
+import step6_extract_var_and_shootouts
+import step7_generate_reports
 from config import SCHEDULE_CSV, USE_SUPABASE
 
 DIVIDER = "-" * 60
@@ -62,10 +64,19 @@ def count_pending_timelines() -> int:
         import db
 
         return len(db.get_completed_matches_without_timeline_for_configured_seasons())
-    from step3_fetch_timelines import cache_path, load_completed_matches
+    from step3_fetch_regular_timelines import cache_path, load_completed_matches
 
     matches = load_completed_matches(SCHEDULE_CSV)
     return sum(1 for row in matches if not os.path.exists(cache_path(row["sport_event_id"])))
+
+
+def count_pending_extended_timelines() -> int:
+    """Completed matches missing an extended timeline (Supabase only)."""
+    if not USE_SUPABASE:
+        return 0
+    import db
+
+    return len(db.get_completed_matches_without_extended_timeline_for_configured_seasons())
 
 
 def _parse_mode() -> str:
@@ -84,7 +95,7 @@ def _parse_mode() -> str:
 def run_main(*, mode: str) -> None:
     if mode == "reports_only":
         section("STEP 6 — Generating HTML reports (reports-only)")
-        generate_report.main()
+        step7_generate_reports.main()
         print(f"\n{DIVIDER}")
         print("  Reports-only run finished.")
         print(DIVIDER)
@@ -94,11 +105,13 @@ def run_main(*, mode: str) -> None:
         if not USE_SUPABASE:
             print("ERROR: --daily requires Supabase (SUPABASE_URL + service role key).", flush=True)
             raise SystemExit(1)
-        section("STEP 3 — Daily timelines (kickoff UTC window from Supabase)")
-        stored = step3_fetch_timelines.main_daily_timeline_kickoff_window()
-        if stored == 0:
+        section("STEP 3 — Daily regular timelines (kickoff UTC window from Supabase)")
+        stored_regular = step3_fetch_regular_timelines.main_daily_timeline_kickoff_window()
+        section("STEP 4 — Daily extended timelines (kickoff UTC window from Supabase)")
+        step4_fetch_extended_timelines.main_daily_extended_timeline_kickoff_window()
+        if stored_regular == 0:
             print(
-                "\nNo new completed timelines in the kickoff window — skipping steps 4–6.\n"
+                "\nNo new completed regular timelines in the kickoff window — skipping steps 5–7.\n"
                 "Weekly --full-backfill picks up schedule changes and older backlog.",
                 flush=True,
             )
@@ -106,12 +119,12 @@ def run_main(*, mode: str) -> None:
             print("  Daily run done (no new timelines).")
             print(DIVIDER)
             return
-        section("STEP 4 — Extracting own goals")
-        step4_extract_own_goals.main()
-        section("STEP 5 — Extracting VAR + penalty shootout tables")
-        step5_extract_var_and_shootouts.main()
-        section("STEP 6 — Generating HTML reports")
-        generate_report.main()
+        section("STEP 5 — Extracting own goals")
+        step5_extract_own_goals.main()
+        section("STEP 6 — Extracting VAR + penalty shootout tables")
+        step6_extract_var_and_shootouts.main()
+        section("STEP 7 — Generating HTML reports")
+        step7_generate_reports.main()
         print(f"\n{DIVIDER}")
         print(
             "  Daily run done. Open report_hub.html or report_own_goals.html "
@@ -121,38 +134,48 @@ def run_main(*, mode: str) -> None:
         return
 
     # full / full_backfill
-    section("STEP 2 — Fetching schedule")
-    step2_get_schedule.main()
+    section("STEP 1 — Fetching all games via season summaries")
+    step1_fetch_all_games.main()
 
     if USE_SUPABASE:
-        section("STEP 2b — Sync games.recorded from recordings export JSON")
-        import sync_games_recorded_from_export
+        section('STEP 2 — Sync "recorded" flag to All Games from recordings JSON')
+        import step2_sync_recorded_flag
 
-        sync_games_recorded_from_export.main()
+        step2_sync_recorded_flag.main()
 
-    pending = count_pending_timelines()
-    print(f"\nCompleted matches without timeline (pending fetch): {pending}")
+    pending_regular = count_pending_timelines()
+    print(f"\nCompleted matches without regular timeline (pending fetch): {pending_regular}")
+    pending_extended = count_pending_extended_timelines()
+    if USE_SUPABASE:
+        print(f"Completed matches without extended timeline (pending fetch): {pending_extended}")
 
-    if pending > 0:
-        section("STEP 3 — Fetching timelines (cached)")
-        step3_fetch_timelines.main()
+    if pending_regular > 0:
+        section("STEP 3 — Fetching regular timelines")
+        step3_fetch_regular_timelines.main()
     else:
-        print("\nNo completed matches are missing timelines — skipping step 3.", flush=True)
+        print("\nNo completed matches are missing regular timelines — skipping step 3.", flush=True)
 
-    section("STEP 4 — Extracting own goals")
-    step4_extract_own_goals.main()
+    if USE_SUPABASE:
+        if pending_extended > 0:
+            section("STEP 4 — Fetching extended timelines")
+            step4_fetch_extended_timelines.main()
+        else:
+            print("\nNo completed matches are missing extended timelines — skipping step 4.", flush=True)
 
-    section("STEP 5 — Extracting VAR + penalty shootout tables")
-    step5_extract_var_and_shootouts.main()
+    section("STEP 5 — Extracting own goals")
+    step5_extract_own_goals.main()
+
+    section("STEP 6 — Extracting VAR + penalty shootout tables")
+    step6_extract_var_and_shootouts.main()
 
     if mode == "full_backfill":
         print(f"\n{DIVIDER}")
-        print("  Full backfill done (steps 2–5; no HTML — use --reports-only or weekly email job).")
+        print("  Full backfill done (steps 1–6; no HTML — use --reports-only or weekly email job).")
         print(DIVIDER)
         return
 
-    section("STEP 6 — Generating HTML reports")
-    generate_report.main()
+    section("STEP 7 — Generating HTML reports")
+    step7_generate_reports.main()
 
     print(f"\n{DIVIDER}")
     print(
