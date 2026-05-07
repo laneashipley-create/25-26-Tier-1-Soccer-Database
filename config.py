@@ -11,6 +11,8 @@ try:
 except ImportError:
     API_KEY = os.environ.get("SPORTRADAR_API_KEY", "")
 BASE_URL = "https://api.sportradar.com/soccer/trial/v4/en"
+# Soccer Extended APIs (e.g., sport_events/{id}/extended_timeline.*) use a different host path.
+BASE_URL_SOCCER_EXTENDED = "https://api.sportradar.com/soccer-extended/trial/v4/en"
 
 # -----------------------------------------------------------------------------
 # Competitions / seasons to monitor
@@ -322,6 +324,10 @@ PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_BEFORE = int(
 )
 PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_AFTER = int(
     os.environ.get("PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_AFTER", "1")
+)
+# Extended timeline fail-fast: abort run when this many consecutive HTTP 404s occur.
+PIPELINE_EXTENDED_TIMELINE_MAX_CONSECUTIVE_404 = int(
+    os.environ.get("PIPELINE_EXTENDED_TIMELINE_MAX_CONSECUTIVE_404", "50")
 )
 
 # GET …/seasons/{id}/schedules.json pagination (Soccer v4). ``limit`` max is 1000; trial keys

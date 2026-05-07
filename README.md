@@ -31,7 +31,7 @@ Pulls data from the Sportradar Soccer API to identify own goals across one or mo
 - **API**: Sportradar Soccer v4 (trial)
 - **Configured in**: `config.py` → `COMPETITIONS` list
 - **Each entry includes**: `competition_id`, `competition_name`, `season_id`, `season_name`
-- **Supabase** (when enabled): `public."Competitions"`, `public."Seasons (current sr:season:ID)"`, `public."All Games (sr:sport_events)"`, `public."Completed Matches - full sport_event_timelines"`, `public.own_goals` — see `supabase/migrations/`
+- **Supabase** (when enabled): `public."Competitions"`, `public."Seasons (current sr:season:ID)"`, `public."All Games (sr:sport_events)"`, `public."Completed Matches - full sport_event_timelines"`, `public."Completed Matches - Extended Timeline"`, `public.own_goals` — see `supabase/migrations/`
 - **Own goal detection**: `timeline.type == "score_change" && timeline.method == "own_goal"`
 
 ---
@@ -54,6 +54,12 @@ python step2_get_schedule.py
 
 # Fetch any new/missing timelines (safe to re-run — already-cached files are skipped)
 python step3_fetch_timelines.py
+
+# Extended timeline dataset (new table):
+# one-time full backfill for all completed games without extended timeline rows
+python run_extended_timeline_pipeline.py --full-backfill
+# daily kickoff-window probe for newly completed games
+python run_extended_timeline_pipeline.py --daily
 
 # Re-extract own goals from cached timelines
 python step4_extract_own_goals.py

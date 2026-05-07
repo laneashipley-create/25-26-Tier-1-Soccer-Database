@@ -52,6 +52,7 @@ T_COMPETITIONS = "Competitions"
 T_SEASONS = "Seasons (current sr:season:ID)"
 T_GAMES = "All Games (sr:sport_events)"
 T_TIMELINES = "Completed Matches - full sport_event_timelines"
+T_TIMELINES_EXTENDED = "Completed Matches - Extended Timeline"
 RECORDINGS_EXPORT_JSON = "soccer record replay list of sr sport event ids.json"
 
 _client = None
@@ -383,6 +384,18 @@ def get_completed_matches_without_timeline_for_configured_seasons() -> list[dict
     return out
 
 
+def get_completed_matches_without_extended_timeline_for_configured_seasons() -> list[dict]:
+    """Return completed games rows without extended timelines across all configured seasons."""
+    season_ids = get_or_create_seasons()
+    out = []
+    for season_uuid in season_ids.values():
+        completed = get_completed_games_for_season(season_uuid)
+        game_ids = [str(row["id"]) for row in completed if row.get("id")]
+        with_timeline = _get_game_ids_with_timeline_among(game_ids, timeline_table=T_TIMELINES_EXTENDED)
+        out.extend([row for row in completed if str(row.get("id")) not in with_timeline])
+    return out
+
+
 def _parse_game_start_time(value: object) -> datetime | None:
     """Parse games.start_time (timestamptz string or similar) to timezone-aware UTC."""
     if value is None or value == "":
@@ -441,8 +454,8 @@ def _utc_kickoff_calendar_window_bounds(*, days_before: int, days_after: int) ->
     return lo.isoformat(), hi_exclusive.isoformat()
 
 
-def get_game_ids_with_timeline_among(game_ids: list[str]) -> set[str]:
-    """Subset of ``game_ids`` that already have a timelines row."""
+def _get_game_ids_with_timeline_among(game_ids: list[str], *, timeline_table: str) -> set[str]:
+    """Subset of ``game_ids`` that already have a timeline row in ``timeline_table``."""
     if not game_ids:
         return set()
     supabase = get_client()
@@ -452,7 +465,7 @@ def get_game_ids_with_timeline_among(game_ids: list[str]) -> set[str]:
         part = game_ids[i : i + chunk_size]
 
         def _run(ids=part):
-            return supabase.table(T_TIMELINES).select("game_id").in_("game_id", ids).execute()
+            return supabase.table(timeline_table).select("game_id").in_("game_id", ids).execute()
 
         r = _supabase_execute_with_retry(_run)
         for row in r.data or []:
@@ -460,6 +473,16 @@ def get_game_ids_with_timeline_among(game_ids: list[str]) -> set[str]:
             if gid:
                 found.add(str(gid))
     return found
+
+
+def get_game_ids_with_timeline_among(game_ids: list[str]) -> set[str]:
+    """Subset of ``game_ids`` that already have a full timeline row."""
+    return _get_game_ids_with_timeline_among(game_ids, timeline_table=T_TIMELINES)
+
+
+def get_game_ids_with_extended_timeline_among(game_ids: list[str]) -> set[str]:
+    """Subset of ``game_ids`` that already have an extended timeline row."""
+    return _get_game_ids_with_timeline_among(game_ids, timeline_table=T_TIMELINES_EXTENDED)
 
 
 def get_games_kickoff_utc_calendar_window_for_configured_seasons(
@@ -535,6 +558,44 @@ def upsert_timeline(
     if st is not None and st != "":
         row["start_time"] = st
     supabase.table(T_TIMELINES).upsert(row, on_conflict="game_id", ignore_duplicates=False).execute()
+
+
+def upsert_extended_timeline(
+    game_id: str,
+    timeline_json: dict | None = None,
+    *,
+    sport_event_id: str | None = None,
+    start_time: object | None = None,
+) -> None:
+    """Record that we have fetched the extended timeline for this game row."""
+    supabase = get_client()
+    sid = (sport_event_id or "").strip() or None
+    st = start_time
+    if sid is None or st is None:
+
+        def _lookup():
+            return (
+                supabase.table(T_GAMES)
+                .select("sport_event_id, start_time")
+                .eq("id", game_id)
+                .limit(1)
+                .execute()
+            )
+
+        lr = _supabase_execute_with_retry(_lookup)
+        gr = (lr.data or [None])[0] or {}
+        if sid is None:
+            sid = (gr.get("sport_event_id") or "").strip() or None
+        if st is None:
+            st = gr.get("start_time")
+    row = {"game_id": game_id, "timeline_json": timeline_json}
+    if sid:
+        row["sport_event_id"] = sid
+    if st is not None and st != "":
+        row["start_time"] = st
+    supabase.table(T_TIMELINES_EXTENDED).upsert(
+        row, on_conflict="game_id", ignore_duplicates=False
+    ).execute()
 
 
 def get_timeline_json(game_id: str) -> dict | None:
