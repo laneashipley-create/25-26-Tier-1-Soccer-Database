@@ -1,0 +1,327 @@
+
+    const RAW_CSV = `competition_id,season_id,season_name,sport_event_id,start_time,round,home_team,home_team_id,away_team,away_team_id,status,match_status,home_score,away_score,group
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456904,2026-06-11T19:00:00+00:00,1,Mexico,sr:competitor:4781,South Africa,sr:competitor:4736,not_started,not_started,,,A
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456906,2026-06-12T02:00:00+00:00,1,Korea Republic,sr:competitor:4735,Czechia,sr:competitor:4714,not_started,not_started,,,A
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456916,2026-06-12T19:00:00+00:00,1,Canada,sr:competitor:4752,Bosnia and Herzegovina,sr:competitor:4479,not_started,not_started,,,B
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456940,2026-06-13T01:00:00+00:00,1,USA,sr:competitor:4724,Paraguay,sr:competitor:4789,not_started,not_started,,,D
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456918,2026-06-13T19:00:00+00:00,1,Qatar,sr:competitor:4792,Switzerland,sr:competitor:4699,not_started,not_started,,,B
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456928,2026-06-13T22:00:00+00:00,1,Brazil,sr:competitor:4748,Morocco,sr:competitor:4778,not_started,not_started,,,C
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456930,2026-06-14T01:00:00+00:00,1,Haiti,sr:competitor:7229,Scotland,sr:competitor:4695,not_started,not_started,,,C
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456942,2026-06-14T04:00:00+00:00,1,Australia,sr:competitor:4741,Turkiye,sr:competitor:4700,not_started,not_started,,,D
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457070,2026-06-14T17:00:00+00:00,1,Germany,sr:competitor:4711,Curacao,sr:competitor:55827,not_started,not_started,,,E
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456968,2026-06-14T20:00:00+00:00,1,Netherlands,sr:competitor:4705,Japan,sr:competitor:4770,not_started,not_started,,,F
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457072,2026-06-14T23:00:00+00:00,1,Ivory Coast,sr:competitor:4768,Ecuador,sr:competitor:4757,not_started,not_started,,,E
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456970,2026-06-15T02:00:00+00:00,1,Sweden,sr:competitor:4688,Tunisia,sr:competitor:4729,not_started,not_started,,,F
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456994,2026-06-15T16:00:00+00:00,1,Spain,sr:competitor:4698,Cape Verde,sr:competitor:4753,not_started,not_started,,,H
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456982,2026-06-15T19:00:00+00:00,1,Belgium,sr:competitor:4717,Egypt,sr:competitor:4758,not_started,not_started,,,G
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456996,2026-06-15T22:00:00+00:00,1,Saudi Arabia,sr:competitor:4834,Uruguay,sr:competitor:4725,not_started,not_started,,,H
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456984,2026-06-16T01:00:00+00:00,1,IR Iran,sr:competitor:4766,New Zealand,sr:competitor:4784,not_started,not_started,,,G
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457006,2026-06-16T19:00:00+00:00,1,France,sr:competitor:4481,Senegal,sr:competitor:4739,not_started,not_started,,,I
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457008,2026-06-16T22:00:00+00:00,1,Iraq,sr:competitor:4767,Norway,sr:competitor:4475,not_started,not_started,,,I
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457018,2026-06-17T01:00:00+00:00,1,Argentina,sr:competitor:4819,Algeria,sr:competitor:4691,not_started,not_started,,,J
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457020,2026-06-17T04:00:00+00:00,1,Austria,sr:competitor:4718,Jordan,sr:competitor:4771,not_started,not_started,,,J
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457030,2026-06-17T17:00:00+00:00,1,Portugal,sr:competitor:4704,Congo DR,sr:competitor:4823,not_started,not_started,,,K
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457042,2026-06-17T20:00:00+00:00,1,England,sr:competitor:4713,Croatia,sr:competitor:4715,not_started,not_started,,,L
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457044,2026-06-17T23:00:00+00:00,1,Ghana,sr:competitor:4764,Panama,sr:competitor:5164,not_started,not_started,,,L
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457032,2026-06-18T02:00:00+00:00,1,Uzbekistan,sr:competitor:4723,Colombia,sr:competitor:4820,not_started,not_started,,,K
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456910,2026-06-18T16:00:00+00:00,2,Czechia,sr:competitor:4714,South Africa,sr:competitor:4736,not_started,not_started,,,A
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456922,2026-06-18T19:00:00+00:00,2,Switzerland,sr:competitor:4699,Bosnia and Herzegovina,sr:competitor:4479,not_started,not_started,,,B
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456920,2026-06-18T22:00:00+00:00,2,Canada,sr:competitor:4752,Qatar,sr:competitor:4792,not_started,not_started,,,B
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456908,2026-06-19T01:00:00+00:00,2,Mexico,sr:competitor:4781,Korea Republic,sr:competitor:4735,not_started,not_started,,,A
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456944,2026-06-19T19:00:00+00:00,2,USA,sr:competitor:4724,Australia,sr:competitor:4741,not_started,not_started,,,D
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456934,2026-06-19T22:00:00+00:00,2,Scotland,sr:competitor:4695,Morocco,sr:competitor:4778,not_started,not_started,,,C
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456932,2026-06-20T00:30:00+00:00,2,Brazil,sr:competitor:4748,Haiti,sr:competitor:7229,not_started,not_started,,,C
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456946,2026-06-20T03:00:00+00:00,2,Turkiye,sr:competitor:4700,Paraguay,sr:competitor:4789,not_started,not_started,,,D
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456972,2026-06-20T17:00:00+00:00,2,Netherlands,sr:competitor:4705,Sweden,sr:competitor:4688,not_started,not_started,,,F
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457074,2026-06-20T20:00:00+00:00,2,Germany,sr:competitor:4711,Ivory Coast,sr:competitor:4768,not_started,not_started,,,E
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457076,2026-06-21T00:00:00+00:00,2,Ecuador,sr:competitor:4757,Curacao,sr:competitor:55827,not_started,not_started,,,E
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456974,2026-06-21T04:00:00+00:00,2,Tunisia,sr:competitor:4729,Japan,sr:competitor:4770,not_started,not_started,,,F
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456998,2026-06-21T16:00:00+00:00,2,Spain,sr:competitor:4698,Saudi Arabia,sr:competitor:4834,not_started,not_started,,,H
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456986,2026-06-21T19:00:00+00:00,2,Belgium,sr:competitor:4717,IR Iran,sr:competitor:4766,not_started,not_started,,,G
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457000,2026-06-21T22:00:00+00:00,2,Uruguay,sr:competitor:4725,Cape Verde,sr:competitor:4753,not_started,not_started,,,H
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456988,2026-06-22T01:00:00+00:00,2,New Zealand,sr:competitor:4784,Egypt,sr:competitor:4758,not_started,not_started,,,G
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457022,2026-06-22T17:00:00+00:00,2,Argentina,sr:competitor:4819,Austria,sr:competitor:4718,not_started,not_started,,,J
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457010,2026-06-22T21:00:00+00:00,2,France,sr:competitor:4481,Iraq,sr:competitor:4767,not_started,not_started,,,I
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457012,2026-06-23T00:00:00+00:00,2,Norway,sr:competitor:4475,Senegal,sr:competitor:4739,not_started,not_started,,,I
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457024,2026-06-23T03:00:00+00:00,2,Jordan,sr:competitor:4771,Algeria,sr:competitor:4691,not_started,not_started,,,J
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457034,2026-06-23T17:00:00+00:00,2,Portugal,sr:competitor:4704,Uzbekistan,sr:competitor:4723,not_started,not_started,,,K
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457046,2026-06-23T20:00:00+00:00,2,England,sr:competitor:4713,Ghana,sr:competitor:4764,not_started,not_started,,,L
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457048,2026-06-23T23:00:00+00:00,2,Panama,sr:competitor:5164,Croatia,sr:competitor:4715,not_started,not_started,,,L
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457036,2026-06-24T02:00:00+00:00,2,Colombia,sr:competitor:4820,Congo DR,sr:competitor:4823,not_started,not_started,,,K
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456924,2026-06-24T19:00:00+00:00,3,Switzerland,sr:competitor:4699,Canada,sr:competitor:4752,not_started,not_started,,,B
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456926,2026-06-24T19:00:00+00:00,3,Bosnia and Herzegovina,sr:competitor:4479,Qatar,sr:competitor:4792,not_started,not_started,,,B
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456936,2026-06-24T22:00:00+00:00,3,Scotland,sr:competitor:4695,Brazil,sr:competitor:4748,not_started,not_started,,,C
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456938,2026-06-24T22:00:00+00:00,3,Morocco,sr:competitor:4778,Haiti,sr:competitor:7229,not_started,not_started,,,C
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456912,2026-06-25T01:00:00+00:00,3,Czechia,sr:competitor:4714,Mexico,sr:competitor:4781,not_started,not_started,,,A
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456914,2026-06-25T01:00:00+00:00,3,South Africa,sr:competitor:4736,Korea Republic,sr:competitor:4735,not_started,not_started,,,A
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457078,2026-06-25T20:00:00+00:00,3,Ecuador,sr:competitor:4757,Germany,sr:competitor:4711,not_started,not_started,,,E
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457080,2026-06-25T20:00:00+00:00,3,Curacao,sr:competitor:55827,Ivory Coast,sr:competitor:4768,not_started,not_started,,,E
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456976,2026-06-25T23:00:00+00:00,3,Tunisia,sr:competitor:4729,Netherlands,sr:competitor:4705,not_started,not_started,,,F
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456978,2026-06-25T23:00:00+00:00,3,Japan,sr:competitor:4770,Sweden,sr:competitor:4688,not_started,not_started,,,F
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456948,2026-06-26T02:00:00+00:00,3,Turkiye,sr:competitor:4700,USA,sr:competitor:4724,not_started,not_started,,,D
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456950,2026-06-26T02:00:00+00:00,3,Paraguay,sr:competitor:4789,Australia,sr:competitor:4741,not_started,not_started,,,D
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457014,2026-06-26T19:00:00+00:00,3,Norway,sr:competitor:4475,France,sr:competitor:4481,not_started,not_started,,,I
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457016,2026-06-26T19:00:00+00:00,3,Senegal,sr:competitor:4739,Iraq,sr:competitor:4767,not_started,not_started,,,I
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457002,2026-06-27T00:00:00+00:00,3,Uruguay,sr:competitor:4725,Spain,sr:competitor:4698,not_started,not_started,,,H
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457004,2026-06-27T00:00:00+00:00,3,Cape Verde,sr:competitor:4753,Saudi Arabia,sr:competitor:4834,not_started,not_started,,,H
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456990,2026-06-27T03:00:00+00:00,3,New Zealand,sr:competitor:4784,Belgium,sr:competitor:4717,not_started,not_started,,,G
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456992,2026-06-27T03:00:00+00:00,3,Egypt,sr:competitor:4758,IR Iran,sr:competitor:4766,not_started,not_started,,,G
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457050,2026-06-27T21:00:00+00:00,3,Panama,sr:competitor:5164,England,sr:competitor:4713,not_started,not_started,,,L
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457052,2026-06-27T21:00:00+00:00,3,Croatia,sr:competitor:4715,Ghana,sr:competitor:4764,not_started,not_started,,,L
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457038,2026-06-27T23:30:00+00:00,3,Colombia,sr:competitor:4820,Portugal,sr:competitor:4704,not_started,not_started,,,K
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457040,2026-06-27T23:30:00+00:00,3,Congo DR,sr:competitor:4823,Uzbekistan,sr:competitor:4723,not_started,not_started,,,K
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457026,2026-06-28T02:00:00+00:00,3,Jordan,sr:competitor:4771,Argentina,sr:competitor:4819,not_started,not_started,,,J
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66457028,2026-06-28T02:00:00+00:00,3,Algeria,sr:competitor:4691,Austria,sr:competitor:4718,not_started,not_started,,,J
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452545,2026-06-28T19:00:00+00:00,,2A,sr:competitor:1013273,2B,sr:competitor:1013245,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452557,2026-06-29T17:00:00+00:00,,1C,sr:competitor:1013261,2F,sr:competitor:1013247,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452541,2026-06-29T20:30:00+00:00,,1E,sr:competitor:1013257,3A/3B/3C/3D/3F,sr:competitor:1184281,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452547,2026-06-30T01:00:00+00:00,,1F,sr:competitor:1013281,2C,sr:competitor:1013275,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452561,2026-06-30T17:00:00+00:00,,2E,sr:competitor:1013283,2I,sr:competitor:1184267,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452543,2026-06-30T21:00:00+00:00,,1I,sr:competitor:1184265,3C/3D/3F/3G/3H,sr:competitor:1184283,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452563,2026-07-01T01:00:00+00:00,,1A,sr:competitor:1013241,3C/3E/3F/3H/3I,sr:competitor:1184285,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452565,2026-07-01T16:00:00+00:00,,1L,sr:competitor:1184277,3E/3H/3I/3J/3K,sr:competitor:1184287,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452555,2026-07-01T20:00:00+00:00,,1G,sr:competitor:42075,3A/3E/3H/3I/3J,sr:competitor:1184291,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452553,2026-07-02T00:00:00+00:00,,1D,sr:competitor:1013269,3B/3E/3F/3I/3J,sr:competitor:1184289,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452551,2026-07-02T19:00:00+00:00,,1H,sr:competitor:42076,2J,sr:competitor:1184271,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452549,2026-07-02T23:00:00+00:00,,2K,sr:competitor:1184275,2L,sr:competitor:1184279,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452505,2026-07-03T03:00:00+00:00,,1B,sr:competitor:677445,3E/3F/3G/3I/3J,sr:competitor:1184293,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452503,2026-07-03T18:00:00+00:00,,2D,sr:competitor:1013259,2G,sr:competitor:42079,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452569,2026-07-03T22:00:00+00:00,,1J,sr:competitor:1184269,2H,sr:competitor:42080,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452507,2026-07-04T01:30:00+00:00,,1K,sr:competitor:1184273,3D/3E/3I/3J/3L,sr:competitor:1184295,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452511,2026-07-04T17:00:00+00:00,,W73,sr:competitor:1184297,W75,sr:competitor:1184301,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452509,2026-07-04T21:00:00+00:00,,W74,sr:competitor:1184299,W77,sr:competitor:1184305,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452517,2026-07-05T20:00:00+00:00,,W76,sr:competitor:1184303,W78,sr:competitor:1184307,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452519,2026-07-06T00:00:00+00:00,,W79,sr:competitor:1184309,W80,sr:competitor:1184311,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452513,2026-07-06T19:00:00+00:00,,W83,sr:competitor:1184317,W84,sr:competitor:1184319,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452515,2026-07-07T00:00:00+00:00,,W81,sr:competitor:1184313,W82,sr:competitor:1184315,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452521,2026-07-07T16:00:00+00:00,,W86,sr:competitor:1184323,W88,sr:competitor:1184327,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452523,2026-07-07T20:00:00+00:00,,W85,sr:competitor:1184321,W87,sr:competitor:1184325,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452525,2026-07-09T20:00:00+00:00,,W89,sr:competitor:1184329,W90,sr:competitor:1184331,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452527,2026-07-10T19:00:00+00:00,,W93,sr:competitor:1184337,W94,sr:competitor:1184339,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452529,2026-07-11T21:00:00+00:00,,W91,sr:competitor:1184333,W92,sr:competitor:1184335,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452531,2026-07-12T01:00:00+00:00,,W95,sr:competitor:1184341,W96,sr:competitor:1184343,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452533,2026-07-14T19:00:00+00:00,,W97,sr:competitor:1184345,W98,sr:competitor:1184347,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452535,2026-07-15T19:00:00+00:00,,W99,sr:competitor:1184349,W100,sr:competitor:1184351,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452539,2026-07-18T21:00:00+00:00,,RU101,sr:competitor:1184357,RU102,sr:competitor:1184359,not_started,not_started,,,
+sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-07-19T19:00:00+00:00,,W101,sr:competitor:1184353,W102,sr:competitor:1184355,not_started,not_started,,,
+`;
+    const GROUP_STAGE_END = "2026-06-28";
+    const TOURNAMENT_END = "2026-07-19";
+    const VIEWER_TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || "Local Time";
+    const selectedTeams = new Set();
+    const selectedGroups = new Set();
+
+    const dom = {
+      timeline: document.getElementById("timeline"),
+      groupPills: document.getElementById("groupPills"),
+      groupSummary: document.getElementById("groupSummary"),
+      clearGroupBtn: document.getElementById("clearGroupBtn"),
+      pills: document.getElementById("pills"),
+      summary: document.getElementById("summary"),
+      clearBtn: document.getElementById("clearBtn"),
+      refreshBtn: document.getElementById("refreshBtn"),
+      lastUpdated: document.getElementById("lastUpdated"),
+      liveBadge: document.getElementById("liveBadge"),
+      tzNote: document.getElementById("tzNote"),
+    };
+
+    function parseCsv(text) {
+      const lines = (text || "").trim().split(/\r?\n/);
+      if (lines.length < 2) return [];
+      const headers = lines[0].split(",");
+      const out = [];
+      for (let i = 1; i < lines.length; i++) {
+        const cells = [];
+        let cur = "", inQuotes = false;
+        for (let j = 0; j < lines[i].length; j++) {
+          const ch = lines[i][j];
+          if (ch === '"') {
+            if (inQuotes && lines[i][j + 1] === '"') { cur += '"'; j++; }
+            else inQuotes = !inQuotes;
+          } else if (ch === "," && !inQuotes) {
+            cells.push(cur); cur = "";
+          } else cur += ch;
+        }
+        cells.push(cur);
+        const row = {};
+        headers.forEach((h, idx) => row[h.trim()] = (cells[idx] ?? "").trim());
+        out.push(row);
+      }
+      return out;
+    }
+
+    function statusKind(m) {
+      const s = String(m.match_status || m.status || "").toLowerCase();
+      if (s.includes("in_progress") || s.includes("live")) return "LIVE";
+      if (s.includes("ended") || s.includes("closed") || s.includes("finished")) return "COMPLETED";
+      return "SCHEDULED";
+    }
+
+    function stageLabel(m, idx) {
+      const day = (m.start_time || "").slice(0, 10);
+      if (m.round && day <= GROUP_STAGE_END && m.group) {
+        return `Group ${m.group} · Matchday ${m.round}`;
+      }
+      const n = idx + 1;
+      if (n <= 72) return "Group Stage";
+      if (n <= 88) return "Round of 32";
+      if (n <= 96) return "Round of 16";
+      if (n <= 100) return "Quarterfinal";
+      if (n <= 102) return "Semifinal";
+      if (n === 103) return "Third Place";
+      return "Final";
+    }
+
+    function localDayKey(iso) {
+      return new Intl.DateTimeFormat("en-CA", { year:"numeric", month:"2-digit", day:"2-digit" }).format(new Date(iso));
+    }
+    function localDayTitle(key) {
+      return new Intl.DateTimeFormat("en-US", { weekday:"long", month:"long", day:"numeric" }).format(new Date(`${key}T12:00:00`));
+    }
+    function localTime(iso) {
+      return new Intl.DateTimeFormat("en-US", { hour:"numeric", minute:"2-digit", hour12:true, timeZoneName:"short" }).format(new Date(iso));
+    }
+
+    const matches = parseCsv(RAW_CSV)
+      .sort((a,b) => String(a.start_time||"").localeCompare(String(b.start_time||"")))
+      .map((m, i) => ({
+        ...m,
+        home_team: m.home_team || "TBD",
+        away_team: m.away_team || "TBD",
+        group: (m.group || "").toUpperCase(),
+        match_number: i + 1
+      }));
+
+    function filteredMatches() {
+      return matches.filter((m) => {
+        const teamOk = !selectedTeams.size || selectedTeams.has(m.home_team) || selectedTeams.has(m.away_team);
+        const groupOk = !selectedGroups.size || selectedGroups.has(m.group);
+        return teamOk && groupOk;
+      });
+    }
+
+    function renderGroupPills() {
+      const groupCounts = new Map();
+      matches.forEach((m) => {
+        if (!m.group) return;
+        groupCounts.set(m.group, (groupCounts.get(m.group) || 0) + 1);
+      });
+
+      dom.groupPills.innerHTML = "";
+      [...groupCounts.keys()].sort((a,b)=>a.localeCompare(b)).forEach((group) => {
+        const btn = document.createElement("button");
+        btn.className = "pill" + (selectedGroups.has(group) ? " active" : "");
+        btn.innerHTML = `Group ${group}<span>${groupCounts.get(group)}</span>`;
+        btn.onclick = () => {
+          const y = dom.timeline.scrollTop;
+          selectedGroups.has(group) ? selectedGroups.delete(group) : selectedGroups.add(group);
+          renderGroupPills();
+          render();
+          dom.timeline.scrollTop = y;
+        };
+        dom.groupPills.appendChild(btn);
+      });
+
+      dom.groupSummary.textContent = selectedGroups.size
+        ? `Group filter: ${[...selectedGroups].sort((a,b)=>a.localeCompare(b)).map((g)=>`Group ${g}`).join(", ")}`
+        : "Group filter: All groups";
+    }
+
+    function renderPills() {
+      const counts = new Map();
+      matches.forEach(m => {
+        counts.set(m.home_team, (counts.get(m.home_team)||0)+1);
+        counts.set(m.away_team, (counts.get(m.away_team)||0)+1);
+      });
+      dom.pills.innerHTML = "";
+      [...counts.keys()].sort((a,b)=>a.localeCompare(b)).forEach(team => {
+        const btn = document.createElement("button");
+        btn.className = "pill" + (selectedTeams.has(team) ? " active" : "");
+        btn.innerHTML = `${team}<span>${counts.get(team)}</span>`;
+        btn.onclick = () => {
+          const y = dom.timeline.scrollTop;
+          selectedTeams.has(team) ? selectedTeams.delete(team) : selectedTeams.add(team);
+          render();
+          dom.timeline.scrollTop = y;
+        };
+        dom.pills.appendChild(btn);
+      });
+    }
+
+    function render() {
+      const rows = filteredMatches();
+      const teamPart = selectedTeams.size
+        ? `teams: ${[...selectedTeams].sort((a,b)=>a.localeCompare(b)).join(", ")}`
+        : "teams: all";
+      const groupPart = selectedGroups.size
+        ? `groups: ${[...selectedGroups].sort((a,b)=>a.localeCompare(b)).join(", ")}`
+        : "groups: all";
+      dom.summary.textContent = `Showing ${rows.length} matches (${teamPart}; ${groupPart})`;
+
+      const live = rows.filter(m => statusKind(m)==="LIVE").length;
+      dom.liveBadge.textContent = live ? `${live} LIVE` : "";
+      dom.lastUpdated.textContent = "Last updated: " + new Intl.DateTimeFormat("en-US", {
+        month:"short", day:"numeric", hour:"numeric", minute:"2-digit", timeZoneName:"short"
+      }).format(new Date());
+      dom.tzNote.textContent = `All times are shown in your local timezone (${VIEWER_TZ}).`;
+
+      const grouped = new Map();
+      rows.forEach(m => {
+        const k = localDayKey(m.start_time);
+        if (!grouped.has(k)) grouped.set(k, []);
+        grouped.get(k).push(m);
+      });
+
+      const keys = [...grouped.keys()].sort((a,b)=>a.localeCompare(b));
+      dom.timeline.innerHTML = "";
+      let knockoutShown = false;
+
+      for (const dayKey of keys) {
+        if (!knockoutShown && dayKey > GROUP_STAGE_END) {
+          const sep = document.createElement("div");
+          sep.className = "knockout";
+          sep.textContent = "⚽ Knockout Stage";
+          dom.timeline.appendChild(sep);
+          knockoutShown = true;
+        }
+
+        const block = document.createElement("section");
+        block.className = "day-block";
+        block.innerHTML = `<div class="day-header"><div class="day-title">${localDayTitle(dayKey)}</div><div class="day-count">${grouped.get(dayKey).length} matches</div></div>`;
+
+        grouped.get(dayKey).forEach((m) => {
+          const kind = statusKind(m);
+          const card = document.createElement("article");
+          card.className = "match-card " + (kind==="LIVE" ? "live" : kind==="COMPLETED" ? "completed" : "");
+          const hasScore = kind === "COMPLETED" && m.home_score !== "" && m.away_score !== "";
+          const center = hasScore ? `<div class="score">${m.home_score} - ${m.away_score}</div>` : `<div class="sep">vs</div>`;
+          card.innerHTML = `
+            <div>
+              <div class="stage">${stageLabel(m, m.match_number - 1)}</div>
+              <div class="kickoff">${localTime(m.start_time)}</div>
+              <div class="venue-time">${kind}</div>
+            </div>
+            <div class="center">
+              <div class="team">${m.home_team}</div>
+              ${center}
+              <div class="team">${m.away_team}</div>
+            </div>
+            <div class="right">Match ${m.match_number} of ${matches.length}</div>
+          `;
+          block.appendChild(card);
+        });
+
+        dom.timeline.appendChild(block);
+      }
+
+      if (!rows.length) dom.timeline.innerHTML = `<div class="empty">No matches for current filter.</div>`;
+    }
+
+    dom.clearBtn.onclick = () => { selectedTeams.clear(); selectedGroups.clear(); renderPills(); renderGroupPills(); render(); };
+    dom.clearGroupBtn.onclick = () => { selectedGroups.clear(); renderGroupPills(); render(); };
+    dom.refreshBtn.onclick = () => render();
+
+    renderGroupPills();
+    renderPills();
+    render();
+  
