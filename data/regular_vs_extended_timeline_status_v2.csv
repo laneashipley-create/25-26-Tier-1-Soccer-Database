@@ -1,0 +1,29 @@
+match date,sr:sport_event ID,competition name,sr:competition:ID,sr:season:ID,regular timeline status,EXTENDED TIMELINE STATUS
+2025-08-15,sr:sport_event:61300505,Premier League,sr:competition:17,sr:season:130281,closed,live
+2025-08-16,sr:sport_event:61623424,LaLiga,sr:competition:8,sr:season:130805,closed,live
+2025-08-24,sr:sport_event:61623964,LaLiga,sr:competition:8,sr:season:130805,closed,live
+2025-08-26,sr:sport_event:61232419,DFB Pokal,sr:competition:217,sr:season:130937,closed,live
+2025-08-30,sr:sport_event:61300555,Premier League,sr:competition:17,sr:season:130281,closed,live
+2025-08-30,sr:sport_event:61526006,Ligue 1,sr:competition:34,sr:season:131609,closed,live
+2025-08-30,sr:sport_event:61526020,Ligue 1,sr:competition:34,sr:season:131609,closed,live
+2025-08-30,sr:sport_event:61623978,LaLiga,sr:competition:8,sr:season:130805,closed,live
+2025-09-13,sr:sport_event:61513654,1. Bundesliga,sr:competition:35,sr:season:130571,closed,live
+2025-09-17,sr:sport_event:63369689,UEFA Champions League,sr:competition:7,sr:season:131129,closed,live
+2025-09-20,sr:sport_event:61513676,1. Bundesliga,sr:competition:35,sr:season:130571,closed,live
+2025-09-20,sr:sport_event:61624034,LaLiga,sr:competition:8,sr:season:130805,closed,live
+2025-09-21,sr:sport_event:61060771,Serie A,sr:competition:23,sr:season:130971,closed,live
+2025-09-23,sr:sport_event:63099183,Coppa Italia,sr:competition:328,sr:season:130975,closed,live
+2025-09-23,sr:sport_event:63615351,Coppa Italia,sr:competition:328,sr:season:130975,closed,live
+2025-09-27,sr:sport_event:63832027,Copa del Rey,sr:competition:329,sr:season:131970,closed,not_started
+2025-09-27,sr:sport_event:63832031,Copa del Rey,sr:competition:329,sr:season:131970,closed,not_started
+2025-10-01,sr:sport_event:63369753,UEFA Champions League,sr:competition:7,sr:season:131129,closed,live
+2025-10-01,sr:sport_event:63369759,UEFA Champions League,sr:competition:7,sr:season:131129,closed,live
+2025-10-04,sr:sport_event:61060817,Serie A,sr:competition:23,sr:season:130971,closed,live
+2025-10-18,sr:sport_event:61513720,1. Bundesliga,sr:competition:35,sr:season:130571,closed,live
+2025-10-18,sr:sport_event:61526102,Ligue 1,sr:competition:34,sr:season:131609,closed,live
+2025-11-03,sr:sport_event:61060903,Serie A,sr:competition:23,sr:season:130971,closed,live
+2025-11-03,sr:sport_event:63887875,Premier League,sr:competition:17,sr:season:130281,closed,live
+2025-11-06,sr:sport_event:63377891,UEFA Europa League,sr:competition:679,sr:season:131635,closed,live
+2025-11-15,sr:sport_event:65617136,Coupe de France,sr:competition:335,sr:season:132930,closed,not_started
+2025-11-15,sr:sport_event:65752990,Coupe de France,sr:competition:335,sr:season:132930,closed,not_started
+2025-12-13,sr:sport_event:61300815,Premier League,sr:competition:17,sr:season:130281,closed,live

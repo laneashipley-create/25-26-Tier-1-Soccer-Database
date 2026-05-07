@@ -4,9 +4,11 @@ missing rows in public."Completed Matches - Extended Timeline".
 
 Outputs CSV with columns:
 1) match date
-2) sr:sport_event:ID
-3) Regular Timeline Status
-4) Extended Timeline Status
+2) competition name
+3) sr:competition:ID
+4) sr:season:ID
+5) regular timeline status
+6) EXTENDED TIMELINE STATUS
 """
 
 from __future__ import annotations
@@ -16,7 +18,7 @@ import json
 import urllib.request
 
 import db
-from config import API_KEY, BASE_URL, BASE_URL_SOCCER_EXTENDED
+from config import API_KEY, BASE_URL, BASE_URL_SOCCER_EXTENDED, COMPETITIONS
 
 OUT_CSV = "data/regular_vs_extended_timeline_status.csv"
 
@@ -36,6 +38,16 @@ def _match_date(start_time: object) -> str:
 
 def main() -> int:
     rows = db.get_completed_matches_without_extended_timeline_for_configured_seasons()
+    season_ids = db.get_or_create_seasons()
+    meta_by_uuid: dict[str, dict[str, str]] = {}
+    for c in COMPETITIONS:
+        season_uuid = season_ids.get(c["season_id"])
+        if season_uuid:
+            meta_by_uuid[season_uuid] = {
+                "competition name": str(c.get("competition_name") or ""),
+                "sr:competition:ID": str(c.get("competition_id") or ""),
+                "sr:season:ID": str(c.get("season_id") or ""),
+            }
     out_rows: list[dict[str, str]] = []
 
     for row in rows:
@@ -56,23 +68,26 @@ def main() -> int:
         except Exception as e:
             extended_status = f"ERROR: {e}"
 
-        out_rows.append(
-            {
-                "match date": _match_date(row.get("start_time")),
-                "sr:sport_event:ID": event_id,
-                "Regular Timeline Status": regular_status,
-                "Extended Timeline Status": extended_status,
-            }
-        )
+        meta = meta_by_uuid.get(str(row.get("season_id") or ""), {})
+        out_rows.append({
+            "match date": _match_date(row.get("start_time")),
+            "competition name": meta.get("competition name", ""),
+            "sr:competition:ID": meta.get("sr:competition:ID", ""),
+            "sr:season:ID": meta.get("sr:season:ID", ""),
+            "regular timeline status": regular_status,
+            "EXTENDED TIMELINE STATUS": extended_status,
+        })
 
     with open(OUT_CSV, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
             f,
             fieldnames=[
                 "match date",
-                "sr:sport_event:ID",
-                "Regular Timeline Status",
-                "Extended Timeline Status",
+                "competition name",
+                "sr:competition:ID",
+                "sr:season:ID",
+                "regular timeline status",
+                "EXTENDED TIMELINE STATUS",
             ],
         )
         writer.writeheader()

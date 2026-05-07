@@ -1,0 +1,19 @@
+match date,sr:sport_event ID,regular timeline status,extended timeline status
+2026-05-05,sr:sport_event:69339436,closed,closed
+2026-05-05,sr:sport_event:70075144,closed,closed
+2026-05-05,sr:sport_event:70075218,closed,closed
+2026-05-05,sr:sport_event:70075244,closed,closed
+2026-05-05,sr:sport_event:70075870,closed,closed
+2026-05-05,sr:sport_event:70076102,closed,closed
+2026-05-06,sr:sport_event:67645046,closed,closed
+2026-05-06,sr:sport_event:67645048,closed,closed
+2026-05-06,sr:sport_event:67645050,closed,closed
+2026-05-06,sr:sport_event:67645052,closed,closed
+2026-05-06,sr:sport_event:67645054,closed,closed
+2026-05-06,sr:sport_event:67645534,closed,closed
+2026-05-06,sr:sport_event:70075142,closed,closed
+2026-05-06,sr:sport_event:70075194,closed,closed
+2026-05-06,sr:sport_event:70075196,closed,closed
+2026-05-06,sr:sport_event:70075748,closed,closed
+2026-05-06,sr:sport_event:70076016,closed,closed
+2026-05-06,sr:sport_event:70076104,closed,closed
