@@ -5,14 +5,20 @@
 #    today + PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_AFTER] (defaults 1 / 1).
 #   For each row without a timeline yet: Sportradar timeline.json; store only when status is
 #   closed/ended. Steps 4–6 run only when at least one timeline was newly stored.
-# Full season sync + pagination + CSV: weekly-data-pipeline.yml (bi-weekly UTC — Sun eve PT / Thu AM PT approx).
+# Full season sync + pagination + CSV: weekly-data-pipeline.yml (daily full refresh, separate workflow).
 # HTML + Brevo: weekly-update.yml (still scheduled separately).
 name: Daily Refresh - Adding Completed Games
 
 on:
   schedule:
-    # 06:00 UTC every day (~10:00 PM previous calendar date Pacific in standard time, ~11:00 PM in DST).
+    # 3x/day targets in Pacific Standard Time (PST, UTC-8):
+    #   10:00 AM PST -> 18:00 UTC
+    #   4:00 PM PST  -> 00:00 UTC (next UTC date)
+    #   10:00 PM PST -> 06:00 UTC (next UTC date)
+    # During DST (PDT), runs occur one hour later by local clock.
     # Email is never sent from this workflow.
+    - cron: "0 18 * * *"
+    - cron: "0 0 * * *"
     - cron: "0 6 * * *"
   workflow_dispatch:
 

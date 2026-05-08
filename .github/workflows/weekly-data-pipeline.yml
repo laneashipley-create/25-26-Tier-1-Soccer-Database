@@ -1,19 +1,17 @@
-# Full schedule sync + all missing timelines + derived tables (no HTML, no email).
+# Daily full refresh: full schedule sync + timelines + derived tables + all HTML reports (no email).
 # After step 2, run_all syncs games.recorded from soccer record replay export JSON (step 2b).
-# step2_get_schedule: schedules.json is fetched with start/limit pagination until complete;
-# every match is upserted; data/schedule.csv is rewritten.
-# Runs twice weekly so All Games stays fresh between runs; weekly email workflow still regenerates HTML separately.
+# Schedule: schedules.json is fetched with pagination until complete; matches upsert to Supabase;
+# data/schedule.csv is rewritten. Step 7 regenerates hub + report pages for GitHub Pages.
+# Runs once daily for a complete data + HTML refresh between weekly-email runs.
 # Daily CI uses run_all.py --daily (Supabase kickoff-window timeline probes; no schedule fetch).
 #
-# Cron is UTC only — Pacific shifts with DST (~1h). Approximate targets:
-#   • Monday 01:00 UTC → Sunday ~5:00 PM Pacific (exact under PST).
-#   • Thursday 16:00 UTC → Thursday ~8:00 AM Pacific (exact under PST).
-name: Bi-weekly Data Refresh (includes full schedule check)
+# Cron is UTC only — Pacific shifts with DST (~1h). Target:
+#   • 04:00 AM PST daily → 12:00 UTC daily (during PDT this lands at ~05:00 AM local).
+name: Daily Full Refresh (includes full schedule check)
 
 on:
   schedule:
-    - cron: "0 1 * * 1"
-    - cron: "0 16 * * 4"
+    - cron: "0 12 * * *"
   workflow_dispatch:
 
 jobs:
@@ -37,7 +35,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
-      - name: Full backfill (steps 2–5)
+      - name: Full backfill + HTML (steps 1–7)
         env:
           SPORTRADAR_API_KEY: ${{ secrets.SPORTRADAR_API_KEY }}
           SUPABASE_URL: https://yoesorfzvtbdmvrdtqoo.supabase.co
@@ -46,14 +44,19 @@ jobs:
           export PYTHONUTF8=1
           python run_all.py --full-backfill
 
-      - name: Commit and push data updates
+      - name: Convert logo SVG to PNG (for Outlook/GitHub Pages)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq librsvg2-bin
+          rsvg-convert -w 360 assets/lanes_sportsdata.svg -o assets/lanes_sportsdata.png
+
+      - name: Commit and push data + reports
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/schedule.csv data/own_goals.csv
+          git add report.html report_hub.html wc2026_schedule.html report_own_goals.html report_master_games.html report_penalty_shootouts.html report_var_events.html report_var_unpaired.html report_recordings_library.html data/schedule.csv data/own_goals.csv assets/lanes_sportsdata.png
           if git diff --staged --quiet; then
-            echo "No CSV changes to commit"
+            echo "No changes to commit"
           else
-            git commit -m "chore: bi-weekly data backfill (schedule + derived CSV) [skip ci]"
+            git commit -m "chore: daily full refresh (schedule, CSV, HTML) [skip ci]"
             git push
           fi

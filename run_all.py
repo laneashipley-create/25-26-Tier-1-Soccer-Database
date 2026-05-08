@@ -12,11 +12,9 @@ Steps
 
 Usage
   python run_all.py
-      Full pipeline (steps 1–7). For local full refresh.
-
   python run_all.py --full-backfill
-      Steps 1–6 only (no HTML). Use the weekly data workflow: full schedule sync,
-      all missing timelines, then derived tables. Run before the fast weekly email job.
+      Full pipeline (steps 1–7): schedule sync, timelines, derived tables, and HTML.
+      ``--full-backfill`` is the explicit flag used by the bi-weekly Actions workflow.
 
   python run_all.py --daily
       Supabase only. Step 3 reads All Games whose kickoff UTC calendar date falls in
@@ -168,20 +166,21 @@ def run_main(*, mode: str) -> None:
     section("STEP 6 — Extracting VAR + penalty shootout tables")
     step6_extract_var_and_shootouts.main()
 
-    if mode == "full_backfill":
-        print(f"\n{DIVIDER}")
-        print("  Full backfill done (steps 1–6; no HTML — use --reports-only or weekly email job).")
-        print(DIVIDER)
-        return
-
     section("STEP 7 — Generating HTML reports")
     step7_generate_reports.main()
 
     print(f"\n{DIVIDER}")
-    print(
-        "  All done! Open report_hub.html or report_own_goals.html "
-        "(nav links to all reports including recordings library)."
-    )
+    if mode == "full_backfill":
+        print(
+            "  Full backfill done (steps 1–7 — data + HTML). "
+            "Open report_hub.html or report_own_goals.html "
+            "(nav links to all reports including recordings library)."
+        )
+    else:
+        print(
+            "  All done! Open report_hub.html or report_own_goals.html "
+            "(nav links to all reports including recordings library)."
+        )
     print(DIVIDER)
 
 
