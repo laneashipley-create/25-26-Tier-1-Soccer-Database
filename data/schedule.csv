@@ -1727,7 +1727,7 @@ sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301237,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301245,2026-05-10T15:30:00+00:00,36,West Ham United,sr:competitor:37,Arsenal FC,sr:competitor:42,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301243,2026-05-11T19:00:00+00:00,36,Tottenham Hotspur,sr:competitor:33,Leeds United,sr:competitor:34,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:70784812,2026-05-13T19:00:00+00:00,31,Manchester City,sr:competitor:17,Crystal Palace,sr:competitor:7,not_started,not_started,,
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301251,2026-05-17T11:30:00+00:00,37,Aston Villa,sr:competitor:40,Liverpool FC,sr:competitor:44,not_started,not_started,,
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301251,2026-05-15T19:00:00+00:00,37,Aston Villa,sr:competitor:40,Liverpool FC,sr:competitor:44,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301261,2026-05-17T11:30:00+00:00,37,Manchester United,sr:competitor:35,Nottingham Forest,sr:competitor:14,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301253,2026-05-17T14:00:00+00:00,37,Brentford FC,sr:competitor:50,Crystal Palace,sr:competitor:7,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301255,2026-05-17T14:00:00+00:00,37,Chelsea FC,sr:competitor:38,Tottenham Hotspur,sr:competitor:33,postponed,postponed,,
@@ -5187,11 +5187,11 @@ sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075778,2026-05-07T00:30:00+00:00,4,Independiente Santa Fe,sr:competitor:6116,SC Corinthians SP,sr:competitor:1957,closed,ended,1,1
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075676,2026-05-07T02:00:00+00:00,4,CD Tolima,sr:competitor:6111,Club Nacional de Football,sr:competitor:3230,closed,ended,3,0
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075746,2026-05-07T02:00:00+00:00,4,CD Universidad Catolica,sr:competitor:3151,Cruzeiro EC MG,sr:competitor:1954,closed,ended,0,0
-sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075780,2026-05-07T22:00:00+00:00,4,CA Platense,sr:competitor:36837,CA Penarol Montevideo,sr:competitor:3227,live,2nd_half,1,1
-sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70076018,2026-05-07T22:00:00+00:00,4,Mirassol FC SP,sr:competitor:21982,LDU Quito,sr:competitor:5257,live,2nd_half,1,0
-sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075674,2026-05-08T00:00:00+00:00,4,Coquimbo Unido,sr:competitor:3165,Universitario de Deportes,sr:competitor:2305,not_started,not_started,,
-sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075652,2026-05-08T00:30:00+00:00,4,Independiente Medellin,sr:competitor:6115,CR Flamengo RJ,sr:competitor:5981,not_started,not_started,,
-sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075868,2026-05-08T02:00:00+00:00,4,CD Junior FC,sr:competitor:6105,Cerro Porteno,sr:competitor:5991,not_started,not_started,,
+sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075780,2026-05-07T22:00:00+00:00,4,CA Platense,sr:competitor:36837,CA Penarol Montevideo,sr:competitor:3227,closed,ended,1,1
+sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70076018,2026-05-07T22:00:00+00:00,4,Mirassol FC SP,sr:competitor:21982,LDU Quito,sr:competitor:5257,closed,ended,2,0
+sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075674,2026-05-08T00:00:00+00:00,4,Coquimbo Unido,sr:competitor:3165,Universitario de Deportes,sr:competitor:2305,closed,ended,2,1
+sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075652,2026-05-08T00:30:00+00:00,4,Independiente Medellin,sr:competitor:6115,CR Flamengo RJ,sr:competitor:5981,postponed,postponed,,
+sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075868,2026-05-08T02:00:00+00:00,4,CD Junior FC,sr:competitor:6105,Cerro Porteno,sr:competitor:5991,closed,ended,0,1
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075680,2026-05-19T22:00:00+00:00,5,Coquimbo Unido,sr:competitor:3165,CD Tolima,sr:competitor:6111,not_started,not_started,,
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70075712,2026-05-19T22:00:00+00:00,5,Fluminense FC RJ,sr:competitor:1961,Club Bolivar,sr:competitor:7059,not_started,not_started,,
 sr:competition:384,sr:season:137972,CONMEBOL Libertadores 2026,sr:sport_event:70076108,2026-05-19T22:00:00+00:00,5,CA Rosario Central,sr:competitor:3217,UCV FC,sr:competitor:324069,not_started,not_started,,
@@ -5300,10 +5300,10 @@ sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70
 sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075268,2026-05-07T00:00:00+00:00,4,CA Barracas Central,sr:competitor:65668,Club Olimpia,sr:competitor:5997,closed,ended,1,2
 sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075220,2026-05-07T00:30:00+00:00,4,Botafogo FR RJ,sr:competitor:1958,Racing Club Avellaneda,sr:competitor:3215,closed,ended,2,1
 sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075100,2026-05-07T02:00:00+00:00,4,Alianza Atletico,sr:competitor:2307,America de Cali,sr:competitor:6102,closed,ended,0,2
-sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075168,2026-05-07T22:00:00+00:00,4,CA Boston River,sr:competitor:174970,Millonarios FC,sr:competitor:6117,live,2nd_half,1,1
-sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075170,2026-05-07T22:00:00+00:00,4,CD O´Higgins,sr:competitor:3163,Sao Paulo FC SP,sr:competitor:1981,live,2nd_half,0,0
-sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075290,2026-05-08T00:30:00+00:00,4,Blooming Santa Cruz,sr:competitor:6968,Red Bull Bragantino SP,sr:competitor:1999,not_started,not_started,,
-sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075292,2026-05-08T00:30:00+00:00,4,Carabobo FC,sr:competitor:6229,CA River Plate (ARG),sr:competitor:3211,not_started,not_started,,
+sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075168,2026-05-07T22:00:00+00:00,4,CA Boston River,sr:competitor:174970,Millonarios FC,sr:competitor:6117,closed,ended,2,4
+sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075170,2026-05-07T22:00:00+00:00,4,CD O´Higgins,sr:competitor:3163,Sao Paulo FC SP,sr:competitor:1981,closed,ended,0,0
+sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075290,2026-05-08T00:30:00+00:00,4,Blooming Santa Cruz,sr:competitor:6968,Red Bull Bragantino SP,sr:competitor:1999,closed,ended,0,6
+sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075292,2026-05-08T00:30:00+00:00,4,Carabobo FC,sr:competitor:6229,CA River Plate (ARG),sr:competitor:3211,closed,ended,1,2
 sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075248,2026-05-19T22:00:00+00:00,5,Montevideo City Torque,sr:competitor:174972,Deportivo Riestra AFBC,sr:competitor:191648,not_started,not_started,,
 sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075272,2026-05-19T22:00:00+00:00,5,Audax Italiano,sr:competitor:3162,CA Barracas Central,sr:competitor:65668,not_started,not_started,,
 sr:competition:480,sr:season:138028,CONMEBOL Sudamericana 2026,sr:sport_event:70075172,2026-05-20T00:30:00+00:00,5,Sao Paulo FC SP,sr:competitor:1981,Millonarios FC,sr:competitor:6117,not_started,not_started,,
