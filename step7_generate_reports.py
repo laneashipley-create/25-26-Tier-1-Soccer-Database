@@ -1168,6 +1168,7 @@ def _derived_build_table(
     *,
     slicer_comp_key: str | None = None,
     slicer_date_key: str | None = None,
+    tr_extra_data_attrs: list[tuple[str, str]] | None = None,
 ) -> str:
     safe_id = html.escape(table_id, quote=True)
     th_row = "".join(
@@ -1188,6 +1189,12 @@ def _derived_build_table(
         if slicer_date_key is not None:
             da = html.escape(ymd_from_start_time(r.get(slicer_date_key)), quote=True)
             attrs.append(f'data-match-date="{da}"')
+        if tr_extra_data_attrs:
+            for attr_name, row_key in tr_extra_data_attrs:
+                raw_v = r.get(row_key)
+                av = html.escape(str(raw_v if raw_v is not None else ""), quote=True)
+                an = html.escape(attr_name, quote=True)
+                attrs.append(f'{an}="{av}"')
         tr_open = "<tr " + " ".join(attrs) + ">"
         tds = []
         for k in keys:
@@ -1339,6 +1346,18 @@ def _enrich_water_break_half_break_durations(rows: list[dict]) -> None:
             r4 = by_seq[4]
             if str(r4.get("water_break_event_type") or "").strip() == "water_break_end":
                 r4["wb_h2_break_delta"] = _format_water_break_delta(h2_sec)
+
+
+def _enrich_water_break_match_event_counts(rows: list[dict]) -> None:
+    """Count water-break rows per sport_event_id for slicer (data-wb-match-events)."""
+    counts: dict[str, int] = defaultdict(int)
+    for r in rows:
+        sid = str(r.get("sport_event_id") or "").strip()
+        if sid:
+            counts[sid] += 1
+    for r in rows:
+        sid = str(r.get("sport_event_id") or "").strip()
+        r["wb_match_event_count"] = counts[sid] if sid else 0
 
 
 def _derived_page_shell(
@@ -1725,6 +1744,7 @@ def write_derived_reports() -> None:
     for i, row in enumerate(we, 1):
         row["row_num"] = i
     _enrich_water_break_half_break_durations(we)
+    _enrich_water_break_match_event_counts(we)
     we_headers = [
         "#",
         "ID",
@@ -1785,6 +1805,7 @@ def write_derived_reports() -> None:
         "table-water-break-events",
         slicer_comp_key="competition_name",
         slicer_date_key="sport_event_start",
+        tr_extra_data_attrs=[("data-wb-match-events", "wb_match_event_count")],
     )
     we_doc = _derived_page_shell(
         title=f"Water-break events — {SEASON_LABEL}",
@@ -1798,6 +1819,8 @@ def write_derived_reports() -> None:
         "<strong>1st break</strong> (seq 2 only) and <strong>2nd break</strong> (seq 4 only) show duration from "
         "<code>match_clock</code> (and added-time fields when needed) between 1→2 and 3→4 on "
         "<code>water_break_end</code> rows. "
+        "<strong>Events per match</strong> filters rows by how many water-break timeline events exist for that "
+        "<code>sr:sport_event</code> (4 = complete seq 1–4). "
         "Use this report alongside <a href=\"report_water_break_unpaired.html\">water-break unpaired</a> "
         "to review count mismatches.",
         table_html=we_html,

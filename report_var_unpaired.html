@@ -273,6 +273,7 @@
     @media (max-width: 720px) {
       .wb-date-kpi-row { grid-template-columns: 1fr; }
     }
+    .wb-events-filter-presets { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
 
     
     .report-sticky-top {
@@ -505,7 +506,7 @@
     </div>
   </div>
   <div class="footer">
-    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-08 04:28 UTC</p>
+    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-08 05:02 UTC</p>
   </div>
 <script>
 (function () {
@@ -724,6 +725,7 @@
   var topEnabled = allNames.length > 0 && dataDateMin && dataDateMax;
   var MIGRATION_CUTOFF = "2026-04-27";
   var MIGRATION_PRE_END = "2026-04-26";
+  var wbEventsPerMatchFilter = "all";
 
   function getSelectedComps() {
     var boxes = document.querySelectorAll('input[name="drv-comp"]');
@@ -870,6 +872,19 @@
     });
   }
 
+  function wireWaterBreakEventsPerMatchSlicer() {
+    var btns = document.querySelectorAll("[data-wb-events-filter]");
+    if (!btns.length) return;
+    btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll("[data-wb-events-filter]").forEach(function (b) { b.classList.remove("is-active"); });
+        wbEventsPerMatchFilter = btn.getAttribute("data-wb-events-filter") || "all";
+        btn.classList.add("is-active");
+        applyAllDerivedFilters();
+      });
+    });
+  }
+
   document.querySelectorAll("table.sortable-derived").forEach(function (table) {
     var tbody = table.querySelector("tbody");
     if (!tbody) return;
@@ -902,10 +917,21 @@
 
     function rowPassesTopFilters(tr) {
       if (tr.querySelector("td[colspan]")) return true;
-      if (!topEnabled) return true;
-      var selected = getSelectedComps();
-      var dr = getDateRange();
-      return compMatchesTr(tr, selected) && dateMatchesTr(tr, dr);
+      if (topEnabled) {
+        var selected = getSelectedComps();
+        var dr = getDateRange();
+        if (!compMatchesTr(tr, selected) || !dateMatchesTr(tr, dr)) return false;
+      }
+      if (table.id === "table-water-break-events" && wbEventsPerMatchFilter !== "all") {
+        var n = parseInt(tr.getAttribute("data-wb-match-events") || "0", 10);
+        if (wbEventsPerMatchFilter === "other") {
+          if (n >= 1 && n <= 4) return false;
+        } else {
+          var want = parseInt(wbEventsPerMatchFilter, 10);
+          if (n !== want) return false;
+        }
+      }
+      return true;
     }
 
     table._derivedApplyFilters = function () {
@@ -1080,6 +1106,7 @@
   });
 
   wireTopSlicers();
+  wireWaterBreakEventsPerMatchSlicer();
   applyAllDerivedFilters();
 })();
 </script>

@@ -103,6 +103,7 @@ REPORT_TILE_FILTER_CSS = """
     @media (max-width: 720px) {
       .wb-date-kpi-row { grid-template-columns: 1fr; }
     }
+    .wb-events-filter-presets { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
 """
 
 
@@ -235,7 +236,21 @@ def build_derived_controls_html_water_break_events(
 {date_tile}
 {kpi_html}
     </div>"""
-    inner = "\n".join(x for x in (comp, row2) if x)
+    wb_events_tile = """    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left" role="region" aria-label="Filter by water-break events per match">
+      <div class="slicer-head">
+        <span class="slicer-title">Events per match</span>
+      </div>
+      <p style="margin:0 0 0.45rem 0;font-size:0.75rem;color:#666;line-height:1.4;"><strong>Complete</strong> = four rows (seq 1–4: 1st start/end, 2nd start/end). <strong>2</strong> often means 1st half only; <strong>3</strong> often means a missing pair (e.g. two starts + one end).</p>
+      <div class="wb-events-filter-presets">
+        <button type="button" class="date-preset-btn is-active" data-wb-events-filter="all">All</button>
+        <button type="button" class="date-preset-btn" data-wb-events-filter="1">1 event</button>
+        <button type="button" class="date-preset-btn" data-wb-events-filter="2">2 events</button>
+        <button type="button" class="date-preset-btn" data-wb-events-filter="3">3 events</button>
+        <button type="button" class="date-preset-btn" data-wb-events-filter="4">4 (complete)</button>
+        <button type="button" class="date-preset-btn" data-wb-events-filter="other">Other (5+)</button>
+      </div>
+    </div>"""
+    inner = "\n".join(x for x in (comp, wb_events_tile, row2) if x)
     if not inner:
         return ""
     return f"""  <div class="stats-section">
@@ -285,6 +300,7 @@ DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER = r"""<script>
   var topEnabled = allNames.length > 0 && dataDateMin && dataDateMax;
   var MIGRATION_CUTOFF = "2026-04-27";
   var MIGRATION_PRE_END = "2026-04-26";
+  var wbEventsPerMatchFilter = "all";
 
   function getSelectedComps() {
     var boxes = document.querySelectorAll('input[name="drv-comp"]');
@@ -431,6 +447,19 @@ DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER = r"""<script>
     });
   }
 
+  function wireWaterBreakEventsPerMatchSlicer() {
+    var btns = document.querySelectorAll("[data-wb-events-filter]");
+    if (!btns.length) return;
+    btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll("[data-wb-events-filter]").forEach(function (b) { b.classList.remove("is-active"); });
+        wbEventsPerMatchFilter = btn.getAttribute("data-wb-events-filter") || "all";
+        btn.classList.add("is-active");
+        applyAllDerivedFilters();
+      });
+    });
+  }
+
   document.querySelectorAll("table.sortable-derived").forEach(function (table) {
     var tbody = table.querySelector("tbody");
     if (!tbody) return;
@@ -463,10 +492,21 @@ DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER = r"""<script>
 
     function rowPassesTopFilters(tr) {
       if (tr.querySelector("td[colspan]")) return true;
-      if (!topEnabled) return true;
-      var selected = getSelectedComps();
-      var dr = getDateRange();
-      return compMatchesTr(tr, selected) && dateMatchesTr(tr, dr);
+      if (topEnabled) {
+        var selected = getSelectedComps();
+        var dr = getDateRange();
+        if (!compMatchesTr(tr, selected) || !dateMatchesTr(tr, dr)) return false;
+      }
+      if (table.id === "table-water-break-events" && wbEventsPerMatchFilter !== "all") {
+        var n = parseInt(tr.getAttribute("data-wb-match-events") || "0", 10);
+        if (wbEventsPerMatchFilter === "other") {
+          if (n >= 1 && n <= 4) return false;
+        } else {
+          var want = parseInt(wbEventsPerMatchFilter, 10);
+          if (n !== want) return false;
+        }
+      }
+      return true;
     }
 
     table._derivedApplyFilters = function () {
@@ -641,6 +681,7 @@ DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER = r"""<script>
   });
 
   wireTopSlicers();
+  wireWaterBreakEventsPerMatchSlicer();
   applyAllDerivedFilters();
 })();
 </script>"""
