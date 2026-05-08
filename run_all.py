@@ -7,7 +7,7 @@ Steps
   3 — Fetch regular timelines for completed matches (step3_fetch_regular_timelines.py)
   4 — Fetch extended timelines for completed matches (step4_fetch_extended_timelines.py)
   5 — Extract own goals from completed regular timelines (step5_extract_own_goals.py)
-  6 — Build derived tables: VAR + penalty shootouts (step6_extract_var_and_shootouts.py)
+  6 — Build derived tables: VAR + penalty shootouts + water breaks (step6_extract_var_and_shootouts.py)
   7 — Generate HTML reports (step7_generate_reports.py)
 
 Usage
@@ -119,7 +119,7 @@ def run_main(*, mode: str) -> None:
             return
         section("STEP 5 — Extracting own goals")
         step5_extract_own_goals.main()
-        section("STEP 6 — Extracting VAR + penalty shootout tables")
+        section("STEP 6 — Extracting VAR + penalty shootout + water-break tables")
         step6_extract_var_and_shootouts.main()
         section("STEP 7 — Generating HTML reports")
         step7_generate_reports.main()
@@ -163,7 +163,7 @@ def run_main(*, mode: str) -> None:
     section("STEP 5 — Extracting own goals")
     step5_extract_own_goals.main()
 
-    section("STEP 6 — Extracting VAR + penalty shootout tables")
+    section("STEP 6 — Extracting VAR + penalty shootout + water-break tables")
     step6_extract_var_and_shootouts.main()
 
     section("STEP 7 — Generating HTML reports")

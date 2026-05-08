@@ -285,6 +285,13 @@ REPORT_BLURB_VAR_UNPAIRED = (
     "Report identifies matches that have un-paired VAR events, meaning there was a "
     '"video_assistant_referee" event but no corresponding "video_assistant_referee_over" event.'
 )
+REPORT_BLURB_WATER_BREAK_UNPAIRED = (
+    "Report identifies matches that have un-paired water break events in completed sport event timelines, "
+    'meaning "water_break_start" and "water_break_end" counts do not match.'
+)
+REPORT_BLURB_WATER_BREAK_EVENTS = (
+    "Review all water break timeline events from completed matches, including type and timing details."
+)
 REPORT_BLURB_PENALTY_SHOOTOUTS = (
     "Report identifies all completed matches that ended in a penalty shootout (match_status=ap). "
     "Also calculates total number of penalty shots and if that # is greater than 10, marks the "
@@ -305,6 +312,8 @@ REPORT_HTML_LEGACY_REDIRECT = "report.html"
 REPORT_HTML_PENALTY_SHOOTOUTS = "report_penalty_shootouts.html"
 REPORT_HTML_VAR_EVENTS = "report_var_events.html"
 REPORT_HTML_VAR_UNPAIRED = "report_var_unpaired.html"
+REPORT_HTML_WATER_BREAK_EVENTS = "report_water_break_events.html"
+REPORT_HTML_WATER_BREAK_UNPAIRED = "report_water_break_unpaired.html"
 REPORT_HTML_RECORDINGS_LIBRARY = "report_recordings_library.html"
 REPORT_HTML_MASTER_GAMES = "report_master_games.html"
 

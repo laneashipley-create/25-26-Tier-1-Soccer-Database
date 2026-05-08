@@ -1,9 +1,10 @@
 """
-STEP 5 — Derive penalty shootout + VAR tables from stored timeline JSON.
+STEP 6 — Derive penalty shootout + VAR + water-break tables from stored timeline JSON.
 
 Writes (replace mode):
   - public.penalty_shootout_matches
   - public.var_timeline_events
+  - public.water_break_timeline_events
 
 Requires USE_SUPABASE=True and populated public."Completed Matches - full sport_event_timelines".
 """
@@ -14,6 +15,8 @@ from config import USE_SUPABASE
 
 
 VAR_TYPES = {"video_assistant_referee", "video_assistant_referee_over"}
+WATER_BREAK_START = "water_break_start"
+WATER_BREAK_END = "water_break_end"
 
 
 def _safe_int(value):
@@ -103,6 +106,36 @@ def _extract_var_rows(row: dict) -> list[dict]:
     return out
 
 
+def _extract_water_break_rows(row: dict) -> list[dict]:
+    timeline_json = row.get("timeline_json") or {}
+    timeline = timeline_json.get("timeline") or []
+    out = []
+    for ev in timeline:
+        event_type = ev.get("type")
+        if event_type not in (WATER_BREAK_START, WATER_BREAK_END):
+            continue
+        out.append(
+            {
+                "game_id": row.get("id"),
+                "sport_event_id": row.get("sport_event_id"),
+                "match_date": str(row.get("start_time") or "")[:10] or None,
+                "home_team": row.get("home_team"),
+                "away_team": row.get("away_team"),
+                "status": row.get("status"),
+                "recorded": row.get("recorded"),
+                "sportradar_competition_id": row.get("competition_id"),
+                "competition_name": row.get("competition_name"),
+                "timeline_event_id": _safe_int(ev.get("id")),
+                "water_break_event_type": event_type,
+                "match_minute": _safe_int(ev.get("match_time")),
+                "stoppage_minute": _safe_int(ev.get("stoppage_time")),
+                "match_clock": ev.get("match_clock"),
+                "period_type": ev.get("period_type"),
+            }
+        )
+    return out
+
+
 def main():
     if not USE_SUPABASE:
         print("USE_SUPABASE is False. Skipping step5_extract_var_and_shootouts.")
@@ -111,22 +144,26 @@ def main():
     import db
 
     rows = db.get_completed_matches_with_timelines_for_configured_seasons()
-    print(f"Scanning {len(rows)} completed timelines from Supabase...")
+    print(f"Scanning {len(rows)} completed regular timelines from Supabase...")
 
     penalty_rows = []
     var_rows = []
+    water_break_rows = []
     for row in rows:
         penalty_row = _extract_penalty_shootout_row(row)
         if penalty_row:
             penalty_rows.append(penalty_row)
         var_rows.extend(_extract_var_rows(row))
+        water_break_rows.extend(_extract_water_break_rows(row))
 
     db.upsert_penalty_shootout_matches(penalty_rows, replace=True)
     db.upsert_var_timeline_events(var_rows, replace=True)
+    db.upsert_water_break_timeline_events(water_break_rows, replace=True)
 
     print("Done.")
     print(f"  Penalty shootout matches: {len(penalty_rows)}")
     print(f"  VAR timeline events     : {len(var_rows)}")
+    print(f"  Water-break events      : {len(water_break_rows)}")
 
 
 if __name__ == "__main__":

@@ -673,6 +673,62 @@ def get_completed_matches_with_timelines_for_configured_seasons() -> list[dict]:
     return out
 
 
+def get_completed_matches_with_extended_timelines_for_configured_seasons() -> list[dict]:
+    """Return completed games rows with extended timelines across all configured seasons."""
+    season_ids = get_or_create_seasons()
+    meta_by_uuid = {}
+    for c in COMPETITIONS:
+        season_uuid = season_ids.get(c["season_id"])
+        if season_uuid:
+            meta_by_uuid[season_uuid] = {
+                "competition_id": c["competition_id"],
+                "competition_name": c.get("competition_name", ""),
+                "season_id": c["season_id"],
+                "season_name": c["season_name"],
+            }
+
+    supabase = get_client()
+    out: list[dict] = []
+    chunk = 80
+    for season_uuid in season_ids.values():
+        completed = get_completed_games_for_season(season_uuid)
+        if not completed:
+            continue
+        game_ids = [str(row["id"]) for row in completed if row.get("id")]
+        if not game_ids:
+            continue
+
+        tl_by_game: dict[str, dict] = {}
+        for i in range(0, len(game_ids), chunk):
+            part = game_ids[i : i + chunk]
+            r = _supabase_execute_with_retry(
+                lambda ids=part: supabase.table(T_TIMELINES_EXTENDED)
+                .select("game_id,timeline_json")
+                .in_("game_id", ids)
+                .execute()
+            )
+            for rec in r.data or []:
+                gid = rec.get("game_id")
+                tj = rec.get("timeline_json")
+                if gid and tj:
+                    tl_by_game[str(gid)] = tj
+
+        meta = meta_by_uuid.get(season_uuid, {})
+        for row in completed:
+            tl = tl_by_game.get(str(row.get("id")))
+            if not tl:
+                continue
+            row_copy = dict(row)
+            row_copy["timeline_json"] = tl
+            if meta:
+                row_copy["competition_id"] = meta["competition_id"]
+                row_copy["competition_name"] = meta["competition_name"]
+                row_copy["season_id"] = meta["season_id"]
+                row_copy["season_name"] = meta["season_name"]
+            out.append(row_copy)
+    return out
+
+
 def get_all_own_goals() -> list[dict]:
     """Return all own_goals rows for the report. Keys match CSV/legacy format."""
     supabase = get_client()
@@ -1182,6 +1238,56 @@ def upsert_var_timeline_events(rows: list[dict], replace: bool = True) -> None:
         _supabase_execute_with_retry(_run)
 
 
+def clear_water_break_timeline_events() -> None:
+    """Delete all water_break_timeline_events rows."""
+    _clear_table_in_chunks("water_break_timeline_events", "id")
+
+
+def upsert_water_break_timeline_events(rows: list[dict], replace: bool = True) -> None:
+    """Insert water-break timeline event rows derived from timeline_json."""
+    if replace:
+        clear_water_break_timeline_events()
+    if not rows:
+        return
+    payloads = [
+        {
+            "game_id": row.get("game_id"),
+            "sport_event_id": row.get("sport_event_id", ""),
+            "match_date": row.get("match_date"),
+            "home_team": row.get("home_team"),
+            "away_team": row.get("away_team"),
+            "status": row.get("status"),
+            "recorded": row.get("recorded"),
+            "sportradar_competition_id": row.get("sportradar_competition_id"),
+            "competition_name": row.get("competition_name"),
+            "timeline_event_id": _int_or_none(row.get("timeline_event_id")),
+            "water_break_event_type": row.get("water_break_event_type", ""),
+            "match_minute": _int_or_none(row.get("match_minute")),
+            "stoppage_minute": _int_or_none(row.get("stoppage_minute")),
+            "match_clock": row.get("match_clock"),
+            "period_type": row.get("period_type"),
+        }
+        for row in rows
+    ]
+    batch = 250
+    for i in range(0, len(payloads), batch):
+        chunk = payloads[i : i + batch]
+
+        def _run():
+            cli = get_client()
+            return (
+                cli.table("water_break_timeline_events")
+                .upsert(
+                    chunk,
+                    on_conflict="game_id,timeline_event_id,water_break_event_type",
+                    ignore_duplicates=False,
+                )
+                .execute()
+            )
+
+        _supabase_execute_with_retry(_run)
+
+
 def _fetch_all_ordered(table: str, orders: list[tuple[str, bool]]) -> list[dict]:
     """Paginated select(*) for reporting; orders is (column, desc) pairs applied in order."""
     supabase = get_client()
@@ -1276,6 +1382,61 @@ def fetch_var_timeline_event_rows() -> list[dict]:
     rows = _fetch_all_ordered(
         "var_timeline_events",
         [("match_date", True), ("id", False)],
+    )
+    if not rows:
+        return []
+
+    supabase = get_client()
+    game_ids = list({r.get("game_id") for r in rows if r.get("game_id")})
+    games_by_id: dict[str, dict] = {}
+    chunk_size = 200
+    for i in range(0, len(game_ids), chunk_size):
+        chunk = game_ids[i : i + chunk_size]
+
+        def _run(ids=chunk):
+            return (
+                supabase.table(T_GAMES)
+                .select("id,start_time")
+                .in_("id", ids)
+                .execute()
+            )
+
+        gr = _supabase_execute_with_retry(_run)
+        for g in gr.data or []:
+            gid = g.get("id")
+            if gid:
+                games_by_id[str(gid)] = g
+
+    for r in rows:
+        r["recording_id"] = _recording_id_for_event(r.get("sport_event_id"), r.get("recorded"))
+        ht = r.get("home_team")
+        at = r.get("away_team")
+        r["title"] = _master_games_match_title(
+            str(ht) if ht is not None else "",
+            str(at) if at is not None else "",
+        )
+        gid = r.get("game_id")
+        g = games_by_id.get(str(gid)) if gid else None
+        if g:
+            r["sport_event_start"] = _sport_event_start_iso_utc(g.get("start_time"))
+        else:
+            r["sport_event_start"] = ""
+        if not r.get("sport_event_start"):
+            md = str(r.get("match_date") or "")[:10]
+            if len(md) == 10:
+                r["sport_event_start"] = f"{md}T00:00:00+00:00"
+    return rows
+
+
+def fetch_water_break_timeline_event_rows() -> list[dict]:
+    """
+    All rows from public.water_break_timeline_events_ordered.
+
+    Adds recording_id, title (from home/away), and sport_event_start (kickoff UTC from All Games).
+    """
+    rows = _fetch_all_ordered(
+        "water_break_timeline_events_ordered",
+        [("sport_event_id", False), ("water_break_seq", False), ("timeline_event_id", False)],
     )
     if not rows:
         return []
@@ -1448,6 +1609,67 @@ def fetch_var_unpaired_match_rows() -> list[dict]:
             if len(md) == 10:
                 r["sport_event_start"] = f"{md}T00:00:00+00:00"
     return rows
+
+
+def _count_event_type_in_timeline_json(payload: object, event_type: str) -> int:
+    """
+    Count timeline events matching ``event_type`` from a stored timeline JSON payload.
+
+    Handles common Sportradar response shapes:
+      - {"timeline": [...]}
+      - {"sport_event": {"timeline": [...]}}
+      - nested list/dict structures containing event objects with "type"
+    """
+    if not payload:
+        return 0
+    count = 0
+    stack: list[object] = [payload]
+    while stack:
+        cur = stack.pop()
+        if isinstance(cur, dict):
+            t = cur.get("type")
+            if isinstance(t, str) and t == event_type:
+                count += 1
+            for v in cur.values():
+                if isinstance(v, (dict, list)):
+                    stack.append(v)
+        elif isinstance(cur, list):
+            for item in cur:
+                if isinstance(item, (dict, list)):
+                    stack.append(item)
+    return count
+
+
+def fetch_water_break_unpaired_match_rows() -> list[dict]:
+    """Rows from public.water_break_unpaired_event_matches enriched for report display."""
+    rows = _fetch_all_ordered(
+        "water_break_unpaired_event_matches",
+        [("sport_timeline_delta", True), ("sport_event_id", False)],
+    )
+    if not rows:
+        return []
+    out: list[dict] = []
+    for r in rows:
+        sid = str(r.get("sport_event_id") or "")
+        recorded = r.get("recorded")
+        home = str(r.get("home_team") or "")
+        away = str(r.get("away_team") or "")
+        start = str(r.get("match_date") or "")
+        start_iso = f"{start}T00:00:00+00:00" if len(start) == 10 else ""
+        row = dict(r)
+        row["sport_event_start"] = start_iso
+        row["recording_id"] = _recording_id_for_event(sid, recorded)
+        row["title"] = _master_games_match_title(home, away)
+        out.append(row)
+    out.sort(
+        key=lambda r: (
+            abs(int(r.get("sport_timeline_delta") or 0)),
+            str(r.get("sport_event_start") or ""),
+            str(r.get("sport_event_id") or ""),
+        ),
+        reverse=True,
+    )
+    return out
 
 
 def _int_or_none(v):

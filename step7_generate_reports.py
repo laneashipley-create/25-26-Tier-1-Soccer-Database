@@ -5,7 +5,7 @@ Writes derived static pages:
 
 - report_own_goals.html — own goals (CSV or Supabase)
 - report_penalty_shootouts.html, report_var_events.html, report_var_unpaired.html,
-  report_recordings_library.html — from Supabase when USE_SUPABASE is set;
+  report_water_break_unpaired.html, report_recordings_library.html — from Supabase when USE_SUPABASE is set;
   otherwise stub HTML for those four files. When
   `soccer record replay list of sr sport event ids.json` is present, the recordings
   page is then overlaid by `gen_report_recordings_library_html.py` (one column per
@@ -20,6 +20,7 @@ import html
 import json
 import os
 import re
+from collections import defaultdict
 from datetime import datetime, timezone
 
 from config import (
@@ -31,11 +32,15 @@ from config import (
     REPORT_BLURB_RECORDINGS_LIBRARY,
     REPORT_BLURB_VAR_EVENTS,
     REPORT_BLURB_VAR_UNPAIRED,
+    REPORT_BLURB_WATER_BREAK_EVENTS,
+    REPORT_BLURB_WATER_BREAK_UNPAIRED,
     REPORT_HTML,
     REPORT_HTML_LEGACY_REDIRECT,
     REPORT_HTML_PENALTY_SHOOTOUTS,
     REPORT_HTML_VAR_EVENTS,
     REPORT_HTML_VAR_UNPAIRED,
+    REPORT_HTML_WATER_BREAK_EVENTS,
+    REPORT_HTML_WATER_BREAK_UNPAIRED,
     REPORT_HTML_RECORDINGS_LIBRARY,
     SEASON_NAME,
     SEASON_LABEL,
@@ -48,6 +53,7 @@ from report_filter_slicers import (
     REPORT_TILE_FILTER_CSS,
     build_date_migration_tile,
     build_derived_controls_html,
+    build_derived_controls_html_water_break_events,
     build_numbered_competition_slicer,
     filter_payload_script_tag,
     slicer_meta_from_rows,
@@ -1228,6 +1234,113 @@ def _derived_filter_bundle(rows: list[dict], *, comp_key: str, date_key: str) ->
     return filter_payload_script_tag(payload), build_derived_controls_html(names, dmin, dmax)
 
 
+def _water_break_event_kpis(rows: list[dict]) -> tuple[int, int, int]:
+    ids: set[str] = set()
+    n_start = n_end = 0
+    for r in rows:
+        sid = str(r.get("sport_event_id") or "").strip()
+        if sid:
+            ids.add(sid)
+        t = str(r.get("water_break_event_type") or "").strip()
+        if t == "water_break_start":
+            n_start += 1
+        elif t == "water_break_end":
+            n_end += 1
+    return len(ids), n_start, n_end
+
+
+def _water_break_event_elapsed_seconds(r: dict) -> int | None:
+    """Approximate elapsed match seconds from timeline fields (for start→end deltas)."""
+    clock = str(r.get("match_clock") or "").strip()
+    if clock in ("", "—"):
+        clock = ""
+    mm_raw = r.get("match_minute")
+    st_raw = r.get("stoppage_minute")
+    st_i = 0
+    if st_raw is not None:
+        s = str(st_raw).strip()
+        if s and s != "—":
+            try:
+                st_i = int(s)
+            except ValueError:
+                st_i = 0
+
+    m = re.match(r"^(\d+):(\d{2})$", clock)
+    if m:
+        cm = int(m.group(1))
+        cs = int(m.group(2))
+        sec = cm * 60 + cs
+        if st_i > 0 and mm_raw is not None:
+            try:
+                mmi = int(mm_raw)
+            except (TypeError, ValueError):
+                return sec
+            if (cm == 90 and cs == 0) or (cm == 45 and cs == 0):
+                return mmi * 60 + st_i
+        return sec
+
+    if mm_raw is not None:
+        try:
+            return int(mm_raw) * 60 + st_i
+        except (TypeError, ValueError):
+            pass
+    return None
+
+
+def _format_water_break_delta(seconds: int) -> str:
+    m, s = divmod(seconds, 60)
+    if m and s:
+        return f"{m}m {s}s"
+    if m:
+        return f"{m}m"
+    return f"{s}s"
+
+
+def _enrich_water_break_half_break_durations(rows: list[dict]) -> None:
+    """Set break durations only on water_break_end rows: seq 2 (1→2) and seq 4 (3→4)."""
+    by_id: dict[str, list[dict]] = defaultdict(list)
+    for r in rows:
+        sid = str(r.get("sport_event_id") or "").strip()
+        if sid:
+            by_id[sid].append(r)
+
+    for rlist in by_id.values():
+        by_seq: dict[int, dict] = {}
+        for r in rlist:
+            seq = r.get("water_break_seq")
+            try:
+                by_seq[int(seq)] = r
+            except (TypeError, ValueError):
+                continue
+
+        for r in rlist:
+            r["wb_h1_break_delta"] = ""
+            r["wb_h2_break_delta"] = ""
+
+        h1_sec: int | None = None
+        if 1 in by_seq and 2 in by_seq:
+            a = _water_break_event_elapsed_seconds(by_seq[1])
+            b = _water_break_event_elapsed_seconds(by_seq[2])
+            if a is not None and b is not None and b >= a:
+                h1_sec = b - a
+
+        h2_sec: int | None = None
+        if 3 in by_seq and 4 in by_seq:
+            a = _water_break_event_elapsed_seconds(by_seq[3])
+            b = _water_break_event_elapsed_seconds(by_seq[4])
+            if a is not None and b is not None and b >= a:
+                h2_sec = b - a
+
+        if h1_sec is not None and 2 in by_seq:
+            r2 = by_seq[2]
+            if str(r2.get("water_break_event_type") or "").strip() == "water_break_end":
+                r2["wb_h1_break_delta"] = _format_water_break_delta(h1_sec)
+        if h2_sec is not None and 4 in by_seq:
+            r4 = by_seq[4]
+            if str(r4.get("water_break_event_type") or "").strip() == "water_break_end":
+                r4["wb_h2_break_delta"] = _format_water_break_delta(h2_sec)
+
+
 def _derived_page_shell(
     *,
     title: str,
@@ -1406,13 +1519,15 @@ def _prepare_recordings_library_rows(rows: list[dict]) -> list[dict]:
 
 
 def write_derived_reports() -> None:
-    """Penalty shootouts, VAR events, VAR unpaired, recordings library — Supabase or stubs."""
+    """Penalty shootouts, VAR events, water-break events, unpaired views, recordings library — Supabase or stubs."""
     if not USE_SUPABASE:
         print("USE_SUPABASE is False — writing stub HTML for derived reports.")
         stubs = [
             (REPORT_HTML_PENALTY_SHOOTOUTS, "Penalty shootouts", "report_penalty_shootouts.html"),
             (REPORT_HTML_VAR_EVENTS, "VAR events", "report_var_events.html"),
             (REPORT_HTML_VAR_UNPAIRED, "VAR unpaired", "report_var_unpaired.html"),
+            (REPORT_HTML_WATER_BREAK_EVENTS, "Water-break events", "report_water_break_events.html"),
+            (REPORT_HTML_WATER_BREAK_UNPAIRED, "Water-break unpaired", "report_water_break_unpaired.html"),
             (REPORT_HTML_RECORDINGS_LIBRARY, "Recordings library", "report_recordings_library.html"),
         ]
         for path, title, nav in stubs:
@@ -1605,6 +1720,147 @@ def write_derived_reports() -> None:
     with open(REPORT_HTML_VAR_UNPAIRED, "w", encoding="utf-8") as f:
         f.write(vu_doc)
     print(f"  Wrote {REPORT_HTML_VAR_UNPAIRED} ({len(vu)} rows)")
+
+    we = db.fetch_water_break_timeline_event_rows()
+    for i, row in enumerate(we, 1):
+        row["row_num"] = i
+    _enrich_water_break_half_break_durations(we)
+    we_headers = [
+        "#",
+        "ID",
+        "WB Seq",
+        "Sequence",
+        "1st break",
+        "2nd break",
+        "Date",
+        "title",
+        "Competition Name",
+        "Competition",
+        "Home",
+        "Away",
+        "Type",
+        "Min",
+        "ST",
+        "Clock",
+        "Event ID",
+    ]
+    we_keys = [
+        "row_num",
+        "sport_event_id",
+        "water_break_seq",
+        "water_break_sequence_label",
+        "wb_h1_break_delta",
+        "wb_h2_break_delta",
+        "sport_event_start",
+        "title",
+        "competition_name",
+        "sportradar_competition_id",
+        "home_team",
+        "away_team",
+        "water_break_event_type",
+        "match_minute",
+        "stoppage_minute",
+        "match_clock",
+        "timeline_event_id",
+    ]
+    we_names, we_dmin, we_dmax = slicer_meta_from_rows(
+        we, comp_key="competition_name", date_key="sport_event_start"
+    )
+    we_km, we_ks, we_ke = _water_break_event_kpis(we)
+    we_payload_html = filter_payload_script_tag(
+        {"allSeasonNames": we_names, "dataDateMin": we_dmin, "dataDateMax": we_dmax}
+    )
+    we_controls_html = build_derived_controls_html_water_break_events(
+        we_names,
+        we_dmin,
+        we_dmax,
+        kpi_matches=we_km,
+        kpi_starts=we_ks,
+        kpi_ends=we_ke,
+    )
+    we_html = _derived_build_table(
+        we_headers,
+        we_keys,
+        we,
+        "table-water-break-events",
+        slicer_comp_key="competition_name",
+        slicer_date_key="sport_event_start",
+    )
+    we_doc = _derived_page_shell(
+        title=f"Water-break events — {SEASON_LABEL}",
+        badge="Sportradar Soccer",
+        headline="Water-break timeline events",
+        subtitle=REPORT_BLURB_WATER_BREAK_EVENTS,
+        meta=f"<strong>{len(we):,}</strong> rows from <code>water_break_start</code> and "
+        "<code>water_break_end</code> in completed <code>sport_event timeline</code> data. "
+        "Includes <strong>WB Seq</strong> and <strong>Sequence</strong> columns for per-match ordering "
+        "(1st half start, 1st half end, 2nd half start, 2nd half end). "
+        "<strong>1st break</strong> (seq 2 only) and <strong>2nd break</strong> (seq 4 only) show duration from "
+        "<code>match_clock</code> (and added-time fields when needed) between 1→2 and 3→4 on "
+        "<code>water_break_end</code> rows. "
+        "Use this report alongside <a href=\"report_water_break_unpaired.html\">water-break unpaired</a> "
+        "to review count mismatches.",
+        table_html=we_html,
+        nav_href="report_water_break_events.html",
+        filter_payload_html=we_payload_html,
+        filter_controls_html=we_controls_html,
+    )
+    with open(REPORT_HTML_WATER_BREAK_EVENTS, "w", encoding="utf-8") as f:
+        f.write(we_doc)
+    print(f"  Wrote {REPORT_HTML_WATER_BREAK_EVENTS} ({len(we)} rows)")
+
+    wb = db.fetch_water_break_unpaired_match_rows()
+    for i, row in enumerate(wb, 1):
+        row["row_num"] = i
+    wb_headers = [
+        "#",
+        "ID",
+        "Date",
+        "title",
+        "competition name",
+        "competition ID",
+        "sport event timeline - water_break_start",
+        "sport event timeline - water_break_end",
+        "delta (start - end)",
+    ]
+    wb_keys = [
+        "row_num",
+        "sport_event_id",
+        "sport_event_start",
+        "title",
+        "competition_name",
+        "sportradar_competition_id",
+        "sport_timeline_water_break_start",
+        "sport_timeline_water_break_end",
+        "sport_timeline_delta",
+    ]
+    wb_payload_html, wb_controls_html = _derived_filter_bundle(
+        wb, comp_key="competition_name", date_key="sport_event_start"
+    )
+    wb_html = _derived_build_table(
+        wb_headers,
+        wb_keys,
+        wb,
+        "table-water-break-unpaired",
+        slicer_comp_key="competition_name",
+        slicer_date_key="sport_event_start",
+    )
+    wb_doc = _derived_page_shell(
+        title=f"Water-break unpaired — {SEASON_LABEL}",
+        badge="Sportradar Soccer",
+        headline="Matches with unpaired water-break counts",
+        subtitle=REPORT_BLURB_WATER_BREAK_UNPAIRED,
+        meta="<strong>Review queue:</strong> matches where <code>water_break_start</code> and "
+        "<code>water_break_end</code> differ in completed <code>sport_event timeline</code> data. "
+        f"<strong>{len(wb):,}</strong> match(es) in this export.",
+        table_html=wb_html,
+        nav_href="report_water_break_unpaired.html",
+        filter_payload_html=wb_payload_html,
+        filter_controls_html=wb_controls_html,
+    )
+    with open(REPORT_HTML_WATER_BREAK_UNPAIRED, "w", encoding="utf-8") as f:
+        f.write(wb_doc)
+    print(f"  Wrote {REPORT_HTML_WATER_BREAK_UNPAIRED} ({len(wb)} rows)")
 
     rl = _prepare_recordings_library_rows(db.fetch_recordings_library_rows())
     rl_headers = [
@@ -2516,7 +2772,7 @@ def main():
     print(f"Report written to: {REPORT_HTML}")
     write_legacy_report_redirect()
     print(f"Legacy redirect written to: {REPORT_HTML_LEGACY_REDIRECT} -> {REPORT_HTML}")
-    print("Generating companion reports (penalty shootouts, VAR, VAR unpaired, recordings, list of all games)…")
+    print("Generating companion reports (penalty shootouts, VAR, VAR unpaired, water-break events, water-break unpaired, recordings, list of all games)…")
     write_derived_reports()
     import master_games_report
 

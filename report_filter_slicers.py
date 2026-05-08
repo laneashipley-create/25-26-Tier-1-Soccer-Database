@@ -84,6 +84,25 @@ REPORT_TILE_FILTER_CSS = """
       .stat-card--filter-tile .slicer-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       html { font-size: 13px; }
     }
+    .wb-date-kpi-row {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+      align-items: stretch;
+    }
+    .wb-kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.55rem;
+      align-items: stretch;
+    }
+    .wb-kpi-tile { padding: 0.6rem 0.45rem !important; display: flex; flex-direction: column; justify-content: center; gap: 0.2rem; }
+    .wb-kpi-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; line-height: 1.2; }
+    .wb-kpi-value { font-size: 1.35rem; font-weight: 800; color: #1a1a2a; line-height: 1.1; font-variant-numeric: tabular-nums; }
+    @media (max-width: 720px) {
+      .wb-date-kpi-row { grid-template-columns: 1fr; }
+    }
 """
 
 
@@ -129,9 +148,11 @@ def build_date_migration_tile(
     from_id: str,
     to_id: str,
     hint_id: str | None = None,
+    full_width: bool = True,
 ) -> str:
+    wide = " stat-card--wide" if full_width else ""
     if not date_min or not date_max:
-        return f"""    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Kickoff date filter">
+        return f"""    <div class="stat-card{wide} stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Kickoff date filter">
       <div class="date-filter-title">Kickoff date range (UTC)</div>
       <p style="margin-top:0.5rem;font-size:0.82rem;color:#888;">No kickoff dates in this report yet.</p>
     </div>"""
@@ -142,7 +163,7 @@ def build_date_migration_tile(
     hint_html = ""
     if hint_id:
         hint_html = f'\n      <p class="date-filter-hint" id="{html.escape(hint_id, quote=True)}"></p>'
-    return f"""    <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Kickoff date filter">
+    return f"""    <div class="stat-card{wide} stat-card--filter-tile stat-card--text-left date-filter-tile" role="region" aria-label="Kickoff date filter">
       <div class="date-filter-head">
         <span class="date-filter-title">Kickoff date range (UTC)</span>
         <span class="date-filter-presets">
@@ -168,6 +189,62 @@ def build_date_migration_tile(
         </span>
       </div>{hint_html}
     </div>"""
+
+
+def build_derived_controls_html_water_break_events(
+    names: list[str],
+    date_min: str,
+    date_max: str,
+    *,
+    kpi_matches: int,
+    kpi_starts: int,
+    kpi_ends: int,
+) -> str:
+    """Competition slicer + half-width date tile + KPI strip (water-break events report only)."""
+    comp = build_numbered_competition_slicer(
+        names,
+        checkbox_name="drv-comp",
+        all_btn_id="drv-slicer-all",
+        none_btn_id="drv-slicer-none",
+    )
+    date_tile = build_date_migration_tile(
+        date_min,
+        date_max,
+        from_id="drv-date-from",
+        to_id="drv-date-to",
+        full_width=False,
+    )
+    km = f"{kpi_matches:,}"
+    ks = f"{kpi_starts:,}"
+    ke = f"{kpi_ends:,}"
+    kpi_html = f"""    <div class="wb-kpi-strip" role="region" aria-label="Totals for visible rows">
+      <div class="stat-card wb-kpi-tile">
+        <div class="wb-kpi-label">Matches (unique IDs)</div>
+        <div class="wb-kpi-value" id="wb-kpi-matches">{km}</div>
+      </div>
+      <div class="stat-card wb-kpi-tile">
+        <div class="wb-kpi-label">Water break starts</div>
+        <div class="wb-kpi-value" id="wb-kpi-starts">{ks}</div>
+      </div>
+      <div class="stat-card wb-kpi-tile">
+        <div class="wb-kpi-label">Water break ends</div>
+        <div class="wb-kpi-value" id="wb-kpi-ends">{ke}</div>
+      </div>
+    </div>"""
+    row2 = f"""    <div class="wb-date-kpi-row">
+{date_tile}
+{kpi_html}
+    </div>"""
+    inner = "\n".join(x for x in (comp, row2) if x)
+    if not inner:
+        return ""
+    return f"""  <div class="stats-section">
+    <div class="stats-grid">
+{inner}
+    </div>
+  </div>
+"""
+
 
 def build_derived_controls_html(names: list[str], date_min: str, date_max: str) -> str:
     comp = build_numbered_competition_slicer(
@@ -399,6 +476,29 @@ DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER = r"""<script>
         else tr.classList.add("derived-row--hidden");
       });
       updateFilterButtons();
+      if (table.id === "table-water-break-events") {
+        var mids = new Set();
+        var nStart = 0;
+        var nEnd = 0;
+        tbody.querySelectorAll("tr").forEach(function (tr) {
+          if (tr.querySelector("td[colspan]")) return;
+          if (tr.classList.contains("derived-row--hidden")) return;
+          var idv = cellVal(tr, 1);
+          if (idv) mids.add(idv);
+          var typ = cellVal(tr, 12);
+          if (typ === "water_break_start") nStart += 1;
+          else if (typ === "water_break_end") nEnd += 1;
+        });
+        function fmt(n) {
+          return n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        }
+        var elM = document.getElementById("wb-kpi-matches");
+        var elS = document.getElementById("wb-kpi-starts");
+        var elE = document.getElementById("wb-kpi-ends");
+        if (elM) elM.textContent = fmt(mids.size);
+        if (elS) elS.textContent = fmt(nStart);
+        if (elE) elE.textContent = fmt(nEnd);
+      }
     };
 
     function distinctForColumn(col, excludeCol) {

@@ -15,6 +15,8 @@ REPORT_NAV_ITEMS: list[tuple[str, str]] = [
     ("report_penalty_shootouts.html", "Penalty shootouts"),
     ("report_var_events.html", "VAR events"),
     ("report_var_unpaired.html", "VAR unpaired"),
+    ("report_water_break_events.html", "Water break events"),
+    ("report_water_break_unpaired.html", "Water break unpaired"),
     ("report_recordings_library.html", "Recordings library"),
 ]
 
