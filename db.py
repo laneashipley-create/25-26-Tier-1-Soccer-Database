@@ -9,7 +9,8 @@ Use when USE_SUPABASE is True in config. Provides:
   - upsert_games() — upsert rows in public."All Games (sr:sport_events)" (sport events per season)
   - get_completed_matches_without_timeline* — for step 3 (full weekly pull)
   - get_games_kickoff_utc_calendar_window_for_configured_seasons — daily timeline candidates from All Games
-  - upsert_timeline() / get_timeline_json() — public."Completed Matches - full sport_event_timelines" (sport_event_id, start_time, game_id)
+  - upsert_timeline() / get_timeline_json() / get_extended_timeline_json() — timeline tables
+  - patch_game_from_timeline_payload() — merge timeline sport_event_status into All Games between schedule syncs
   - upsert_own_goals() — write extracted own goals
 
 Install: pip install postgrest httpx
@@ -560,6 +561,43 @@ def upsert_timeline(
     supabase.table(T_TIMELINES).upsert(row, on_conflict="game_id", ignore_duplicates=False).execute()
 
 
+def patch_game_from_timeline_payload(game_id: str, timeline_payload: dict | None) -> bool:
+    """
+    Merge ``sport_event_status`` from a timeline or extended_timeline API payload into
+    public."All Games (sr:sport_events)" so list-of-games reports stay current between full
+    schedule syncs (live scores and status, not only when the feed is marked closed/ended).
+
+    Returns True when at least one column was updated.
+    """
+    if not game_id or not timeline_payload:
+        return False
+    ses = timeline_payload.get("sport_event_status") or {}
+    if not ses:
+        return False
+    payload: dict = {}
+    st = ses.get("status")
+    if st is not None and str(st).strip() != "":
+        payload["status"] = str(st).strip()
+    ms = ses.get("match_status")
+    if ms is not None and str(ms).strip() != "":
+        payload["match_status"] = str(ms).strip()
+    hs = _int_or_none(ses.get("home_score"))
+    if hs is not None:
+        payload["home_score"] = hs
+    aws = _int_or_none(ses.get("away_score"))
+    if aws is not None:
+        payload["away_score"] = aws
+    if not payload:
+        return False
+    supabase = get_client()
+
+    def _run():
+        return supabase.table(T_GAMES).update(payload).eq("id", game_id).execute()
+
+    _supabase_execute_with_retry(_run)
+    return True
+
+
 def upsert_extended_timeline(
     game_id: str,
     timeline_json: dict | None = None,
@@ -604,6 +642,24 @@ def get_timeline_json(game_id: str) -> dict | None:
 
     def _run():
         return supabase.table(T_TIMELINES).select("timeline_json").eq("game_id", game_id).execute()
+
+    r = _supabase_execute_with_retry(_run)
+    if r.data and len(r.data) > 0 and r.data[0].get("timeline_json"):
+        return r.data[0]["timeline_json"]
+    return None
+
+
+def get_extended_timeline_json(game_id: str) -> dict | None:
+    """Return stored extended timeline JSON for a game row, or None if not stored."""
+    supabase = get_client()
+
+    def _run():
+        return (
+            supabase.table(T_TIMELINES_EXTENDED)
+            .select("timeline_json")
+            .eq("game_id", game_id)
+            .execute()
+        )
 
     r = _supabase_execute_with_retry(_run)
     if r.data and len(r.data) > 0 and r.data[0].get("timeline_json"):

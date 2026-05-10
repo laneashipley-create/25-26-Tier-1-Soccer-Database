@@ -4,8 +4,9 @@ STEP 3X — Fetch sport_event extended_timeline for completed matches.
 Supabase weekly (--full-backfill): completed games missing an extended timeline row.
 
 Supabase daily (--daily): reads All Games whose kickoff UTC date is yesterday–tomorrow
-(configurable), fetches extended_timeline.json per sport_event_id, and stores only when
-sport_event_status.status is closed/ended.
+(configurable), fetches extended_timeline.json per sport_event_id (or uses stored extended JSON
+when a row exists), patches All Games from ``sport_event_status``, and stores only when status
+is closed/ended.
 
 Respects the 1 req/sec trial-key rate limit.
 """
@@ -95,6 +96,9 @@ def main_daily_extended_timeline_kickoff_window(
             continue
         gid_s = str(game_id)
         if gid_s in existing_tl:
+            cached = db.get_extended_timeline_json(gid_s) or db.get_timeline_json(gid_s)
+            if cached:
+                db.patch_game_from_timeline_payload(gid_s, cached)
             skipped_have_timeline += 1
             continue
 
@@ -107,6 +111,7 @@ def main_daily_extended_timeline_kickoff_window(
         try:
             data = fetch_extended_timeline(event_id)
             consecutive_404 = 0
+            db.patch_game_from_timeline_payload(gid_s, data)
             if not timeline_feed_marked_completed(data):
                 skipped_not_finished += 1
                 continue
@@ -183,6 +188,7 @@ def main() -> int:
         try:
             data = fetch_extended_timeline(event_id)
             consecutive_404 = 0
+            db.patch_game_from_timeline_payload(str(game_id), data)
             if not timeline_feed_marked_completed(data):
                 skipped_not_finished += 1
                 continue

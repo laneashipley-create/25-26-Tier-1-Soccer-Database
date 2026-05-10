@@ -20,11 +20,12 @@ Usage
       Supabase only. Step 3 reads All Games whose kickoff UTC calendar date falls in
       [today - PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_BEFORE, today +
       PIPELINE_DAILY_TIMELINE_KICKOFF_DAYS_AFTER] (defaults: 1 day before / 1 day after).
-      For each game without a stored timeline yet, calls Sportradar timeline.json; only when
-      sport_event_status.status is closed/ended is the timeline written (no season schedule
-      fetch — weekly full sync refreshes fixtures).
+      For each candidate game, calls Sportradar timeline.json (or patches from stored JSON if
+      a completed timeline row already exists). Live and final ``sport_event_status`` is merged
+      into All Games; the timeline table is still written only when status is closed/ended.
 
-      If no regular timelines were newly stored, skips steps 5–7. Intended for daily-update.yml.
+      Steps 5–6 run only when new completed regular timelines were stored; step 7 (HTML) always
+      runs so reports reflect status/score patches. Intended for daily-update.yml.
 
   python run_all.py --reports-only
       Step 7 only — regenerate HTML from current database (or CSV when not on Supabase).
@@ -109,18 +110,15 @@ def run_main(*, mode: str) -> None:
         step4_fetch_extended_timelines.main_daily_extended_timeline_kickoff_window()
         if stored_regular == 0:
             print(
-                "\nNo new completed regular timelines in the kickoff window — skipping steps 5–7.\n"
+                "\nNo new completed regular timelines in the kickoff window — skipping steps 5–6.\n"
                 "Weekly --full-backfill picks up schedule changes and older backlog.",
                 flush=True,
             )
-            print(f"\n{DIVIDER}")
-            print("  Daily run done (no new timelines).")
-            print(DIVIDER)
-            return
-        section("STEP 5 — Extracting own goals")
-        step5_extract_own_goals.main()
-        section("STEP 6 — Extracting VAR + penalty shootout + water-break tables")
-        step6_extract_var_and_shootouts.main()
+        else:
+            section("STEP 5 — Extracting own goals")
+            step5_extract_own_goals.main()
+            section("STEP 6 — Extracting VAR + penalty shootout + water-break tables")
+            step6_extract_var_and_shootouts.main()
         section("STEP 7 — Generating HTML reports")
         step7_generate_reports.main()
         print(f"\n{DIVIDER}")

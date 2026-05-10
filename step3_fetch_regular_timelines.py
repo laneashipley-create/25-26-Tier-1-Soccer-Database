@@ -9,8 +9,9 @@ CSV mode:
 Supabase weekly (--full-backfill): completed games missing a timelines row.
 
 Supabase daily (--daily): ``main_daily_timeline_kickoff_window`` reads All Games whose kickoff
-UTC date is yesterday–tomorrow (configurable), fetches timeline.json per sport_event_id, and
-stores only when ``sport_event_status.status`` is closed/ended — no season schedule pagination.
+UTC date is yesterday–tomorrow (configurable), fetches timeline.json per sport_event_id (or
+uses stored JSON when a timeline row exists), patches All Games from ``sport_event_status``
+every time, and stores the timeline row only when status is closed/ended — no season schedule pagination.
 
 Respects the 1 req/sec trial-key rate limit.
 """
@@ -111,6 +112,9 @@ def main_daily_timeline_kickoff_window(
             continue
         gid_s = str(game_id)
         if gid_s in existing_tl:
+            cached = db.get_timeline_json(gid_s)
+            if cached:
+                db.patch_game_from_timeline_payload(gid_s, cached)
             skipped_have_timeline += 1
             continue
 
@@ -122,6 +126,7 @@ def main_daily_timeline_kickoff_window(
 
         try:
             data = fetch_timeline(event_id)
+            db.patch_game_from_timeline_payload(gid_s, data)
             if not timeline_feed_marked_completed(data):
                 skipped_not_finished += 1
                 continue
@@ -205,6 +210,7 @@ def main(recent_start_days: int | None = None):
         try:
             data = fetch_timeline(event_id)
             if USE_SUPABASE and game_id:
+                db.patch_game_from_timeline_payload(str(game_id), data)
                 db.upsert_timeline(
                     game_id,
                     data,
