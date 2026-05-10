@@ -630,9 +630,14 @@ def generate_master_games_html(rows: list[dict]) -> str:
       background: #faf8f5; color: #333;
     }}
     .stat-card--filter-tile .slicer-btn:hover {{ border-color: #cc0000; background: #fff0f0; color: #990000; }}
-    .stat-card--filter-tile .slicer-chips {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px 12px; }}
-    .stat-card--filter-tile .slicer-chip {{ display: flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 0.72rem; color: #333; cursor: pointer; user-select: none; }}
-    .stat-card--filter-tile .slicer-chip input {{ accent-color: #cc0000; width: 0.85rem; height: 0.85rem; }}
+    .stat-card--filter-tile .slicer-chips {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 12px; }}
+    .stat-card--filter-tile .slicer-chip {{
+      display: flex; align-items: flex-start; gap: 8px; font-size: 0.78rem; color: #333;
+      cursor: pointer; user-select: none; min-width: 0;
+    }}
+    .stat-card--filter-tile .slicer-chip input {{
+      accent-color: #cc0000; width: 1.05rem; height: 1.05rem; flex-shrink: 0; margin-top: 0.12rem;
+    }}
     .stat-card--filter-tile .slicer-chip .comp-idx {{ color: #999; min-width: 1.35em; text-align: right; }}
     .date-filter-tile {{ text-align: left; }}
     .date-filter-head {{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 0.65rem; }}
@@ -668,8 +673,21 @@ def generate_master_games_html(rows: list[dict]) -> str:
     .table-header-row {{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem; flex-wrap: wrap; gap: 0.4rem; }}
     .table-title {{ font-size: 0.85rem; font-weight: 700; color: #cc0000; text-transform: uppercase; letter-spacing: 0.08em; }}
     .sort-hint {{ font-size: 0.72rem; color: #999; max-width: 38rem; text-align: right; line-height: 1.35; }}
-    .table-wrap {{ overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; border: 1px solid #ddd8d0; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }}
-    table {{ width: 100%; border-collapse: collapse; font-size: 0.76rem; table-layout: fixed; }}
+    .table-wrap {{
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 8px;
+      border: 1px solid #ddd8d0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      max-width: 100%;
+    }}
+    table {{
+      width: max-content;
+      min-width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      table-layout: auto;
+    }}
     thead tr:first-child {{ background: #1a0000; border-bottom: 2px solid #cc0000; }}
     thead tr:first-child th {{
       padding: 0.55rem 0.35rem; text-align: left; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
@@ -708,9 +726,24 @@ def generate_master_games_html(rows: list[dict]) -> str:
     .branding-logo {{ height: 120px; display: flex; align-items: center; }}
     .branding-logo svg {{ height: 120px; width: auto; }}
     .footer {{ text-align: center; margin-top: 1rem; color: #aaa; font-size: 0.72rem; }}
-    @media (max-width: 900px) {{ .stats-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
-    @media (max-width: 720px) {{ .mg-kpi-row-games {{ grid-template-columns: 1fr; }} }}
-    @media (max-width: 599px) {{ .stats-grid {{ grid-template-columns: repeat(2, 1fr); }} html {{ font-size: 13px; }} }}
+    @media (max-width: 900px) {{
+      .stats-grid {{ grid-template-columns: repeat(3, 1fr); }}
+      .stat-card--filter-tile .slicer-chips {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }}
+    }}
+    @media (max-width: 720px) {{
+      .mg-kpi-row-games {{ grid-template-columns: 1fr; }}
+      .sort-hint {{ text-align: left; max-width: none; width: 100%; }}
+      td, thead tr:first-child th {{ padding: 0.5rem 0.45rem; }}
+      thead tr:first-child th {{ font-size: 0.7rem; }}
+      .excel-filter-btn {{ min-height: 2.5rem; font-size: 0.72rem; padding: 0.35rem 0.45rem; }}
+    }}
+    @media (max-width: 640px) {{
+      .stat-card--filter-tile .slicer-chips {{ grid-template-columns: 1fr; }}
+    }}
+    @media (max-width: 599px) {{
+      .stats-grid {{ grid-template-columns: repeat(2, 1fr); }}
+      html {{ font-size: 14px; }}
+    }}
     {EXCEL_FILTER_CSS}
     {NAV_CSS}
   </style>

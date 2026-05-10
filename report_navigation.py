@@ -28,22 +28,44 @@ NAV_CSS = """
       box-shadow: 0 4px 14px rgba(0,0,0,0.35);
     }
     .report-nav {
-      text-align: center;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      text-align: left;
       background: #1a0000;
-      padding: 0.55rem 1rem 0.65rem;
+      padding: 0.35rem 0.5rem;
       font-size: 0.88rem;
       border-bottom: 1px solid #440000;
     }
-    .report-nav a {
+    .report-nav a,
+    .report-nav .nav-active {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      min-height: 2.75rem;
+      padding: 0.35rem 0.5rem;
       color: #ff9999;
-      margin: 0 0.4rem;
       text-decoration: none;
+      white-space: nowrap;
     }
     .report-nav a:hover { text-decoration: underline; color: #ffcccc; }
     .report-nav .nav-active {
       color: #fff;
       font-weight: 700;
-      margin: 0 0.4rem;
+    }
+    .report-nav .nav-sep {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      color: #5c3030;
+      font-size: 0.75rem;
+      padding: 0 0.05rem;
+      user-select: none;
     }
 """
 

@@ -45,12 +45,14 @@
     .table-section { padding: 1rem 1rem 0; max-width: 1480px; margin: 0 auto; }
     .table-wrap {
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       border: 1px solid #d8d2c8;
       border-radius: 8px;
       background: #fff;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      max-width: 100%;
     }
-    table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 0.82rem; }
+    table { border-collapse: collapse; width: max-content; min-width: 100%; font-size: 0.82rem; table-layout: auto; }
     th, td { border-bottom: 1px solid #e8e4dc; padding: 0.38rem 0.5rem; text-align: center; vertical-align: top; }
     thead tr:first-child th {
       background: #2a1515;
@@ -228,9 +230,14 @@
       background: #faf8f5; color: #333;
     }
     .stat-card--filter-tile .slicer-btn:hover { border-color: #cc0000; background: #fff0f0; color: #990000; }
-    .stat-card--filter-tile .slicer-chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px 12px; }
-    .stat-card--filter-tile .slicer-chip { display: flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 0.72rem; color: #333; cursor: pointer; user-select: none; }
-    .stat-card--filter-tile .slicer-chip input { accent-color: #cc0000; width: 0.85rem; height: 0.85rem; }
+    .stat-card--filter-tile .slicer-chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 12px; }
+    .stat-card--filter-tile .slicer-chip {
+      display: flex; align-items: flex-start; gap: 8px; font-size: 0.78rem; color: #333;
+      cursor: pointer; user-select: none; min-width: 0;
+    }
+    .stat-card--filter-tile .slicer-chip input {
+      accent-color: #cc0000; width: 1.05rem; height: 1.05rem; flex-shrink: 0; margin-top: 0.12rem;
+    }
     .stat-card--filter-tile .slicer-chip .comp-idx { color: #999; min-width: 1.35em; text-align: right; }
     .date-filter-tile { text-align: left; padding: 0.7rem 0.9rem; }
     .date-filter-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.45rem; margin-bottom: 0.4rem; }
@@ -249,10 +256,12 @@
       .stats-grid { grid-template-columns: repeat(3, 1fr); }
       .stat-card--filter-tile .slicer-chips { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
+    @media (max-width: 640px) {
+      .stat-card--filter-tile .slicer-chips { grid-template-columns: 1fr; }
+    }
     @media (max-width: 599px) {
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-card--filter-tile .slicer-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      html { font-size: 13px; }
+      html { font-size: 14px; }
     }
     .wb-date-kpi-row {
       grid-column: 1 / -1;
@@ -283,22 +292,44 @@
       box-shadow: 0 4px 14px rgba(0,0,0,0.35);
     }
     .report-nav {
-      text-align: center;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      text-align: left;
       background: #1a0000;
-      padding: 0.55rem 1rem 0.65rem;
+      padding: 0.35rem 0.5rem;
       font-size: 0.88rem;
       border-bottom: 1px solid #440000;
     }
-    .report-nav a {
+    .report-nav a,
+    .report-nav .nav-active {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      min-height: 2.75rem;
+      padding: 0.35rem 0.5rem;
       color: #ff9999;
-      margin: 0 0.4rem;
       text-decoration: none;
+      white-space: nowrap;
     }
     .report-nav a:hover { text-decoration: underline; color: #ffcccc; }
     .report-nav .nav-active {
       color: #fff;
       font-weight: 700;
-      margin: 0 0.4rem;
+    }
+    .report-nav .nav-sep {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      color: #5c3030;
+      font-size: 0.75rem;
+      padding: 0 0.05rem;
+      user-select: none;
     }
 
   </style>

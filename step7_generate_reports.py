@@ -1424,12 +1424,14 @@ def _derived_page_shell(
     .table-section {{ padding: 1rem 1rem 0; max-width: 1480px; margin: 0 auto; }}
     .table-wrap {{
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       border: 1px solid #d8d2c8;
       border-radius: 8px;
       background: #fff;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      max-width: 100%;
     }}
-    table {{ border-collapse: collapse; width: 100%; min-width: 640px; font-size: 0.82rem; }}
+    table {{ border-collapse: collapse; width: max-content; min-width: 100%; font-size: 0.82rem; table-layout: auto; }}
     th, td {{ border-bottom: 1px solid #e8e4dc; padding: 0.38rem 0.5rem; text-align: center; vertical-align: top; }}
     thead tr:first-child th {{
       background: #2a1515;
@@ -2210,19 +2212,25 @@ def generate_html(
     .stat-card--filter-tile .slicer-chips {{
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px 12px;
+      gap: 8px 12px;
     }}
     .stat-card--filter-tile .slicer-chip {{
       display: flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-      font-size: 0.72rem;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.78rem;
       color: #333;
       cursor: pointer;
       user-select: none;
+      min-width: 0;
     }}
-    .stat-card--filter-tile .slicer-chip input {{ accent-color: #cc0000; width: 0.85rem; height: 0.85rem; }}
+    .stat-card--filter-tile .slicer-chip input {{
+      accent-color: #cc0000;
+      width: 1.05rem;
+      height: 1.05rem;
+      flex-shrink: 0;
+      margin-top: 0.12rem;
+    }}
     .stat-card--filter-tile .slicer-chip .comp-idx {{ color: #999; min-width: 1.35em; text-align: right; }}
 
     .date-filter-tile {{
@@ -2290,8 +2298,8 @@ def generate_html(
     @media (max-width: 900px) {{
       .stat-card--filter-tile .slicer-chips {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }}
     }}
-    @media (max-width: 599px) {{
-      .stat-card--filter-tile .slicer-chips {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+    @media (max-width: 640px) {{
+      .stat-card--filter-tile .slicer-chips {{ grid-template-columns: 1fr; }}
     }}
 
     /* ── Stats ────────────────────────────────────────── */
@@ -2380,15 +2388,22 @@ def generate_html(
       border-radius: 8px;
       border: 1px solid #ddd8d0;
       box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      max-width: 100%;
     }}
 
     /* ── Table ────────────────────────────────────────── */
     table {{
-      width: 100%;
+      width: max-content;
+      min-width: 100%;
       border-collapse: collapse;
       font-size: 0.78rem;
-      table-layout: fixed;
+      table-layout: auto;
     }}
+    @media (min-width: 901px) {{
+      table {{
+        width: 100%;
+        table-layout: fixed;
+      }}
     col.c-num        {{ width: 2%; }}
     col.c-comp       {{ width: 11%; }}
     col.c-title      {{ width: 13%; }}
@@ -2404,6 +2419,7 @@ def generate_html(
     col.c-final      {{ width: 5%; }}
     col.c-ogmention  {{ width: 5%; }}
     col.c-commentary {{ width: 16%; }}
+    }}
 
     thead tr:first-child {{
       background: #1a0000;
@@ -2637,9 +2653,13 @@ def generate_html(
     }}
     @media (max-width: 599px) {{
       .stats-grid {{ grid-template-columns: repeat(2, 1fr); }}
-      html {{ font-size: 13px; }}
+      html {{ font-size: 14px; }}
       .header h1 {{ font-size: 1.5rem; }}
       .table-section {{ padding: 0 0.5rem; }}
+    }}
+    @media (max-width: 720px) {{
+      .sort-hint {{ text-align: left; max-width: none; width: 100%; }}
+      .excel-filter-btn {{ min-height: 2.5rem; font-size: 0.72rem; padding: 0.35rem 0.45rem; }}
     }}
 
     /* Landscape phone — keep table but hide IDs & commentary */

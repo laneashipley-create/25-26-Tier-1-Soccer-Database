@@ -29,18 +29,34 @@
     .topbar {
       border-bottom: 1px solid #4a1111;
       background: #1a0000;
-      text-align: center;
-      padding: 0.6rem 1rem;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      justify-content: flex-start;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      padding: 0.35rem 0.5rem;
       box-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
     }
     .topbar a, .topbar span {
-      margin: 0 0.45rem;
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      min-height: 2.75rem;
+      padding: 0.35rem 0.5rem;
       color: #ffb8b8;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
+      white-space: nowrap;
     }
     .topbar a:hover { color: #ffe1e1; text-decoration: underline; }
     .topbar .active { color: #fff; font-weight: 700; }
+    .topbar span[aria-hidden="true"] {
+      color: #5c3030;
+      padding: 0 0.05rem;
+      user-select: none;
+    }
     .wrap {
       max-width: 980px;
       margin: 1.8rem auto 2.5rem;
