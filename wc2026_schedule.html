@@ -299,6 +299,207 @@
       background: linear-gradient(to right, transparent, #cc8888, transparent);
     }
     .empty { padding: 1.75rem; color: #666; text-align: center; font-size: 0.9rem; }
+    .wc-bracket-section {
+      margin-bottom: 1.35rem;
+      border: 1px solid #ddd8d0;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 0.85rem 0.9rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    @media (min-width: 720px) {
+      #knockout-bracket.wc-bracket-section {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(1600px, min(96vw, 100vw - 24px));
+        max-width: none;
+        box-sizing: border-box;
+      }
+    }
+    .wc-bracket-toolbar {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 0;
+    }
+    .wc-bracket-toolbar .toggle-arrow { flex-shrink: 0; margin-top: 2px; }
+    .wc-bracket-toolbar-text { min-width: 0; flex: 1; }
+    .wc-bracket-section-body { padding-top: 0.75rem; }
+    .wc-bracket-section-body.hidden { display: none; }
+    .wc-bracket-title {
+      color: #cc0000;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0;
+    }
+    .wc-bracket {
+      overflow-x: auto;
+      padding: 0.35rem 0 0.75rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .wc-bracket-mid {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      gap: clamp(14px, 2.2vw, 32px);
+      min-width: min(100%, 1520px);
+    }
+    .wc-bracket-half {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      gap: clamp(8px, 1.2vw, 16px);
+      flex: 1;
+      min-width: 0;
+    }
+    .wc-round-col {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 108px;
+    }
+    .wc-round-col-title {
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: #777;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      text-align: center;
+      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+    .wc-round-col-title--sub {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px dashed #ddd8d0;
+    }
+    .wc-round-col-body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 420px;
+    }
+    .wc-round-col-body--compact { min-height: 180px; justify-content: center; gap: 12px; }
+    .wc-b-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .wc-b-stack-4 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      gap: 8px;
+      min-height: 420px;
+    }
+    .wc-b-stack-2 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      flex: 1;
+      gap: 24px;
+      min-height: 420px;
+    }
+    .wc-bracket-center {
+      flex: 0 0 clamp(188px, 16vw, 248px);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.25rem;
+      padding: 0.35rem clamp(10px, 1.8vw, 22px);
+      align-self: stretch;
+      justify-content: center;
+    }
+    .wc-bracket-slot {
+      border: 1px solid #e8e4dc;
+      background: #faf8f5;
+      border-radius: 8px;
+      padding: 0.4rem 0.5rem;
+      font-size: 0.74rem;
+      min-height: 4.5rem;
+      box-sizing: border-box;
+    }
+    .wc-bracket-slot--empty {
+      opacity: 0.55;
+      border-style: dashed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 0.85rem;
+    }
+    .wc-bracket-slot--final {
+      border-width: 2px;
+      border-color: #c9a227;
+      box-shadow: 0 0 0 1px rgba(201,162,39,0.35), 0 4px 14px rgba(201,162,39,0.18);
+      background: #fffef8;
+    }
+    .wc-bracket-slot-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .wc-bracket-slot-badge {
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: #666;
+      letter-spacing: 0.04em;
+    }
+    .wc-bracket-slot-when {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+      text-align: right;
+      line-height: 1.25;
+      flex: 1;
+      min-width: 0;
+    }
+    .wc-bracket-slot-date {
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: #333;
+    }
+    .wc-bracket-slot-time {
+      font-size: 0.64rem;
+      color: #888;
+    }
+    .wc-bracket-teams {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .wc-bracket-team {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      color: #1a1a2a;
+      min-width: 0;
+      font-size: 0.76rem;
+    }
+    .wc-bracket-vs {
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #cc0000;
+      text-align: center;
+      padding: 2px 0;
+    }
+    .wc-bracket-score {
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #cc0000;
+      text-align: center;
+      padding: 2px 0;
+    }
     @media (max-width: 900px) {
       .match-card { grid-template-columns: 1fr; }
       .center, .right { justify-content: flex-start; text-align: left; }
@@ -314,6 +515,8 @@
       <a href="report_master_games.html">List of All Games</a>
       <span class="nav-sep" aria-hidden="true"> · </span>
       <span class="nav-active">WC 2026 schedule</span>
+      <span class="nav-sep" aria-hidden="true"> · </span>
+      <a href="#knockout-bracket">Bracket</a>
       <span class="nav-sep" aria-hidden="true"> · </span>
       <a href="report_own_goals.html">Own goals</a>
       <span class="nav-sep" aria-hidden="true"> · </span>
@@ -341,6 +544,18 @@
         <button id="refreshBtn" class="btn" type="button">Refresh</button>
       </div>
     </header>
+
+    <section id="knockout-bracket" class="wc-bracket-section" aria-labelledby="wcBracketHeading">
+      <div class="wc-bracket-toolbar">
+        <button id="toggleBracketSectionBtn" class="toggle-arrow" type="button" aria-expanded="false" aria-controls="wcBracketSectionBody" aria-label="Expand knockout bracket">▸</button>
+        <div class="wc-bracket-toolbar-text">
+          <h2 id="wcBracketHeading" class="wc-bracket-title">Knockout bracket</h2>
+        </div>
+      </div>
+      <div id="wcBracketSectionBody" class="wc-bracket-section-body hidden">
+        <div id="wcBracket" class="wc-bracket"></div>
+      </div>
+    </section>
 
     <div class="filters">
       <div class="filters-row-top">
@@ -395,6 +610,10 @@
   </div>
 
   <script src="assets/wc2026_competitor_flags.embed.js"></script>
+  <script type="application/json" id="wc2026-season-links-cup-rounds-embed">
+[{"id":"sr:cup_round:2218759","sport_events":[{"id":"sr:sport_event:53452541","start_time":"2026-06-29T20:30:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218791","type":"parent","name":"round_of_16","order":1,"state":"unstarted"}],"name":"round_of_32","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218761","sport_events":[{"id":"sr:sport_event:53452543","start_time":"2026-06-30T21:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218791","type":"parent","name":"round_of_16","order":1,"state":"unstarted"}],"name":"round_of_32","order":2,"state":"unstarted"},{"id":"sr:cup_round:2218763","sport_events":[{"id":"sr:sport_event:53452545","start_time":"2026-06-28T19:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218793","type":"parent","name":"round_of_16","order":2,"state":"unstarted"}],"name":"round_of_32","order":3,"state":"unstarted"},{"id":"sr:cup_round:2218765","sport_events":[{"id":"sr:sport_event:53452547","start_time":"2026-06-30T01:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218793","type":"parent","name":"round_of_16","order":2,"state":"unstarted"}],"name":"round_of_32","order":4,"state":"unstarted"},{"id":"sr:cup_round:2218767","sport_events":[{"id":"sr:sport_event:53452549","start_time":"2026-07-02T23:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218795","type":"parent","name":"round_of_16","order":3,"state":"unstarted"}],"name":"round_of_32","order":5,"state":"unstarted"},{"id":"sr:cup_round:2218769","sport_events":[{"id":"sr:sport_event:53452551","start_time":"2026-07-02T19:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218795","type":"parent","name":"round_of_16","order":3,"state":"unstarted"}],"name":"round_of_32","order":6,"state":"unstarted"},{"id":"sr:cup_round:2218771","sport_events":[{"id":"sr:sport_event:53452553","start_time":"2026-07-02T00:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218797","type":"parent","name":"round_of_16","order":4,"state":"unstarted"}],"name":"round_of_32","order":7,"state":"unstarted"},{"id":"sr:cup_round:2218773","sport_events":[{"id":"sr:sport_event:53452555","start_time":"2026-07-01T20:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218797","type":"parent","name":"round_of_16","order":4,"state":"unstarted"}],"name":"round_of_32","order":8,"state":"unstarted"},{"id":"sr:cup_round:2218775","sport_events":[{"id":"sr:sport_event:53452557","start_time":"2026-06-29T17:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218799","type":"parent","name":"round_of_16","order":5,"state":"unstarted"}],"name":"round_of_32","order":9,"state":"unstarted"},{"id":"sr:cup_round:2218777","sport_events":[{"id":"sr:sport_event:53452561","start_time":"2026-06-30T17:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218799","type":"parent","name":"round_of_16","order":5,"state":"unstarted"}],"name":"round_of_32","order":10,"state":"unstarted"},{"id":"sr:cup_round:2218779","sport_events":[{"id":"sr:sport_event:53452563","start_time":"2026-07-01T01:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218801","type":"parent","name":"round_of_16","order":6,"state":"unstarted"}],"name":"round_of_32","order":11,"state":"unstarted"},{"id":"sr:cup_round:2218781","sport_events":[{"id":"sr:sport_event:53452565","start_time":"2026-07-01T16:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218801","type":"parent","name":"round_of_16","order":6,"state":"unstarted"}],"name":"round_of_32","order":12,"state":"unstarted"},{"id":"sr:cup_round:2218783","sport_events":[{"id":"sr:sport_event:53452569","start_time":"2026-07-03T22:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218803","type":"parent","name":"round_of_16","order":7,"state":"unstarted"}],"name":"round_of_32","order":13,"state":"unstarted"},{"id":"sr:cup_round:2218785","sport_events":[{"id":"sr:sport_event:53452503","start_time":"2026-07-03T18:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218803","type":"parent","name":"round_of_16","order":7,"state":"unstarted"}],"name":"round_of_32","order":14,"state":"unstarted"},{"id":"sr:cup_round:2218787","sport_events":[{"id":"sr:sport_event:53452505","start_time":"2026-07-03T03:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218805","type":"parent","name":"round_of_16","order":8,"state":"unstarted"}],"name":"round_of_32","order":15,"state":"unstarted"},{"id":"sr:cup_round:2218789","sport_events":[{"id":"sr:sport_event:53452507","start_time":"2026-07-04T01:30:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218805","type":"parent","name":"round_of_16","order":8,"state":"unstarted"}],"name":"round_of_32","order":16,"state":"unstarted"},{"id":"sr:cup_round:2218791","sport_events":[{"id":"sr:sport_event:53452509","start_time":"2026-07-04T21:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218759","type":"child","name":"round_of_32","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218761","type":"child","name":"round_of_32","order":2,"state":"unstarted"},{"id":"sr:cup_round:2218807","type":"parent","name":"quarterfinal","order":1,"state":"unstarted"}],"name":"round_of_16","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218793","sport_events":[{"id":"sr:sport_event:53452511","start_time":"2026-07-04T17:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218763","type":"child","name":"round_of_32","order":3,"state":"unstarted"},{"id":"sr:cup_round:2218765","type":"child","name":"round_of_32","order":4,"state":"unstarted"},{"id":"sr:cup_round:2218807","type":"parent","name":"quarterfinal","order":1,"state":"unstarted"}],"name":"round_of_16","order":2,"state":"unstarted"},{"id":"sr:cup_round:2218795","sport_events":[{"id":"sr:sport_event:53452513","start_time":"2026-07-06T19:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218767","type":"child","name":"round_of_32","order":5,"state":"unstarted"},{"id":"sr:cup_round:2218769","type":"child","name":"round_of_32","order":6,"state":"unstarted"},{"id":"sr:cup_round:2218809","type":"parent","name":"quarterfinal","order":2,"state":"unstarted"}],"name":"round_of_16","order":3,"state":"unstarted"},{"id":"sr:cup_round:2218797","sport_events":[{"id":"sr:sport_event:53452515","start_time":"2026-07-07T00:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218771","type":"child","name":"round_of_32","order":7,"state":"unstarted"},{"id":"sr:cup_round:2218773","type":"child","name":"round_of_32","order":8,"state":"unstarted"},{"id":"sr:cup_round:2218809","type":"parent","name":"quarterfinal","order":2,"state":"unstarted"}],"name":"round_of_16","order":4,"state":"unstarted"},{"id":"sr:cup_round:2218799","sport_events":[{"id":"sr:sport_event:53452517","start_time":"2026-07-05T20:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218775","type":"child","name":"round_of_32","order":9,"state":"unstarted"},{"id":"sr:cup_round:2218777","type":"child","name":"round_of_32","order":10,"state":"unstarted"},{"id":"sr:cup_round:2218811","type":"parent","name":"quarterfinal","order":3,"state":"unstarted"}],"name":"round_of_16","order":5,"state":"unstarted"},{"id":"sr:cup_round:2218801","sport_events":[{"id":"sr:sport_event:53452519","start_time":"2026-07-06T00:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218779","type":"child","name":"round_of_32","order":11,"state":"unstarted"},{"id":"sr:cup_round:2218781","type":"child","name":"round_of_32","order":12,"state":"unstarted"},{"id":"sr:cup_round:2218811","type":"parent","name":"quarterfinal","order":3,"state":"unstarted"}],"name":"round_of_16","order":6,"state":"unstarted"},{"id":"sr:cup_round:2218803","sport_events":[{"id":"sr:sport_event:53452521","start_time":"2026-07-07T16:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218783","type":"child","name":"round_of_32","order":13,"state":"unstarted"},{"id":"sr:cup_round:2218785","type":"child","name":"round_of_32","order":14,"state":"unstarted"},{"id":"sr:cup_round:2218813","type":"parent","name":"quarterfinal","order":4,"state":"unstarted"}],"name":"round_of_16","order":7,"state":"unstarted"},{"id":"sr:cup_round:2218805","sport_events":[{"id":"sr:sport_event:53452523","start_time":"2026-07-07T20:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218787","type":"child","name":"round_of_32","order":15,"state":"unstarted"},{"id":"sr:cup_round:2218789","type":"child","name":"round_of_32","order":16,"state":"unstarted"},{"id":"sr:cup_round:2218813","type":"parent","name":"quarterfinal","order":4,"state":"unstarted"}],"name":"round_of_16","order":8,"state":"unstarted"},{"id":"sr:cup_round:2218807","sport_events":[{"id":"sr:sport_event:53452525","start_time":"2026-07-09T20:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218791","type":"child","name":"round_of_16","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218793","type":"child","name":"round_of_16","order":2,"state":"unstarted"},{"id":"sr:cup_round:2218815","type":"parent","name":"semifinal","order":1,"state":"unstarted"}],"name":"quarterfinal","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218809","sport_events":[{"id":"sr:sport_event:53452527","start_time":"2026-07-10T19:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218795","type":"child","name":"round_of_16","order":3,"state":"unstarted"},{"id":"sr:cup_round:2218797","type":"child","name":"round_of_16","order":4,"state":"unstarted"},{"id":"sr:cup_round:2218815","type":"parent","name":"semifinal","order":1,"state":"unstarted"}],"name":"quarterfinal","order":2,"state":"unstarted"},{"id":"sr:cup_round:2218811","sport_events":[{"id":"sr:sport_event:53452529","start_time":"2026-07-11T21:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218799","type":"child","name":"round_of_16","order":5,"state":"unstarted"},{"id":"sr:cup_round:2218801","type":"child","name":"round_of_16","order":6,"state":"unstarted"},{"id":"sr:cup_round:2218817","type":"parent","name":"semifinal","order":2,"state":"unstarted"}],"name":"quarterfinal","order":3,"state":"unstarted"},{"id":"sr:cup_round:2218813","sport_events":[{"id":"sr:sport_event:53452531","start_time":"2026-07-12T01:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218803","type":"child","name":"round_of_16","order":7,"state":"unstarted"},{"id":"sr:cup_round:2218805","type":"child","name":"round_of_16","order":8,"state":"unstarted"},{"id":"sr:cup_round:2218817","type":"parent","name":"semifinal","order":2,"state":"unstarted"}],"name":"quarterfinal","order":4,"state":"unstarted"},{"id":"sr:cup_round:2218815","sport_events":[{"id":"sr:sport_event:53452533","start_time":"2026-07-14T19:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218807","type":"child","name":"quarterfinal","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218809","type":"child","name":"quarterfinal","order":2,"state":"unstarted"},{"id":"sr:cup_round:2218819","type":"parent","name":"final","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218821","type":"parent","name":"3rd_place_playoff","order":1,"state":"unstarted"}],"name":"semifinal","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218817","sport_events":[{"id":"sr:sport_event:53452535","start_time":"2026-07-15T19:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218811","type":"child","name":"quarterfinal","order":3,"state":"unstarted"},{"id":"sr:cup_round:2218813","type":"child","name":"quarterfinal","order":4,"state":"unstarted"},{"id":"sr:cup_round:2218819","type":"parent","name":"final","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218821","type":"parent","name":"3rd_place_playoff","order":1,"state":"unstarted"}],"name":"semifinal","order":2,"state":"unstarted"},{"id":"sr:cup_round:2218819","sport_events":[{"id":"sr:sport_event:53452537","start_time":"2026-07-19T19:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218815","type":"child","name":"semifinal","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218817","type":"child","name":"semifinal","order":2,"state":"unstarted"}],"name":"final","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218821","sport_events":[{"id":"sr:sport_event:53452539","start_time":"2026-07-18T21:00:00+00:00","start_time_confirmed":true,"date_confirmed":true,"order":1}],"linked_cup_rounds":[{"id":"sr:cup_round:2218815","type":"child","name":"semifinal","order":1,"state":"unstarted"},{"id":"sr:cup_round:2218817","type":"child","name":"semifinal","order":2,"state":"unstarted"}],"name":"3rd_place_playoff","order":1,"state":"unstarted"}]
+  </script>
+
   <script>
     const RAW_CSV = `competition_id,season_id,season_name,sport_event_id,start_time,round,home_team,home_team_id,away_team,away_team_id,status,match_status,home_score,away_score,group,stage
 sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:66456904,2026-06-11T19:00:00+00:00,1,Mexico,sr:competitor:4781,South Africa,sr:competitor:4736,not_started,not_started,,,A,league
@@ -509,6 +728,7 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
     const selectedGroups = new Set();
     let selectedStage = "";
     let selectedKnockoutRound = "";
+    let cachedCupRounds = null;
 
     const WC2026_FLAG_MAP =
       typeof WC2026_FLAG_BY_COMPETITOR_ID !== "undefined" && WC2026_FLAG_BY_COMPETITOR_ID
@@ -517,19 +737,6 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
 
     function escapeHtml(s) {
       return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
-    }
-
-    function competitorFlagHtml(compId) {
-      const src = WC2026_FLAG_MAP[compId];
-      if (!src) return "";
-      return (
-        `<span class="team-flag-wrap"><img class="team-flag" src="${escapeHtml(src)}" alt="" width="28" height="19" loading="lazy" /></span>`
-      );
-    }
-
-    function teamLineHtml(compId, teamName) {
-      const flag = competitorFlagHtml(compId);
-      return `${flag}<span class="team-name">${escapeHtml(teamName)}</span>`;
     }
 
     function pageScrollY() {
@@ -562,6 +769,9 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
       lastUpdated: document.getElementById("lastUpdated"),
       liveBadge: document.getElementById("liveBadge"),
       tzNote: document.getElementById("tzNote"),
+      bracket: document.getElementById("wcBracket"),
+      bracketSectionBody: document.getElementById("wcBracketSectionBody"),
+      toggleBracketSectionBtn: document.getElementById("toggleBracketSectionBtn"),
     };
 
     function parseCsv(text) {
@@ -641,6 +851,14 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
     function localTime(iso) {
       return new Intl.DateTimeFormat("en-US", { hour:"numeric", minute:"2-digit", hour12:true, timeZoneName:"short" }).format(new Date(iso));
     }
+    function localBracketDate(iso) {
+      return new Intl.DateTimeFormat("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }).format(new Date(iso));
+    }
 
     const matches = parseCsv(RAW_CSV)
       .sort((a,b) => String(a.start_time||"").localeCompare(String(b.start_time||"")))
@@ -667,6 +885,216 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
       teamToGroups.get(m.home_team).add(m.group);
       teamToGroups.get(m.away_team).add(m.group);
     });
+
+    let wcTeamNameToFlagCache = null;
+    function wcTeamNameToFlagMap() {
+      if (wcTeamNameToFlagCache) return wcTeamNameToFlagCache;
+      const map = Object.create(null);
+      const key = (s) => String(s || "").trim().toLowerCase();
+      matches.forEach((row) => {
+        const fh = WC2026_FLAG_MAP[row.home_team_id];
+        if (fh && row.home_team) map[key(row.home_team)] = fh;
+        const fa = WC2026_FLAG_MAP[row.away_team_id];
+        if (fa && row.away_team) map[key(row.away_team)] = fa;
+      });
+      wcTeamNameToFlagCache = map;
+      return map;
+    }
+
+    function flagSrcForTeam(compId, teamName) {
+      if (compId && WC2026_FLAG_MAP[compId]) return WC2026_FLAG_MAP[compId];
+      const k = String(teamName || "").trim().toLowerCase();
+      if (!k) return "";
+      return wcTeamNameToFlagMap()[k] || "";
+    }
+
+    function competitorFlagHtml(compId, teamName) {
+      const src = flagSrcForTeam(compId, teamName);
+      if (!src) return "";
+      return (
+        `<span class="team-flag-wrap"><img class="team-flag" src="${escapeHtml(src)}" alt="" width="28" height="19" loading="lazy" /></span>`
+      );
+    }
+
+    function teamLineHtml(compId, teamName) {
+      const flag = competitorFlagHtml(compId, teamName);
+      return `${flag}<span class="team-name">${escapeHtml(teamName)}</span>`;
+    }
+
+    function pickCupRound(grouped, name, order) {
+      const arr = grouped[name];
+      if (!arr) return null;
+      return arr.find((c) => (c.order || 0) === order) || null;
+    }
+
+    function bracketSlotHtml(cr, byEvent, extraClass) {
+      const xc = extraClass ? String(extraClass) : "";
+      if (!cr) {
+        return `<div class="wc-bracket-slot wc-bracket-slot--empty ${xc}">—</div>`;
+      }
+      const ev = cr.sport_events && cr.sport_events[0];
+      const mid = ev && ev.id;
+      const m = mid ? byEvent.get(mid) : null;
+      const home = m ? m.home_team : "—";
+      const away = m ? m.away_team : "—";
+      const hid = m ? m.home_team_id : "";
+      const aid = m ? m.away_team_id : "";
+      const iso = (m && m.start_time) || (ev && ev.start_time) || "";
+      const dateStr = iso ? localBracketDate(iso) : "";
+      const timeStr = iso ? localTime(iso) : "";
+      const kind = m ? statusKind(m) : "SCHEDULED";
+      const hasScore = kind === "COMPLETED" && m && m.home_score !== "" && m.away_score !== "";
+      const badge = m && m.match_number ? `M${m.match_number}` : "";
+      const liveNote = kind === "LIVE" ? " · LIVE" : "";
+      const whenHtml =
+        dateStr || timeStr
+          ? `<div class="wc-bracket-slot-when">` +
+            (dateStr ? `<span class="wc-bracket-slot-date">${escapeHtml(dateStr)}</span>` : "") +
+            (timeStr ? `<span class="wc-bracket-slot-time">${escapeHtml(timeStr + liveNote)}</span>` : "") +
+            `</div>`
+          : "";
+      const center = hasScore
+        ? `<div class="wc-bracket-score">${escapeHtml(m.home_score)}–${escapeHtml(m.away_score)}</div>`
+        : `<div class="wc-bracket-vs">vs</div>`;
+      return (
+        `<div class="wc-bracket-slot ${xc}">` +
+        `<div class="wc-bracket-slot-top">` +
+        `<span class="wc-bracket-slot-badge">${badge ? escapeHtml(badge) : ""}</span>` +
+        whenHtml +
+        `</div>` +
+        `<div class="wc-bracket-teams">` +
+        `<div class="wc-bracket-team">${teamLineHtml(hid, home)}</div>` +
+        center +
+        `<div class="wc-bracket-team">${teamLineHtml(aid, away)}</div>` +
+        `</div></div>`
+      );
+    }
+
+    function bracketColHtml(title, bodyHtml, ariaLabel, compact) {
+      const lab = ariaLabel || title;
+      const bodyCls = compact ? " wc-round-col-body--compact" : "";
+      return (
+        `<div class="wc-round-col" role="group" aria-label="${escapeHtml(lab)}">` +
+        `<div class="wc-round-col-title">${escapeHtml(title)}</div>` +
+        `<div class="wc-round-col-body${bodyCls}">${bodyHtml}</div></div>`
+      );
+    }
+
+    function renderBracket(cupRounds) {
+      const el = dom.bracket;
+      if (!el) return;
+      if (!cupRounds || !cupRounds.length) {
+        el.innerHTML = '<div class="empty">No bracket data.</div>';
+        return;
+      }
+      const byEvent = new Map(matches.map((x) => [x.sport_event_id, x]));
+      const grouped = {};
+      for (const cr of cupRounds) {
+        if (!grouped[cr.name]) grouped[cr.name] = [];
+        grouped[cr.name].push(cr);
+      }
+      for (const k of Object.keys(grouped)) {
+        grouped[k].sort((a, b) => (a.order || 0) - (b.order || 0));
+      }
+
+      const r32 = (o) => pickCupRound(grouped, "round_of_32", o);
+      const r16 = (o) => pickCupRound(grouped, "round_of_16", o);
+      const qf = (o) => pickCupRound(grouped, "quarterfinal", o);
+      const sf = (o) => pickCupRound(grouped, "semifinal", o);
+      const fin = pickCupRound(grouped, "final", 1);
+      const third = pickCupRound(grouped, "3rd_place_playoff", 1);
+
+      const pair = (a, b) =>
+        `<div class="wc-b-pair">${bracketSlotHtml(a, byEvent)}${bracketSlotHtml(b, byEvent)}</div>`;
+
+      const leftR32Body =
+        pair(r32(1), r32(2)) +
+        pair(r32(3), r32(4)) +
+        pair(r32(5), r32(6)) +
+        pair(r32(7), r32(8));
+
+      const leftR16Body =
+        `<div class="wc-b-stack-4">` +
+        [1, 2, 3, 4].map((o) => bracketSlotHtml(r16(o), byEvent)).join("") +
+        `</div>`;
+
+      const leftQfBody =
+        `<div class="wc-b-stack-2">` +
+        bracketSlotHtml(qf(1), byEvent) +
+        bracketSlotHtml(qf(2), byEvent) +
+        `</div>`;
+
+      const rightR32Body =
+        pair(r32(9), r32(10)) +
+        pair(r32(11), r32(12)) +
+        pair(r32(13), r32(14)) +
+        pair(r32(15), r32(16));
+
+      const rightR16Body =
+        `<div class="wc-b-stack-4">` +
+        [5, 6, 7, 8].map((o) => bracketSlotHtml(r16(o), byEvent)).join("") +
+        `</div>`;
+
+      const rightQfBody =
+        `<div class="wc-b-stack-2">` +
+        bracketSlotHtml(qf(3), byEvent) +
+        bracketSlotHtml(qf(4), byEvent) +
+        `</div>`;
+
+      const centerHtml =
+        `<div class="wc-bracket-center" role="group" aria-label="Final and third place">` +
+        `<div class="wc-round-col-title">Final</div>` +
+        bracketSlotHtml(fin, byEvent, "wc-bracket-slot--final") +
+        `<div class="wc-round-col-title wc-round-col-title--sub">3rd place</div>` +
+        bracketSlotHtml(third, byEvent) +
+        `</div>`;
+
+      el.innerHTML =
+        `<div class="wc-bracket-mid">` +
+        `<div class="wc-bracket-half wc-bracket-half--left" aria-label="Bracket left half">` +
+        bracketColHtml("R32 (L)", leftR32Body) +
+        bracketColHtml("R16 (L)", leftR16Body) +
+        bracketColHtml("QF (L)", leftQfBody) +
+        bracketColHtml("SF (L)", bracketSlotHtml(sf(1), byEvent), "Semifinal left", true) +
+        `</div>` +
+        centerHtml +
+        `<div class="wc-bracket-half wc-bracket-half--right" aria-label="Bracket right half">` +
+        bracketColHtml("SF (R)", bracketSlotHtml(sf(2), byEvent), "Semifinal right", true) +
+        bracketColHtml("QF (R)", rightQfBody) +
+        bracketColHtml("R16 (R)", rightR16Body) +
+        bracketColHtml("R32 (R)", rightR32Body) +
+        `</div>` +
+        `</div>`;
+    }
+
+    async function loadBracketSeasonLinks() {
+      const embedEl = document.getElementById("wc2026-season-links-cup-rounds-embed");
+      if (embedEl && embedEl.textContent.trim()) {
+        try {
+          const data = JSON.parse(embedEl.textContent);
+          if (Array.isArray(data) && data.length) {
+            cachedCupRounds = data;
+            renderBracket(cachedCupRounds);
+            return;
+          }
+        } catch (_) {
+          /* fall through to fetch */
+        }
+      }
+      try {
+        const res = await fetch("assets/wc2026_season_links_cup_rounds.json", { cache: "no-store" });
+        if (!res.ok) throw new Error(String(res.status));
+        const data = await res.json();
+        cachedCupRounds = Array.isArray(data) ? data : [];
+        renderBracket(cachedCupRounds);
+      } catch (_) {
+        cachedCupRounds = null;
+        if (dom.bracket) {
+          dom.bracket.innerHTML =
+            '<div class="empty">Bracket data missing: embed script <code>#wc2026-season-links-cup-rounds-embed</code> is empty or invalid, and <code>assets/wc2026_season_links_cup_rounds.json</code> could not be loaded.</div>';
+        }
+      }
+    }
 
     function filteredMatches() {
       return matches.filter((m) => {
@@ -920,12 +1348,33 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
       dom.toggleStageBtn.textContent = hidden ? "▸" : "▾";
       dom.toggleStageBtn.setAttribute("aria-expanded", hidden ? "false" : "true");
     };
-    dom.refreshBtn.onclick = () => render();
+    dom.refreshBtn.onclick = () => {
+      render();
+      if (cachedCupRounds && cachedCupRounds.length) renderBracket(cachedCupRounds);
+      else loadBracketSeasonLinks();
+    };
 
+    function initBracketSectionToggle() {
+      if (!dom.bracketSectionBody || !dom.toggleBracketSectionBtn) return;
+      const expanded = localStorage.getItem("wc2026_bracket_section_expanded") === "1";
+      dom.bracketSectionBody.classList.toggle("hidden", !expanded);
+      dom.toggleBracketSectionBtn.textContent = expanded ? "▾" : "▸";
+      dom.toggleBracketSectionBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+      dom.toggleBracketSectionBtn.onclick = () => {
+        const hidden = dom.bracketSectionBody.classList.toggle("hidden");
+        const nowExpanded = !hidden;
+        dom.toggleBracketSectionBtn.textContent = nowExpanded ? "▾" : "▸";
+        dom.toggleBracketSectionBtn.setAttribute("aria-expanded", nowExpanded ? "true" : "false");
+        localStorage.setItem("wc2026_bracket_section_expanded", nowExpanded ? "1" : "0");
+      };
+    }
+
+    initBracketSectionToggle();
     renderGroupPills();
     renderPills();
     renderStagePills();
     render();
+    loadBracketSeasonLinks();
   </script>
 </body>
 </html>
