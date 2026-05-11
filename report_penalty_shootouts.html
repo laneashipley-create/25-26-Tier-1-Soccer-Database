@@ -342,12 +342,11 @@
       display: flex;
       flex-wrap: nowrap;
       align-items: stretch;
-      justify-content: flex-start;
+      justify-content: safe center;
       gap: 0;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: thin;
-      text-align: left;
       background: #1a0000;
       padding: 0.35rem 0.5rem;
       font-size: 0.88rem;
@@ -377,6 +376,75 @@
       font-size: 0.75rem;
       padding: 0 0.05rem;
       user-select: none;
+    }
+
+    
+    .table-wrap .col-resize-handle {
+      position: absolute;
+      top: 0;
+      right: -4px;
+      width: 9px;
+      height: 100%;
+      cursor: col-resize;
+      user-select: none;
+      z-index: 10;
+      background: transparent;
+      transition: background 0.12s ease;
+    }
+    .table-wrap .col-resize-handle::after {
+      content: "";
+      position: absolute;
+      top: 18%;
+      bottom: 18%;
+      left: 50%;
+      width: 1px;
+      background: rgba(255, 200, 200, 0.18);
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .table-wrap .col-resize-handle:hover,
+    .table-wrap .col-resize-handle.is-active {
+      background: rgba(255, 153, 153, 0.45);
+    }
+    .table-wrap .col-resize-handle:hover::after,
+    .table-wrap .col-resize-handle.is-active::after {
+      background: #fff;
+    }
+    .table-wrap thead tr:first-child th {
+      position: relative;
+    }
+    body.is-col-resizing,
+    body.is-col-resizing * {
+      cursor: col-resize !important;
+      user-select: none !important;
+    }
+    .table-resize-toolbar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .col-resize-reset-btn {
+      font: inherit;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.55rem;
+      border-radius: 6px;
+      border: 1px solid #ddd8d0;
+      background: #faf8f5;
+      color: #444;
+    }
+    .col-resize-reset-btn:hover {
+      border-color: #cc0000;
+      color: #990000;
+      background: #fff0f0;
+    }
+    @media (max-width: 899px) {
+      .table-wrap .col-resize-handle { display: none; }
+      .col-resize-reset-btn { display: none; }
     }
 
   </style>
@@ -468,7 +536,10 @@
   </div>
 
   <div class="table-section">
-    <p class="table-toolbar-hint">Click a column header to sort. Use <strong>Values…</strong> under each column for an Excel-style checklist (search within the list when there are many values).</p>
+    <div class="table-toolbar-hint">
+      <button type="button" class="col-resize-reset-btn" data-col-resize-reset=".table-wrap table" title="Reset column widths to defaults">Reset widths</button>
+      &nbsp;Click a column header to sort. Drag the right edge of any header to resize that column (double-click to reset just that one). Use <strong>Values…</strong> under each column for an Excel-style checklist (search within the list when there are many values).
+    </div>
     <div class="table-wrap">
       <table id="table-penalty-shootouts" class="sortable-derived">
         <thead>
@@ -1198,6 +1269,194 @@
   wireTopSlicers();
   wireWaterBreakEventsPerMatchSlicer();
   applyAllDerivedFilters();
+})();
+</script><script>
+(function () {
+  if (window.__reportColumnResizeInit) return;
+  window.__reportColumnResizeInit = true;
+
+  var STORAGE_PREFIX = "report-col-widths:";
+  var MIN_COL_PX = 48;
+
+  function storageKey(table) {
+    return STORAGE_PREFIX + (table.id || table.dataset.colResizeKey || "anon");
+  }
+
+  function ensureColgroup(table) {
+    var colgroup = table.querySelector(":scope > colgroup");
+    var headerRow = table.querySelector("thead tr:first-child");
+    if (!headerRow) return null;
+    var ths = headerRow.querySelectorAll("th");
+    if (!colgroup) {
+      colgroup = document.createElement("colgroup");
+      for (var i = 0; i < ths.length; i++) colgroup.appendChild(document.createElement("col"));
+      table.insertBefore(colgroup, table.firstChild);
+    } else {
+      while (colgroup.children.length < ths.length) {
+        colgroup.appendChild(document.createElement("col"));
+      }
+    }
+    return colgroup;
+  }
+
+  function saveWidths(table) {
+    var colgroup = table.querySelector(":scope > colgroup");
+    if (!colgroup) return;
+    var widths = Array.prototype.map.call(colgroup.children, function (col) {
+      return col.style.width || "";
+    });
+    try {
+      localStorage.setItem(storageKey(table), JSON.stringify(widths));
+    } catch (e) { /* ignore */ }
+  }
+
+  function loadWidths(table) {
+    try {
+      var raw = localStorage.getItem(storageKey(table));
+      if (!raw) return null;
+      var arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr : null;
+    } catch (e) { return null; }
+  }
+
+  function clearWidths(table) {
+    try { localStorage.removeItem(storageKey(table)); } catch (e) { /* ignore */ }
+  }
+
+  function applyStoredWidths(table) {
+    var stored = loadWidths(table);
+    if (!stored) return false;
+    var colgroup = ensureColgroup(table);
+    if (!colgroup) return false;
+    var cols = colgroup.children;
+    var applied = false;
+    for (var i = 0; i < cols.length && i < stored.length; i++) {
+      if (stored[i]) {
+        cols[i].style.width = stored[i];
+        applied = true;
+      }
+    }
+    return applied;
+  }
+
+  function snapshotInitialWidths(table) {
+    var colgroup = ensureColgroup(table);
+    if (!colgroup) return;
+    var ths = table.querySelectorAll("thead tr:first-child th");
+    var cols = colgroup.children;
+    for (var i = 0; i < ths.length; i++) {
+      var c = cols[i];
+      if (!c) continue;
+      if (!c.style.width) {
+        var w = ths[i].getBoundingClientRect().width;
+        if (w > 0) c.style.width = Math.round(w) + "px";
+      }
+    }
+    table.style.tableLayout = "fixed";
+  }
+
+  function startResize(e, col, th, handle, table) {
+    e.preventDefault();
+    e.stopPropagation();
+    var isTouch = e.type === "touchstart";
+    var startX = isTouch ? e.touches[0].pageX : e.pageX;
+    var startWidth = col.getBoundingClientRect().width || th.getBoundingClientRect().width;
+    document.body.classList.add("is-col-resizing");
+    handle.classList.add("is-active");
+
+    function onMove(ev) {
+      var x = ev.touches ? ev.touches[0].pageX : ev.pageX;
+      var newWidth = Math.max(MIN_COL_PX, Math.round(startWidth + (x - startX)));
+      col.style.width = newWidth + "px";
+      if (ev.cancelable) ev.preventDefault();
+    }
+    function onUp() {
+      document.body.classList.remove("is-col-resizing");
+      handle.classList.remove("is-active");
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+      document.removeEventListener("touchmove", onMove);
+      document.removeEventListener("touchend", onUp);
+      saveWidths(table);
+    }
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onUp);
+    document.addEventListener("touchmove", onMove, { passive: false });
+    document.addEventListener("touchend", onUp);
+  }
+
+  function setupTable(table) {
+    if (!table || table.dataset.colResizeInit === "1") return;
+    var headerRow = table.querySelector("thead tr:first-child");
+    if (!headerRow) return;
+    var ths = headerRow.querySelectorAll("th");
+    if (ths.length < 2) return;
+
+    var hadStored = applyStoredWidths(table);
+    if (!hadStored) snapshotInitialWidths(table);
+    else table.style.tableLayout = "fixed";
+
+    var colgroup = ensureColgroup(table);
+    var cols = colgroup.children;
+
+    Array.prototype.forEach.call(ths, function (th, idx) {
+      if (idx >= cols.length - 1) return;
+      if (th.querySelector(":scope > .col-resize-handle")) return;
+      var handle = document.createElement("span");
+      handle.className = "col-resize-handle";
+      handle.setAttribute("aria-hidden", "true");
+      handle.addEventListener("click", function (ev) { ev.stopPropagation(); });
+      handle.addEventListener("dblclick", function (ev) {
+        ev.stopPropagation();
+        ev.preventDefault();
+        cols[idx].style.width = "";
+        snapshotInitialWidths(table);
+        saveWidths(table);
+      });
+      handle.addEventListener("mousedown", function (ev) {
+        startResize(ev, cols[idx], th, handle, table);
+      });
+      handle.addEventListener("touchstart", function (ev) {
+        startResize(ev, cols[idx], th, handle, table);
+      }, { passive: false });
+      th.appendChild(handle);
+    });
+
+    table.dataset.colResizeInit = "1";
+  }
+
+  function attachResetHandlers() {
+    document.querySelectorAll("[data-col-resize-reset]").forEach(function (btn) {
+      if (btn.dataset.colResetWired === "1") return;
+      btn.dataset.colResetWired = "1";
+      btn.addEventListener("click", function () {
+        var targetSel = btn.getAttribute("data-col-resize-reset");
+        var tables = targetSel ? document.querySelectorAll(targetSel) : document.querySelectorAll(".table-wrap table");
+        tables.forEach(function (t) {
+          clearWidths(t);
+          var cg = t.querySelector(":scope > colgroup");
+          if (cg) {
+            Array.prototype.forEach.call(cg.children, function (c) { c.style.width = ""; });
+          }
+          t.style.tableLayout = "";
+          requestAnimationFrame(function () { snapshotInitialWidths(t); });
+        });
+      });
+    });
+  }
+
+  function init() {
+    document.querySelectorAll(".table-wrap table").forEach(function (t) {
+      try { setupTable(t); } catch (e) { /* swallow */ }
+    });
+    attachResetHandlers();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    requestAnimationFrame(init);
+  }
 })();
 </script>
 </body>

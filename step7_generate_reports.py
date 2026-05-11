@@ -47,7 +47,7 @@ from config import (
     TIMELINES_DIR,
     USE_SUPABASE,
 )
-from report_navigation import NAV_CSS, navigation_html
+from report_navigation import COLUMN_RESIZE_CSS, COLUMN_RESIZE_SCRIPT, NAV_CSS, navigation_html
 from report_filter_slicers import (
     DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER,
     REPORT_TILE_FILTER_CSS,
@@ -1511,6 +1511,7 @@ def _derived_page_shell(
     {EXCEL_FILTER_CSS}
     {REPORT_TILE_FILTER_CSS}
     {NAV_CSS}
+    {COLUMN_RESIZE_CSS}
   </style>
 </head>
 <body>
@@ -1525,7 +1526,10 @@ def _derived_page_shell(
   <p class="meta">{meta}</p>
 {filter_payload_html}{filter_controls_html}
   <div class="table-section">
-    <p class="table-toolbar-hint">Click a column header to sort. Use <strong>Values…</strong> under each column for an Excel-style checklist (search within the list when there are many values).</p>
+    <div class="table-toolbar-hint">
+      <button type="button" class="col-resize-reset-btn" data-col-resize-reset=".table-wrap table" title="Reset column widths to defaults">Reset widths</button>
+      &nbsp;Click a column header to sort. Drag the right edge of any header to resize that column (double-click to reset just that one). Use <strong>Values…</strong> under each column for an Excel-style checklist (search within the list when there are many values).
+    </div>
     {table_html}
   </div>
   <div class="footer">
@@ -1534,6 +1538,7 @@ def _derived_page_shell(
 {EXCEL_FILTER_CORE_SCRIPT}
 """
         + DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER
+        + COLUMN_RESIZE_SCRIPT
         + """
 </body>
 </html>"""
@@ -2761,6 +2766,7 @@ def generate_html(
     }}
 {EXCEL_FILTER_CSS}
 {NAV_CSS}
+{COLUMN_RESIZE_CSS}
   </style>
 </head>
 <body>
@@ -2786,7 +2792,10 @@ def generate_html(
   <div class="table-section">
     <div class="table-header-row">
       <div class="table-title" id="table-filter-title">All Own Goals</div>
-      <div class="sort-hint">Click a column header to sort. Use <strong>Values…</strong> for an Excel-style value checklist (search inside the list when needed).</div>
+      <div class="table-resize-toolbar">
+        <button type="button" class="col-resize-reset-btn" data-col-resize-reset="#og-table" title="Reset column widths to defaults">Reset widths</button>
+      </div>
+      <div class="sort-hint">Click a column header to sort. Drag the right edge of any header to resize that column (double-click to reset just that one). Use <strong>Values…</strong> for an Excel-style value checklist.</div>
     </div>
     <div class="table-wrap">
       <table id="og-table">
@@ -2859,6 +2868,7 @@ def generate_html(
   {EXCEL_FILTER_CORE_SCRIPT}
   <script type="application/json" id="report-filter-data">{filter_json}</script>
   {_inline_report_script()}
+{COLUMN_RESIZE_SCRIPT}
 
 </body>
 </html>"""

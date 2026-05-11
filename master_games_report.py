@@ -11,7 +11,7 @@ import json
 from datetime import datetime, timezone
 
 from config import REPORT_BLURB_LIST_OF_ALL_GAMES, REPORT_HTML_MASTER_GAMES, USE_SUPABASE
-from report_navigation import NAV_CSS, navigation_html
+from report_navigation import COLUMN_RESIZE_CSS, COLUMN_RESIZE_SCRIPT, NAV_CSS, navigation_html
 from report_filter_slicers import build_date_migration_tile, build_numbered_competition_slicer
 
 
@@ -811,6 +811,7 @@ def generate_master_games_html(rows: list[dict]) -> str:
     }}
     {EXCEL_FILTER_CSS}
     {NAV_CSS}
+    {COLUMN_RESIZE_CSS}
   </style>
 </head>
 <body>
@@ -833,7 +834,10 @@ def generate_master_games_html(rows: list[dict]) -> str:
   <div class="table-section">
     <div class="table-header-row">
       <div class="table-title" id="mg-table-filter-title">All fixtures</div>
-      <div class="sort-hint">Click a column header to sort. Use <strong>Values…</strong> for Excel-style filters (combine with competition + date tiles).</div>
+      <div class="table-resize-toolbar">
+        <button type="button" class="col-resize-reset-btn" data-col-resize-reset="#mg-table" title="Reset column widths to defaults">Reset widths</button>
+      </div>
+      <div class="sort-hint">Click a column header to sort. Drag the right edge of any header to resize that column (double-click to reset just that one). Use <strong>Values…</strong> for Excel-style filters.</div>
     </div>
     <div class="table-wrap">
       <table id="mg-table">
@@ -886,7 +890,13 @@ def generate_master_games_html(rows: list[dict]) -> str:
   <script type="application/json" id="report-filter-data-mg">{filter_json}</script>
 """
 
-    return body_main + EXCEL_FILTER_CORE_SCRIPT + _inline_master_games_script() + "\n</body>\n</html>"
+    return (
+        body_main
+        + EXCEL_FILTER_CORE_SCRIPT
+        + _inline_master_games_script()
+        + COLUMN_RESIZE_SCRIPT
+        + "\n</body>\n</html>"
+    )
 
 
 def write_master_games_report() -> None:
