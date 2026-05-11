@@ -733,9 +733,24 @@ def generate_master_games_html(rows: list[dict]) -> str:
     @media (max-width: 720px) {{
       .mg-kpi-row-games {{ grid-template-columns: 1fr; }}
       .sort-hint {{ text-align: left; max-width: none; width: 100%; }}
-      td, thead tr:first-child th {{ padding: 0.5rem 0.45rem; }}
-      thead tr:first-child th {{ font-size: 0.7rem; }}
-      .excel-filter-btn {{ min-height: 2.5rem; font-size: 0.72rem; padding: 0.35rem 0.45rem; }}
+      table {{ font-size: 0.74rem; }}
+      td {{
+        padding: 0.7rem 0.3rem;
+        line-height: 1.4;
+      }}
+      thead tr:first-child th {{
+        padding: 0.65rem 0.3rem;
+        font-size: 0.66rem;
+        letter-spacing: 0.03em;
+      }}
+      thead tr.og-col-filters th {{ padding: 0.35rem 0.25rem; }}
+      .id-cell code {{ font-size: 0.6rem; padding: 0.1rem 0.22rem; }}
+      .match-id-cell code {{ font-size: 0.55rem; }}
+      .excel-filter-btn {{
+        min-height: 2.5rem;
+        font-size: 0.7rem;
+        padding: 0.35rem 0.35rem;
+      }}
     }}
     @media (max-width: 640px) {{
       .stat-card--filter-tile .slicer-chips {{ grid-template-columns: 1fr; }}
@@ -743,6 +758,18 @@ def generate_master_games_html(rows: list[dict]) -> str:
     @media (max-width: 599px) {{
       .stats-grid {{ grid-template-columns: repeat(2, 1fr); }}
       html {{ font-size: 14px; }}
+      table {{ font-size: 0.72rem; }}
+      td {{
+        padding: 0.75rem 0.28rem;
+        line-height: 1.4;
+      }}
+      thead tr:first-child th {{
+        padding: 0.7rem 0.28rem;
+        font-size: 0.62rem;
+      }}
+      .id-cell code {{ font-size: 0.58rem; padding: 0.08rem 0.2rem; }}
+      .match-id-cell code {{ font-size: 0.52rem; }}
+      td.score {{ font-size: 0.78rem; }}
     }}
     {EXCEL_FILTER_CSS}
     {NAV_CSS}
