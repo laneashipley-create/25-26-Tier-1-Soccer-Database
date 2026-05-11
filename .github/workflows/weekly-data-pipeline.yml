@@ -50,13 +50,64 @@ jobs:
           rsvg-convert -w 360 assets/lanes_sportsdata.svg -o assets/lanes_sportsdata.png
 
       - name: Commit and push data + reports
+        env:
+          SUPABASE_URL: https://yoesorfzvtbdmvrdtqoo.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
+          set -e
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add report.html report_hub.html wc2026_schedule.html report_own_goals.html report_master_games.html report_penalty_shootouts.html report_var_events.html report_var_unpaired.html report_water_break_events.html report_water_break_unpaired.html report_recordings_library.html data/schedule.csv data/own_goals.csv assets/lanes_sportsdata.png
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "chore: daily full refresh (schedule, CSV, HTML) [skip ci]"
-            git push
-          fi
+
+          REPORT_FILES=(
+            report.html report_hub.html wc2026_schedule.html
+            report_own_goals.html report_master_games.html
+            report_penalty_shootouts.html report_var_events.html
+            report_var_unpaired.html report_water_break_events.html
+            report_water_break_unpaired.html report_recordings_library.html
+            data/schedule.csv data/own_goals.csv assets/lanes_sportsdata.png
+          )
+          COMMIT_MSG="chore: daily full refresh (schedule, CSV, HTML) [skip ci]"
+          MAX_RETRIES=3
+          KEEP_DIR="$RUNNER_TEMP/workflow-keep"
+          mkdir -p "$KEEP_DIR" "$KEEP_DIR/data" "$KEEP_DIR/assets"
+
+          for attempt in $(seq 1 "$MAX_RETRIES"); do
+            git add "${REPORT_FILES[@]}" || true
+            if git diff --staged --quiet; then
+              echo "Attempt $attempt: no changes to commit."
+              exit 0
+            fi
+            git commit -m "$COMMIT_MSG"
+
+            if git push; then
+              echo "Push succeeded on attempt $attempt."
+              exit 0
+            fi
+
+            echo "Push attempt $attempt rejected."
+            if [ "$attempt" -ge "$MAX_RETRIES" ]; then
+              break
+            fi
+
+            echo "Preserving workflow data files, pulling latest source, regenerating HTML..."
+            cp data/schedule.csv "$KEEP_DIR/data/schedule.csv" 2>/dev/null || true
+            cp data/own_goals.csv "$KEEP_DIR/data/own_goals.csv" 2>/dev/null || true
+            cp assets/lanes_sportsdata.png "$KEEP_DIR/assets/lanes_sportsdata.png" 2>/dev/null || true
+
+            git fetch origin main
+            git reset --hard origin/main
+            python -m pip install -q -r requirements.txt
+
+            cp "$KEEP_DIR/data/schedule.csv" data/schedule.csv 2>/dev/null || true
+            cp "$KEEP_DIR/data/own_goals.csv" data/own_goals.csv 2>/dev/null || true
+            cp "$KEEP_DIR/assets/lanes_sportsdata.png" assets/lanes_sportsdata.png 2>/dev/null || true
+
+            export PYTHONUTF8=1
+            python run_all.py --reports-only
+            if [ -f assets/lanes_sportsdata.svg ]; then
+              rsvg-convert -w 360 assets/lanes_sportsdata.svg -o assets/lanes_sportsdata.png || true
+            fi
+          done
+
+          echo "Push failed after $MAX_RETRIES attempts."
+          exit 1
