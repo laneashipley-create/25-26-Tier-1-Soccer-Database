@@ -73,8 +73,8 @@ COLUMN_RESIZE_CSS = """
     .table-wrap .col-resize-handle {
       position: absolute;
       top: 0;
-      right: -4px;
-      width: 9px;
+      right: -6px;
+      width: 13px;
       height: 100%;
       cursor: col-resize;
       user-select: none;
@@ -85,21 +85,25 @@ COLUMN_RESIZE_CSS = """
     .table-wrap .col-resize-handle::after {
       content: "";
       position: absolute;
-      top: 18%;
-      bottom: 18%;
+      top: 12%;
+      bottom: 12%;
       left: 50%;
-      width: 1px;
-      background: rgba(255, 200, 200, 0.18);
+      width: 2px;
+      background: rgba(255, 170, 170, 0.55);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+      border-radius: 1px;
       transform: translateX(-50%);
       pointer-events: none;
+      transition: background 0.12s ease, width 0.12s ease;
     }
     .table-wrap .col-resize-handle:hover,
     .table-wrap .col-resize-handle.is-active {
-      background: rgba(255, 153, 153, 0.45);
+      background: rgba(255, 153, 153, 0.55);
     }
     .table-wrap .col-resize-handle:hover::after,
     .table-wrap .col-resize-handle.is-active::after {
-      background: #fff;
+      background: #ffffff;
+      width: 3px;
     }
     .table-wrap thead tr:first-child th {
       position: relative;
