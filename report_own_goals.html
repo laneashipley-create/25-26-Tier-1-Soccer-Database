@@ -301,48 +301,42 @@
 
     /* ── Table ────────────────────────────────────────── */
     table {
-      width: max-content;
-      min-width: 100%;
+      width: 100%;
       border-collapse: collapse;
-      font-size: 0.78rem;
-      table-layout: auto;
+      font-size: 0.8rem;
+      table-layout: fixed;
     }
-    @media (min-width: 901px) {
-      table {
-        width: 100%;
-        table-layout: fixed;
-      }
-    col.c-num        { width: 2%; }
-    col.c-comp       { width: 11%; }
-    col.c-title      { width: 13%; }
-    col.c-matchdate  { width: 7%; }
-    col.c-matchid    { width: 10%; }
+    col.c-num        { width: 2.5%; }
+    col.c-comp       { width: 10%; }
+    col.c-title      { width: 12%; }
+    col.c-matchdate  { width: 6%; }
+    col.c-matchid    { width: 9%; }
     col.c-recorded   { width: 5%; }
     col.c-recordingid { width: 9%; }
     col.c-scorer     { width: 10%; }
-    col.c-playerid   { width: 8%; }
+    col.c-playerid   { width: 7%; }
     col.c-min        { width: 4%; }
-    col.c-team       { width: 9%; }
-    col.c-score      { width: 5%; }
-    col.c-final      { width: 5%; }
+    col.c-team       { width: 8%; }
+    col.c-score      { width: 4.5%; }
+    col.c-final      { width: 4.5%; }
     col.c-ogmention  { width: 5%; }
-    col.c-commentary { width: 16%; }
-    }
+    col.c-commentary { width: 14%; }
 
     thead tr:first-child {
       background: #1a0000;
       border-bottom: 2px solid #cc0000;
     }
     thead tr:first-child th {
-      padding: 0.55rem 0.4rem;
-      text-align: left;
-      font-size: 0.68rem;
+      padding: 0.7rem 0.4rem;
+      text-align: center;
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       color: #ffaaaa;
-      white-space: nowrap;
-      overflow: hidden;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.25;
       cursor: pointer;
       user-select: none;
     }
@@ -354,7 +348,7 @@
     thead tr.og-col-filters th {
       background: #2a1515;
       cursor: default;
-      padding: 0.3rem 0.35rem;
+      padding: 0.35rem 0.3rem;
       border-bottom: 2px solid #cc0000;
       text-transform: none;
       font-weight: 400;
@@ -365,13 +359,20 @@
     tbody tr:hover { background: #fff0f0; }
 
     td {
-      padding: 0.45rem 0.4rem;
+      padding: 0.7rem 0.4rem;
       text-align: center;
       vertical-align: middle;
       border-bottom: 1px solid #e8e2d8;
-      white-space: nowrap;
+      white-space: normal;
+      word-break: break-word;
       overflow: hidden;
-      text-overflow: ellipsis;
+      line-height: 1.4;
+    }
+    td code {
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-all;
     }
     td.num { text-align: center; color: #bbb; font-size: 0.75rem; }
     td.minute {
@@ -568,6 +569,45 @@
     @media (max-width: 720px) {
       .sort-hint { text-align: left; max-width: none; width: 100%; }
       .excel-filter-btn { min-height: 2.5rem; font-size: 0.72rem; padding: 0.35rem 0.45rem; }
+    }
+    /* ── Below 900px: revert to natural-width horizontal scroll ──── */
+    @media (min-width: 600px) and (max-width: 899px) {
+      table {
+        width: max-content;
+        min-width: 100%;
+        table-layout: auto;
+        font-size: 0.78rem;
+      }
+      td {
+        white-space: nowrap;
+        word-break: normal;
+        text-overflow: ellipsis;
+      }
+      thead tr:first-child th {
+        white-space: nowrap;
+        word-break: normal;
+      }
+      td code {
+        white-space: nowrap;
+        word-break: normal;
+        overflow-wrap: normal;
+      }
+    }
+    @media (max-width: 599px) and (orientation: landscape) {
+      table {
+        width: max-content;
+        min-width: 100%;
+        table-layout: auto;
+      }
+      td, thead tr:first-child th {
+        white-space: nowrap;
+        word-break: normal;
+      }
+      td code {
+        white-space: nowrap;
+        word-break: normal;
+        overflow-wrap: normal;
+      }
     }
 
     /* Landscape phone — keep table but hide IDs & commentary */
@@ -857,7 +897,7 @@
     </div>
 
           <div class="stat-card">
-            <div class="stat-number" id="kpi-matches">4,119</div>
+            <div class="stat-number" id="kpi-matches">4,143</div>
             <div class="stat-label">Matches Reviewed</div>
           </div>
           <div class="stat-card">
@@ -9096,7 +9136,7 @@
   </div>
 
   <div class="footer">
-    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 10 May 2026, 19:12 UTC</p>
+    <p>Data sourced from <a href="https://developer.sportradar.com" target="_blank">Sportradar Soccer API</a> &bull; Report generated 11 May 2026, 02:12 UTC</p>
   </div>
 
   <script>
@@ -9303,7 +9343,7 @@
   window.ReportExcelFilter = { open: open, close: close };
 })();
 </script>
-  <script type="application/json" id="report-filter-data">{"pipelineBySeason": {"UEFA Champions League 25/26": {"matches_reviewed": 277}, "Brasileiro Serie A 2026": {"matches_reviewed": 140}, "Brasileiro Serie B 2026": {"matches_reviewed": 76}, "Bundesliga 25/26": {"matches_reviewed": 293}, "Premier League 25/26": {"matches_reviewed": 354}, "J1 League 2026": {"matches_reviewed": 159}, "LaLiga 25/26": {"matches_reviewed": 344}, "Ligue 1 25/26": {"matches_reviewed": 284}, "MLS 2026": {"matches_reviewed": 171}, "Serie A 25/26": {"matches_reviewed": 355}, "UEFA Europa League 25/26": {"matches_reviewed": 269}, "UEFA Conference League 25/26": {"matches_reviewed": 408}, "UEFA Nations League 26/27": {"matches_reviewed": 0}, "World Cup 2026": {"matches_reviewed": 0}, "UEFA Euro 2028": {"matches_reviewed": 0}, "DFB Pokal 25/26": {"matches_reviewed": 61}, "FA Cup 25/26": {"matches_reviewed": 122}, "Copa del Rey 25/26": {"matches_reviewed": 135}, "Coupe de France 25/26": {"matches_reviewed": 195}, "Coppa Italia 25/26": {"matches_reviewed": 42}, "Community Shield 2025": {"matches_reviewed": 1}, "UEFA Super Cup 2025": {"matches_reviewed": 1}, "CONMEBOL Libertadores 2026": {"matches_reviewed": 93}, "CONMEBOL Sudamericana 2026": {"matches_reviewed": 80}, "Liga MX, Clausura 2026": {"matches_reviewed": 159}, "Paulista, Serie A1 2026": {"matches_reviewed": 72}}, "pipelineGlobal": {"matches": 4119}, "allSeasonNames": ["Brasileiro Serie A 2026", "Brasileiro Serie B 2026", "Bundesliga 25/26", "CONMEBOL Libertadores 2026", "CONMEBOL Sudamericana 2026", "Copa del Rey 25/26", "Coppa Italia 25/26", "Coupe de France 25/26", "DFB Pokal 25/26", "FA Cup 25/26", "J1 League 2026", "LaLiga 25/26", "Liga MX, Clausura 2026", "Ligue 1 25/26", "MLS 2026", "Paulista, Serie A1 2026", "Premier League 25/26", "Serie A 25/26", "UEFA Champions League 25/26", "UEFA Conference League 25/26", "UEFA Europa League 25/26"], "dataDateMin": "2025-07-10", "dataDateMax": "2026-05-10", "commentaryAvailableFrom": "2026-04-20"}</script>
+  <script type="application/json" id="report-filter-data">{"pipelineBySeason": {"UEFA Champions League 25/26": {"matches_reviewed": 277}, "Brasileiro Serie A 2026": {"matches_reviewed": 147}, "Brasileiro Serie B 2026": {"matches_reviewed": 79}, "Bundesliga 25/26": {"matches_reviewed": 294}, "Premier League 25/26": {"matches_reviewed": 354}, "J1 League 2026": {"matches_reviewed": 159}, "LaLiga 25/26": {"matches_reviewed": 345}, "Ligue 1 25/26": {"matches_reviewed": 292}, "MLS 2026": {"matches_reviewed": 173}, "Serie A 25/26": {"matches_reviewed": 356}, "UEFA Europa League 25/26": {"matches_reviewed": 269}, "UEFA Conference League 25/26": {"matches_reviewed": 408}, "UEFA Nations League 26/27": {"matches_reviewed": 0}, "World Cup 2026": {"matches_reviewed": 0}, "UEFA Euro 2028": {"matches_reviewed": 0}, "DFB Pokal 25/26": {"matches_reviewed": 61}, "FA Cup 25/26": {"matches_reviewed": 122}, "Copa del Rey 25/26": {"matches_reviewed": 135}, "Coupe de France 25/26": {"matches_reviewed": 195}, "Coppa Italia 25/26": {"matches_reviewed": 42}, "Community Shield 2025": {"matches_reviewed": 1}, "UEFA Super Cup 2025": {"matches_reviewed": 1}, "CONMEBOL Libertadores 2026": {"matches_reviewed": 93}, "CONMEBOL Sudamericana 2026": {"matches_reviewed": 80}, "Liga MX, Clausura 2026": {"matches_reviewed": 160}, "Paulista, Serie A1 2026": {"matches_reviewed": 72}}, "pipelineGlobal": {"matches": 4143}, "allSeasonNames": ["Brasileiro Serie A 2026", "Brasileiro Serie B 2026", "Bundesliga 25/26", "CONMEBOL Libertadores 2026", "CONMEBOL Sudamericana 2026", "Copa del Rey 25/26", "Coppa Italia 25/26", "Coupe de France 25/26", "DFB Pokal 25/26", "FA Cup 25/26", "J1 League 2026", "LaLiga 25/26", "Liga MX, Clausura 2026", "Ligue 1 25/26", "MLS 2026", "Paulista, Serie A1 2026", "Premier League 25/26", "Serie A 25/26", "UEFA Champions League 25/26", "UEFA Conference League 25/26", "UEFA Europa League 25/26"], "dataDateMin": "2025-07-10", "dataDateMax": "2026-05-10", "commentaryAvailableFrom": "2026-04-20"}</script>
   <script>
 (function () {
   const tbody = document.getElementById('og-tbody');

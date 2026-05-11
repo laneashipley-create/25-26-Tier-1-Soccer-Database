@@ -1431,13 +1431,54 @@ def _derived_page_shell(
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
       max-width: 100%;
     }}
-    table {{ border-collapse: collapse; width: max-content; min-width: 100%; font-size: 0.82rem; table-layout: auto; }}
-    th, td {{ border-bottom: 1px solid #e8e4dc; padding: 0.38rem 0.5rem; text-align: center; vertical-align: top; }}
+    table {{
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.82rem;
+      table-layout: fixed;
+    }}
+    th, td {{
+      border-bottom: 1px solid #e8e4dc;
+      padding: 0.7rem 0.4rem;
+      text-align: center;
+      vertical-align: middle;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.4;
+    }}
+    td code, td .mono {{
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-all;
+    }}
+    @media (max-width: 899px) {{
+      table {{
+        width: max-content;
+        min-width: 100%;
+        table-layout: auto;
+        font-size: 0.78rem;
+      }}
+      th, td {{
+        white-space: nowrap;
+        word-break: normal;
+        padding: 0.6rem 0.5rem;
+      }}
+      td code, td .mono {{
+        white-space: nowrap;
+        word-break: normal;
+        overflow-wrap: normal;
+      }}
+    }}
     thead tr:first-child th {{
       background: #2a1515;
       color: #fff;
       font-weight: 600;
-      white-space: nowrap;
+      font-size: 0.74rem;
+      letter-spacing: 0.02em;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.25;
       cursor: pointer;
       user-select: none;
     }}
@@ -1447,13 +1488,19 @@ def _derived_page_shell(
     thead tr.derived-col-filters th {{
       background: #352020;
       cursor: default;
-      padding: 0.35rem 0.4rem;
+      padding: 0.35rem 0.3rem;
       border-bottom: 2px solid #cc0000;
+    }}
+    @media (max-width: 899px) {{
+      thead tr:first-child th {{
+        white-space: nowrap;
+        word-break: normal;
+      }}
     }}
     .derived-row--hidden {{ display: none !important; }}
     tr:nth-child(even) td {{ background: #faf8f4; }}
-    td.mono, td code {{ font-size: 0.76rem; }}
-    td.num {{ text-align: center; color: #bbb; font-size: 0.75rem; }}
+    td.mono, td code {{ font-size: 0.72rem; }}
+    td.num {{ text-align: center; color: #bbb; font-size: 0.78rem; }}
     .table-toolbar-hint {{
       font-size: 0.78rem;
       color: #555;
@@ -2393,48 +2440,42 @@ def generate_html(
 
     /* ── Table ────────────────────────────────────────── */
     table {{
-      width: max-content;
-      min-width: 100%;
+      width: 100%;
       border-collapse: collapse;
-      font-size: 0.78rem;
-      table-layout: auto;
+      font-size: 0.8rem;
+      table-layout: fixed;
     }}
-    @media (min-width: 901px) {{
-      table {{
-        width: 100%;
-        table-layout: fixed;
-      }}
-    col.c-num        {{ width: 2%; }}
-    col.c-comp       {{ width: 11%; }}
-    col.c-title      {{ width: 13%; }}
-    col.c-matchdate  {{ width: 7%; }}
-    col.c-matchid    {{ width: 10%; }}
+    col.c-num        {{ width: 2.5%; }}
+    col.c-comp       {{ width: 10%; }}
+    col.c-title      {{ width: 12%; }}
+    col.c-matchdate  {{ width: 6%; }}
+    col.c-matchid    {{ width: 9%; }}
     col.c-recorded   {{ width: 5%; }}
     col.c-recordingid {{ width: 9%; }}
     col.c-scorer     {{ width: 10%; }}
-    col.c-playerid   {{ width: 8%; }}
+    col.c-playerid   {{ width: 7%; }}
     col.c-min        {{ width: 4%; }}
-    col.c-team       {{ width: 9%; }}
-    col.c-score      {{ width: 5%; }}
-    col.c-final      {{ width: 5%; }}
+    col.c-team       {{ width: 8%; }}
+    col.c-score      {{ width: 4.5%; }}
+    col.c-final      {{ width: 4.5%; }}
     col.c-ogmention  {{ width: 5%; }}
-    col.c-commentary {{ width: 16%; }}
-    }}
+    col.c-commentary {{ width: 14%; }}
 
     thead tr:first-child {{
       background: #1a0000;
       border-bottom: 2px solid #cc0000;
     }}
     thead tr:first-child th {{
-      padding: 0.55rem 0.4rem;
-      text-align: left;
-      font-size: 0.68rem;
+      padding: 0.7rem 0.4rem;
+      text-align: center;
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       color: #ffaaaa;
-      white-space: nowrap;
-      overflow: hidden;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.25;
       cursor: pointer;
       user-select: none;
     }}
@@ -2446,7 +2487,7 @@ def generate_html(
     thead tr.og-col-filters th {{
       background: #2a1515;
       cursor: default;
-      padding: 0.3rem 0.35rem;
+      padding: 0.35rem 0.3rem;
       border-bottom: 2px solid #cc0000;
       text-transform: none;
       font-weight: 400;
@@ -2457,13 +2498,20 @@ def generate_html(
     tbody tr:hover {{ background: #fff0f0; }}
 
     td {{
-      padding: 0.45rem 0.4rem;
+      padding: 0.7rem 0.4rem;
       text-align: center;
       vertical-align: middle;
       border-bottom: 1px solid #e8e2d8;
-      white-space: nowrap;
+      white-space: normal;
+      word-break: break-word;
       overflow: hidden;
-      text-overflow: ellipsis;
+      line-height: 1.4;
+    }}
+    td code {{
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-all;
     }}
     td.num {{ text-align: center; color: #bbb; font-size: 0.75rem; }}
     td.minute {{
@@ -2660,6 +2708,45 @@ def generate_html(
     @media (max-width: 720px) {{
       .sort-hint {{ text-align: left; max-width: none; width: 100%; }}
       .excel-filter-btn {{ min-height: 2.5rem; font-size: 0.72rem; padding: 0.35rem 0.45rem; }}
+    }}
+    /* ── Below 900px: revert to natural-width horizontal scroll ──── */
+    @media (min-width: 600px) and (max-width: 899px) {{
+      table {{
+        width: max-content;
+        min-width: 100%;
+        table-layout: auto;
+        font-size: 0.78rem;
+      }}
+      td {{
+        white-space: nowrap;
+        word-break: normal;
+        text-overflow: ellipsis;
+      }}
+      thead tr:first-child th {{
+        white-space: nowrap;
+        word-break: normal;
+      }}
+      td code {{
+        white-space: nowrap;
+        word-break: normal;
+        overflow-wrap: normal;
+      }}
+    }}
+    @media (max-width: 599px) and (orientation: landscape) {{
+      table {{
+        width: max-content;
+        min-width: 100%;
+        table-layout: auto;
+      }}
+      td, thead tr:first-child th {{
+        white-space: nowrap;
+        word-break: normal;
+      }}
+      td code {{
+        white-space: nowrap;
+        word-break: normal;
+        overflow-wrap: normal;
+      }}
     }}
 
     /* Landscape phone — keep table but hide IDs & commentary */

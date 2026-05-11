@@ -52,13 +52,54 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
       max-width: 100%;
     }
-    table { border-collapse: collapse; width: max-content; min-width: 100%; font-size: 0.82rem; table-layout: auto; }
-    th, td { border-bottom: 1px solid #e8e4dc; padding: 0.38rem 0.5rem; text-align: center; vertical-align: top; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.82rem;
+      table-layout: fixed;
+    }
+    th, td {
+      border-bottom: 1px solid #e8e4dc;
+      padding: 0.7rem 0.4rem;
+      text-align: center;
+      vertical-align: middle;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.4;
+    }
+    td code, td .mono {
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-all;
+    }
+    @media (max-width: 899px) {
+      table {
+        width: max-content;
+        min-width: 100%;
+        table-layout: auto;
+        font-size: 0.78rem;
+      }
+      th, td {
+        white-space: nowrap;
+        word-break: normal;
+        padding: 0.6rem 0.5rem;
+      }
+      td code, td .mono {
+        white-space: nowrap;
+        word-break: normal;
+        overflow-wrap: normal;
+      }
+    }
     thead tr:first-child th {
       background: #2a1515;
       color: #fff;
       font-weight: 600;
-      white-space: nowrap;
+      font-size: 0.74rem;
+      letter-spacing: 0.02em;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.25;
       cursor: pointer;
       user-select: none;
     }
@@ -68,13 +109,19 @@
     thead tr.derived-col-filters th {
       background: #352020;
       cursor: default;
-      padding: 0.35rem 0.4rem;
+      padding: 0.35rem 0.3rem;
       border-bottom: 2px solid #cc0000;
+    }
+    @media (max-width: 899px) {
+      thead tr:first-child th {
+        white-space: nowrap;
+        word-break: normal;
+      }
     }
     .derived-row--hidden { display: none !important; }
     tr:nth-child(even) td { background: #faf8f4; }
-    td.mono, td code { font-size: 0.76rem; }
-    td.num { text-align: center; color: #bbb; font-size: 0.75rem; }
+    td.mono, td code { font-size: 0.72rem; }
+    td.num { text-align: center; color: #bbb; font-size: 0.78rem; }
     .table-toolbar-hint {
       font-size: 0.78rem;
       color: #555;
@@ -539,7 +586,7 @@
     </div>
   </div>
   <div class="footer">
-    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-10 19:12 UTC</p>
+    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-11 02:12 UTC</p>
   </div>
 <script>
 (function () {

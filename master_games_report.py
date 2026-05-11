@@ -682,42 +682,60 @@ def generate_master_games_html(rows: list[dict]) -> str:
       max-width: 100%;
     }}
     table {{
-      width: max-content;
-      min-width: 100%;
+      width: 100%;
       border-collapse: collapse;
-      font-size: 0.8rem;
-      table-layout: auto;
+      font-size: 0.82rem;
+      table-layout: fixed;
     }}
+    col.c-mg-num     {{ width: 3%; }}
+    col.c-mg-evid    {{ width: 10%; }}
+    col.c-mg-recid   {{ width: 9%; }}
+    col.c-mg-title   {{ width: 13%; }}
+    col.c-mg-comp    {{ width: 11%; }}
+    col.c-mg-kick    {{ width: 9%; }}
+    col.c-mg-round   {{ width: 5%; }}
+    col.c-mg-home    {{ width: 11%; }}
+    col.c-mg-away    {{ width: 11%; }}
+    col.c-mg-score   {{ width: 5%; }}
+    col.c-mg-status  {{ width: 6%; }}
+    col.c-mg-mstatus {{ width: 7%; }}
     thead tr:first-child {{ background: #1a0000; border-bottom: 2px solid #cc0000; }}
     thead tr:first-child th {{
-      padding: 0.55rem 0.35rem; text-align: left; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.05em; color: #ffaaaa; white-space: nowrap; overflow: hidden; cursor: pointer; user-select: none;
+      padding: 0.7rem 0.4rem; text-align: center; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: #ffaaaa; white-space: normal; word-break: break-word; line-height: 1.25;
+      cursor: pointer; user-select: none;
     }}
     thead tr:first-child th:hover {{ background: #2e0000; color: #ffd0d0; }}
     thead tr:first-child th.sorted-asc::after {{ content: " ▲"; font-size: 0.55rem; color: #ff8888; }}
     thead tr:first-child th.sorted-desc::after {{ content: " ▼"; font-size: 0.55rem; color: #ff8888; }}
-    thead tr:first-child th.num {{ text-align: center; cursor: default; }}
+    thead tr:first-child th.num {{ cursor: default; }}
     thead tr.og-col-filters th {{
-      background: #2a1515; cursor: default; padding: 0.28rem 0.3rem; border-bottom: 2px solid #cc0000;
+      background: #2a1515; cursor: default; padding: 0.35rem 0.3rem; border-bottom: 2px solid #cc0000;
       text-transform: none; font-weight: 400; letter-spacing: normal;
     }}
     tbody tr {{ background: #ffffff; transition: background 0.12s; }}
     tbody tr:nth-child(even) {{ background: #faf7f2; }}
     tbody tr:hover {{ background: #fff0f0; }}
     td {{
-      padding: 0.38rem 0.35rem; text-align: center; vertical-align: middle; border-bottom: 1px solid #e8e2d8;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      padding: 0.7rem 0.45rem; text-align: center; vertical-align: middle; border-bottom: 1px solid #e8e2d8;
+      white-space: normal; word-break: break-word; overflow: hidden; line-height: 1.4;
     }}
-    td.num {{ text-align: center; color: #bbb; font-size: 0.74rem; }}
-    td.score {{ font-variant-numeric: tabular-nums; font-weight: 600; color: #444; }}
+    td.num {{ text-align: center; color: #bbb; font-size: 0.78rem; }}
+    td.score {{ font-variant-numeric: tabular-nums; font-weight: 600; color: #444; font-size: 0.92rem; }}
     .match-name {{ font-weight: 600; color: #111; text-align: center; white-space: normal; overflow: visible; }}
     .meta {{ font-size: 0.66rem; color: #999; margin-top: 0.08rem; text-align: center; white-space: normal; }}
     .id-cell code {{
-      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace; font-size: 0.64rem; color: #555;
-      background: #f0ede8; border: 1px solid #ddd8d0; border-radius: 3px; padding: 0.12rem 0.28rem;
-      display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace; font-size: 0.66rem; color: #555;
+      background: #f0ede8; border: 1px solid #ddd8d0; border-radius: 3px; padding: 0.18rem 0.3rem;
+      display: block; overflow-wrap: anywhere; word-break: break-all; white-space: normal; line-height: 1.35;
     }}
-    .match-id-cell code {{ font-size: 0.59rem; }}
+    .match-id-cell code {{ font-size: 0.62rem; }}
+    td code {{
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }}
     td.recorded-true {{ font-weight: 700; color: #1a5c1a; }}
     td.recorded-false {{ font-weight: 600; color: #666; }}
     td.recorded-unknown {{ color: #999; }}
@@ -733,19 +751,39 @@ def generate_master_games_html(rows: list[dict]) -> str:
     @media (max-width: 720px) {{
       .mg-kpi-row-games {{ grid-template-columns: 1fr; }}
       .sort-hint {{ text-align: left; max-width: none; width: 100%; }}
-      table {{ font-size: 0.74rem; }}
+      table {{
+        width: max-content;
+        min-width: 100%;
+        table-layout: auto;
+        font-size: 0.74rem;
+      }}
       td {{
         padding: 0.7rem 0.3rem;
         line-height: 1.4;
+        white-space: nowrap;
+        word-break: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }}
       thead tr:first-child th {{
         padding: 0.65rem 0.3rem;
         font-size: 0.66rem;
         letter-spacing: 0.03em;
+        white-space: nowrap;
+        word-break: normal;
       }}
       thead tr.og-col-filters th {{ padding: 0.35rem 0.25rem; }}
-      .id-cell code {{ font-size: 0.6rem; padding: 0.1rem 0.22rem; }}
+      .id-cell code, td code {{
+        font-size: 0.6rem;
+        padding: 0.1rem 0.22rem;
+        white-space: nowrap;
+        word-break: normal;
+        overflow-wrap: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }}
       .match-id-cell code {{ font-size: 0.55rem; }}
+      td.score {{ font-size: 0.85rem; }}
       .excel-filter-btn {{
         min-height: 2.5rem;
         font-size: 0.7rem;
@@ -769,7 +807,7 @@ def generate_master_games_html(rows: list[dict]) -> str:
       }}
       .id-cell code {{ font-size: 0.58rem; padding: 0.08rem 0.2rem; }}
       .match-id-cell code {{ font-size: 0.52rem; }}
-      td.score {{ font-size: 0.78rem; }}
+      td.score {{ font-size: 0.82rem; }}
     }}
     {EXCEL_FILTER_CSS}
     {NAV_CSS}
@@ -799,6 +837,20 @@ def generate_master_games_html(rows: list[dict]) -> str:
     </div>
     <div class="table-wrap">
       <table id="mg-table">
+        <colgroup>
+          <col class="c-mg-num">
+          <col class="c-mg-evid">
+          <col class="c-mg-recid">
+          <col class="c-mg-title">
+          <col class="c-mg-comp">
+          <col class="c-mg-kick">
+          <col class="c-mg-round">
+          <col class="c-mg-home">
+          <col class="c-mg-away">
+          <col class="c-mg-score">
+          <col class="c-mg-status">
+          <col class="c-mg-mstatus">
+        </colgroup>
         <thead>
           <tr>
             <th class="num">#</th>
