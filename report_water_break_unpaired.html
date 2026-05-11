@@ -451,6 +451,70 @@
       .col-resize-reset-btn { display: none; }
     }
 
+    
+    /* Off-screen rows are skipped during layout/paint — huge win for very
+       large tables (master games, VAR events). Only applied at desktop
+       widths where the table uses table-layout: fixed; on phones the table
+       switches to auto layout and column widths derive from content, so
+       content-visibility could mis-size columns. Browser-supported:
+       Chrome/Edge/Opera, Safari 18+, Firefox 125+. */
+    @media (min-width: 900px) {
+      .table-wrap tbody tr.derived-data-row,
+      .table-wrap tbody tr.mg-data-row {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 40px;
+      }
+    }
+    .table-wrap tbody tr.row-over-cap { display: none !important; }
+
+    .row-cap-banner {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem 0.9rem;
+      padding: 0.55rem 0.85rem;
+      margin: 0 0 0.65rem 0.15rem;
+      background: #fff8e7;
+      border: 1px solid #e6d99c;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      color: #604000;
+      line-height: 1.45;
+    }
+    .row-cap-banner[hidden] { display: none; }
+    .row-cap-banner-text { flex: 1 1 240px; }
+    .row-cap-banner-text strong { color: #804000; }
+    .row-cap-banner-text .row-cap-emoji { display: none; }
+    .row-cap-actions {
+      display: inline-flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .row-cap-btn {
+      font: inherit;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #d5a85a;
+      background: #fff;
+      color: #604000;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+    .row-cap-btn:hover {
+      background: #fffaf0;
+      border-color: #a07000;
+      color: #402800;
+    }
+    .row-cap-btn.is-active {
+      background: #804000;
+      color: #fff;
+      border-color: #804000;
+    }
+
   </style>
 </head>
 <body>
@@ -529,6 +593,7 @@
   </div>
 
   <div class="table-section">
+    
     <div class="table-toolbar-hint">
       <button type="button" class="col-resize-reset-btn" data-col-resize-reset=".table-wrap table" title="Reset column widths to defaults">Reset widths</button>
       &nbsp;Click a column header to sort. Drag the right edge of any header to resize that column (double-click to reset just that one). Use <strong>Values…</strong> under each column for an Excel-style checklist (search within the list when there are many values).
@@ -550,7 +615,7 @@
     </div>
   </div>
   <div class="footer">
-    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-11 03:07 UTC</p>
+    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-11 03:16 UTC</p>
   </div>
 <script>
 (function () {
@@ -851,6 +916,7 @@
   function applyAllDerivedFilters() {
     tables.forEach(function (t) {
       if (typeof t._derivedApplyFilters === "function") t._derivedApplyFilters();
+      if (typeof window.applyReportRowCap === "function") window.applyReportRowCap(t.id);
     });
   }
   function wireTopSlicers() {
@@ -1081,6 +1147,7 @@
         return asc ? cmp : -cmp;
       });
       vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
+      if (typeof window.applyReportRowCap === "function") window.applyReportRowCap(table.id);
     }
 
     function applyCurrentSort() {
@@ -1339,6 +1406,128 @@
     document.addEventListener("DOMContentLoaded", init);
   } else {
     requestAnimationFrame(init);
+  }
+})();
+</script><script>
+(function () {
+  if (window.__reportRowCapInit) return;
+  window.__reportRowCapInit = true;
+
+  var state = {};
+
+  function fmt(n) { return Number(n).toLocaleString(); }
+
+  function isFilterHidden(tr) {
+    return tr.classList.contains("derived-row--hidden") ||
+           tr.classList.contains("mg-row--hidden");
+  }
+
+  function getDataRows(table) {
+    return table.querySelectorAll("tbody tr.derived-data-row, tbody tr.mg-data-row");
+  }
+
+  function applyCapToTable(tableId) {
+    var table = document.getElementById(tableId);
+    if (!table) return;
+    var s = state[tableId];
+    if (!s) return;
+    var rows = getDataRows(table);
+    var visIdx = 0;
+    var totalVis = 0;
+    rows.forEach(function (tr) {
+      if (isFilterHidden(tr)) {
+        if (tr.classList.contains("row-over-cap")) tr.classList.remove("row-over-cap");
+        return;
+      }
+      totalVis += 1;
+      if (s.cap === Infinity || visIdx < s.cap) {
+        if (tr.classList.contains("row-over-cap")) tr.classList.remove("row-over-cap");
+      } else {
+        if (!tr.classList.contains("row-over-cap")) tr.classList.add("row-over-cap");
+      }
+      visIdx += 1;
+    });
+    s.lastTotalVis = totalVis;
+    s.lastTotalRows = rows.length;
+    updateBanner(tableId);
+    try {
+      table.dispatchEvent(new CustomEvent("report-row-cap-applied", {
+        bubbles: false,
+        detail: { tableId: tableId, cap: s.cap, totalVisible: totalVis, totalRows: rows.length }
+      }));
+    } catch (e) {}
+  }
+
+  function updateBanner(tableId) {
+    var s = state[tableId];
+    if (!s) return;
+    var banner = document.querySelector('[data-row-cap-banner-for="' + tableId + '"]');
+    if (!banner) return;
+    var stat = banner.querySelector(".row-cap-banner-text");
+    var totalVis = s.lastTotalVis || 0;
+    var totalRows = s.lastTotalRows || 0;
+    var shown = s.cap === Infinity ? totalVis : Math.min(s.cap, totalVis);
+    if (s.cap === Infinity || totalVis <= s.cap) {
+      banner.hidden = totalRows <= (s.defaultCap || 0);
+      if (stat) {
+        stat.innerHTML = "Showing all <strong>" + fmt(totalVis) + "</strong> matching row" +
+          (totalVis === 1 ? "" : "s") + " (of " + fmt(totalRows) + " total).";
+      }
+    } else {
+      banner.hidden = false;
+      var hidden = totalVis - shown;
+      if (stat) {
+        stat.innerHTML = "Showing the top <strong>" + fmt(shown) + "</strong> of " +
+          "<strong>" + fmt(totalVis) + "</strong> matching rows " +
+          "(<strong>" + fmt(hidden) + "</strong> more hidden for performance). " +
+          "The cap follows the current sort + filters — change them to see different rows in the top " + fmt(shown) + ".";
+      }
+    }
+    banner.querySelectorAll(".row-cap-btn").forEach(function (btn) {
+      var v = btn.getAttribute("data-row-cap-value");
+      var match = (v === "all" && s.cap === Infinity) ||
+                  (v !== "all" && parseInt(v, 10) === s.cap);
+      btn.classList.toggle("is-active", match);
+    });
+  }
+
+  function setCap(tableId, value) {
+    if (!state[tableId]) state[tableId] = { defaultCap: Infinity };
+    state[tableId].cap = value === "all" ? Infinity : parseInt(value, 10);
+    applyCapToTable(tableId);
+    try {
+      localStorage.setItem("rowCap:" + tableId,
+        state[tableId].cap === Infinity ? "all" : String(state[tableId].cap));
+    } catch (e) {}
+  }
+
+  window.applyReportRowCap = applyCapToTable;
+  window.setReportRowCap = setCap;
+
+  function init() {
+    document.querySelectorAll("[data-row-cap-banner-for]").forEach(function (banner) {
+      var tableId = banner.getAttribute("data-row-cap-banner-for");
+      var defaultCap = parseInt(banner.getAttribute("data-row-cap-default") || "1500", 10);
+      var stored = null;
+      try { stored = localStorage.getItem("rowCap:" + tableId); } catch (e) {}
+      var cap;
+      if (stored === "all") cap = Infinity;
+      else if (stored && !isNaN(parseInt(stored, 10))) cap = parseInt(stored, 10);
+      else cap = defaultCap;
+      state[tableId] = { cap: cap, defaultCap: defaultCap };
+      banner.addEventListener("click", function (e) {
+        var btn = e.target.closest && e.target.closest(".row-cap-btn");
+        if (!btn) return;
+        setCap(tableId, btn.getAttribute("data-row-cap-value"));
+      });
+      applyCapToTable(tableId);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 })();
 </script>

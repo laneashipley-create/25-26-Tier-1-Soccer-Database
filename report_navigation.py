@@ -335,6 +335,224 @@ COLUMN_RESIZE_SCRIPT = r"""<script>
 </script>"""
 
 
+ROW_CAP_CSS = """
+    /* Off-screen rows are skipped during layout/paint — huge win for very
+       large tables (master games, VAR events). Only applied at desktop
+       widths where the table uses table-layout: fixed; on phones the table
+       switches to auto layout and column widths derive from content, so
+       content-visibility could mis-size columns. Browser-supported:
+       Chrome/Edge/Opera, Safari 18+, Firefox 125+. */
+    @media (min-width: 900px) {
+      .table-wrap tbody tr.derived-data-row,
+      .table-wrap tbody tr.mg-data-row {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 40px;
+      }
+    }
+    .table-wrap tbody tr.row-over-cap { display: none !important; }
+
+    .row-cap-banner {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem 0.9rem;
+      padding: 0.55rem 0.85rem;
+      margin: 0 0 0.65rem 0.15rem;
+      background: #fff8e7;
+      border: 1px solid #e6d99c;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      color: #604000;
+      line-height: 1.45;
+    }
+    .row-cap-banner[hidden] { display: none; }
+    .row-cap-banner-text { flex: 1 1 240px; }
+    .row-cap-banner-text strong { color: #804000; }
+    .row-cap-banner-text .row-cap-emoji { display: none; }
+    .row-cap-actions {
+      display: inline-flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .row-cap-btn {
+      font: inherit;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #d5a85a;
+      background: #fff;
+      color: #604000;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+    .row-cap-btn:hover {
+      background: #fffaf0;
+      border-color: #a07000;
+      color: #402800;
+    }
+    .row-cap-btn.is-active {
+      background: #804000;
+      color: #fff;
+      border-color: #804000;
+    }
+"""
+
+
+ROW_CAP_SCRIPT = r"""<script>
+(function () {
+  if (window.__reportRowCapInit) return;
+  window.__reportRowCapInit = true;
+
+  var state = {};
+
+  function fmt(n) { return Number(n).toLocaleString(); }
+
+  function isFilterHidden(tr) {
+    return tr.classList.contains("derived-row--hidden") ||
+           tr.classList.contains("mg-row--hidden");
+  }
+
+  function getDataRows(table) {
+    return table.querySelectorAll("tbody tr.derived-data-row, tbody tr.mg-data-row");
+  }
+
+  function applyCapToTable(tableId) {
+    var table = document.getElementById(tableId);
+    if (!table) return;
+    var s = state[tableId];
+    if (!s) return;
+    var rows = getDataRows(table);
+    var visIdx = 0;
+    var totalVis = 0;
+    rows.forEach(function (tr) {
+      if (isFilterHidden(tr)) {
+        if (tr.classList.contains("row-over-cap")) tr.classList.remove("row-over-cap");
+        return;
+      }
+      totalVis += 1;
+      if (s.cap === Infinity || visIdx < s.cap) {
+        if (tr.classList.contains("row-over-cap")) tr.classList.remove("row-over-cap");
+      } else {
+        if (!tr.classList.contains("row-over-cap")) tr.classList.add("row-over-cap");
+      }
+      visIdx += 1;
+    });
+    s.lastTotalVis = totalVis;
+    s.lastTotalRows = rows.length;
+    updateBanner(tableId);
+    try {
+      table.dispatchEvent(new CustomEvent("report-row-cap-applied", {
+        bubbles: false,
+        detail: { tableId: tableId, cap: s.cap, totalVisible: totalVis, totalRows: rows.length }
+      }));
+    } catch (e) {}
+  }
+
+  function updateBanner(tableId) {
+    var s = state[tableId];
+    if (!s) return;
+    var banner = document.querySelector('[data-row-cap-banner-for="' + tableId + '"]');
+    if (!banner) return;
+    var stat = banner.querySelector(".row-cap-banner-text");
+    var totalVis = s.lastTotalVis || 0;
+    var totalRows = s.lastTotalRows || 0;
+    var shown = s.cap === Infinity ? totalVis : Math.min(s.cap, totalVis);
+    if (s.cap === Infinity || totalVis <= s.cap) {
+      banner.hidden = totalRows <= (s.defaultCap || 0);
+      if (stat) {
+        stat.innerHTML = "Showing all <strong>" + fmt(totalVis) + "</strong> matching row" +
+          (totalVis === 1 ? "" : "s") + " (of " + fmt(totalRows) + " total).";
+      }
+    } else {
+      banner.hidden = false;
+      var hidden = totalVis - shown;
+      if (stat) {
+        stat.innerHTML = "Showing the top <strong>" + fmt(shown) + "</strong> of " +
+          "<strong>" + fmt(totalVis) + "</strong> matching rows " +
+          "(<strong>" + fmt(hidden) + "</strong> more hidden for performance). " +
+          "The cap follows the current sort + filters — change them to see different rows in the top " + fmt(shown) + ".";
+      }
+    }
+    banner.querySelectorAll(".row-cap-btn").forEach(function (btn) {
+      var v = btn.getAttribute("data-row-cap-value");
+      var match = (v === "all" && s.cap === Infinity) ||
+                  (v !== "all" && parseInt(v, 10) === s.cap);
+      btn.classList.toggle("is-active", match);
+    });
+  }
+
+  function setCap(tableId, value) {
+    if (!state[tableId]) state[tableId] = { defaultCap: Infinity };
+    state[tableId].cap = value === "all" ? Infinity : parseInt(value, 10);
+    applyCapToTable(tableId);
+    try {
+      localStorage.setItem("rowCap:" + tableId,
+        state[tableId].cap === Infinity ? "all" : String(state[tableId].cap));
+    } catch (e) {}
+  }
+
+  window.applyReportRowCap = applyCapToTable;
+  window.setReportRowCap = setCap;
+
+  function init() {
+    document.querySelectorAll("[data-row-cap-banner-for]").forEach(function (banner) {
+      var tableId = banner.getAttribute("data-row-cap-banner-for");
+      var defaultCap = parseInt(banner.getAttribute("data-row-cap-default") || "1500", 10);
+      var stored = null;
+      try { stored = localStorage.getItem("rowCap:" + tableId); } catch (e) {}
+      var cap;
+      if (stored === "all") cap = Infinity;
+      else if (stored && !isNaN(parseInt(stored, 10))) cap = parseInt(stored, 10);
+      else cap = defaultCap;
+      state[tableId] = { cap: cap, defaultCap: defaultCap };
+      banner.addEventListener("click", function (e) {
+        var btn = e.target.closest && e.target.closest(".row-cap-btn");
+        if (!btn) return;
+        setCap(tableId, btn.getAttribute("data-row-cap-value"));
+      });
+      applyCapToTable(tableId);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>"""
+
+
+def row_cap_banner_html(table_id: str, total_rows: int, default_cap: int = 1500) -> str:
+    """Return the row-cap banner HTML for a given table.
+
+    Always renders the banner. The JS hides it automatically when no cap
+    is in effect AND the row count is below the default cap; this keeps
+    the markup simple for callers that don't know the row count yet.
+    """
+    import html as _html
+
+    options = [
+        ("1500", "Top 1,500"),
+        ("3000", "Top 3,000"),
+        ("all", "Show all"),
+    ]
+    btns = "".join(
+        f'<button type="button" class="row-cap-btn" data-row-cap-value="{v}">{_html.escape(label)}</button>'
+        for v, label in options
+    )
+    return (
+        f'<div class="row-cap-banner" data-row-cap-banner-for="{_html.escape(table_id, quote=True)}" '
+        f'data-row-cap-default="{int(default_cap)}" data-row-cap-total="{int(total_rows)}" hidden>'
+        f'<div class="row-cap-banner-text"></div>'
+        f'<div class="row-cap-actions">{btns}</div>'
+        f"</div>"
+    )
+
+
 def navigation_html(current_href: str) -> str:
     """Breadcrumb-style links; `current_href` matches REPORT_NAV_ITEMS href (e.g. report_own_goals.html)."""
     parts: list[str] = []

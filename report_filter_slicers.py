@@ -389,6 +389,7 @@ DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER = r"""<script>
   function applyAllDerivedFilters() {
     tables.forEach(function (t) {
       if (typeof t._derivedApplyFilters === "function") t._derivedApplyFilters();
+      if (typeof window.applyReportRowCap === "function") window.applyReportRowCap(t.id);
     });
   }
   function wireTopSlicers() {
@@ -619,6 +620,7 @@ DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER = r"""<script>
         return asc ? cmp : -cmp;
       });
       vis.concat(hid).forEach(function (r) { tbody.appendChild(r); });
+      if (typeof window.applyReportRowCap === "function") window.applyReportRowCap(table.id);
     }
 
     function applyCurrentSort() {

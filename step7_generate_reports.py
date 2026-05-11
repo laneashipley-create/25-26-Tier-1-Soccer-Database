@@ -47,7 +47,15 @@ from config import (
     TIMELINES_DIR,
     USE_SUPABASE,
 )
-from report_navigation import COLUMN_RESIZE_CSS, COLUMN_RESIZE_SCRIPT, NAV_CSS, navigation_html
+from report_navigation import (
+    COLUMN_RESIZE_CSS,
+    COLUMN_RESIZE_SCRIPT,
+    NAV_CSS,
+    ROW_CAP_CSS,
+    ROW_CAP_SCRIPT,
+    navigation_html,
+    row_cap_banner_html,
+)
 from report_filter_slicers import (
     DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER,
     REPORT_TILE_FILTER_CSS,
@@ -1372,10 +1380,18 @@ def _derived_page_shell(
     footer_mid: str | None = None,
     filter_payload_html: str = "",
     filter_controls_html: str = "",
+    row_cap_table_id: str | None = None,
+    row_cap_total: int = 0,
+    row_cap_default: int = 1500,
 ) -> str:
     gen = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nav = navigation_html(nav_href)
     footer_note = footer_mid if footer_mid is not None else "(Sportradar timelines)"
+    row_cap_html = (
+        row_cap_banner_html(row_cap_table_id, row_cap_total, row_cap_default)
+        if row_cap_table_id
+        else ""
+    )
     return (
         f"""<!DOCTYPE html>
 <html lang="en">
@@ -1512,6 +1528,7 @@ def _derived_page_shell(
     {REPORT_TILE_FILTER_CSS}
     {NAV_CSS}
     {COLUMN_RESIZE_CSS}
+    {ROW_CAP_CSS}
   </style>
 </head>
 <body>
@@ -1526,6 +1543,7 @@ def _derived_page_shell(
   <p class="meta">{meta}</p>
 {filter_payload_html}{filter_controls_html}
   <div class="table-section">
+    {row_cap_html}
     <div class="table-toolbar-hint">
       <button type="button" class="col-resize-reset-btn" data-col-resize-reset=".table-wrap table" title="Reset column widths to defaults">Reset widths</button>
       &nbsp;Click a column header to sort. Drag the right edge of any header to resize that column (double-click to reset just that one). Use <strong>Values…</strong> under each column for an Excel-style checklist (search within the list when there are many values).
@@ -1539,6 +1557,7 @@ def _derived_page_shell(
 """
         + DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER
         + COLUMN_RESIZE_SCRIPT
+        + ROW_CAP_SCRIPT
         + """
 </body>
 </html>"""
@@ -1730,6 +1749,9 @@ def write_derived_reports() -> None:
         nav_href="report_var_events.html",
         filter_payload_html=vr_payload_html,
         filter_controls_html=vr_controls_html,
+        row_cap_table_id="table-var-events",
+        row_cap_total=len(vr),
+        row_cap_default=1500,
     )
     with open(REPORT_HTML_VAR_EVENTS, "w", encoding="utf-8") as f:
         f.write(vr_doc)

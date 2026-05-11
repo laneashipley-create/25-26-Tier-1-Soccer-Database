@@ -11,7 +11,15 @@ import json
 from datetime import datetime, timezone
 
 from config import REPORT_BLURB_LIST_OF_ALL_GAMES, REPORT_HTML_MASTER_GAMES, USE_SUPABASE
-from report_navigation import COLUMN_RESIZE_CSS, COLUMN_RESIZE_SCRIPT, NAV_CSS, navigation_html
+from report_navigation import (
+    COLUMN_RESIZE_CSS,
+    COLUMN_RESIZE_SCRIPT,
+    NAV_CSS,
+    ROW_CAP_CSS,
+    ROW_CAP_SCRIPT,
+    navigation_html,
+    row_cap_banner_html,
+)
 from report_filter_slicers import build_date_migration_tile, build_numbered_competition_slicer
 
 
@@ -157,6 +165,7 @@ def _inline_master_games_script() -> str:
       return asc ? cmp : -cmp;
     });
     visible.concat(hidden).forEach(function (r) { tbody.appendChild(r); });
+    if (typeof window.applyReportRowCap === 'function') window.applyReportRowCap('mg-table');
   }
 
   headers.forEach(function (th) {
@@ -175,6 +184,7 @@ def _inline_master_games_script() -> str:
     let n = 1;
     tbody.querySelectorAll('tr.mg-data-row').forEach(function (tr) {
       if (tr.classList.contains('mg-row--hidden')) return;
+      if (tr.classList.contains('row-over-cap')) return;
       const cell = tr.querySelector('td.num');
       if (cell) {
         cell.textContent = String(n);
@@ -182,6 +192,10 @@ def _inline_master_games_script() -> str:
         n += 1;
       }
     });
+  }
+
+  if (mgTable) {
+    mgTable.addEventListener('report-row-cap-applied', function () { renumberRows(); });
   }
 
   function fmtInt(x) { return x.toLocaleString('en-US'); }
@@ -420,6 +434,7 @@ def _inline_master_games_script() -> str:
       if (compMatches(tr, selected) && dateMatches(tr, dr) && colFiltersMatch(tr)) tr.classList.remove('mg-row--hidden');
       else tr.classList.add('mg-row--hidden');
     });
+    if (typeof window.applyReportRowCap === 'function') window.applyReportRowCap('mg-table');
     renumberRows();
     var ag = aggMasterVisible();
     setText('kpi-mg-games', fmtInt(ag.games));
@@ -569,6 +584,7 @@ def generate_master_games_html(rows: list[dict]) -> str:
     filter_row = "\n".join(filter_btns)
 
     nav = navigation_html("report_master_games.html")
+    row_cap_html = row_cap_banner_html("mg-table", total_rows=total, default_cap=1500)
 
     body_main = f"""<!DOCTYPE html>
 <html lang="en">
@@ -812,6 +828,7 @@ def generate_master_games_html(rows: list[dict]) -> str:
     {EXCEL_FILTER_CSS}
     {NAV_CSS}
     {COLUMN_RESIZE_CSS}
+    {ROW_CAP_CSS}
   </style>
 </head>
 <body>
@@ -839,6 +856,7 @@ def generate_master_games_html(rows: list[dict]) -> str:
       </div>
       <div class="sort-hint">Click a column header to sort. Drag the right edge of any header to resize that column (double-click to reset just that one). Use <strong>Values…</strong> for Excel-style filters.</div>
     </div>
+    {row_cap_html}
     <div class="table-wrap">
       <table id="mg-table">
         <colgroup>
@@ -895,6 +913,7 @@ def generate_master_games_html(rows: list[dict]) -> str:
         + EXCEL_FILTER_CORE_SCRIPT
         + _inline_master_games_script()
         + COLUMN_RESIZE_SCRIPT
+        + ROW_CAP_SCRIPT
         + "\n</body>\n</html>"
     )
 
