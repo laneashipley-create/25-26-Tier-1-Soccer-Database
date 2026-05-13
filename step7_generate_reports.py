@@ -34,7 +34,9 @@ from config import (
     REPORT_BLURB_VAR_UNPAIRED,
     REPORT_BLURB_WATER_BREAK_EVENTS,
     REPORT_BLURB_WATER_BREAK_UNPAIRED,
+    REPORT_ARCHIVE_HUB_NOTE,
     REPORT_HTML,
+    REPORT_HTML_ARCHIVE_INDEX,
     REPORT_HTML_LEGACY_REDIRECT,
     REPORT_HTML_PENALTY_SHOOTOUTS,
     REPORT_HTML_VAR_EVENTS,
@@ -785,6 +787,159 @@ def sync_report_hub_competition_blurb() -> None:
     with open(hub_path, "w", encoding="utf-8") as f:
         f.write(updated)
     print(f"  Updated report_hub.html tile blurb to {count} competitions.")
+
+
+def write_report_archive_index_html() -> None:
+    """Static index for reports kept on ice (still regenerated; hidden from main hub grid)."""
+    root = os.path.dirname(__file__)
+    path = os.path.join(root, REPORT_HTML_ARCHIVE_INDEX)
+    nav = navigation_html(REPORT_HTML_ARCHIVE_INDEX)
+    note = html.escape(REPORT_ARCHIVE_HUB_NOTE, quote=False)
+    blurb_og = html.escape(REPORT_BLURB_OWN_GOALS, quote=False)
+    blurb_og_n = html.escape(REPORT_BLURB_OWN_GOALS_NOTE, quote=False)
+    blurb_ps = html.escape(REPORT_BLURB_PENALTY_SHOOTOUTS, quote=False)
+    esc_og_h = html.escape(REPORT_HTML, quote=True)
+    esc_ps_h = html.escape(REPORT_HTML_PENALTY_SHOOTOUTS, quote=True)
+    title = html.escape(f"Archived reports — {SEASON_LABEL}", quote=False)
+    doc = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <style>
+    :root {{
+      --bg: #120000;
+      --panel: #1b0505;
+      --panel-soft: #2b0d0d;
+      --line: #5a2222;
+      --text: #f8e6e6;
+      --muted: #d1b9b9;
+      --accent: #ff9a32;
+    }}
+    * {{ box-sizing: border-box; }}
+    body {{
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 420px at 15% -5%, #5c0808 0%, rgba(92,8,8,0) 70%),
+        radial-gradient(900px 380px at 85% -20%, #3e0c5f 0%, rgba(62,12,95,0) 70%),
+        var(--bg);
+      min-height: 100vh;
+    }}
+    .report-sticky-top {{
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }}
+    .wrap {{ max-width: 980px; margin: 1.8rem auto 2.5rem; padding: 0 1rem; }}
+    .hero {{
+      background: linear-gradient(160deg, rgba(35, 7, 7, 0.98), rgba(15, 0, 0, 0.98));
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.5rem 1.4rem;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+      text-align: center;
+    }}
+    .logo {{
+      width: min(360px, 82%);
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #5d2c2c;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+      margin-bottom: 1rem;
+    }}
+    h1 {{
+      margin: 0 0 0.4rem 0;
+      font-size: clamp(1.35rem, 3vw, 1.85rem);
+      letter-spacing: 0.01em;
+      color: #fff;
+    }}
+    .subtitle {{
+      margin: 0 auto 1.2rem;
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.92rem;
+    }}
+    .grid {{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+      text-align: left;
+    }}
+    @media (max-width: 720px) {{
+      .grid {{ grid-template-columns: 1fr; }}
+    }}
+    .tile {{
+      display: block;
+      text-decoration: none;
+      background: linear-gradient(180deg, var(--panel-soft), var(--panel));
+      border: 1px dashed #7a4545;
+      border-radius: 12px;
+      padding: 0.9rem 0.95rem;
+      transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+      color: inherit;
+      min-height: 112px;
+    }}
+    .tile:hover {{
+      transform: translateY(-2px);
+      border-color: #9b4a4a;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }}
+    .tile-title {{
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }}
+    .tile-desc {{
+      color: #d8c3c3;
+      font-size: 0.86rem;
+      line-height: 1.35;
+    }}
+    .accent {{
+      display: inline-block;
+      margin-top: 0.45rem;
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }}
+    {NAV_CSS}
+  </style>
+</head>
+<body>
+  <div class="report-sticky-top">
+{nav}
+  </div>
+  <div class="wrap">
+    <section class="hero">
+      <img class="logo" src="assets/lanes_sportsdata.png" alt="Lane's SportsData">
+      <h1>Archived reports</h1>
+      <p class="subtitle">{note}</p>
+      <div class="grid">
+        <a class="tile" href="{esc_og_h}">
+          <div class="tile-title">Own goals</div>
+          <div class="tile-desc">{blurb_og}<br><br><strong>Note:</strong> {blurb_og_n}</div>
+          <span class="accent">Open report</span>
+        </a>
+        <a class="tile" href="{esc_ps_h}">
+          <div class="tile-title">Penalty shootouts</div>
+          <div class="tile-desc">{blurb_ps}</div>
+          <span class="accent">Open report</span>
+        </a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>"""
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(doc)
+    print(f"  Wrote {REPORT_HTML_ARCHIVE_INDEX}")
 
 
 # --- Excel-style column filter (checkbox popover; own goals + derived tables) --------
@@ -2964,6 +3119,7 @@ def main():
 
     master_games_report.write_master_games_report()
     sync_report_hub_competition_blurb()
+    write_report_archive_index_html()
     print(f"Open {REPORT_HTML} (and linked pages) in your browser to view.")
 
 

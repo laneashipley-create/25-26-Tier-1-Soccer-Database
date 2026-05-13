@@ -4,21 +4,29 @@ from __future__ import annotations
 
 import html
 
-from config import REPORT_HTML
+from config import REPORT_HTML, REPORT_HTML_ARCHIVE_INDEX
 
-# (href relative to site root, short label)
-REPORT_NAV_ITEMS: list[tuple[str, str]] = [
+# Primary strip: day-to-day reports (shown first in the sticky nav).
+REPORT_NAV_PRIMARY_ITEMS: list[tuple[str, str]] = [
     ("report_hub.html", "Home"),
     ("report_master_games.html", "List of All Games"),
     ("wc2026_schedule.html", "WC 2026 schedule"),
-    (REPORT_HTML, "Own goals"),
-    ("report_penalty_shootouts.html", "Penalty shootouts"),
     ("report_var_events.html", "VAR events"),
     ("report_var_unpaired.html", "VAR unpaired"),
     ("report_water_break_events.html", "Water break events"),
     ("report_water_break_unpaired.html", "Water break unpaired"),
     ("report_recordings_library.html", "Recordings library"),
 ]
+
+# After a short label, still generated but “on ice” for hub prominence.
+REPORT_NAV_ARCHIVED_ITEMS: list[tuple[str, str]] = [
+    (REPORT_HTML_ARCHIVE_INDEX, "Archive"),
+    (REPORT_HTML, "Own goals"),
+    ("report_penalty_shootouts.html", "Penalty shootouts"),
+]
+
+# Full list (primary then archived) for tooling or docs that expect one flat sequence.
+REPORT_NAV_ITEMS: list[tuple[str, str]] = REPORT_NAV_PRIMARY_ITEMS + REPORT_NAV_ARCHIVED_ITEMS
 
 NAV_CSS = """
     .report-sticky-top {
@@ -64,6 +72,18 @@ NAV_CSS = """
       color: #5c3030;
       font-size: 0.75rem;
       padding: 0 0.05rem;
+      user-select: none;
+    }
+    .report-nav .nav-archive-label {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      color: #8f6e6e;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0 0.15rem;
       user-select: none;
     }
 """
@@ -553,16 +573,32 @@ def row_cap_banner_html(table_id: str, total_rows: int, default_cap: int = 1500)
     )
 
 
+def _nav_link_or_active(href: str, label: str, current_href: str) -> str:
+    esc_h = html.escape(href, quote=True)
+    esc_l = html.escape(label, quote=False)
+    if href == current_href:
+        return f'<span class="nav-active">{esc_l}</span>'
+    return f'<a href="{esc_h}">{esc_l}</a>'
+
+
 def navigation_html(current_href: str) -> str:
-    """Breadcrumb-style links; `current_href` matches REPORT_NAV_ITEMS href (e.g. report_own_goals.html)."""
-    parts: list[str] = []
-    for href, label in REPORT_NAV_ITEMS:
-        esc_h = html.escape(href, quote=True)
-        esc_l = html.escape(label, quote=False)
-        if href == current_href:
-            parts.append(f'<span class="nav-active">{esc_l}</span>')
-        else:
-            parts.append(f'<a href="{esc_h}">{esc_l}</a>')
+    """Breadcrumb-style links; `current_href` matches a report filename (e.g. report_var_events.html)."""
     sep = '\n      <span class="nav-sep" aria-hidden="true"> · </span>\n      '
-    inner = sep.join(parts)
+    primary = sep.join(
+        _nav_link_or_active(href, label, current_href)
+        for href, label in REPORT_NAV_PRIMARY_ITEMS
+    )
+    inner = primary
+    if REPORT_NAV_ARCHIVED_ITEMS:
+        archived = sep.join(
+            _nav_link_or_active(href, label, current_href)
+            for href, label in REPORT_NAV_ARCHIVED_ITEMS
+        )
+        inner = (
+            primary
+            + sep
+            + '<span class="nav-archive-label" title="Still refreshed on the daily run">On ice</span>'
+            + sep
+            + archived
+        )
     return f'  <nav class="report-nav" aria-label="Reports">{inner}\n  </nav>'

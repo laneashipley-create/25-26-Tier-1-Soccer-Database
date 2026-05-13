@@ -276,6 +276,7 @@
     .stage { color: #888; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
     .kickoff { font-weight: 700; color: #1a1a2a; }
     .venue-time { color: #666; font-size: 0.76rem; margin-top: 3px; }
+    .venue-line { color: #888; font-size: 0.74rem; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 210px; }
     .center { display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center; flex-wrap: wrap; }
     .team {
       display: inline-flex;
@@ -526,6 +527,7 @@
       .center, .right { justify-content: flex-start; text-align: left; }
       .group-grid { grid-template-columns: repeat(3, minmax(110px, 1fr)); }
       .filters-row-top { grid-template-columns: 1fr; }
+      .venue-line { max-width: none; }
     }
   </style>
 </head>
@@ -742,6 +744,112 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452535,2026-0
 sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452539,2026-07-18T21:00:00+00:00,,RU101,sr:competitor:1184357,RU102,sr:competitor:1184359,not_started,not_started,,,,cup
 sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-07-19T19:00:00+00:00,,W101,sr:competitor:1184353,W102,sr:competitor:1184355,not_started,not_started,,,,cup
 `;
+    const WC2026_VENUE_MAP = {
+      "sr:sport_event:66456904":"Estadio Banorte, Mexico City",
+      "sr:sport_event:66456906":"Estadio Akron, Zapopan",
+      "sr:sport_event:66456916":"BMO Field, Toronto, ON",
+      "sr:sport_event:66456940":"SoFi Stadium, Inglewood, CA",
+      "sr:sport_event:66456918":"Levi's Stadium, Santa Clara, CA",
+      "sr:sport_event:66456928":"MetLife Stadium, East Rutherford, NJ",
+      "sr:sport_event:66456930":"Gillette Stadium, Foxborough, MA",
+      "sr:sport_event:66456942":"BC Place, Vancouver",
+      "sr:sport_event:66457070":"NRG Stadium, Houston, TX",
+      "sr:sport_event:66456968":"AT&T Stadium, Arlington, TX",
+      "sr:sport_event:66457072":"Lincoln Financial Field, Philadelphia, PA",
+      "sr:sport_event:66456970":"Estadio BBVA Bancomer, Guadalupe",
+      "sr:sport_event:66456994":"Mercedes-Benz Stadium, Atlanta, GA",
+      "sr:sport_event:66456982":"Lumen Field, Seattle, WA",
+      "sr:sport_event:66456996":"Hard Rock Stadium, Miami, FL",
+      "sr:sport_event:66456984":"SoFi Stadium, Inglewood, CA",
+      "sr:sport_event:66457006":"MetLife Stadium, East Rutherford, NJ",
+      "sr:sport_event:66457008":"Gillette Stadium, Foxborough, MA",
+      "sr:sport_event:66457018":"Arrowhead Stadium, Kansas City, MO",
+      "sr:sport_event:66457020":"Levi's Stadium, Santa Clara, CA",
+      "sr:sport_event:66457030":"NRG Stadium, Houston, TX",
+      "sr:sport_event:66457042":"AT&T Stadium, Arlington, TX",
+      "sr:sport_event:66457044":"BMO Field, Toronto, ON",
+      "sr:sport_event:66457032":"Estadio Banorte, Mexico City",
+      "sr:sport_event:66456910":"Mercedes-Benz Stadium, Atlanta, GA",
+      "sr:sport_event:66456922":"SoFi Stadium, Inglewood, CA",
+      "sr:sport_event:66456920":"BC Place, Vancouver",
+      "sr:sport_event:66456908":"Estadio Akron, Zapopan",
+      "sr:sport_event:66456944":"Lumen Field, Seattle, WA",
+      "sr:sport_event:66456934":"Gillette Stadium, Foxborough, MA",
+      "sr:sport_event:66456932":"Lincoln Financial Field, Philadelphia, PA",
+      "sr:sport_event:66456946":"Levi's Stadium, Santa Clara, CA",
+      "sr:sport_event:66456972":"NRG Stadium, Houston, TX",
+      "sr:sport_event:66457074":"BMO Field, Toronto, ON",
+      "sr:sport_event:66457076":"Arrowhead Stadium, Kansas City, MO",
+      "sr:sport_event:66456974":"Estadio BBVA Bancomer, Guadalupe",
+      "sr:sport_event:66456998":"Mercedes-Benz Stadium, Atlanta, GA",
+      "sr:sport_event:66456986":"SoFi Stadium, Inglewood, CA",
+      "sr:sport_event:66457000":"Hard Rock Stadium, Miami, FL",
+      "sr:sport_event:66456988":"BC Place, Vancouver",
+      "sr:sport_event:66457022":"AT&T Stadium, Arlington, TX",
+      "sr:sport_event:66457010":"Lincoln Financial Field, Philadelphia, PA",
+      "sr:sport_event:66457012":"MetLife Stadium, East Rutherford, NJ",
+      "sr:sport_event:66457024":"Levi's Stadium, Santa Clara, CA",
+      "sr:sport_event:66457034":"NRG Stadium, Houston, TX",
+      "sr:sport_event:66457046":"Gillette Stadium, Foxborough, MA",
+      "sr:sport_event:66457048":"BMO Field, Toronto, ON",
+      "sr:sport_event:66457036":"Estadio Akron, Zapopan",
+      "sr:sport_event:66456924":"BC Place, Vancouver",
+      "sr:sport_event:66456926":"Lumen Field, Seattle, WA",
+      "sr:sport_event:66456936":"Hard Rock Stadium, Miami, FL",
+      "sr:sport_event:66456938":"Mercedes-Benz Stadium, Atlanta, GA",
+      "sr:sport_event:66456912":"Estadio Banorte, Mexico City",
+      "sr:sport_event:66456914":"Estadio BBVA Bancomer, Guadalupe",
+      "sr:sport_event:66457078":"MetLife Stadium, East Rutherford, NJ",
+      "sr:sport_event:66457080":"Lincoln Financial Field, Philadelphia, PA",
+      "sr:sport_event:66456976":"Arrowhead Stadium, Kansas City, MO",
+      "sr:sport_event:66456978":"AT&T Stadium, Arlington, TX",
+      "sr:sport_event:66456948":"SoFi Stadium, Inglewood, CA",
+      "sr:sport_event:66456950":"Levi's Stadium, Santa Clara, CA",
+      "sr:sport_event:66457014":"Gillette Stadium, Foxborough, MA",
+      "sr:sport_event:66457016":"BMO Field, Toronto, ON",
+      "sr:sport_event:66457002":"Estadio Akron, Zapopan",
+      "sr:sport_event:66457004":"NRG Stadium, Houston, TX",
+      "sr:sport_event:66456990":"BC Place, Vancouver",
+      "sr:sport_event:66456992":"Lumen Field, Seattle, WA",
+      "sr:sport_event:66457050":"MetLife Stadium, East Rutherford, NJ",
+      "sr:sport_event:66457052":"Lincoln Financial Field, Philadelphia, PA",
+      "sr:sport_event:66457038":"Hard Rock Stadium, Miami, FL",
+      "sr:sport_event:66457040":"Mercedes-Benz Stadium, Atlanta, GA",
+      "sr:sport_event:66457026":"AT&T Stadium, Arlington, TX",
+      "sr:sport_event:66457028":"Arrowhead Stadium, Kansas City, MO",
+      "sr:sport_event:53452545":"SoFi Stadium, Inglewood, CA",
+      "sr:sport_event:53452557":"NRG Stadium, Houston, TX",
+      "sr:sport_event:53452541":"Gillette Stadium, Foxborough, MA",
+      "sr:sport_event:53452547":"Estadio BBVA Bancomer, Guadalupe",
+      "sr:sport_event:53452561":"AT&T Stadium, Arlington, TX",
+      "sr:sport_event:53452543":"MetLife Stadium, East Rutherford, NJ",
+      "sr:sport_event:53452563":"Estadio Banorte, Mexico City",
+      "sr:sport_event:53452565":"Mercedes-Benz Stadium, Atlanta, GA",
+      "sr:sport_event:53452555":"Lumen Field, Seattle, WA",
+      "sr:sport_event:53452553":"Levi's Stadium, Santa Clara, CA",
+      "sr:sport_event:53452551":"SoFi Stadium, Inglewood, CA",
+      "sr:sport_event:53452549":"BMO Field, Toronto, ON",
+      "sr:sport_event:53452505":"BC Place, Vancouver",
+      "sr:sport_event:53452503":"AT&T Stadium, Arlington, TX",
+      "sr:sport_event:53452569":"Hard Rock Stadium, Miami, FL",
+      "sr:sport_event:53452507":"Arrowhead Stadium, Kansas City, MO",
+      "sr:sport_event:53452511":"NRG Stadium, Houston, TX",
+      "sr:sport_event:53452509":"Lincoln Financial Field, Philadelphia, PA",
+      "sr:sport_event:53452517":"MetLife Stadium, East Rutherford, NJ",
+      "sr:sport_event:53452519":"Estadio Banorte, Mexico City",
+      "sr:sport_event:53452513":"AT&T Stadium, Arlington, TX",
+      "sr:sport_event:53452515":"Lumen Field, Seattle, WA",
+      "sr:sport_event:53452521":"Mercedes-Benz Stadium, Atlanta, GA",
+      "sr:sport_event:53452523":"BC Place, Vancouver",
+      "sr:sport_event:53452525":"Gillette Stadium, Foxborough, MA",
+      "sr:sport_event:53452527":"SoFi Stadium, Inglewood, CA",
+      "sr:sport_event:53452529":"Hard Rock Stadium, Miami, FL",
+      "sr:sport_event:53452531":"Arrowhead Stadium, Kansas City, MO",
+      "sr:sport_event:53452533":"AT&T Stadium, Arlington, TX",
+      "sr:sport_event:53452535":"Mercedes-Benz Stadium, Atlanta, GA",
+      "sr:sport_event:53452539":"Hard Rock Stadium, Miami, FL",
+      "sr:sport_event:53452537":"MetLife Stadium, East Rutherford, NJ"
+    };
     const GROUP_STAGE_END = "2026-06-28";
     const TOURNAMENT_END = "2026-07-19";
     const VIEWER_TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || "Local Time";
@@ -967,11 +1075,13 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
       const hasScore = kind === "COMPLETED" && m && m.home_score !== "" && m.away_score !== "";
       const badge = m && m.match_number ? `M${m.match_number}` : "";
       const liveNote = kind === "LIVE" ? " · LIVE" : "";
+      const slotVenue = mid ? (WC2026_VENUE_MAP[mid] || "") : "";
       const whenHtml =
         dateStr || timeStr
           ? `<div class="wc-bracket-slot-when">` +
             (dateStr ? `<span class="wc-bracket-slot-date">${escapeHtml(dateStr)}</span>` : "") +
             (timeStr ? `<span class="wc-bracket-slot-time">${escapeHtml(timeStr + liveNote)}</span>` : "") +
+            (slotVenue ? `<span class="wc-bracket-slot-time" title="${escapeHtml(slotVenue)}">${escapeHtml(slotVenue)}</span>` : "") +
             `</div>`
           : "";
       const center = hasScore
@@ -1321,10 +1431,13 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
           card.className = "match-card " + (kind==="LIVE" ? "live" : kind==="COMPLETED" ? "completed" : "");
           const hasScore = kind === "COMPLETED" && m.home_score !== "" && m.away_score !== "";
           const center = hasScore ? `<div class="score">${m.home_score} - ${m.away_score}</div>` : `<div class="sep">vs</div>`;
+          const venueName = WC2026_VENUE_MAP[m.sport_event_id] || "";
+          const venueHtml = venueName ? `<div class="venue-line" title="${escapeHtml(venueName)}">${escapeHtml(venueName)}</div>` : "";
           card.innerHTML = `
             <div>
               <div class="stage">${stageLabel(m, m.match_number - 1)}</div>
               <div class="kickoff">${localTime(m.start_time)}</div>
+              ${venueHtml}
               <div class="venue-time">${kind}</div>
             </div>
             <div class="center">

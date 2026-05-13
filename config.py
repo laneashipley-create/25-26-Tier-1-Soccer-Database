@@ -266,7 +266,7 @@ SEASON_ID = COMPETITIONS[0]["season_id"]
 SEASON_NAME = COMPETITIONS[0]["season_name"]
 SEASON_LABEL = ", ".join(c["season_name"] for c in COMPETITIONS)
 
-# Report hub + page header blurbs (keep in sync with report_hub.html)
+# Report hub + page header blurbs (keep blurbs aligned with report_hub.html / step7 where noted)
 REPORT_BLURB_LIST_OF_ALL_GAMES = (
     "Browse the full season schedule for all 26 tier 1 competitions included in this report"
 )
@@ -320,6 +320,12 @@ REPORT_HTML_WATER_BREAK_EVENTS = "report_water_break_events.html"
 REPORT_HTML_WATER_BREAK_UNPAIRED = "report_water_break_unpaired.html"
 REPORT_HTML_RECORDINGS_LIBRARY = "report_recordings_library.html"
 REPORT_HTML_MASTER_GAMES = "report_master_games.html"
+# Index page for reports that stay in the pipeline but are hidden from the main hub grid.
+REPORT_HTML_ARCHIVE_INDEX = "report_archive.html"
+REPORT_ARCHIVE_HUB_NOTE = (
+    "These reports still refresh with the daily pipeline. They live here because they are "
+    "no longer day-to-day priorities; bookmarks and direct URLs keep working."
+)
 
 # Rate limiting: Sportradar trial keys are limited to 1 request/second
 REQUEST_DELAY_SECONDS = 1.1

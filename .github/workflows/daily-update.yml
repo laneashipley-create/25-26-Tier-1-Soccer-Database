@@ -67,7 +67,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           REPORT_FILES=(
-            report.html report_hub.html wc2026_schedule.html
+            report.html report_hub.html report_archive.html wc2026_schedule.html
             report_own_goals.html report_master_games.html
             report_penalty_shootouts.html report_var_events.html
             report_var_unpaired.html report_water_break_events.html
