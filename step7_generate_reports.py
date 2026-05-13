@@ -46,6 +46,7 @@ from config import (
     SEASON_LABEL,
     TIMELINES_DIR,
     USE_SUPABASE,
+    VAR_EVENTS_HTML_REPORT_MAX_ROWS,
 )
 from report_navigation import (
     COLUMN_RESIZE_CSS,
@@ -1437,6 +1438,13 @@ def _derived_page_shell(
       font-size: 0.88rem;
       line-height: 1.45;
     }}
+    .meta .report-disclaimer {{
+      border-left: 3px solid #b8860b;
+      padding: 0.55rem 0.75rem;
+      margin-bottom: 0.65rem;
+      background: #fff9ee;
+      border-radius: 4px;
+    }}
     .table-section {{ padding: 1rem 1rem 0; max-width: 1480px; margin: 0 auto; }}
     .table-wrap {{
       overflow-x: auto;
@@ -1540,7 +1548,7 @@ def _derived_page_shell(
     </div>
 {nav}
   </div>
-  <p class="meta">{meta}</p>
+  <div class="meta">{meta}</div>
 {filter_payload_html}{filter_controls_html}
   <div class="table-section">
     {row_cap_html}
@@ -1685,7 +1693,8 @@ def write_derived_reports() -> None:
         f.write(ps_doc)
     print(f"  Wrote {REPORT_HTML_PENALTY_SHOOTOUTS} ({len(ps)} rows)")
 
-    vr = db.fetch_var_timeline_event_rows()
+    vr_total = db.count_var_timeline_events()
+    vr = db.fetch_var_timeline_event_rows(max_rows=VAR_EVENTS_HTML_REPORT_MAX_ROWS)
     for i, row in enumerate(vr, 1):
         row["row_num"] = i
     vr_headers = [
@@ -1737,12 +1746,24 @@ def write_derived_reports() -> None:
         slicer_comp_key="competition_name",
         slicer_date_key="sport_event_start",
     )
+    vr_disclaimer = ""
+    if vr_total > len(vr):
+        vr_disclaimer = (
+            '<div class="report-disclaimer"><strong>Disclaimer:</strong> '
+            f"This page embeds only the <strong>{len(vr):,}</strong> newest rows "
+            f"(by <code>match_date</code>, then <code>id</code>) out of "
+            f"<strong>{vr_total:,}</strong> VAR timeline events in "
+            r"<code>public.var_timeline_events</code> for Tier&nbsp;1 completed matches in scope. "
+            "The full dataset remains in the backend for SQL, exports, and other reports "
+            "(for example <strong>VAR unpaired</strong>, which is not truncated).</div>"
+        )
     vr_doc = _derived_page_shell(
         title=f"VAR events — {SEASON_LABEL}",
         badge="Sportradar Soccer",
         headline="VAR timeline events",
         subtitle=REPORT_BLURB_VAR_EVENTS,
-        meta=f"<strong>{len(vr):,}</strong> rows from <code>video_assistant_referee</code> and "
+        meta=vr_disclaimer
+        + f"<strong>{len(vr):,}</strong> rows from <code>video_assistant_referee</code> and "
         "<code>video_assistant_referee_over</code> (completed matches). "
         "<strong>Decision</strong> is often empty on standard timelines (see Extended API docs).",
         table_html=vr_html,
@@ -1755,7 +1776,10 @@ def write_derived_reports() -> None:
     )
     with open(REPORT_HTML_VAR_EVENTS, "w", encoding="utf-8") as f:
         f.write(vr_doc)
-    print(f"  Wrote {REPORT_HTML_VAR_EVENTS} ({len(vr)} rows)")
+    if vr_total > len(vr):
+        print(f"  Wrote {REPORT_HTML_VAR_EVENTS} ({len(vr):,} of {vr_total:,} rows; HTML capped)")
+    else:
+        print(f"  Wrote {REPORT_HTML_VAR_EVENTS} ({len(vr)} rows)")
 
     vu = db.fetch_var_unpaired_match_rows()
     for i, row in enumerate(vu, 1):

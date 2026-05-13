@@ -1344,8 +1344,16 @@ def upsert_water_break_timeline_events(rows: list[dict], replace: bool = True) -
         _supabase_execute_with_retry(_run)
 
 
-def _fetch_all_ordered(table: str, orders: list[tuple[str, bool]]) -> list[dict]:
-    """Paginated select(*) for reporting; orders is (column, desc) pairs applied in order."""
+def _fetch_all_ordered(
+    table: str,
+    orders: list[tuple[str, bool]],
+    *,
+    max_rows: int | None = None,
+) -> list[dict]:
+    """Paginated select(*) for reporting; orders is (column, desc) pairs applied in order.
+
+    When ``max_rows`` is set, stop after that many rows (still using the same ordering).
+    """
     supabase = get_client()
     out: list[dict] = []
     offset = 0
@@ -1360,7 +1368,18 @@ def _fetch_all_ordered(table: str, orders: list[tuple[str, bool]]) -> list[dict]
 
         r = _supabase_execute_with_retry(_build_query)
         chunk = r.data or []
-        out.extend(chunk)
+        if max_rows is not None:
+            need = max_rows - len(out)
+            if need <= 0:
+                break
+            if len(chunk) > need:
+                out.extend(chunk[:need])
+                break
+            out.extend(chunk)
+            if len(out) >= max_rows:
+                break
+        else:
+            out.extend(chunk)
         if len(chunk) < page:
             break
         offset += page
@@ -1429,15 +1448,53 @@ def fetch_penalty_shootout_match_rows() -> list[dict]:
     return rows
 
 
-def fetch_var_timeline_event_rows() -> list[dict]:
+def count_var_timeline_events() -> int:
+    """Row count for ``public.var_timeline_events`` (exact PostgREST count, no full table download)."""
+    supabase = get_client()
+
+    def _count():
+        return (
+            supabase.table("var_timeline_events")
+            .select("id", count="exact")
+            .limit(1)
+            .execute()
+        )
+
+    r = _supabase_execute_with_retry(_count)
+    c = getattr(r, "count", None)
+    if c is not None:
+        return int(c)
+    page_size = 1000
+    offset = 0
+    total = 0
+    while True:
+        chunk = _supabase_execute_with_retry(
+            lambda o=offset: supabase.table("var_timeline_events")
+            .select("id")
+            .range(o, o + page_size - 1)
+            .execute()
+        )
+        rows = chunk.data or []
+        total += len(rows)
+        if len(rows) < page_size:
+            break
+        offset += page_size
+    return total
+
+
+def fetch_var_timeline_event_rows(*, max_rows: int | None = None) -> list[dict]:
     """
-    All rows from public.var_timeline_events.
+    Rows from public.var_timeline_events (newest ``match_date`` first, then ``id``).
 
     Adds recording_id, title (from home/away), and sport_event_start (kickoff UTC from All Games).
+
+    Pass ``max_rows`` to cap how many rows are loaded (for static HTML size); the database
+    still holds the full set for other reports and SQL.
     """
     rows = _fetch_all_ordered(
         "var_timeline_events",
         [("match_date", True), ("id", False)],
+        max_rows=max_rows,
     )
     if not rows:
         return []

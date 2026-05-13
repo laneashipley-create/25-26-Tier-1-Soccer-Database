@@ -278,8 +278,12 @@ REPORT_BLURB_OWN_GOALS_NOTE = (
     "Note: Commentary only available from 4/20/26 onward due to a database refresh + "
     "commentary being removed from timelines after 14 days"
 )
+# Cap embedded HTML rows for report_var_events.html (full data stays in Supabase).
+VAR_EVENTS_HTML_REPORT_MAX_ROWS = 1000
+
 REPORT_BLURB_VAR_EVENTS = (
-    "Review all VAR events from completed matches with type, timing, affected side, etc. etc"
+    "VAR start/end events from completed Tier 1 matches (type, timing, affected side). "
+    "The HTML report lists the newest slice for browser performance; the database keeps every event."
 )
 REPORT_BLURB_VAR_UNPAIRED = (
     "Report identifies matches that have un-paired VAR events, meaning there was a "
