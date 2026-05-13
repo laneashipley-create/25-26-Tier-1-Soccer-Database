@@ -743,7 +743,7 @@ sr:competition:390,sr:season:137806,Brasileiro Serie B 2026,sr:sport_event:68822
 sr:competition:390,sr:season:137806,Brasileiro Serie B 2026,sr:sport_event:68822880,2026-05-10T19:00:00+00:00,8,Nautico PE,sr:competitor:2011,America FC MG,sr:competitor:1973,closed,ended,4,0
 sr:competition:390,sr:season:137806,Brasileiro Serie B 2026,sr:sport_event:68822878,2026-05-10T21:30:00+00:00,8,Avai FC SC,sr:competitor:7315,Fortaleza EC CE,sr:competitor:2020,closed,ended,0,0
 sr:competition:390,sr:season:137806,Brasileiro Serie B 2026,sr:sport_event:68822868,2026-05-10T22:30:00+00:00,8,Gremio Novorizontino SP,sr:competitor:135514,Botafogo FC SP,sr:competitor:1979,closed,ended,1,0
-sr:competition:390,sr:season:137806,Brasileiro Serie B 2026,sr:sport_event:71289488,2026-05-12T22:30:00+00:00,8,Londrina EC PR,sr:competitor:2022,Sao Bernardo FC,sr:competitor:47504,not_started,not_started,,
+sr:competition:390,sr:season:137806,Brasileiro Serie B 2026,sr:sport_event:71289488,2026-05-12T22:30:00+00:00,8,Londrina EC PR,sr:competitor:2022,Sao Bernardo FC,sr:competitor:47504,closed,ended,1,3
 sr:competition:390,sr:season:137806,Brasileiro Serie B 2026,sr:sport_event:68822888,2026-05-16T19:00:00+00:00,9,Sao Bernardo FC,sr:competitor:47504,America FC MG,sr:competitor:1973,not_started,not_started,,
 sr:competition:390,sr:season:137806,Brasileiro Serie B 2026,sr:sport_event:68822892,2026-05-16T19:00:00+00:00,9,Operario Ferroviario EC PR,sr:competitor:39634,Nautico PE,sr:competitor:2011,not_started,not_started,,
 sr:competition:390,sr:season:137806,Brasileiro Serie B 2026,sr:sport_event:68822896,2026-05-16T21:30:00+00:00,9,Goias EC GO,sr:competitor:1960,Botafogo FC SP,sr:competitor:1979,not_started,not_started,,
@@ -1910,8 +1910,8 @@ sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645548,2026-
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645064,2026-05-10T07:00:00+00:00,16,Nagoya Grampus,sr:competitor:3136,Kyoto Sanga FC,sr:competitor:3149,closed,ended,3,0
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645550,2026-05-10T07:00:00+00:00,16,Kashiwa Reysol,sr:competitor:3140,Kawasaki Frontale,sr:competitor:5127,closed,ended,1,0
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645552,2026-05-10T08:00:00+00:00,16,JEF United Chiba,sr:competitor:3144,Machida Zelvia,sr:competitor:44409,closed,ended,0,2
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644942,2026-05-13T10:00:00+00:00,12,Vissel Kobe,sr:competitor:3146,Kyoto Sanga FC,sr:competitor:3149,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645510,2026-05-13T10:00:00+00:00,12,Machida Zelvia,sr:competitor:44409,Tokyo Verdy,sr:competitor:3139,not_started,not_started,,
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644942,2026-05-13T10:00:00+00:00,12,Vissel Kobe,sr:competitor:3146,Kyoto Sanga FC,sr:competitor:3149,closed,ended,1,0
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645510,2026-05-13T10:00:00+00:00,12,Machida Zelvia,sr:competitor:44409,Tokyo Verdy,sr:competitor:3139,closed,ap,0,0
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645554,2026-05-16T05:00:00+00:00,17,Mito Hollyhock,sr:competitor:21901,Tokyo Verdy,sr:competitor:3139,not_started,not_started,,
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645556,2026-05-16T07:00:00+00:00,17,Urawa Red Diamonds,sr:competitor:3145,FC Tokyo,sr:competitor:3147,not_started,not_started,,
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645558,2026-05-16T08:00:00+00:00,17,Yokohama F Marinos,sr:competitor:3137,Kashiwa Reysol,sr:competitor:3140,not_started,not_started,,
@@ -2284,9 +2284,9 @@ sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624618,2026-05-1
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624634,2026-05-10T16:30:00+00:00,35,Real Oviedo,sr:competitor:2851,Getafe CF,sr:competitor:2859,closed,ended,0,0
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624622,2026-05-10T19:00:00+00:00,35,FC Barcelona,sr:competitor:2817,Real Madrid,sr:competitor:2829,closed,ended,2,0
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624636,2026-05-11T19:00:00+00:00,35,Rayo Vallecano,sr:competitor:2818,Girona FC,sr:competitor:24264,closed,ended,1,1
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624642,2026-05-12T17:00:00+00:00,36,RC Celta de Vigo,sr:competitor:2821,Levante UD,sr:competitor:2849,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624640,2026-05-12T18:00:00+00:00,36,Real Betis Seville,sr:competitor:2816,Elche CF,sr:competitor:2846,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624650,2026-05-12T19:30:00+00:00,36,CA Osasuna,sr:competitor:2820,Atletico Madrid,sr:competitor:2836,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624642,2026-05-12T17:00:00+00:00,36,RC Celta de Vigo,sr:competitor:2821,Levante UD,sr:competitor:2849,closed,ended,2,3
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624640,2026-05-12T18:00:00+00:00,36,Real Betis Seville,sr:competitor:2816,Elche CF,sr:competitor:2846,closed,ended,2,1
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624650,2026-05-12T19:30:00+00:00,36,CA Osasuna,sr:competitor:2820,Atletico Madrid,sr:competitor:2836,closed,ended,1,2
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624648,2026-05-13T17:00:00+00:00,36,Espanyol Barcelona,sr:competitor:2814,Athletic Bilbao,sr:competitor:2825,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624654,2026-05-13T17:00:00+00:00,36,Villarreal CF,sr:competitor:2819,Sevilla FC,sr:competitor:2833,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624638,2026-05-13T19:30:00+00:00,36,Deportivo Alaves,sr:competitor:2885,FC Barcelona,sr:competitor:2817,not_started,not_started,,
@@ -2296,7 +2296,6 @@ sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624646,2026-05-1
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624656,2026-05-14T19:30:00+00:00,36,Real Madrid,sr:competitor:2829,Real Oviedo,sr:competitor:2851,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624658,2026-05-17T17:00:00+00:00,37,Athletic Bilbao,sr:competitor:2825,RC Celta de Vigo,sr:competitor:2821,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624660,2026-05-17T17:00:00+00:00,37,Atletico Madrid,sr:competitor:2836,Girona FC,sr:competitor:24264,not_started,not_started,,
-sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624662,2026-05-17T17:00:00+00:00,37,FC Barcelona,sr:competitor:2817,Real Betis Seville,sr:competitor:2816,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624664,2026-05-17T17:00:00+00:00,37,Elche CF,sr:competitor:2846,Getafe CF,sr:competitor:2859,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624666,2026-05-17T17:00:00+00:00,37,Levante UD,sr:competitor:2849,RCD Mallorca,sr:competitor:2826,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624668,2026-05-17T17:00:00+00:00,37,Rayo Vallecano,sr:competitor:2818,Villarreal CF,sr:competitor:2819,not_started,not_started,,
@@ -2304,6 +2303,7 @@ sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624670,2026-05-1
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624672,2026-05-17T17:00:00+00:00,37,Real Oviedo,sr:competitor:2851,Deportivo Alaves,sr:competitor:2885,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624674,2026-05-17T17:00:00+00:00,37,CA Osasuna,sr:competitor:2820,Espanyol Barcelona,sr:competitor:2814,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624676,2026-05-17T17:00:00+00:00,37,Sevilla FC,sr:competitor:2833,Real Madrid,sr:competitor:2829,not_started,not_started,,
+sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624662,2026-05-17T19:15:00+00:00,37,FC Barcelona,sr:competitor:2817,Real Betis Seville,sr:competitor:2816,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624678,2026-05-23T19:00:00+00:00,38,Deportivo Alaves,sr:competitor:2885,Rayo Vallecano,sr:competitor:2818,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624680,2026-05-23T19:00:00+00:00,38,Real Betis Seville,sr:competitor:2816,Levante UD,sr:competitor:2849,not_started,not_started,,
 sr:competition:8,sr:season:130805,LaLiga 25/26,sr:sport_event:61624682,2026-05-23T19:00:00+00:00,38,RC Celta de Vigo,sr:competitor:2821,Sevilla FC,sr:competitor:2833,not_started,not_started,,
@@ -2614,9 +2614,10 @@ sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526584,2026-05
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526586,2026-05-10T19:00:00+00:00,33,FC Metz,sr:competitor:1651,FC Lorient,sr:competitor:1656,closed,ended,0,4
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526588,2026-05-10T19:00:00+00:00,33,Angers SCO,sr:competitor:1684,Strasbourg Alsace,sr:competitor:1659,closed,ended,1,1
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526590,2026-05-10T19:00:00+00:00,33,AS Monaco,sr:competitor:1653,Lille OSC,sr:competitor:1643,closed,ended,0,1
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:71411500,2026-05-12T18:30:00+00:00,1,Red Star FC,sr:competitor:52874,Rodez Aveyron Football,sr:competitor:6925,not_started,not_started,,
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:71411500,2026-05-12T18:30:00+00:00,1,Red Star FC,sr:competitor:52874,Rodez Aveyron Football,sr:competitor:6925,closed,ended,2,3
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:70315368,2026-05-13T17:00:00+00:00,29,Stade Brest 29,sr:competitor:1715,Strasbourg Alsace,sr:competitor:1659,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:70315360,2026-05-13T19:00:00+00:00,29,Racing Club De Lens,sr:competitor:1648,Paris Saint-Germain,sr:competitor:1644,not_started,not_started,,
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:71476180,2026-05-15T18:30:00+00:00,2,AS Saint-Etienne,sr:competitor:1678,Rodez Aveyron Football,sr:competitor:6925,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61512160,2026-05-17T19:00:00+00:00,34,FC Lorient,sr:competitor:1656,Le Havre AC,sr:competitor:1662,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61512162,2026-05-17T19:00:00+00:00,34,FC Nantes,sr:competitor:1647,Toulouse FC,sr:competitor:1681,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61512164,2026-05-17T19:00:00+00:00,34,Lille OSC,sr:competitor:1643,AJ Auxerre,sr:competitor:1646,not_started,not_started,,
