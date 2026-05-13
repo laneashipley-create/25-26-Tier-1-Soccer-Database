@@ -42,6 +42,13 @@
       font-size: 0.88rem;
       line-height: 1.45;
     }
+    .meta .report-disclaimer {
+      border-left: 3px solid #b8860b;
+      padding: 0.55rem 0.75rem;
+      margin-bottom: 0.65rem;
+      background: #fff9ee;
+      border-radius: 4px;
+    }
     .table-section { padding: 1rem 1rem 0; max-width: 1480px; margin: 0 auto; }
     .table-wrap {
       overflow-x: auto;
@@ -565,8 +572,7 @@
       <span class="nav-active">Recordings library</span>
   </nav>
   </div>
-  <p class="meta"><strong>54</strong> recording row(s). <strong>ID</strong> is row order in this report (1 = oldest <strong>Sport Event Start</strong>). After Sport Event Start, each column is one distinct <code>apis[].description</code> from the export JSON (<strong>13</strong> total); <strong>Yes</strong> is shaded green and <strong>No</strong> red. Regenerate this page with <code>gen_report_recordings_library_html.py</code> after updating <code>soccer record replay list of sr sport event ids.json</code>. Related Supabase sync: <code>sync_recordings_library.py</code>.</p>
-  
+  <div class="meta"><strong>52</strong> recording row(s) from Supabase <code>recordings_library_report</code> (sync via <code>sync_recordings_library.py</code>). <strong>ID</strong> is row order in this report (1 = oldest <strong>Sport Event Start</strong>). Boolean columns reflect which APIs were captured in the export.</div>
     <script type="application/json" id="report-filter-data-derived">{"allSeasonNames": ["Bundesliga", "CONMEBOL Libertadores", "FA Cup", "J1 League", "Ligue 1", "Premier League", "UEFA Champions League", "UEFA Conference League"], "dataDateMin": "2026-03-03", "dataDateMax": "2026-05-06"}</script>
 <div class="stats-section">
     <div class="stats-grid">
@@ -690,7 +696,7 @@
     </div>
   </div>
   <div class="footer">
-    <p>Data from Supabase (Record/Replay library table Soccer // Recordings Library) · Generated 2026-05-13 02:15 UTC</p>
+    <p>Data from Supabase (Record/Replay library table Soccer // Recordings Library) · Generated 2026-05-13 04:01 UTC</p>
   </div>
 <script>
 (function () {
