@@ -568,8 +568,8 @@
       <a href="report_penalty_shootouts.html">Penalty shootouts</a>
   </nav>
   </div>
-  <div class="meta"><strong>243</strong> rows from <code>water_break_start</code> and <code>water_break_end</code> in completed <code>sport_event timeline</code> data. Includes <strong>WB Seq</strong> and <strong>Sequence</strong> columns for per-match ordering (1st half start, 1st half end, 2nd half start, 2nd half end). <strong>1st break</strong> (seq 2 only) and <strong>2nd break</strong> (seq 4 only) show duration from <code>match_clock</code> (and added-time fields when needed) between 1→2 and 3→4 on <code>water_break_end</code> rows. <strong>Events per match</strong> filters rows by how many water-break timeline events exist for that <code>sr:sport_event</code> (4 = complete seq 1–4). Use this report alongside <a href="report_water_break_unpaired.html">water-break unpaired</a> to review count mismatches.</div>
-  <script type="application/json" id="report-filter-data-derived">{"allSeasonNames": ["1. Bundesliga", "Brasileiro Serie A", "Brasileiro Serie B", "CONMEBOL Libertadores", "CONMEBOL Sudamericana", "LaLiga", "Liga MX (Apertura + Clausura)", "Ligue 1", "MLS", "Serie A"], "dataDateMin": "2026-04-23", "dataDateMax": "2026-05-10"}</script>
+  <div class="meta"><strong>245</strong> rows from <code>water_break_start</code> and <code>water_break_end</code> in completed <code>sport_event timeline</code> data. Includes <strong>WB Seq</strong> and <strong>Sequence</strong> columns for per-match ordering (1st half start, 1st half end, 2nd half start, 2nd half end). <strong>1st break</strong> (seq 2 only) and <strong>2nd break</strong> (seq 4 only) show duration from <code>match_clock</code> (and added-time fields when needed) between 1→2 and 3→4 on <code>water_break_end</code> rows. <strong>Events per match</strong> filters rows by how many water-break timeline events exist for that <code>sr:sport_event</code> (4 = complete seq 1–4). Use this report alongside <a href="report_water_break_unpaired.html">water-break unpaired</a> to review count mismatches.</div>
+  <script type="application/json" id="report-filter-data-derived">{"allSeasonNames": ["1. Bundesliga", "Brasileiro Serie A", "Brasileiro Serie B", "CONMEBOL Libertadores", "CONMEBOL Sudamericana", "LaLiga", "Liga MX (Apertura + Clausura)", "Ligue 1", "MLS", "Serie A"], "dataDateMin": "2026-04-23", "dataDateMax": "2026-05-13"}</script>
   <div class="stats-section">
     <div class="stats-grid">
     <div class="stat-card stat-card--wide stat-card--filter-tile stat-card--text-left" role="region" aria-label="Filter by competition">
@@ -623,7 +623,7 @@
           <input type="date" id="drv-date-from" min="1990-01-01" max="2099-12-31" value="2026-04-23" />
         </label>
         <label class="date-filter-label">To
-          <input type="date" id="drv-date-to" min="1990-01-01" max="2099-12-31" value="2026-05-10" />
+          <input type="date" id="drv-date-to" min="1990-01-01" max="2099-12-31" value="2026-05-13" />
         </label>
       </div>
       <div class="date-filter-head migration-filter-head">
@@ -637,15 +637,15 @@
     <div class="wb-kpi-strip" role="region" aria-label="Totals for visible rows">
       <div class="stat-card wb-kpi-tile">
         <div class="wb-kpi-label">Matches (unique IDs)</div>
-        <div class="wb-kpi-value" id="wb-kpi-matches">68</div>
+        <div class="wb-kpi-value" id="wb-kpi-matches">69</div>
       </div>
       <div class="stat-card wb-kpi-tile">
         <div class="wb-kpi-label">Water break starts</div>
-        <div class="wb-kpi-value" id="wb-kpi-starts">125</div>
+        <div class="wb-kpi-value" id="wb-kpi-starts">126</div>
       </div>
       <div class="stat-card wb-kpi-tile">
         <div class="wb-kpi-label">Water break ends</div>
-        <div class="wb-kpi-value" id="wb-kpi-ends">118</div>
+        <div class="wb-kpi-value" id="wb-kpi-ends">119</div>
       </div>
     </div>
     </div>
@@ -906,12 +906,14 @@
 <tr class="derived-data-row" data-competition="CONMEBOL Libertadores" data-match-date="2026-05-05" data-wb-match-events="4"><td class="num" data-val="240">240</td><td class="mono" data-val="sr:sport_event:70076102"><code>sr:sport_event:70076102</code></td><td data-val="4">4</td><td data-val="2nd half - water_break_end">2nd half - water_break_end</td><td data-val="—">—</td><td data-val="21m 7s">21m 7s</td><td data-val="2026-05-05T22:00:00+00:00">2026-05-05T22:00:00+00:00</td><td data-val="Libertad Asuncion AT CA Rosario Central">Libertad Asuncion AT CA Rosario Central</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="sr:competition:384">sr:competition:384</td><td data-val="CA Rosario Central">CA Rosario Central</td><td data-val="Libertad Asuncion">Libertad Asuncion</td><td data-val="water_break_end">water_break_end</td><td data-val="90">90</td><td data-val="—">—</td><td data-val="89:12">89:12</td><td data-val="3000788699">3000788699</td></tr>
 <tr class="derived-data-row" data-competition="CONMEBOL Libertadores" data-match-date="2026-05-06" data-wb-match-events="3"><td class="num" data-val="241">241</td><td class="mono" data-val="sr:sport_event:70076104"><code>sr:sport_event:70076104</code></td><td data-val="1">1</td><td data-val="1st half - water_break_start">1st half - water_break_start</td><td data-val="—">—</td><td data-val="—">—</td><td data-val="2026-05-06T00:00:00+00:00">2026-05-06T00:00:00+00:00</td><td data-val="CSD Independiente del Valle AT UCV FC">CSD Independiente del Valle AT UCV FC</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="sr:competition:384">sr:competition:384</td><td data-val="UCV FC">UCV FC</td><td data-val="CSD Independiente del Valle">CSD Independiente del Valle</td><td data-val="water_break_start">water_break_start</td><td data-val="23">23</td><td data-val="—">—</td><td data-val="22:02">22:02</td><td data-val="3000789515">3000789515</td></tr>
 <tr class="derived-data-row" data-competition="CONMEBOL Libertadores" data-match-date="2026-05-06" data-wb-match-events="3"><td class="num" data-val="242">242</td><td class="mono" data-val="sr:sport_event:70076104"><code>sr:sport_event:70076104</code></td><td data-val="2">2</td><td data-val="1st half - water_break_end">1st half - water_break_end</td><td data-val="2m 39s">2m 39s</td><td data-val="—">—</td><td data-val="2026-05-06T00:00:00+00:00">2026-05-06T00:00:00+00:00</td><td data-val="CSD Independiente del Valle AT UCV FC">CSD Independiente del Valle AT UCV FC</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="sr:competition:384">sr:competition:384</td><td data-val="UCV FC">UCV FC</td><td data-val="CSD Independiente del Valle">CSD Independiente del Valle</td><td data-val="water_break_end">water_break_end</td><td data-val="25">25</td><td data-val="—">—</td><td data-val="24:41">24:41</td><td data-val="3000789535">3000789535</td></tr>
-<tr class="derived-data-row" data-competition="CONMEBOL Libertadores" data-match-date="2026-05-06" data-wb-match-events="3"><td class="num" data-val="243">243</td><td class="mono" data-val="sr:sport_event:70076104"><code>sr:sport_event:70076104</code></td><td data-val="3">3</td><td data-val="2nd half - water_break_start">2nd half - water_break_start</td><td data-val="—">—</td><td data-val="—">—</td><td data-val="2026-05-06T00:00:00+00:00">2026-05-06T00:00:00+00:00</td><td data-val="CSD Independiente del Valle AT UCV FC">CSD Independiente del Valle AT UCV FC</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="sr:competition:384">sr:competition:384</td><td data-val="UCV FC">UCV FC</td><td data-val="CSD Independiente del Valle">CSD Independiente del Valle</td><td data-val="water_break_start">water_break_start</td><td data-val="69">69</td><td data-val="—">—</td><td data-val="68:00">68:00</td><td data-val="3000792144">3000792144</td></tr></tbody>
+<tr class="derived-data-row" data-competition="CONMEBOL Libertadores" data-match-date="2026-05-06" data-wb-match-events="3"><td class="num" data-val="243">243</td><td class="mono" data-val="sr:sport_event:70076104"><code>sr:sport_event:70076104</code></td><td data-val="3">3</td><td data-val="2nd half - water_break_start">2nd half - water_break_start</td><td data-val="—">—</td><td data-val="—">—</td><td data-val="2026-05-06T00:00:00+00:00">2026-05-06T00:00:00+00:00</td><td data-val="CSD Independiente del Valle AT UCV FC">CSD Independiente del Valle AT UCV FC</td><td data-val="CONMEBOL Libertadores">CONMEBOL Libertadores</td><td data-val="sr:competition:384">sr:competition:384</td><td data-val="UCV FC">UCV FC</td><td data-val="CSD Independiente del Valle">CSD Independiente del Valle</td><td data-val="water_break_start">water_break_start</td><td data-val="69">69</td><td data-val="—">—</td><td data-val="68:00">68:00</td><td data-val="3000792144">3000792144</td></tr>
+<tr class="derived-data-row" data-competition="Ligue 1" data-match-date="2026-05-13" data-wb-match-events="2"><td class="num" data-val="244">244</td><td class="mono" data-val="sr:sport_event:70315368"><code>sr:sport_event:70315368</code></td><td data-val="1">1</td><td data-val="1st half - water_break_start">1st half - water_break_start</td><td data-val="—">—</td><td data-val="—">—</td><td data-val="2026-05-13T17:00:00+00:00">2026-05-13T17:00:00+00:00</td><td data-val="Strasbourg Alsace AT Stade Brest 29">Strasbourg Alsace AT Stade Brest 29</td><td data-val="Ligue 1">Ligue 1</td><td data-val="sr:competition:34">sr:competition:34</td><td data-val="Stade Brest 29">Stade Brest 29</td><td data-val="Strasbourg Alsace">Strasbourg Alsace</td><td data-val="water_break_start">water_break_start</td><td data-val="45">45</td><td data-val="4">4</td><td data-val="45:00">45:00</td><td data-val="3001566224">3001566224</td></tr>
+<tr class="derived-data-row" data-competition="Ligue 1" data-match-date="2026-05-13" data-wb-match-events="2"><td class="num" data-val="245">245</td><td class="mono" data-val="sr:sport_event:70315368"><code>sr:sport_event:70315368</code></td><td data-val="2">2</td><td data-val="1st half - water_break_end">1st half - water_break_end</td><td data-val="0s">0s</td><td data-val="—">—</td><td data-val="2026-05-13T17:00:00+00:00">2026-05-13T17:00:00+00:00</td><td data-val="Strasbourg Alsace AT Stade Brest 29">Strasbourg Alsace AT Stade Brest 29</td><td data-val="Ligue 1">Ligue 1</td><td data-val="sr:competition:34">sr:competition:34</td><td data-val="Stade Brest 29">Stade Brest 29</td><td data-val="Strasbourg Alsace">Strasbourg Alsace</td><td data-val="water_break_end">water_break_end</td><td data-val="45">45</td><td data-val="4">4</td><td data-val="45:00">45:00</td><td data-val="3001566235">3001566235</td></tr></tbody>
       </table>
     </div>
   </div>
   <div class="footer">
-    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-13 17:39 UTC</p>
+    <p>Data from Supabase (Sportradar timelines) · Generated 2026-05-13 19:59 UTC</p>
   </div>
 <script>
 (function () {
