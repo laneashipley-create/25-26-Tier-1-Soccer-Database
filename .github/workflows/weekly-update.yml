@@ -150,7 +150,8 @@ jobs:
                 {email: "m.lopez@sportradar.com", name: "Matt Lopez"},
                 {email: "j.herbstman@sportradar.com", name: "Jordan Herbstman"},
                 {email: "j.padden@sportradar.com", name: "James Padden"},
-                {email: "p.cohn@sportradar.com"}
+                {email: "p.cohn@sportradar.com"},
+                {email: "j.navarro@sportradar.com", name: "Jake Navarro"}
               ],
               subject: "Weekly Tier 1 Soccer Leagues || 25/26 Seasons || Various Reports",
               htmlContent: $html
