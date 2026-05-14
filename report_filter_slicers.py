@@ -177,6 +177,7 @@ def build_date_migration_tile(
         <span class="date-filter-presets">
           <button type="button" class="date-preset-btn is-active" data-preset="all">All time</button>
           <button type="button" class="date-preset-btn" data-preset="today">Today</button>
+          <button type="button" class="date-preset-btn" data-preset="yesterday">Yesterday</button>
           <button type="button" class="date-preset-btn" data-preset="week">This week</button>
           <button type="button" class="date-preset-btn" data-preset="month">This month</button>
         </span>
@@ -414,6 +415,11 @@ DERIVED_TABLE_SCRIPT_WITH_TOP_SLICER = r"""<script>
           var td = toYMD(today);
           fromEl.value = td;
           toEl.value = td;
+        } else if (preset === "yesterday") {
+          var yd = new Date(today); yd.setDate(yd.getDate() - 1);
+          var ys = toYMD(yd);
+          fromEl.value = ys;
+          toEl.value = ys;
         } else if (preset === "week") {
           fromEl.value = toYMD(startOfISOWeek(today));
           toEl.value = toYMD(endOfISOWeek(today));

@@ -303,6 +303,8 @@
     .team-name { min-width: 0; }
     .score, .sep { min-width: 56px; font-weight: 800; color: #cc0000; }
     .right { text-align: right; color: #666; font-size: 0.78rem; align-self: center; }
+    .sr-id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.68rem; color: #999; user-select: all; }
+    .wc-bracket-sr-id { text-align: center; margin-top: 0.15rem; }
     .knockout {
       margin: 1.35rem 0 1rem;
       color: #cc0000;
@@ -1099,7 +1101,9 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
         `<div class="wc-bracket-team">${teamLineHtml(hid, home)}</div>` +
         center +
         `<div class="wc-bracket-team">${teamLineHtml(aid, away)}</div>` +
-        `</div></div>`
+        `</div>` +
+        (mid ? `<div class="sr-id wc-bracket-sr-id">${escapeHtml(mid)}</div>` : "") +
+        `</div>`
       );
     }
 
@@ -1447,7 +1451,7 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
               ${center}
               <div class="team team-away">${teamLineHtml(m.away_team_id, m.away_team)}</div>
             </div>
-            <div class="right">Match ${m.match_number} of ${matches.length}</div>
+            <div class="right">Match ${m.match_number} of ${matches.length}<br><span class="sr-id">${m.sport_event_id}</span></div>
           `;
           block.appendChild(card);
         });
