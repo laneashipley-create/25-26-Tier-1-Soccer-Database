@@ -1,5 +1,5 @@
 """
-List of All Games HTML — all rows from public."All Games (sr:sport_events)".
+Tier 1 Leagues // Full Schedule HTML — all rows from public."All Games (sr:sport_events)".
 
 Built by generate_report.main(); uses competition slicer + date range + KPI tiles like own_goals.
 """
@@ -591,7 +591,7 @@ def generate_master_games_html(rows: list[dict]) -> str:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tier 1 Soccer Leagues — List of All Games</title>
+  <title>Tier 1 Soccer Leagues — Full Schedule</title>
   <style>
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
     html {{ font-size: 14px; }}
@@ -835,7 +835,7 @@ def generate_master_games_html(rows: list[dict]) -> str:
   <div class="report-sticky-top">
   <div class="header">
     <div class="header-badge">Sportradar Soccer</div>
-    <h1>Tier 1 Soccer Leagues <span class="mg-head-accent">// List of All Games</span></h1>
+    <h1>Tier 1 Soccer Leagues <span class="mg-head-accent">// Full Schedule</span></h1>
     <div class="subtitle">
       <p class="header-lead"><strong>{total:,}</strong> fixtures <span id="mg-subtitle-scope" class="header-filter-hint">· all competitions</span></p>
       <p class="header-desc">{html.escape(REPORT_BLURB_LIST_OF_ALL_GAMES, quote=False)}</p>
@@ -924,7 +924,7 @@ def write_master_games_report() -> None:
     if not USE_SUPABASE:
         nav = navigation_html("report_master_games.html")
         stub = f"""<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><title>Tier 1 Soccer Leagues — List of All Games</title>
+<html lang="en"><head><meta charset="UTF-8"><title>Tier 1 Soccer Leagues — Full Schedule</title>
 <style>body{{font-family:system-ui;padding:2rem;background:#f5f2ec;}}{NAV_CSS}</style></head>
 <body><div class="report-sticky-top">{nav}</div>
 <p>Set Supabase credentials to build this report from <code>All Games</code>.</p></body></html>"""

@@ -9,20 +9,17 @@ from config import REPORT_HTML, REPORT_HTML_ARCHIVE_INDEX
 # Primary strip: day-to-day reports (shown first in the sticky nav).
 REPORT_NAV_PRIMARY_ITEMS: list[tuple[str, str]] = [
     ("report_hub.html", "Home"),
-    ("report_master_games.html", "List of All Games"),
-    ("wc2026_schedule.html", "WC 2026 schedule"),
-    ("report_var_events.html", "VAR events"),
-    ("report_var_unpaired.html", "VAR unpaired"),
-    ("report_water_break_events.html", "Water break events"),
-    ("report_water_break_unpaired.html", "Water break unpaired"),
-    ("report_recordings_library.html", "Recordings library"),
+    ("report_master_games.html", "Tier 1 Leagues // Full Schedule"),
+    ("wc2026_schedule.html", "WC 2026 Schedule"),
+    ("report_recordings_library.html", "Library of Recorded Matches"),
+    ("report_var_events.html", "All VAR Events"),
+    ("report_var_unpaired.html", "VAR - Unpaired"),
+    ("report_water_break_events.html", "All Water Break Events"),
+    ("report_water_break_unpaired.html", "Water break - Unpaired"),
 ]
 
-# After a short label, still generated but “on ice” for hub prominence.
 REPORT_NAV_ARCHIVED_ITEMS: list[tuple[str, str]] = [
-    (REPORT_HTML_ARCHIVE_INDEX, "Archive"),
-    (REPORT_HTML, "Own goals"),
-    ("report_penalty_shootouts.html", "Penalty shootouts"),
+    (REPORT_HTML_ARCHIVE_INDEX, "Archived Reports"),
 ]
 
 # Full list (primary then archived) for tooling or docs that expect one flat sequence.
@@ -72,18 +69,6 @@ NAV_CSS = """
       color: #5c3030;
       font-size: 0.75rem;
       padding: 0 0.05rem;
-      user-select: none;
-    }
-    .report-nav .nav-archive-label {
-      display: inline-flex;
-      align-items: center;
-      flex-shrink: 0;
-      color: #8f6e6e;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0 0.15rem;
       user-select: none;
     }
 """
@@ -594,11 +579,5 @@ def navigation_html(current_href: str) -> str:
             _nav_link_or_active(href, label, current_href)
             for href, label in REPORT_NAV_ARCHIVED_ITEMS
         )
-        inner = (
-            primary
-            + sep
-            + '<span class="nav-archive-label" title="Still refreshed on the daily run">On ice</span>'
-            + sep
-            + archived
-        )
+        inner = primary + sep + archived
     return f'  <nav class="report-nav" aria-label="Reports">{inner}\n  </nav>'
