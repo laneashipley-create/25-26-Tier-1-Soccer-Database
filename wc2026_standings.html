@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FIFA World Cup 2026 Standings — Lane&apos;s SportsData</title>
+  <style>
+
+    .report-sticky-top {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }
+    .report-nav {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      justify-content: safe center;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      background: #1a0000;
+      padding: 0.35rem 0.5rem;
+      font-size: 0.88rem;
+      border-bottom: 1px solid #440000;
+    }
+    .report-nav a,
+    .report-nav .nav-active {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      min-height: 2.75rem;
+      padding: 0.35rem 0.5rem;
+      color: #ff9999;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .report-nav a:hover { text-decoration: underline; color: #ffcccc; }
+    .report-nav .nav-active {
+      color: #fff;
+      font-weight: 700;
+    }
+    .report-nav .nav-sep {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      color: #5c3030;
+      font-size: 0.75rem;
+      padding: 0 0.05rem;
+      user-select: none;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-size: 14px; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #1a1a2a;
+      background: #f5f2ec;
+      min-height: 100vh;
+      padding-bottom: 3rem;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .hero {
+      background: linear-gradient(160deg, #1a0000 0%, #2e0000 45%, #1a0000 100%);
+      border-bottom: 3px solid #cc0000;
+      padding: 1.75rem 1.25rem 1.5rem;
+      text-align: center;
+      margin: 0 -1rem 1.25rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    .header-badge {
+      display: inline-block;
+      background: #cc0000;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .hero .accent { color: #ff9966; }
+    .hero .subtitle {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+    .hero .meta {
+      margin-top: 0.65rem;
+      font-size: 0.78rem;
+      color: #aaa;
+    }
+    .hero .meta strong { color: #ffcccc; }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #1a0000;
+      margin: 1.5rem 0 0.75rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid #cc0000;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-title .badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: #cc0000;
+      color: #fff;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .groups-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 740px) {
+      .groups-grid { grid-template-columns: 1fr; }
+    }
+
+    .group-card {
+      background: #fff;
+      border: 1px solid #e0dbd4;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .group-card-header {
+      background: linear-gradient(135deg, #1a0000, #2e0000);
+      color: #fff;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .group-card-header .dates {
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: #ccc;
+    }
+
+    .standings-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .standings-table thead th {
+      background: #f8f5f0;
+      color: #666;
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.4rem 0.35rem;
+      text-align: center;
+      border-bottom: 2px solid #e0dbd4;
+      white-space: nowrap;
+    }
+    .standings-table thead th:first-child,
+    .standings-table thead th:nth-child(2) {
+      text-align: left;
+    }
+    .standings-table tbody tr {
+      border-bottom: 1px solid #f0ede8;
+      transition: background 120ms;
+    }
+    .standings-table tbody tr:hover { background: #fdf9f3; }
+    .standings-table tbody tr.qualifies { background: #f0faf0; }
+    .standings-table tbody tr.qualifies:hover { background: #e4f6e4; }
+    .standings-table tbody tr.third-advance { background: #fef9ec; }
+    .standings-table tbody tr.third-advance:hover { background: #fdf3d9; }
+    .standings-table tbody tr.eliminated { opacity: 0.55; }
+    .standings-table td {
+      padding: 0.45rem 0.35rem;
+      text-align: center;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .standings-table td:first-child {
+      text-align: center;
+      font-weight: 700;
+      color: #888;
+      width: 2rem;
+    }
+    .standings-table td:nth-child(2) { text-align: left; }
+
+    .team-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .team-flag {
+      width: 24px;
+      height: 16px;
+      object-fit: cover;
+      border-radius: 2px;
+      border: 1px solid #ddd;
+      flex-shrink: 0;
+    }
+    .team-name {
+      font-weight: 600;
+      color: #1a1a2a;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .team-abbr {
+      font-size: 0.7rem;
+      color: #999;
+      margin-left: 0.2rem;
+    }
+
+    .col-pts {
+      font-weight: 800 !important;
+      color: #1a0000 !important;
+      font-size: 0.88rem !important;
+    }
+    .col-gd {
+      font-weight: 700;
+    }
+    .col-gd.positive { color: #1a7a1a; }
+    .col-gd.negative { color: #cc0000; }
+
+    .qualify-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 0.25rem;
+    }
+    .qualify-dot.advance { background: #28a745; }
+    .qualify-dot.possible { background: #ffc107; }
+    .qualify-dot.out { background: #dc3545; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 0.75rem 0 1.5rem;
+      font-size: 0.78rem;
+      color: #555;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .legend-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+      flex-shrink: 0;
+    }
+
+    .third-place-wrap {
+      max-width: 780px;
+      margin: 0 auto 2rem;
+    }
+    .third-place-card {
+      background: #fff;
+      border: 1px solid #e0dbd4;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .third-place-header {
+      background: linear-gradient(135deg, #2e0000, #4a0000);
+      color: #fff;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .third-place-note {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: #ffcccc;
+      margin-top: 0.2rem;
+    }
+
+    .third-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .third-table thead th {
+      background: #f8f5f0;
+      color: #666;
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.4rem 0.45rem;
+      text-align: center;
+      border-bottom: 2px solid #e0dbd4;
+      white-space: nowrap;
+    }
+    .third-table thead th:first-child,
+    .third-table thead th:nth-child(2) {
+      text-align: left;
+    }
+    .third-table tbody tr {
+      border-bottom: 1px solid #f0ede8;
+      transition: background 120ms;
+    }
+    .third-table tbody tr:hover { background: #fdf9f3; }
+    .third-table tbody tr.advances { background: #f0faf0; }
+    .third-table tbody tr.advances:hover { background: #e4f6e4; }
+    .third-table tbody tr.eliminated { opacity: 0.55; }
+    .third-table td {
+      padding: 0.5rem 0.45rem;
+      text-align: center;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .third-table td:first-child {
+      text-align: center;
+      font-weight: 700;
+      color: #888;
+      width: 2rem;
+    }
+    .third-table td:nth-child(2) { text-align: left; }
+
+    .tiebreak-box {
+      background: #f8f5f0;
+      border: 1px solid #e0dbd4;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0 2rem;
+      font-size: 0.78rem;
+      color: #555;
+      line-height: 1.6;
+    }
+    .tiebreak-box strong {
+      color: #1a0000;
+      display: block;
+      margin-bottom: 0.35rem;
+      font-size: 0.82rem;
+    }
+
+    .generated-stamp {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #999;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e0dbd4;
+    }
+
+    .jump-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.35rem;
+      margin-bottom: 1.25rem;
+    }
+    .jump-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid #e0dbd4;
+      color: #1a0000;
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: all 120ms;
+    }
+    .jump-link:hover {
+      background: #cc0000;
+      color: #fff;
+      border-color: #cc0000;
+    }
+    .jump-link.special {
+      width: auto;
+      padding: 0 0.65rem;
+      background: #2e0000;
+      color: #ffcccc;
+      border-color: #4a0000;
+      font-size: 0.75rem;
+    }
+    .jump-link.special:hover {
+      background: #cc0000;
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="report-sticky-top">
+    <nav class="report-nav" aria-label="Report navigation">
+      <a href="report_hub.html">Home</a>
+      <span class="nav-sep" aria-hidden="true">·</span>
+      <a href="report_master_games.html">Tier 1 Leagues // Full Schedule</a>
+      <span class="nav-sep" aria-hidden="true">·</span>
+      <a href="wc2026_schedule.html">WC 2026 Schedule</a>
+      <span class="nav-sep" aria-hidden="true">·</span>
+      <span class="nav-active">WC 2026 Standings</span>
+      <span class="nav-sep" aria-hidden="true">·</span>
+      <a href="report_recordings_library.html">Library of Recorded Matches</a>
+      <span class="nav-sep" aria-hidden="true">·</span>
+      <a href="report_var_events.html">All VAR Events</a>
+      <span class="nav-sep" aria-hidden="true">·</span>
+      <a href="report_var_unpaired.html">VAR - Unpaired</a>
+      <span class="nav-sep" aria-hidden="true">·</span>
+      <a href="report_water_break_events.html">All Water Break Events</a>
+      <span class="nav-sep" aria-hidden="true">·</span>
+      <a href="report_water_break_unpaired.html">Water break - Unpaired</a>
+      <span class="nav-sep" aria-hidden="true">·</span>
+      <a href="report_archive.html">Archived Reports</a>
+    </nav>
+  </div>
+
+  <div class="wrap">
+    <header class="hero">
+      <div class="header-badge">FIFA World Cup 2026</div>
+      <h1>Group Standings &amp; <span class="accent">Best 3rd Place</span></h1>
+      <p class="subtitle">
+        Live group tables for all 12 World Cup groups (A – L) plus the consolidated Best 3rd Place ranking.
+      </p>
+      <p class="meta">
+        Season <strong>sr:season:101177</strong> &nbsp;·&nbsp;
+        Data generated: <strong id="generatedAt">—</strong>
+      </p>
+    </header>
+
+    <div class="jump-links" id="jumpLinks"></div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-swatch" style="background:#f0faf0;border-color:#a3d9a3;"></div> Advances (top 2)</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#fef9ec;border-color:#e8d5a0;"></div> 3rd place — eligible for best-third</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:rgba(0,0,0,0.04);border-color:#ccc;"></div> Eliminated</div>
+    </div>
+
+    <h2 class="section-title" id="groupTables">
+      Group Tables <span class="badge">12 Groups · 48 Teams</span>
+    </h2>
+    <div class="groups-grid" id="groupsGrid"></div>
+
+    <h2 class="section-title" id="bestThird">
+      Best 3rd Place Teams <span class="badge">Top 8 Advance</span>
+    </h2>
+    <div class="third-place-wrap">
+      <div class="third-place-card">
+        <div class="third-place-header">
+          Ranking of all 3rd-placed teams across Groups A – L
+          <div class="third-place-note">Top 8 qualify for the Round of 32</div>
+        </div>
+        <table class="third-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Team</th>
+              <th>MP</th>
+              <th>W</th>
+              <th>D</th>
+              <th>L</th>
+              <th>GF</th>
+              <th>GA</th>
+              <th>GD</th>
+              <th>Pts</th>
+            </tr>
+          </thead>
+          <tbody id="thirdBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tiebreak-box">
+      <strong>Tie-break rules</strong>
+      In the event that two (or more) teams finish with an equal number of points, the following rules break the tie:<br>
+      1. Head-to-head games between the teams concerned<br>
+      &nbsp;&nbsp;1a. Points total<br>
+      &nbsp;&nbsp;1b. Goal difference<br>
+      &nbsp;&nbsp;1c. Goals scored<br>
+      2. Overall goal difference<br>
+      3. Overall number of goals scored<br>
+      4. Disciplinary points<br>
+      5. Higher position in FIFA World Ranking
+    </div>
+
+    <div class="generated-stamp" id="stamp"></div>
+  </div>
+
+  <script src="assets/wc2026_competitor_flags.embed.js"></script>
+
+  <script type="application/json" id="standings-data-embed">
+{
+  "generated_at": "2026-05-14T16:00:08+00:00",
+  "groups": [
+    {
+      "id": "sr:league:81531",
+      "name": "Group A",
+      "group_name": "A",
+      "start_date": "2026-06-11",
+      "end_date": "2026-06-25",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4781", "name": "Mexico", "abbreviation": "MEX" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4736", "name": "South Africa", "abbreviation": "RSA" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4735", "name": "Korea Republic", "abbreviation": "KOR" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4714", "name": "Czechia", "abbreviation": "CZE" } }
+      ]
+    },
+    {
+      "id": "sr:league:81533",
+      "name": "Group B",
+      "group_name": "B",
+      "start_date": "2026-06-12",
+      "end_date": "2026-06-24",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4752", "name": "Canada", "abbreviation": "CAN" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4479", "name": "Bosnia and Herzegovina", "abbreviation": "BIH" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4792", "name": "Qatar", "abbreviation": "QAT" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4699", "name": "Switzerland", "abbreviation": "SUI" } }
+      ]
+    },
+    {
+      "id": "sr:league:81535",
+      "name": "Group C",
+      "group_name": "C",
+      "start_date": "2026-06-13",
+      "end_date": "2026-06-24",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4748", "name": "Brazil", "abbreviation": "BRA" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4778", "name": "Morocco", "abbreviation": "MAR" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:7229", "name": "Haiti", "abbreviation": "HTI" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4695", "name": "Scotland", "abbreviation": "SCO" } }
+      ]
+    },
+    {
+      "id": "sr:league:81537",
+      "name": "Group D",
+      "group_name": "D",
+      "start_date": "2026-06-13",
+      "end_date": "2026-06-26",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4724", "name": "USA", "abbreviation": "USA" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4789", "name": "Paraguay", "abbreviation": "PAR" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4741", "name": "Australia", "abbreviation": "AUS" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4700", "name": "Turkiye", "abbreviation": "TUR" } }
+      ]
+    },
+    {
+      "id": "sr:league:81539",
+      "name": "Group E",
+      "group_name": "E",
+      "start_date": "2026-06-14",
+      "end_date": "2026-06-25",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4711", "name": "Germany", "abbreviation": "GER" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:55827", "name": "Curacao", "abbreviation": "CUW" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4768", "name": "Ivory Coast", "abbreviation": "CIV" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4757", "name": "Ecuador", "abbreviation": "ECU" } }
+      ]
+    },
+    {
+      "id": "sr:league:81541",
+      "name": "Group F",
+      "group_name": "F",
+      "start_date": "2026-06-14",
+      "end_date": "2026-06-25",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4705", "name": "Netherlands", "abbreviation": "NED" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4770", "name": "Japan", "abbreviation": "JPN" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4688", "name": "Sweden", "abbreviation": "SWE" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4729", "name": "Tunisia", "abbreviation": "TUN" } }
+      ]
+    },
+    {
+      "id": "sr:league:81543",
+      "name": "Group G",
+      "group_name": "G",
+      "start_date": "2026-06-15",
+      "end_date": "2026-06-27",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4717", "name": "Belgium", "abbreviation": "BEL" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4758", "name": "Egypt", "abbreviation": "EGY" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4766", "name": "IR Iran", "abbreviation": "IRI" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4784", "name": "New Zealand", "abbreviation": "NZL" } }
+      ]
+    },
+    {
+      "id": "sr:league:81545",
+      "name": "Group H",
+      "group_name": "H",
+      "start_date": "2026-06-15",
+      "end_date": "2026-06-27",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4698", "name": "Spain", "abbreviation": "ESP" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4753", "name": "Cape Verde", "abbreviation": "CPV" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4834", "name": "Saudi Arabia", "abbreviation": "KSA" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4725", "name": "Uruguay", "abbreviation": "URU" } }
+      ]
+    },
+    {
+      "id": "sr:league:81547",
+      "name": "Group I",
+      "group_name": "I",
+      "start_date": "2026-06-16",
+      "end_date": "2026-06-26",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4481", "name": "France", "abbreviation": "FRA" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4739", "name": "Senegal", "abbreviation": "SEN" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4767", "name": "Iraq", "abbreviation": "IRQ" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4475", "name": "Norway", "abbreviation": "NOR" } }
+      ]
+    },
+    {
+      "id": "sr:league:81549",
+      "name": "Group J",
+      "group_name": "J",
+      "start_date": "2026-06-17",
+      "end_date": "2026-06-28",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4819", "name": "Argentina", "abbreviation": "ARG" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4691", "name": "Algeria", "abbreviation": "DZA" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4718", "name": "Austria", "abbreviation": "AUT" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4771", "name": "Jordan", "abbreviation": "JOR" } }
+      ]
+    },
+    {
+      "id": "sr:league:81551",
+      "name": "Group K",
+      "group_name": "K",
+      "start_date": "2026-06-17",
+      "end_date": "2026-06-27",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4704", "name": "Portugal", "abbreviation": "POR" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4823", "name": "Congo DR", "abbreviation": "COD" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4723", "name": "Uzbekistan", "abbreviation": "UZB" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4820", "name": "Colombia", "abbreviation": "COL" } }
+      ]
+    },
+    {
+      "id": "sr:league:81553",
+      "name": "Group L",
+      "group_name": "L",
+      "start_date": "2026-06-17",
+      "end_date": "2026-06-27",
+      "teams": [
+        { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4713", "name": "England", "abbreviation": "ENG" } },
+        { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4715", "name": "Croatia", "abbreviation": "CRO" } },
+        { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4764", "name": "Ghana", "abbreviation": "GHA" } },
+        { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:5164", "name": "Panama", "abbreviation": "PAN" } }
+      ]
+    }
+  ],
+  "best_third": {
+    "id": "sr:league:106218",
+    "name": "Best third",
+    "start_date": "2026-06-11",
+    "end_date": "2026-06-25",
+    "teams": [
+      { "rank": 1, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4766", "name": "IR Iran", "abbreviation": "IRI" } },
+      { "rank": 2, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4718", "name": "Austria", "abbreviation": "AUT" } },
+      { "rank": 3, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4735", "name": "Korea Republic", "abbreviation": "KOR" } },
+      { "rank": 4, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4741", "name": "Australia", "abbreviation": "AUS" } },
+      { "rank": 5, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4768", "name": "Ivory Coast", "abbreviation": "CIV" } },
+      { "rank": 6, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4688", "name": "Sweden", "abbreviation": "SWE" } },
+      { "rank": 7, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4723", "name": "Uzbekistan", "abbreviation": "UZB" } },
+      { "rank": 8, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "Playoffs", "change": 0, "competitor": { "id": "sr:competitor:4792", "name": "Qatar", "abbreviation": "QAT" } },
+      { "rank": 9, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4767", "name": "Iraq", "abbreviation": "IRQ" } },
+      { "rank": 10, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4834", "name": "Saudi Arabia", "abbreviation": "KSA" } },
+      { "rank": 11, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:4764", "name": "Ghana", "abbreviation": "GHA" } },
+      { "rank": 12, "played": 0, "win": 0, "loss": 0, "draw": 0, "goals_for": 0, "goals_against": 0, "goals_diff": 0, "points": 0, "current_outcome": "", "change": 0, "competitor": { "id": "sr:competitor:7229", "name": "Haiti", "abbreviation": "HTI" } }
+    ]
+  }
+}
+  </script>
+
+  <script>
+    const FLAG_MAP =
+      typeof WC2026_FLAG_BY_COMPETITOR_ID !== "undefined" && WC2026_FLAG_BY_COMPETITOR_ID
+        ? WC2026_FLAG_BY_COMPETITOR_ID
+        : {};
+
+    function esc(s) {
+      const d = document.createElement("div");
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function flagImg(compId) {
+      const src = FLAG_MAP[compId];
+      if (!src) return "";
+      return `<img class="team-flag" src="${esc(src)}" alt="" width="24" height="16" loading="lazy" />`;
+    }
+
+    function gdClass(diff) {
+      if (diff > 0) return "col-gd positive";
+      if (diff < 0) return "col-gd negative";
+      return "col-gd";
+    }
+
+    function gdDisplay(diff) {
+      if (diff > 0) return "+" + diff;
+      return String(diff);
+    }
+
+    function groupRowClass(team, rank) {
+      if (rank <= 2) return "qualifies";
+      if (rank === 3 && team.current_outcome === "Playoffs") return "third-advance";
+      if (rank === 4) return "eliminated";
+      return "";
+    }
+
+    function renderGroupCard(group) {
+      const startFmt = new Date(group.start_date + "T00:00:00Z").toLocaleDateString("en-US", {
+        month: "short", day: "numeric", timeZone: "UTC"
+      });
+      const endFmt = new Date(group.end_date + "T00:00:00Z").toLocaleDateString("en-US", {
+        month: "short", day: "numeric", timeZone: "UTC"
+      });
+
+      let rows = "";
+      group.teams.forEach(t => {
+        const cls = groupRowClass(t, t.rank);
+        rows += `<tr class="${cls}">
+          <td>${t.rank}</td>
+          <td><div class="team-cell">${flagImg(t.competitor.id)}<span class="team-name">${esc(t.competitor.name)}</span><span class="team-abbr">${esc(t.competitor.abbreviation)}</span></div></td>
+          <td>${t.played}</td>
+          <td>${t.win}</td>
+          <td>${t.draw}</td>
+          <td>${t.loss}</td>
+          <td>${t.goals_for}</td>
+          <td>${t.goals_against}</td>
+          <td class="${gdClass(t.goals_diff)}">${gdDisplay(t.goals_diff)}</td>
+          <td class="col-pts">${t.points}</td>
+        </tr>`;
+      });
+
+      return `<div class="group-card" id="group-${esc(group.group_name)}">
+        <div class="group-card-header">
+          <span>${esc(group.name)}</span>
+          <span class="dates">${startFmt} – ${endFmt}</span>
+        </div>
+        <table class="standings-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Team</th>
+              <th>MP</th>
+              <th>W</th>
+              <th>D</th>
+              <th>L</th>
+              <th>GF</th>
+              <th>GA</th>
+              <th>GD</th>
+              <th>Pts</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+    }
+
+    function renderThirdPlace(data) {
+      let rows = "";
+      data.teams.forEach(t => {
+        const advances = t.current_outcome === "Playoffs";
+        const cls = advances ? "advances" : "eliminated";
+        rows += `<tr class="${cls}">
+          <td>${t.rank}</td>
+          <td><div class="team-cell">${flagImg(t.competitor.id)}<span class="team-name">${esc(t.competitor.name)}</span><span class="team-abbr">${esc(t.competitor.abbreviation)}</span></div></td>
+          <td>${t.played}</td>
+          <td>${t.win}</td>
+          <td>${t.draw}</td>
+          <td>${t.loss}</td>
+          <td>${t.goals_for}</td>
+          <td>${t.goals_against}</td>
+          <td class="${gdClass(t.goals_diff)}">${gdDisplay(t.goals_diff)}</td>
+          <td class="col-pts">${t.points}</td>
+        </tr>`;
+      });
+      return rows;
+    }
+
+    function buildJumpLinks(groups) {
+      const container = document.getElementById("jumpLinks");
+      let html = "";
+      groups.forEach(g => {
+        html += `<a class="jump-link" href="#group-${esc(g.group_name)}" title="${esc(g.name)}">${esc(g.group_name)}</a>`;
+      });
+      html += `<a class="jump-link special" href="#bestThird">Best 3rd</a>`;
+      container.innerHTML = html;
+    }
+
+    (function init() {
+      const raw = document.getElementById("standings-data-embed");
+      if (!raw) return;
+      let data;
+      try { data = JSON.parse(raw.textContent); } catch (e) { return; }
+
+      document.getElementById("generatedAt").textContent = new Date(data.generated_at).toLocaleString("en-US", {
+        weekday: "short", year: "numeric", month: "short", day: "numeric",
+        hour: "numeric", minute: "2-digit", timeZoneName: "short"
+      });
+
+      const grid = document.getElementById("groupsGrid");
+      grid.innerHTML = data.groups.map(renderGroupCard).join("");
+
+      document.getElementById("thirdBody").innerHTML = renderThirdPlace(data.best_third);
+
+      buildJumpLinks(data.groups);
+
+      document.getElementById("stamp").innerHTML =
+        `Report generated from <code>sr:season:101177</code> standings (type=total + type=best_third) with <code>?live=true</code><br>` +
+        `Snapshot taken: ${esc(data.generated_at)}`;
+    })();
+  </script>
+</body>
+</html>

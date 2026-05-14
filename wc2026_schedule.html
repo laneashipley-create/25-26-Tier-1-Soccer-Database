@@ -323,13 +323,17 @@
       background: linear-gradient(to right, transparent, #cc8888, transparent);
     }
     .empty { padding: 1.75rem; color: #666; text-align: center; font-size: 0.9rem; }
-    .wc-bracket-section {
+    .wc-bracket-section,
+    .wc-collapsible-section {
       margin-bottom: 1.35rem;
       border: 1px solid #ddd8d0;
       background: #ffffff;
       border-radius: 10px;
       padding: 0.85rem 0.9rem;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .wc-collapsible-section .timeline {
+      padding-top: 0.5rem;
     }
     @media (min-width: 720px) {
       #knockout-bracket.wc-bracket-section {
@@ -350,7 +354,8 @@
     .wc-bracket-toolbar .toggle-arrow { flex-shrink: 0; margin-top: 2px; }
     .wc-bracket-toolbar-text { min-width: 0; flex: 1; }
     .wc-bracket-section-body { padding-top: 0.75rem; }
-    .wc-bracket-section-body.hidden { display: none; }
+    .wc-bracket-section-body.hidden,
+    #wcScheduleSectionBody.hidden { display: none; }
     .wc-bracket-title {
       color: #cc0000;
       font-size: 0.72rem;
@@ -541,6 +546,8 @@
       <span class="nav-sep" aria-hidden="true"> · </span>
       <span class="nav-active">WC 2026 Schedule</span>
       <span class="nav-sep" aria-hidden="true"> · </span>
+      <a href="wc2026_standings.html">WC 2026 Standings</a>
+      <span class="nav-sep" aria-hidden="true"> · </span>
       <a href="#knockout-bracket">Bracket</a>
       <span class="nav-sep" aria-hidden="true"> · </span>
       <a href="report_recordings_library.html">Library of Recorded Matches</a>
@@ -568,21 +575,9 @@
       <div class="wc-hero-tools">
         <div id="liveBadge" class="wc-live"></div>
         <div id="lastUpdated" class="wc-meta">Last updated: --</div>
-        <button id="refreshBtn" class="btn" type="button">Refresh</button>
+        <button id="jumpBracketBtn" class="btn" type="button">Knockout Bracket ↓</button>
       </div>
     </header>
-
-    <section id="knockout-bracket" class="wc-bracket-section" aria-labelledby="wcBracketHeading">
-      <div class="wc-bracket-toolbar">
-        <button id="toggleBracketSectionBtn" class="toggle-arrow" type="button" aria-expanded="false" aria-controls="wcBracketSectionBody" aria-label="Expand knockout bracket">▸</button>
-        <div class="wc-bracket-toolbar-text">
-          <h2 id="wcBracketHeading" class="wc-bracket-title">Knockout bracket</h2>
-        </div>
-      </div>
-      <div id="wcBracketSectionBody" class="wc-bracket-section-body hidden">
-        <div id="wcBracket" class="wc-bracket"></div>
-      </div>
-    </section>
 
     <div class="filters">
       <div class="filters-row-top">
@@ -633,7 +628,29 @@
       </div>
     </div>
 
-    <main id="timeline" class="timeline"></main>
+    <section class="wc-collapsible-section" aria-labelledby="wcScheduleHeading">
+      <div class="wc-bracket-toolbar">
+        <button id="toggleScheduleBtn" class="toggle-arrow" type="button" aria-expanded="true" aria-controls="wcScheduleSectionBody" aria-label="Collapse match schedule">▾</button>
+        <div class="wc-bracket-toolbar-text">
+          <h2 id="wcScheduleHeading" class="wc-bracket-title">Match Schedule</h2>
+        </div>
+      </div>
+      <div id="wcScheduleSectionBody">
+        <main id="timeline" class="timeline"></main>
+      </div>
+    </section>
+
+    <section id="knockout-bracket" class="wc-bracket-section" aria-labelledby="wcBracketHeading">
+      <div class="wc-bracket-toolbar">
+        <button id="toggleBracketSectionBtn" class="toggle-arrow" type="button" aria-expanded="true" aria-controls="wcBracketSectionBody" aria-label="Collapse knockout bracket">▾</button>
+        <div class="wc-bracket-toolbar-text">
+          <h2 id="wcBracketHeading" class="wc-bracket-title">Knockout bracket</h2>
+        </div>
+      </div>
+      <div id="wcBracketSectionBody" class="wc-bracket-section-body">
+        <div id="wcBracket" class="wc-bracket"></div>
+      </div>
+    </section>
   </div>
 
   <script src="assets/wc2026_competitor_flags.embed.js"></script>
@@ -898,13 +915,15 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
       stageSubLabel: document.getElementById("stageSubLabel"),
       stageSubPills: document.getElementById("stageSubPills"),
       toggleStageBtn: document.getElementById("toggleStageBtn"),
-      refreshBtn: document.getElementById("refreshBtn"),
+      jumpBracketBtn: document.getElementById("jumpBracketBtn"),
       lastUpdated: document.getElementById("lastUpdated"),
       liveBadge: document.getElementById("liveBadge"),
       tzNote: document.getElementById("tzNote"),
       bracket: document.getElementById("wcBracket"),
       bracketSectionBody: document.getElementById("wcBracketSectionBody"),
       toggleBracketSectionBtn: document.getElementById("toggleBracketSectionBtn"),
+      scheduleSectionBody: document.getElementById("wcScheduleSectionBody"),
+      toggleScheduleBtn: document.getElementById("toggleScheduleBtn"),
     };
 
     function parseCsv(text) {
@@ -1488,15 +1507,19 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
       dom.toggleStageBtn.textContent = hidden ? "▸" : "▾";
       dom.toggleStageBtn.setAttribute("aria-expanded", hidden ? "false" : "true");
     };
-    dom.refreshBtn.onclick = () => {
-      render();
-      if (cachedCupRounds && cachedCupRounds.length) renderBracket(cachedCupRounds);
-      else loadBracketSeasonLinks();
+    dom.jumpBracketBtn.onclick = () => {
+      if (dom.bracketSectionBody && dom.bracketSectionBody.classList.contains("hidden")) {
+        dom.bracketSectionBody.classList.remove("hidden");
+        dom.toggleBracketSectionBtn.textContent = "▾";
+        dom.toggleBracketSectionBtn.setAttribute("aria-expanded", "true");
+        localStorage.setItem("wc2026_bracket_section_expanded", "1");
+      }
+      document.getElementById("knockout-bracket").scrollIntoView({ behavior: "smooth" });
     };
 
     function initBracketSectionToggle() {
       if (!dom.bracketSectionBody || !dom.toggleBracketSectionBtn) return;
-      const expanded = localStorage.getItem("wc2026_bracket_section_expanded") === "1";
+      const expanded = localStorage.getItem("wc2026_bracket_section_expanded") !== "0";
       dom.bracketSectionBody.classList.toggle("hidden", !expanded);
       dom.toggleBracketSectionBtn.textContent = expanded ? "▾" : "▸";
       dom.toggleBracketSectionBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
@@ -1509,7 +1532,23 @@ sr:competition:16,sr:season:101177,World Cup 2026,sr:sport_event:53452537,2026-0
       };
     }
 
+    function initScheduleSectionToggle() {
+      if (!dom.scheduleSectionBody || !dom.toggleScheduleBtn) return;
+      const expanded = localStorage.getItem("wc2026_schedule_section_expanded") !== "0";
+      dom.scheduleSectionBody.classList.toggle("hidden", !expanded);
+      dom.toggleScheduleBtn.textContent = expanded ? "▾" : "▸";
+      dom.toggleScheduleBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+      dom.toggleScheduleBtn.onclick = () => {
+        const hidden = dom.scheduleSectionBody.classList.toggle("hidden");
+        const nowExpanded = !hidden;
+        dom.toggleScheduleBtn.textContent = nowExpanded ? "▾" : "▸";
+        dom.toggleScheduleBtn.setAttribute("aria-expanded", nowExpanded ? "true" : "false");
+        localStorage.setItem("wc2026_schedule_section_expanded", nowExpanded ? "1" : "0");
+      };
+    }
+
     initBracketSectionToggle();
+    initScheduleSectionToggle();
     renderGroupPills();
     renderPills();
     renderStagePills();
