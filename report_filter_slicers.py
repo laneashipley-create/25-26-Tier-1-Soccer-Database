@@ -64,7 +64,7 @@ REPORT_TILE_FILTER_CSS = """
       cursor: pointer; user-select: none; min-width: 0;
     }
     .stat-card--filter-tile .slicer-chip input {
-      accent-color: #cc0000; width: 1.05rem; height: 1.05rem; flex-shrink: 0; margin-top: 0.12rem;
+      accent-color: #228B22; width: 1.05rem; height: 1.05rem; flex-shrink: 0; margin-top: 0.12rem;
     }
     .stat-card--filter-tile .slicer-chip .comp-idx { color: #999; min-width: 1.35em; text-align: right; }
     .date-filter-tile { text-align: left; padding: 0.7rem 0.9rem; }

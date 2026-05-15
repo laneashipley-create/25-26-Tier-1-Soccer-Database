@@ -2478,7 +2478,7 @@ def generate_html(
       min-width: 0;
     }}
     .stat-card--filter-tile .slicer-chip input {{
-      accent-color: #cc0000;
+      accent-color: #228B22;
       width: 1.05rem;
       height: 1.05rem;
       flex-shrink: 0;
