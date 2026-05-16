@@ -1729,7 +1729,7 @@ sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301237,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301245,2026-05-10T15:30:00+00:00,36,West Ham United,sr:competitor:37,Arsenal FC,sr:competitor:42,closed,ended,0,1
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301243,2026-05-11T19:00:00+00:00,36,Tottenham Hotspur,sr:competitor:33,Leeds United,sr:competitor:34,closed,ended,1,1
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:70784812,2026-05-13T19:00:00+00:00,31,Manchester City,sr:competitor:17,Crystal Palace,sr:competitor:7,closed,ended,3,0
-sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301251,2026-05-15T19:00:00+00:00,37,Aston Villa,sr:competitor:40,Liverpool FC,sr:competitor:44,not_started,not_started,,
+sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301251,2026-05-15T19:00:00+00:00,37,Aston Villa,sr:competitor:40,Liverpool FC,sr:competitor:44,closed,ended,4,2
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301261,2026-05-17T11:30:00+00:00,37,Manchester United,sr:competitor:35,Nottingham Forest,sr:competitor:14,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301253,2026-05-17T14:00:00+00:00,37,Brentford FC,sr:competitor:50,Crystal Palace,sr:competitor:7,not_started,not_started,,
 sr:competition:17,sr:season:130281,Premier League 25/26,sr:sport_event:61301255,2026-05-17T14:00:00+00:00,37,Chelsea FC,sr:competitor:38,Tottenham Hotspur,sr:competitor:33,postponed,postponed,,
@@ -1912,9 +1912,9 @@ sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645550,2026-
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645552,2026-05-10T08:00:00+00:00,16,JEF United Chiba,sr:competitor:3144,Machida Zelvia,sr:competitor:44409,closed,ended,0,2
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67644942,2026-05-13T10:00:00+00:00,12,Vissel Kobe,sr:competitor:3146,Kyoto Sanga FC,sr:competitor:3149,closed,ended,1,0
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645510,2026-05-13T10:00:00+00:00,12,Machida Zelvia,sr:competitor:44409,Tokyo Verdy,sr:competitor:3139,closed,ap,0,0
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645554,2026-05-16T05:00:00+00:00,17,Mito Hollyhock,sr:competitor:21901,Tokyo Verdy,sr:competitor:3139,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645556,2026-05-16T07:00:00+00:00,17,Urawa Red Diamonds,sr:competitor:3145,FC Tokyo,sr:competitor:3147,not_started,not_started,,
-sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645558,2026-05-16T08:00:00+00:00,17,Yokohama F Marinos,sr:competitor:3137,Kashiwa Reysol,sr:competitor:3140,not_started,not_started,,
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645554,2026-05-16T05:00:00+00:00,17,Mito Hollyhock,sr:competitor:21901,Tokyo Verdy,sr:competitor:3139,closed,ended,0,1
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645556,2026-05-16T07:00:00+00:00,17,Urawa Red Diamonds,sr:competitor:3145,FC Tokyo,sr:competitor:3147,closed,ap,0,0
+sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645558,2026-05-16T08:00:00+00:00,17,Yokohama F Marinos,sr:competitor:3137,Kashiwa Reysol,sr:competitor:3140,closed,ended,0,1
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645066,2026-05-17T04:00:00+00:00,17,V-Varen Nagasaki,sr:competitor:38154,Vissel Kobe,sr:competitor:3146,not_started,not_started,,
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645068,2026-05-17T05:00:00+00:00,17,Fagiano Okayama,sr:competitor:34034,Shimizu S-Pulse,sr:competitor:3133,not_started,not_started,,
 sr:competition:196,sr:season:138182,J1 League 2026,sr:sport_event:67645560,2026-05-17T05:00:00+00:00,17,JEF United Chiba,sr:competitor:3144,Kashima Antlers,sr:competitor:3134,not_started,not_started,,
@@ -2617,7 +2617,7 @@ sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61526590,2026-05
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:71411500,2026-05-12T18:30:00+00:00,1,Red Star FC,sr:competitor:52874,Rodez Aveyron Football,sr:competitor:6925,closed,ended,2,3
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:70315368,2026-05-13T17:00:00+00:00,29,Stade Brest 29,sr:competitor:1715,Strasbourg Alsace,sr:competitor:1659,closed,ended,1,2
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:70315360,2026-05-13T19:00:00+00:00,29,Racing Club De Lens,sr:competitor:1648,Paris Saint-Germain,sr:competitor:1644,closed,ended,0,2
-sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:71476180,2026-05-15T18:30:00+00:00,2,AS Saint-Etienne,sr:competitor:1678,Rodez Aveyron Football,sr:competitor:6925,not_started,not_started,,
+sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:71476180,2026-05-15T18:30:00+00:00,2,AS Saint-Etienne,sr:competitor:1678,Rodez Aveyron Football,sr:competitor:6925,closed,ap,0,0
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61512160,2026-05-17T19:00:00+00:00,34,FC Lorient,sr:competitor:1656,Le Havre AC,sr:competitor:1662,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61512162,2026-05-17T19:00:00+00:00,34,FC Nantes,sr:competitor:1647,Toulouse FC,sr:competitor:1681,not_started,not_started,,
 sr:competition:34,sr:season:131609,Ligue 1 25/26,sr:sport_event:61512164,2026-05-17T19:00:00+00:00,34,Lille OSC,sr:competitor:1643,AJ Auxerre,sr:competitor:1646,not_started,not_started,,
@@ -2833,7 +2833,7 @@ sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299198,2026-05-17T
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299200,2026-05-17T02:30:00+00:00,,San Jose Earthquakes,sr:competitor:21825,FC Dallas,sr:competitor:2512,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299202,2026-05-17T22:00:00+00:00,,Inter Miami CF,sr:competitor:659691,Portland Timbers,sr:competitor:22007,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299204,2026-05-18T00:00:00+00:00,,Nashville SC,sr:competitor:668063,Los Angeles FC,sr:competitor:402227,not_started,not_started,,
-sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299206,2026-05-23T18:30:00+00:00,,Saint Louis City SC,sr:competitor:874725,Austin FC,sr:competitor:772256,not_started,not_started,,
+sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299206,2026-05-23T18:45:00+00:00,,Saint Louis City SC,sr:competitor:874725,Austin FC,sr:competitor:772256,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299218,2026-05-23T20:30:00+00:00,,Minnesota United FC,sr:competitor:41618,Real Salt Lake,sr:competitor:5133,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299208,2026-05-23T23:30:00+00:00,,Charlotte FC,sr:competitor:863473,New England Revolution,sr:competitor:2511,not_started,not_started,,
 sr:competition:242,sr:season:137218,MLS 2026,sr:sport_event:66299210,2026-05-23T23:30:00+00:00,,FC Cincinnati,sr:competitor:245305,Orlando City SC,sr:competitor:52237,not_started,not_started,,
